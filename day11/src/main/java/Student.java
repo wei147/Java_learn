@@ -1,6 +1,6 @@
-public class Student extends Person{
+public class Student extends Person {
 
-//    String name;
+    //    String name;
 //    int age;
     String major;
 
@@ -10,18 +10,19 @@ public class Student extends Person{
 
     public Student(String name, int age, String major) {
         this.name = name;
-        this.age = age;
+//        this.age = age;
+        setAge(age);
         this.major = major;
     }
 
-//    public void eat() {
+    //    public void eat() {
 //        System.out.println("吃饭");
 //    }
 //
 //    public void sleep() {
 //        System.out.println("睡觉");
 //    }
-    public void study(){
+    public void study() {
         System.out.println("学习");
     }
 }

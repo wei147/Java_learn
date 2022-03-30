@@ -1,6 +1,6 @@
-public class Person {
+public class Person extends Creature{
     String name;
-    int age;
+    private int age;
 
     public Person() {
 
@@ -13,9 +13,17 @@ public class Person {
 
     public void eat() {
         System.out.println("吃饭");
+        sleep();
     }
 
-    public void sleep() {
+    private void sleep() {
         System.out.println("睡觉");
+    }
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
