@@ -1,4 +1,4 @@
-package com.imooc.jdbc;
+package com.imooc.jdbc.sample;
 
 import com.mysql.jdbc.Driver;
 
@@ -17,7 +17,7 @@ public class StandardJDBCSample {
             //1.加载并注册JDBC驱动
             Class.forName("com.mysql.jdbc.Driver"); //mysql5.7是这个
             //2.创建数据库连接
-            String url = "jdbc:mysql://localhost:3306/imooc?useSSL=false&Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+            String url = "com.imooc.jdbc:mysql://localhost:3306/imooc?useSSL=false&Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
             conn = DriverManager.getConnection(url, "root", "1234");
             //3.创建Statement对象
             Statement stmt = conn.createStatement();

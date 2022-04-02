@@ -1,4 +1,6 @@
-package command;
+package com.imooc.jdbc.hrapp.command;
+
+import com.imooc.jdbc.common.DbUtils;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -14,10 +16,8 @@ public class QueryCommand implements Command { // //实现刚才定义的接口
         ResultSet rs = null;
         try {
             //1.加载并注册JDBC驱动
-            Class.forName("com.mysql.jdbc.Driver"); //mysql5.7是这个
             //2.创建数据库连接
-            String url = "jdbc:mysql://localhost:3306/imooc?useSSL=false&Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
-            conn = DriverManager.getConnection(url, "root", "1234");
+            conn = DbUtils.getConnection();
             //3.创建Statement对象
 //          //结果集
             stmt = conn.createStatement();
@@ -40,27 +40,28 @@ public class QueryCommand implements Command { // //实现刚才定义的接口
             throwables.printStackTrace();
         } finally {
             //5.关闭连接，释放资源   (完全体)
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DbUtils.closeConnection(rs, stmt, conn);
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//            try {
+//                if (stmt != null) {
+//                    stmt.close();
+//                }
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//            try {
+//                if (conn != null && !conn.isClosed()) {
+//                    conn.close();
+//                }
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
 
         }
     }

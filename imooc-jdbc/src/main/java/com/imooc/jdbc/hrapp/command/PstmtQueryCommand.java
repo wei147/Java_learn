@@ -1,4 +1,4 @@
-package command;
+package com.imooc.jdbc.hrapp.command;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class PstmtQueryCommand implements Command { // //实现刚才定义的�
             //3.创建prepareStatement对象
 //          //结果集
 //            stmt = conn.createStatement();
-            System.out.println("select * from employee where dname = '" + pdname + "'");
+//            System.out.println("select * from employee where dname = '" + pdname + "'");
             String sql = "select * from employee where dname =? and eno > ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, pdname);    //注意：参数索引从1开始    pdname就是上边的？
