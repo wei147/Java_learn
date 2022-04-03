@@ -10,6 +10,7 @@ public class HumanResourceApplication {
         System.out.println("2-办理新员工入职");
         System.out.println("3-调整薪资");
         System.out.println("4-删除员工数据");
+        System.out.println("5-分页查询员工数据");
         System.out.println("请选择功能 :");
         Scanner in = new Scanner(System.in); //接收命令行输入
         int cmd = in.nextInt(); //获取用户输入的一个整数
@@ -29,6 +30,10 @@ public class HumanResourceApplication {
                 break;
             case 4:
                 command = new DeleteCommand();
+                command.execute();
+                break;
+            case 5:
+                command = new PaginationCommand();
                 command.execute();
                 break;
 
