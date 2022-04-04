@@ -20,7 +20,7 @@ public class TransactionSample {
             // JDBC默认使用自动提交模式
             conn.setAutoCommit(false);  //关闭自动提交
             String sql = "insert into employee(eno,ename,salary,dname) values (?,?,?,?)";
-            for (int i = 1000; i < 1200; i++) {
+            for (int i = 2000000; i < 2000009; i++) {
                 if (i == 1005) {
 //                    throw new RuntimeException("插入失败");   模拟异常，测试手动提交事务模式
                 }
