@@ -15,7 +15,7 @@ public class PstmtQueryCommand implements Command { // //实现刚才定义的�
         ResultSet rs = null;
         try {
             //1.加载并注册JDBC驱动
-            Class.forName("com.mysql.jdbc.Driver"); //mysql5.7是这个
+            Class.forName("com.mysql.cj.jdbc.Driver"); //mysql5.7是这个 2022年4月5日15:57:33 改mysql8.0了
             //2.创建数据库连接
             String url = "jdbc:mysql://localhost:3306/imooc?useSSL=false&Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
             conn = DriverManager.getConnection(url, "root", "1234");

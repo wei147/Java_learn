@@ -15,13 +15,13 @@ public class StandardJDBCSample {
         Connection conn = null;
         try {
             //1.加载并注册JDBC驱动
-            Class.forName("com.mysql.jdbc.Driver"); //mysql5.7是这个
+            Class.forName("com.mysql.cj.jdbc.Driver"); //mysql5.7是这个
             //2.创建数据库连接
             String url = "jdbc:mysql://localhost:3306/imooc?useSSL=false&Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
             conn = DriverManager.getConnection(url, "root", "1234");
             //3.创建Statement对象
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from employee where dname='研发部'");
+            ResultSet rs = stmt.executeQuery("select * from employee where dname='市场部'");
             //4.遍历查询结果
             while (rs.next()) {
                 int eno = rs.getInt(1); //eno

@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.net.URLDecoder;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -18,15 +19,16 @@ public class DruidSample {
     public static void main(String[] args) {
         //1.加载属性文件
         Properties properties = new Properties();
-        String propertyFile  = null;
+        String propertyFile = null;
         try {
-            propertyFile = DruidSample.class.getResource("/druid-config.properties").getPath();
+//            propertyFile = DruidSample.class.getResource("/druid-config.properties").getPath();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         //空格 -> %20 | c:java code\  c:java%20code\
         try {
-            propertyFile = new URLDecoder().decode(propertyFile,"UTF-8");
+            propertyFile = new URLDecoder().decode(propertyFile, "UTF-8");
             //加载路径文件
             properties.load(new FileInputStream(propertyFile));
         } catch (Exception e) {
@@ -48,7 +50,8 @@ public class DruidSample {
                 String ename = rs.getString("ename");    //这里用的是字段名
                 float salary = rs.getFloat("salary");
                 String dname = rs.getString("dname");
-                System.out.println(dname + "-" + eno + "-" + ename + "-" + salary);
+                Date hiredate = rs.getDate("hiredate");
+                System.out.println(dname + "-" + eno + "-" + ename + "-" + salary + "-" + hiredate);
             }
         } catch (Exception e) {
             e.printStackTrace();
