@@ -10,7 +10,7 @@ public class Employee {
     }
 
     private Integer eno;
-    private String ename;
+    public String ename;
     private Float salary;
     private String dname;
 
