@@ -22,13 +22,6 @@ public class PredicateSample {
         filter(list, n -> n % 2 == 1);  //取所有的奇数
         filter(list, n -> n % 2 == 0);  //取所有的偶数
         filter(list, n -> n > 5 && n % 2 == 0);  //取所有大于6的偶数
-
-//        怎么在打印目标数字的前面打印提醒，即在Lambda内部执行打印
-//        filter(list, n -> {
-//            n % 2 == 0;
-//            System.out.println();
-//            return false;
-//        });  //取所有的偶数
     }
 
     public static void filter(List<Integer> list, Predicate<Integer> predicate) {
