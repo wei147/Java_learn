@@ -1,10 +1,11 @@
 package com.imooc.junit;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 public class CalculatorTest {
-    Calculator cal = new Calculator();
+    private Calculator cal = new Calculator();
+    //1.与原方法保持一致
+    //2.在原方法前增加test前缀
 
     @Test
     public void testAdd() {
@@ -23,6 +24,6 @@ public class CalculatorTest {
 
     @Test
     public void testDivide() {
-        System.out.println(cal.divide(1,2));
+        System.out.println(cal.divide(1,0));
     }
 }
