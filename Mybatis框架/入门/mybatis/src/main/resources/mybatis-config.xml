@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <!--驼峰命名转换 goods_id ==> goodsId  不这样设置的话只有字段和数据表字段完全一样的时候才能拿到值-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <!-- 设置默认指向的数据库-->
     <environments default="dev">
         <!-- 配置环境，不同的环境不同的id名字 -->
@@ -19,4 +23,8 @@
             </dataSource>
         </environment>
     </environments>
+
+    <mappers>
+        <mapper resource="mappers/goods.xml"></mapper>
+    </mappers>
 </configuration>

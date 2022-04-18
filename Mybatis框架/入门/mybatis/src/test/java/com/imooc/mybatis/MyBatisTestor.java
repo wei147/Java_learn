@@ -1,5 +1,7 @@
 package com.imooc.mybatis;
 
+import com.imooc.mybatis.entity.Goods;
+import com.imooc.mybatis.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,6 +11,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //JUint单元测试类
 public class MyBatisTestor {
@@ -36,4 +41,103 @@ public class MyBatisTestor {
             }
         }
     }
+
+    @Test
+    public void testMyBatisUtils() {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtils.openSession();
+            //得到对应的数据库连接
+            Connection connection = sqlSession.getConnection();
+            System.out.println(connection);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testSelectAll() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            //因为在good.xml中指定resultType="com.imooc.mybatis.entity.Goods" 是Goods，
+            // 所以selectList返回的每一个对象都是Goods
+            List<Goods> list = session.selectList("goods.selectAll");
+            for (Goods g : list) {
+                System.out.println(g.getTitle());
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    @Test
+    public void testSelectById() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = session.selectOne("goods.selectById", 800);
+            System.out.println(goods.getTitle());
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    @Test
+    public void testSelectByPriceRange() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Map param = new HashMap();
+            param.put("min", 100);
+            param.put("max", 500);
+            param.put("limt", 10);
+            List<Goods> list = session.selectList("selectByPriceRange", param);
+            for (Goods g : list) {
+                System.out.println(g.getTitle() + ":" + g.getCurrentPrice());
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+        @Test
+        public void testSelectGoodsMap(){
+            SqlSession session = null;
+            try {
+                session = MyBatisUtils.openSession();
+                List<Map> list = session.selectList("goods.selectGoodsMap");
+                for (Map map: list ){
+                    //这里打印出来的map都是字段的原始名称，即数据表定义的字段，而非实体类定义的字段
+                    System.out.println(map);
+                }
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                MyBatisUtils.closeSession(session);
+            }
+        }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
