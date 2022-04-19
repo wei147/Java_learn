@@ -1,5 +1,6 @@
 package com.imooc.mybatis;
 
+import com.imooc.mybatis.dto.GoodsDTO;
 import com.imooc.mybatis.entity.Goods;
 import com.imooc.mybatis.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
@@ -109,22 +110,39 @@ public class MyBatisTestor {
         }
     }
 
-        @Test
-        public void testSelectGoodsMap(){
-            SqlSession session = null;
-            try {
-                session = MyBatisUtils.openSession();
-                List<Map> list = session.selectList("goods.selectGoodsMap");
-                for (Map map: list ){
-                    //这里打印出来的map都是字段的原始名称，即数据表定义的字段，而非实体类定义的字段
-                    System.out.println(map);
-                }
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                MyBatisUtils.closeSession(session);
+    @Test
+    public void testSelectGoodsMap() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            List<Map> list = session.selectList("goods.selectGoodsMap");
+            for (Map map : list) {
+                //这里打印出来的map都是字段的原始名称，即数据表定义的字段，而非实体类定义的字段
+                System.out.println(map);
             }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
         }
+    }
+
+    @Test
+    public void testSelectGoodDTO() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            List<GoodsDTO> list = session.selectList("goods.selectGoodsDTO");
+            for (GoodsDTO g : list) {
+                System.out.println(g.getGoods().getTitle()+"   "+g.getCategory().getCategoryName());
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+
+    }
 }
 
 

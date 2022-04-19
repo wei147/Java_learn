@@ -27,8 +27,41 @@
 
     <!--resultType使用Map会产生乱序，默认的HashMap是不稳定的随机值，
     而使用链表结构的LinkedHashMap能解决这个问题（按字段的前后定义顺序排列）-->
+    <!--利用LinkedHashMap保存多表关联结果
+        NyBatis会将每一条记录包装为LinkedHashMap对象
+        key是字段名，value是字段对应的值，字符类型根据表结构进行自动判断
+        优点：易于拓展，易于使用
+        缺点：太过于灵活，无法进行编译时检查-->
     <select id="selectGoodsMap" resultType="java.util.LinkedHashMap">
-        select g.*,c.category_name,'1' as test from t_goods g, t_category c
+        select g.*, c.category_name, '1' as test
+        from t_goods g,
+             t_category c
+        where g.category_id = c.category_id
+    </select>
+
+    <!--结果映射-->
+    <resultMap id="rmGoods" type="com.imooc.mybatis.dto.GoodsDTO">
+        <id property="goods.goodsId" column="goods_id"></id>
+        <result property="goods.title" column="title"></result>
+        <result property="goods.subTitle" column="sub_title"></result>
+        <result property="goods.originalCost" column="original_cost"></result>
+        <result property="goods.currentPrice" column="current_price"></result>
+        <result property="goods.discount" column="discount"></result>
+        <result property="goods.isFreeDelivery" column="is_free_delivery"></result>
+        <result property="goods.categoryId" column="category_id"></result>
+
+        <result property="category.categoryId" column="category_id"></result>
+        <result property="category.categoryName" column="category_name"></result>
+        <result property="category.parentId" column="parent_id"></result>
+        <result property="category.categoryLevel" column="category_level"></result>
+        <result property="category.categoryOrder" column="category_order"></result>
+
+        <result property="test" column="test"></result>
+    </resultMap>
+    <select id="selectGoodsDTO" resultMap="rmGoods">
+        select g.*, c.*, '1' as test
+        from t_goods g,
+             t_category c
         where g.category_id = c.category_id
     </select>
 
