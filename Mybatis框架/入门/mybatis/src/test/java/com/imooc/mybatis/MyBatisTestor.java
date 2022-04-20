@@ -134,7 +134,7 @@ public class MyBatisTestor {
             session = MyBatisUtils.openSession();
             List<GoodsDTO> list = session.selectList("goods.selectGoodsDTO");
             for (GoodsDTO g : list) {
-                System.out.println(g.getGoods().getTitle()+"   "+g.getCategory().getCategoryName());
+                System.out.println(g.getGoods().getTitle() + "   " + g.getCategory().getCategoryName());
             }
         } catch (Exception e) {
             throw e;
@@ -142,6 +142,33 @@ public class MyBatisTestor {
             MyBatisUtils.closeSession(session);
         }
 
+    }
+
+    @Test
+    public void testInsert() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = new Goods();
+            goods.setTitle("测试商品");
+            goods.setSubTitle("测试子标题");
+            goods.setOriginalCost(200f);
+            goods.setCurrentPrice(100f);
+            goods.setDiscount(0.5f);
+            goods.setIsFreeDelivery(1);
+            goods.setCategoryId(49);
+            //insert() 方法返回值代表本次成功插入的记录总数
+            int num = session.insert("goods.insert", goods);
+            session.commit();   //提交事务数据
+            System.out.println(goods.getGoodsId() + "成功条数：" + num);
+        } catch (Exception e) {
+            if (session != null) {
+                session.rollback(); //回滚事务
+            }
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
     }
 }
 

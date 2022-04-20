@@ -67,7 +67,9 @@
         where g.category_id = c.category_id
     </select>
 
+    <!--这里不需要good_id 是因为设置为自增  Values为属性名，需要和数据表字段一一对应-->
     <insert id="insert" parameterType="com.imooc.mybatis.entity.Goods">
-        INSERT into t_goods(title, sub_title, original_coat, current_price, discount, is_free_delivery, category_id)
+        INSERT into t_goods(title, sub_title, original_cost, current_price, discount, is_free_delivery, category_id)
+        Values (#{title}, #{subTitle}, #{originalCost}, #{currentPrice}, #{discount}, #{isFreeDelivery}, #{categoryId})
     </insert>
 </mapper>
