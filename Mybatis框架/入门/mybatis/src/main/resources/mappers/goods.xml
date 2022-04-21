@@ -71,5 +71,16 @@
     <insert id="insert" parameterType="com.imooc.mybatis.entity.Goods">
         INSERT into t_goods(title, sub_title, original_cost, current_price, discount, is_free_delivery, category_id)
         Values (#{title}, #{subTitle}, #{originalCost}, #{currentPrice}, #{discount}, #{isFreeDelivery}, #{categoryId})
+        <!--解决了插入排序的问题 order="AFTER" 表示在insert语句执行完之后再执行该语句-->
+        <selectKey resultType="Integer" keyProperty="goodsId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
     </insert>
+
+    <select id="selectByTitle" parameterType="java.util.Map" resultType="com.imooc.mybatis.entity.Goods">
+        select *
+        from t_goods
+        where title = ${title};
+
+    </select>
 </mapper>

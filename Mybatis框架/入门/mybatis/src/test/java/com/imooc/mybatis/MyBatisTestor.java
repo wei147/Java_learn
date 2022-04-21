@@ -170,6 +170,30 @@ public class MyBatisTestor {
             MyBatisUtils.closeSession(session);
         }
     }
+
+    @Test
+    public void testSelectByTitle() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Map param = new HashMap();
+            param.put("title", "'' or 1=1 or title ='兰多 升级版时尚妈咪包 桔色'");
+            //select * from 
+//            param.put("title", "'兰多 升级版时尚妈咪包 桔色'");
+            List<Goods> list = session.selectList("goods.selectByTitle", param);
+            for (Goods g : list) {
+                //这里打印出来的map都是字段的原始名称，即数据表定义的字段，而非实体类定义的字段
+                System.out.println(g.getTitle() + "  " + g.getCurrentPrice());
+            }
+        } catch (Exception e) {
+            if (session != null) {
+                session.rollback(); //回滚事务
+            }
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
 }
 
 
