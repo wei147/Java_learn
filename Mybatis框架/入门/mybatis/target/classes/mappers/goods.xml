@@ -68,19 +68,46 @@
     </select>
 
     <!--这里不需要good_id 是因为设置为自增  Values为属性名，需要和数据表字段一一对应-->
-    <insert id="insert" parameterType="com.imooc.mybatis.entity.Goods">
+    <!--可用useGeneratedKey代替selectKey-->
+    <insert id="insert" parameterType="com.imooc.mybatis.entity.Goods"
+            useGeneratedKeys="true"
+            keyProperty="goodsId"
+            keyColumn="goods_id"
+    >
         INSERT into t_goods(title, sub_title, original_cost, current_price, discount, is_free_delivery, category_id)
         Values (#{title}, #{subTitle}, #{originalCost}, #{currentPrice}, #{discount}, #{isFreeDelivery}, #{categoryId})
         <!--解决了插入排序的问题 order="AFTER" 表示在insert语句执行完之后再执行该语句-->
-        <selectKey resultType="Integer" keyProperty="goodsId" order="AFTER">
-            select last_insert_id()
-        </selectKey>
+        <!--        <selectKey resultType="Integer" keyProperty="goodsId" order="AFTER">-->
+        <!--            select last_insert_id()-->
+        <!--        </selectKey>-->
     </insert>
+
+    <update id="update" parameterType="com.imooc.mybatis.entity.Goods">
+        UPDATE t_goods
+        set title            = #{title},
+            sub_title        = #{subTitle},
+            original_cost    = #{originalCost},
+            current_price    = #{currentPrice},
+            discount         = #{discount},
+            is_free_delivery = #{isFreeDelivery},
+            category_id      = #{categoryId}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete
+        from t_goods
+        where goods_id = #{value}
+    </delete>
 
     <select id="selectByTitle" parameterType="java.util.Map" resultType="com.imooc.mybatis.entity.Goods">
         select *
         from t_goods
-        where title = ${title};
+        where title = #{title};
+
+        ${order}
+        <!--# 代表预编译处理 传去什么就是什么-->
+        <!--$ 代表原文传值-->
 
     </select>
 </mapper>
+
