@@ -231,10 +231,39 @@ public class MyBatisTestor {
         try {
             session = MyBatisUtils.openSession();
             Goods goods = session.selectOne("goods.selectById", 740);
-            System.out.println("要删除的是 ："+goods.getTitle());
+            System.out.println("要删除的是 ：" + goods.getTitle());
             int num = session.delete("goods.delete", 740);
             session.commit();   //提交事务数据
             System.out.println(num);
+        } catch (Exception e) {
+            if (session != null) {
+                session.rollback(); //回滚事务
+            }
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+
+    /**
+     * 多条件查询检索
+     */
+
+    @Test
+    public void testDynamicSQL() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Map param = new HashMap();
+            param.put("categoryId", 45);
+            param.put("currentPrice", 500);
+            //查询条件
+            List<Goods> list = session.selectList("goods.dynamicSQL", param);
+            for (Goods g : list) {
+                System.out.println(g.getTitle() + ":" +
+                        g.getCategoryId() + ":" + g.getCurrentPrice());
+            }
         } catch (Exception e) {
             if (session != null) {
                 session.rollback(); //回滚事务
