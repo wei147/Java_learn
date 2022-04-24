@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goods">
+<!--    开启了二级缓存-->
+    <cache eviction="LRU" flushInterval="600000" size="512" readOnly="true"></cache>
     <select id="selectAll" resultType="com.imooc.mybatis.entity.Goods">
         select *
         from t_goods

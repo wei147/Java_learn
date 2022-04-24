@@ -204,7 +204,6 @@ public class MyBatisTestor {
         }
     }
 
-
     @Test
     public void testUpdate() {
         SqlSession session = null;
@@ -268,6 +267,69 @@ public class MyBatisTestor {
             if (session != null) {
                 session.rollback(); //回滚事务
             }
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 印证一级缓存的存在以及SqlSession的不同会创建不同的一级缓存（一个会话中同样的查询语句内存地址是相同的，
+     * 两个会话中内存地址是不同的）
+     * 一级缓存的生存周期就在一个SqlSession对象中
+     */
+    @Test
+    public void testLV1Cache() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = session.selectOne("goods.selectById", 800);
+            session.commit();   //commit提交时对该namespace缓存强制清空
+            Goods goods1 = session.selectOne("goods.selectById", 800);
+            System.out.println(goods.hashCode()+"   :    "+goods1.hashCode());  //这里打印的hashCode是一样的
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = session.selectOne("goods.selectById", 800);
+            Goods goods1 = session.selectOne("goods.selectById", 800);
+            System.out.println(goods.hashCode()+"   :    "+goods1.hashCode());  //这里打印的hashCode是一样的
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 测试二级缓存
+     */
+    @Test
+    public void testLV2Cache() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = session.selectOne("goods.selectById", 800);
+            System.out.println(goods.hashCode());
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+
+        try {
+            session = MyBatisUtils.openSession();
+            Goods goods = session.selectOne("goods.selectById", 800);
+            System.out.println(goods.hashCode());  //这里打印的hashCode是一样的
+
+        } catch (Exception e) {
             throw e;
         } finally {
             MyBatisUtils.closeSession(session);
