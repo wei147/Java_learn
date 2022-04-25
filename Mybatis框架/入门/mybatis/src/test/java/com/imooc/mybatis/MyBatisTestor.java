@@ -2,6 +2,7 @@ package com.imooc.mybatis;
 
 import com.imooc.mybatis.dto.GoodsDTO;
 import com.imooc.mybatis.entity.Goods;
+import com.imooc.mybatis.entity.GoodsDetail;
 import com.imooc.mybatis.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,9 +13,11 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 //JUint单元测试类
 public class MyBatisTestor {
@@ -286,7 +289,7 @@ public class MyBatisTestor {
             Goods goods = session.selectOne("goods.selectById", 800);
             session.commit();   //commit提交时对该namespace缓存强制清空
             Goods goods1 = session.selectOne("goods.selectById", 800);
-            System.out.println(goods.hashCode()+"   :    "+goods1.hashCode());  //这里打印的hashCode是一样的
+            System.out.println(goods.hashCode() + "   :    " + goods1.hashCode());  //这里打印的hashCode是一样的
 
         } catch (Exception e) {
             throw e;
@@ -298,7 +301,7 @@ public class MyBatisTestor {
             session = MyBatisUtils.openSession();
             Goods goods = session.selectOne("goods.selectById", 800);
             Goods goods1 = session.selectOne("goods.selectById", 800);
-            System.out.println(goods.hashCode()+"   :    "+goods1.hashCode());  //这里打印的hashCode是一样的
+            System.out.println(goods.hashCode() + "   :    " + goods1.hashCode());  //这里打印的hashCode是一样的
 
         } catch (Exception e) {
             throw e;
@@ -335,7 +338,54 @@ public class MyBatisTestor {
             MyBatisUtils.closeSession(session);
         }
     }
+
+    /**
+     * OneToMany对象关联查询（一对多）
+     */
+    @Test
+    public void testSelectOneToMany() {
+        //测试java for循环简写    for(数据类型 表示符 : 表达式){....}
+        List<Integer> num_list = Arrays.asList(18, 20, 4, 7);
+        for (Integer num : num_list) {
+            System.out.println(num);
+        }
+        Stream<Integer> stream = num_list.stream();
+        stream.forEach(l -> System.out.println(l));
+
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            List<Goods> list = session.selectList("goods.selectOneToMany");
+            for (Goods goods : list) {
+//                System.out.println(goods.getTitle() + " ---  " + goods.getGoodsDetails().size());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 测试ManyToOne对象关联查询（多对一）
+     */
+    @Test
+    public void testSelectManyToOne() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            List<GoodsDetail> list = session.selectList("goodsDetail.selectManyToOne");
+            for (GoodsDetail gd : list) {
+                System.out.println(gd.getGdPicUrl() + " ---  " + gd.getGoods().getTitle());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
 }
+
 
 
 

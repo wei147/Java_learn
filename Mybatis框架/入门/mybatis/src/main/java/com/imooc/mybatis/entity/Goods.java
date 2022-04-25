@@ -1,5 +1,7 @@
 package com.imooc.mybatis.entity;
 
+import java.util.List;
+
 //通常在数据库底层有一个表，在这就对应有一个实体类
 public class Goods {
     private Integer goodsId;    //商品编号
@@ -10,6 +12,15 @@ public class Goods {
     private Float discount; //折扣率
     private Integer isFreeDelivery; //是否包邮，1-包邮 0-不包邮
     private Integer categoryId; //分类编号
+    private List<GoodsDetail> goodsDetails; //如何用1的一方保存多的一方，用list对象实现
+
+    public List<GoodsDetail> getGoodsDetails() {
+        return goodsDetails;
+    }
+
+    public void setGoodsDetails(List<GoodsDetail> goodsDetails) {
+        this.goodsDetails = goodsDetails;
+    }
 
     public Integer getGoodsId() {
         return goodsId;

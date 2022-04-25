@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodsDetail">
+    <select id="selectByGoodsId" parameterType="Integer"
+            resultType="com.imooc.mybatis.entity.GoodsDetail">
+        select *
+        from t_goods_detail
+        where goods_id = #{value}
+    </select>
+
+    <resultMap id="rmGoodsDetail" type="com.imooc.mybatis.entity.GoodsDetail">
+        <!--        指定主键  column="gd_id"是数据表中的字段名 property是实体类中对应的属性名-->
+        <id column="gd_id" property="gdId"></id>
+<!--        由于多对一优先的把goods_id赋值给goods对象，GoodsDetail类的goodsId就拿不到，需要手动的添加result-->
+        <result column="goods_id" property="goodsId"></result>
+        <!--        表示由多的一方关联到一的一方 GoodsDetail类下的goods属性
+         select="goods.selectById"中goods指向的是命名空间 selectById是对应的SQL执行语句id-->
+        <association property="goods" select="goods.selectById" column="goods_id"></association>
+    </resultMap>
+    <select id="selectManyToOne" resultMap="rmGoodsDetail">
+        select *
+        from t_goods_detail limit 0,40;
+    </select>
+</mapper>
