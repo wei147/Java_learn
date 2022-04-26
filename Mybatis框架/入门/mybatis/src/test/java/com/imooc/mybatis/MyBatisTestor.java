@@ -1,5 +1,7 @@
 package com.imooc.mybatis;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.imooc.mybatis.dto.GoodsDTO;
 import com.imooc.mybatis.entity.Goods;
 import com.imooc.mybatis.entity.GoodsDetail;
@@ -377,6 +379,33 @@ public class MyBatisTestor {
             List<GoodsDetail> list = session.selectList("goodsDetail.selectManyToOne");
             for (GoodsDetail gd : list) {
                 System.out.println(gd.getGdPicUrl() + " ---  " + gd.getGoods().getTitle());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 测试PageHelper分页插件
+     */
+    @Test
+    public void testSelectPage() {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtils.openSession();
+            /* startPage方法会自动将下一次查询进行分页 这里查询的是10到20的数据 */
+            PageHelper.startPage(2,10);
+            Page<Goods> page = (Page)session.selectList("goods.selectPage");
+            System.out.println("总页数："+page.getPages());
+            System.out.println("总记录数："+page.getTotal());
+            System.out.println("开始行号："+page.getStartRow());
+            System.out.println("结束行号： "+page.getEndRow());
+            System.out.println("当前页码："+page.getPageNum());
+            List<Goods> data = page.getResult();    //当前也数据
+            for (Goods goods : data) {
+                System.out.println(goods.getTitle() + " ---  " + goods.getCurrentPrice());
             }
         } catch (Exception e) {
             e.printStackTrace();

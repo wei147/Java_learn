@@ -7,6 +7,15 @@
         <!--驼峰命名转换 goods_id ==> goodsId  不这样设置的话只有字段和数据表字段完全一样的时候才能拿到值-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <!--启用Pagehelper分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--设置数据库类型-->
+            <property name="helperDialect" value="mysql"/>
+            <!--分页合理化-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
     <!-- 设置默认指向的数据库-->
     <environments default="dev">
         <!-- 配置环境，不同的环境不同的id名字 -->
