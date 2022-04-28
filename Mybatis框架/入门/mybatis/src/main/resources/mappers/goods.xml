@@ -97,9 +97,9 @@
         INSERT into t_goods(title, sub_title, original_cost, current_price, discount, is_free_delivery, category_id)
         Values (#{title}, #{subTitle}, #{originalCost}, #{currentPrice}, #{discount}, #{isFreeDelivery}, #{categoryId})
         <!--解决了插入排序的问题 order="AFTER" 表示在insert语句执行完之后再执行该语句-->
-        <!--        <selectKey resultType="Integer" keyProperty="goodsId" order="AFTER">-->
-        <!--            select last_insert_id()-->
-        <!--        </selectKey>-->
+        <selectKey resultType="Integer" keyProperty="goodsId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
     </insert>
 
     <update id="update" parameterType="com.imooc.mybatis.entity.Goods">
@@ -113,6 +113,7 @@
             category_id      = #{categoryId}
     </update>
 
+    <!--delete from t_goods where goods_id in (1920,1921) -->
     <delete id="delete" parameterType="Integer">
         delete
         from t_goods
@@ -167,7 +168,29 @@
     </select>
 
     <select id="selectPage" resultType="com.imooc.mybatis.entity.Goods">
-        select * from t_goods where current_price &lt; 1000
+        select *
+        from t_goods
+        where current_price &lt; 1000
     </select>
+
+    <!--    Insert into table
+    value("a","a1","a2"),("b","b1","b2"),(....)-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        Insert into t_goods(title, sub_title, original_cost, current_price, discount, is_free_delivery,
+        category_id)
+        VALUE
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.title},#{item.subTitle}, #{item.originalCost}, #{item.currentPrice}, #{item.discount},
+            #{item.isFreeDelivery},#{item.categoryId})
+        </foreach>
+    </insert>
+
+    <!--in (1901,1920) DELETE from t_goods where goods_id in in后面跟的是（）包裹的数据，在foreach中需要指定open和close的标识-->
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE from t_goods where goods_id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
 

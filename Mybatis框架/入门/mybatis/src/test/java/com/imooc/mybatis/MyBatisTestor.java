@@ -15,10 +15,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 //JUint单元测试类
@@ -396,17 +393,74 @@ public class MyBatisTestor {
         try {
             session = MyBatisUtils.openSession();
             /* startPage方法会自动将下一次查询进行分页 这里查询的是10到20的数据 */
-            PageHelper.startPage(2,10);
-            Page<Goods> page = (Page)session.selectList("goods.selectPage");
-            System.out.println("总页数："+page.getPages());
-            System.out.println("总记录数："+page.getTotal());
-            System.out.println("开始行号："+page.getStartRow());
-            System.out.println("结束行号： "+page.getEndRow());
-            System.out.println("当前页码："+page.getPageNum());
+            PageHelper.startPage(2, 10);
+            Page<Goods> page = (Page) session.selectList("goods.selectPage");
+            System.out.println("总页数：" + page.getPages());
+            System.out.println("总记录数：" + page.getTotal());
+            System.out.println("开始行号：" + page.getStartRow());
+            System.out.println("结束行号： " + page.getEndRow());
+            System.out.println("当前页码：" + page.getPageNum());
             List<Goods> data = page.getResult();    //当前也数据
             for (Goods goods : data) {
                 System.out.println(goods.getTitle() + " ---  " + goods.getCurrentPrice());
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 测试批量插入
+     */
+    @Test
+    public void testBatchInsert() {
+        SqlSession session = null;
+        try {
+            long st = new Date().getTime();
+            session = MyBatisUtils.openSession();
+            List list = new ArrayList();
+            for (int i = 0; i < 100; i++) {
+                Goods goods = new Goods();
+                goods.setTitle("测试商品，批量插入");
+                goods.setSubTitle("测试子标题");
+                goods.setOriginalCost(205f);
+                goods.setCurrentPrice(309f);
+                goods.setDiscount(0.8f);
+                goods.setIsFreeDelivery(1);
+                goods.setCategoryId(43);
+                list.add(goods);
+            }
+            //insert() 方法返回值代表本次成功插入的记录总数
+            session.insert("goods.batchInsert", list);
+            session.commit();
+            long et = new Date().getTime();
+            System.out.println("执行时间： " + (et - st) + "毫秒");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSession(session);
+        }
+    }
+
+    /**
+     * 批量删除测试
+     */
+    @Test
+    public void testBatchDelete() {
+        SqlSession session = null;
+        try {
+            long st = new Date().getTime();
+            session = MyBatisUtils.openSession();
+            List list = new ArrayList();
+            list.add(1900);
+            list.add(1901);
+            list.add(1902);
+            session.delete("goods.batchDelete", list);
+            session.commit();   //提交事务数据
+            long et = new Date().getTime();
+            System.out.println("执行时间： " + (et - st) + "毫秒");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

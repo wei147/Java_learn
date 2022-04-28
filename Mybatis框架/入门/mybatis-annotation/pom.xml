@@ -5,17 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.imooc</groupId>
-    <artifactId>mybatis</artifactId>
+    <artifactId>mybatis-annotation</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <repositories>
-<!--        <repository>-->
-<!--            <id>aliyun</id>-->
-<!--            <name>aliyun</name>-->
-<!--            <url>https://maven.aliyun.com/repository/public</url>-->
-<!--        </repository>-->
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
     </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -55,11 +53,6 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.5.5</version>
         </dependency>
+
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
 </project>
