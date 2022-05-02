@@ -38,12 +38,26 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+<!--            只参与Maven Test，不进行发布-->
+            <scope>test</scope>
         </dependency>
         <!-- logback日志输出 打印日志的-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.31</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <!--依赖只参与编译测试，不进行发布 （只在编译的时候需要用到，因为tomcat已经自带了）-->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
