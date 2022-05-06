@@ -16,6 +16,10 @@
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.31" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.3" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
+          <element id="library" level="project" name="Maven: com.alibaba.fastjson2:fastjson2-extension:2.0.2" />
+          <element id="library" level="project" name="Maven: com.alibaba.fastjson2:fastjson2:2.0.2" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:2.0.2" />
+          <element id="library" level="project" name="Maven: org.json:json:20220320" />
         </element>
       </element>
     </root>

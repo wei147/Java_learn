@@ -14,9 +14,7 @@ public class UserDao {
      */
     //方法名和刚刚定义的sql Id保持一致
     public User selectByUsername(String username){
-//        username = "涛";
-        User user = (User) MybatisUtils.executeQuery(sqlSession -> sqlSession.selectOne("user.selectByUsername",username));
-        System.out.println(user+"--"+user.getUsername());
+        User user = (User) MybatisUtils.executeQuery(sqlSession -> sqlSession.selectOne("usermapper.selectByUsername",username));
         return user;
 
     }

@@ -33,5 +33,6 @@
     <!--记得配置这一项不然识别不了test.xml文件-->
     <mappers>
         <mapper resource="mappers/test.xml"></mapper>
+        <mapper resource="mappers/user.xml"></mapper>
     </mappers>
 </configuration>

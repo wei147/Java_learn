@@ -20,6 +20,11 @@
             margin-left: -200px;
             margin-top: -175px;
         }
+
+        #username, #password {
+            /*text-align: center;*/
+            /*font-size: 24px;*/
+        }
     </style>
 </head>
 <body>
@@ -29,14 +34,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">username</label>
             <div class="layui-input-block">
-                <input type="text" id="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                <input type="text" id="username" lay-verify="require" placeholder="请输入用户名" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">password</label>
             <div class="layui-input-block">
-                <input type="text" id="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="text" id="password" lay-verify="require" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -45,5 +50,14 @@
         </div>
     </form>
 </div>
+<script src="/resources/layui/layui.js"></script>
+<!--在script块中要对表单数据进行提交处理-->
+<script>
+<!--submit(login)与lay-filter="login"的对应-->
+layui.form.on("submit(login)",function (data){  //data参数包含了当前表单的数据
+    console.log(data);
+    return false;   //submit提交事件返回true则表单提交，false则阻止表单提交
+})
+</script>
 </body>
 </html>
