@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             result.put("code",ex.getClass().getSimpleName());   //类名作为编码？
             result.put("message",ex.getMessage());
         }
-        //将map转化为json字符串
+        //将map转化为json字符串并返回
         String json = JSON.toJSONString(result);
         //将json字符串打印
         response.getWriter().println(json);

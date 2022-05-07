@@ -29,22 +29,23 @@
 </head>
 <body>
 <div class="oa-container">
-    <h1 style="text-align: center;margin-bottom: 20px" ;>慕课网办公OA系统</h1>
+    <h1 style="text-align: center;margin-bottom: 20px">慕课网办公OA系统</h1>
     <form class="layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">username</label>
+            <label class="layui-form-label">输入框</label>
             <div class="layui-input-block">
-                <input type="text" id="username" lay-verify="require" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                <input type="text" id="username" lay-verify="required" placeholder="请输入用户名" name="username"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">password</label>
+            <label class="layui-form-label">输入框</label>
             <div class="layui-input-block">
-                <input type="text" id="password" lay-verify="require" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="password" id="password" lay-verify="required" placeholder="请输入密码" name="password"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login">登录</button>
         </div>
@@ -53,11 +54,28 @@
 <script src="/resources/layui/layui.js"></script>
 <!--在script块中要对表单数据进行提交处理-->
 <script>
-<!--submit(login)与lay-filter="login"的对应-->
-layui.form.on("submit(login)",function (data){  //data参数包含了当前表单的数据
-    console.log(data);
-    return false;   //submit提交事件返回true则表单提交，false则阻止表单提交
-})
+    <!--submit(login)与lay-filter="login"的对应-->
+    layui.form.on('submit(login)', function (formdata) {  //data参数包含了当前表单的数据
+        console.log(formdata);
+        //作为ajax校验，下方的return 必须是return false。如果是return true就会按照标准的表单形式进行数据的提交并且返回响应，这样的ajax就会失效
+        layui.$.ajax({
+            url: "/check_login",
+            data: formdata.field,
+            type: "post",
+            //dataType 代表了服务器返回的数据类型是什么
+            dataType: "json",
+            success: function (json) {
+                console.log(json);
+                if (json.code == "0") {
+                    //layui内置的弹出层，会有一个小提示
+                    layui.layer.msg("登录成功");
+                } else {
+                    layui.layer.msg(json.message);
+                }
+            }
+        })
+        return false;   //submit提交事件返回true则表单提交，false则阻止表单提交
+    })
 </script>
 </body>
 </html>
