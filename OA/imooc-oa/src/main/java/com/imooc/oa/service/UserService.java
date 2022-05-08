@@ -1,11 +1,16 @@
 package com.imooc.oa.service;
 
+import com.imooc.oa.dao.RbacDao;
 import com.imooc.oa.dao.UserDao;
+import com.imooc.oa.entity.Node;
 import com.imooc.oa.entity.User;
 import com.imooc.oa.service.exception.BusinessException;
 
+import java.util.List;
+
 public class UserService {
     private UserDao userDao = new UserDao();
+    private RbacDao rbacDao = new RbacDao();
 
     // 检查查询结果
     public User checkLogin(String username, String password) {
@@ -19,5 +24,11 @@ public class UserService {
             throw new BusinessException("L002", "密码错误");
         }
         return user;
+    }
+
+    public List<Node> selectNodeByUserId(Long userId){
+         List<Node> nodeList = rbacDao.selectNodeByUserId(userId);
+         return nodeList;
+
     }
 }
