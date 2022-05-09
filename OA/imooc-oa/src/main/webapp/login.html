@@ -57,18 +57,20 @@
     <!--submit(login)与lay-filter="login"的对应-->
     layui.form.on('submit(login)', function (formdata) {  //data参数包含了当前表单的数据
         console.log(formdata);
-        //作为ajax校验，下方的return 必须是return false。如果是return true就会按照标准的表单形式进行数据的提交并且返回响应，这样的ajax就会失效
+        //发送ajax请求进行登录校验。作为ajax校验，下方的return 必须是return false。如果是return true就会按照标准的表单形式进行数据的提交并且返回响应，这样的ajax就会失效
         layui.$.ajax({
             url: "/check_login",
-            data: formdata.field,
+            data: formdata.field,   //提交表单数据
             type: "post",
             //dataType 代表了服务器返回的数据类型是什么
             dataType: "json",
             success: function (json) {
                 console.log(json);
-                if (json.code == "0") {
+                if (json.code == "0") {     //登录验证成功
                     //layui内置的弹出层，会有一个小提示
-                    layui.layer.msg("登录成功");
+                    // layui.layer.msg("登录成功");
+                    //跳转url
+                    window.location.href=json.redirect_url;
                 } else {
                     layui.layer.msg(json.message);
                 }

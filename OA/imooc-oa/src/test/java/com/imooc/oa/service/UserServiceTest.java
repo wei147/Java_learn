@@ -32,7 +32,8 @@ public class UserServiceTest {
     @Test
     public void selectNodeByUserId() {
         List<Node> nodeList = userService.selectNodeByUserId(2L);
-        String text = nodeList.get(0).getNodeName();
-        System.out.println(text);
+        System.out.println(111);
+//        String text = nodeList.get(0).getNodeName();
+//        System.out.println(text);
     }
 }

@@ -29,20 +29,25 @@ public class LoginServlet extends HttpServlet {
         //接收用户输入
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         try {
             //调用业务逻辑
             User user = userService.checkLogin(username, password);
-            result.put("code","0");
-            result.put("message","success");
+            System.out.println(user.getUserId());
+            HttpSession session = request.getSession();
+            //向session存入登录用户信息，属性名：login_user
+            session.setAttribute("login_user", user);
+            result.put("code", "0");
+            result.put("message", "success");
+            result.put("redirect_url", "/index");
         } catch (BusinessException ex) {
             logger.error(ex.getMessage(), ex);
-            result.put("code",ex.getCode());
-            result.put("message",ex.getMessage());
+            result.put("code", ex.getCode());
+            result.put("message", ex.getMessage());
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
-            result.put("code",ex.getClass().getSimpleName());   //类名作为编码？
-            result.put("message",ex.getMessage());
+            result.put("code", ex.getClass().getSimpleName());   //类名作为编码？
+            result.put("message", ex.getMessage());
         }
         //将map转化为json字符串并返回
         String json = JSON.toJSONString(result);

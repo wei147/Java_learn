@@ -5,8 +5,6 @@
 <mapper namespace="rbacmapper">
     <!--    按照用户id获取指定的功能节点-->
     <select id="selectNodeByUserId" resultType="com.imooc.oa.entity.Node" parameterType="Long">
-        --      如何获取编号为1的用户拥有哪些功能？--
-        --      DISTINCT 去掉重复的数据--
         SELECT DISTINCT n.*
         from sys_role_user ru,
              sys_role_node rn,
