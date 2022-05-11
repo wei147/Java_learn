@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
         try {
             //调用业务逻辑
             User user = userService.checkLogin(username, password);
-            System.out.println(user.getUserId());
             HttpSession session = request.getSession();
             //向session存入登录用户信息，属性名：login_user
             session.setAttribute("login_user", user);

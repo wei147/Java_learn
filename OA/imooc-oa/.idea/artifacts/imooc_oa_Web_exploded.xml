@@ -20,6 +20,7 @@
           <element id="library" level="project" name="Maven: com.alibaba.fastjson2:fastjson2:2.0.2" />
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:2.0.2" />
           <element id="library" level="project" name="Maven: org.json:json:20220320" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
         </element>
       </element>
     </root>
