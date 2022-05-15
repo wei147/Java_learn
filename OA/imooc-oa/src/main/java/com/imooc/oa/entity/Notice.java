@@ -6,17 +6,17 @@ import java.util.Date;
  * 显示保存通知
  */
 public class Notice {
-    private Long notice;
+    private Long noticeId;
     private Long receiverId;
     private String content;
     private Date createTime;
 
     public Long getNotice() {
-        return notice;
+        return noticeId;
     }
 
     public void setNotice(Long notice) {
-        this.notice = notice;
+        this.noticeId = notice;
     }
 
     public Long getReceiverId() {

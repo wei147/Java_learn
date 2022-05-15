@@ -51,14 +51,17 @@ public class MybatisUtils {
         }
     }
 
-    /**执行insert/update/delete写操作SQL
+    /**
+     * 执行insert/update/delete写操作SQL
      * 新增、修改、删除等写入操作就需要对事务进行控制，作为事务来说，如果我们代码处理成功则需要将事务进行提交(commit),如果失败则需要进行回滚
-     *在原有executeQuery/查询的基础上额外增加了对事务的控制
+     * 在原有executeQuery/查询的基础上额外增加了对事务的控制
+     *
      * @param func 要执行的写操作代码块
      * @return 写操作后返回的结果
      */
     public static Object executeUpdate(Function<SqlSession, Object> func) {
-        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+//        SqlSession sqlSession = sqlSessionFactory.openSession(false); //原来课程是这个
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.commit();
         try {
             Object obj = func.apply(sqlSession);

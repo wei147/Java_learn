@@ -19,7 +19,7 @@
             <!--MyBatis框架在执行过程中就会从DataSourceFactory中获取数据源-->
             <dataSource type="com.imooc.oa.datasource.DruidDataSourceFactory">
                 <!--JDBC连接属性-->
-                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url"
                           value="jdbc:mysql://localhost:3306/imooc-oa?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
                 <property name="username" value="root"/>
@@ -37,5 +37,8 @@
         <mapper resource="mappers/rbac.xml"></mapper>
         <mapper resource="mappers/employee.xml"></mapper>
         <mapper resource="mappers/department.xml"></mapper>
+        <mapper resource="mappers/leave_from.xml"></mapper>
+        <mapper resource="mappers/process_flow.xml"></mapper>
+        <mapper resource="mappers/notice.xml"></mapper>
     </mappers>
 </configuration>
