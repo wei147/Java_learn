@@ -1,18 +1,18 @@
 package com.imooc.oa.entity;
 
 public class Employee {
-    private Long employee;
+    private Long employeeId;
     private String name;
     private Long departmentId;
     private String title;
     private Integer level;
 
-    public Long getEmployee() {
-        return employee;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Long employee) {
-        this.employee = employee;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {
