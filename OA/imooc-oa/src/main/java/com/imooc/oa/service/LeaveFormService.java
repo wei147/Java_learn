@@ -97,6 +97,7 @@ public class LeaveFormService {
                 flow.setResult("approved"); //通过
                 flow.setReason("自动通过");
                 flow.setCreateTime(new Date());
+                flow.setState("complete");
                 flow.setAuditTime(new Date());
                 flow.setOrderNo(2);
                 flow.setIsLast(1);
