@@ -35,6 +35,7 @@ public class LeaveFormServlet extends HttpServlet {
         //http://localhost/leave/create     怎么拿到create这个字符呢？
         String uri = request.getRequestURI();
         String methodName = uri.substring(uri.lastIndexOf("/") + 1);  //因为会截取到/本身所以需要+1
+        System.out.println(methodName);
         if (methodName.equals("create")) {
             //创建请假单的处理
             this.create(request, response);

@@ -13,4 +13,21 @@
         from adm_employee
         where employee_id = #{value}
     </select>
+
+    <!--一些说明：emp.level的emp是从EmployeeDao传过来的。如果级别小于7的话 -->
+    <select id="selectLeader" parameterType="com.imooc.oa.entity.Employee"
+            resultType="com.imooc.oa.entity.Employee">
+        SELECT *
+        from adm_employee
+        where
+        <if test="emp.level &lt; 7">
+            level = 7 and department_id = #{emp.departmentId}
+        </if>
+        <if test="emp.level == 7">
+            level = 8
+        </if>
+        <if test="emp.level == 8">
+            employee_id = #{emp.employeeId}
+        </if>
+    </select>
 </mapper>
