@@ -1,6 +1,6 @@
 package com.imooc.oa.controller;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.imooc.oa.entity.LeaveForm;
 import com.imooc.oa.entity.User;
 import com.imooc.oa.service.LeaveFormService;
@@ -23,12 +23,6 @@ public class LeaveFormServlet extends HttpServlet {
     //Logger用来打印异常
     private Logger logger = LoggerFactory.getLogger(LeaveFormServlet.class);
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request, response);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
@@ -42,8 +36,13 @@ public class LeaveFormServlet extends HttpServlet {
         }
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doPost(request, response);
+    }
+
     /**
      * 创建请假单
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -80,7 +79,8 @@ public class LeaveFormServlet extends HttpServlet {
         }
         //3.组织响应数据
         String json = JSON.toJSONString(result);
-        response.getWriter().println(json); //对外进行输出
-
+        response.getWriter().println(json);
+//        String json = JSON.toJSONString(result);
+//        response.getWriter().println(json); //对外进行输出
     }
 }
