@@ -32,6 +32,7 @@ public class IndexServlet extends HttpServlet {
         List<Node> nodeList = userService.selectNodeByUserId(user.getUserId());
         //将当前的结点列表放入请求中 （放入请求属性）
         request.setAttribute("node_list", nodeList);
+
         //如果employee数据只是为index.ftl服务的话，
         // 放入当前的请求中request.setAttribute 是没问题的。
         // 但在当前项目中需要反复用到当前登录的员工是哪一位，所以将他的存储范围放大，放入到了session中

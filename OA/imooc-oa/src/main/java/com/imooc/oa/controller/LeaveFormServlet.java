@@ -1,6 +1,7 @@
 package com.imooc.oa.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.imooc.oa.entity.Department;
 import com.imooc.oa.entity.LeaveForm;
 import com.imooc.oa.entity.User;
 import com.imooc.oa.service.LeaveFormService;
