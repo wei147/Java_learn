@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "LeaveFormServlet", urlPatterns = "/leave/*")
@@ -34,6 +35,8 @@ public class LeaveFormServlet extends HttpServlet {
         if (methodName.equals("create")) {
             //创建请假单的处理
             this.create(request, response);
+        } else if (methodName.equals("list")) {
+            this.getLeaveFormList(request, response);
         }
     }
 
@@ -83,5 +86,28 @@ public class LeaveFormServlet extends HttpServlet {
         response.getWriter().println(json);
 //        String json = JSON.toJSONString(result);
 //        response.getWriter().println(json); //对外进行输出
+    }
+
+    /**
+     * 查询需要审核的请假单列表
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    private void getLeaveFormList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //通过session 接收各项请假单数据
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("login_user");
+        List<Map> formList = leaveFormService.getLeaveFormList("process", user.getEmployeeId());
+        Map result = new HashMap();
+        result.put("code", "0");    //返回0 代表服务器响应成功
+        result.put("msg", "");
+        result.put("count", formList.size());   //count 所有数据的总数
+        result.put("data", formList);
+        String json = JSON.toJSONString(result);
+        System.out.println(json);
+        //通过响应进行输出
+        response.getWriter().println(json);
     }
 }

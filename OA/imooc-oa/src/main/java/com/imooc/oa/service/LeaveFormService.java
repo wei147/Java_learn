@@ -9,6 +9,8 @@ import com.imooc.oa.entity.ProcessFlow;
 import com.imooc.oa.utils.MybatisUtils;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 请假单流程服务
@@ -109,4 +111,15 @@ public class LeaveFormService {
         });
         return savedForm;
     }
+
+//    这是经过LeaveFromDaoTest.java 测试之后才写在这里的
+    public List<Map> getLeaveFormList(String pfState, Long operatorId) {
+        return (List<Map>) MybatisUtils.executeQuery(sqlSession -> {
+            LeaveFromDao dao = sqlSession.getMapper(LeaveFromDao.class);
+            List<Map> formList = dao.selectByParams(pfState, operatorId);
+            return formList;
+        });
+    }
+
+
 }
