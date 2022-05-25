@@ -107,7 +107,7 @@ public class LeaveFormServlet extends HttpServlet {
         result.put("data", formList);
         String json = JSON.toJSONString(result);
         System.out.println(json);
-        //通过响应进行输出
+        //通过响应进行输出  即设计服务器给我们的信息
         response.getWriter().println(json);
     }
 }
