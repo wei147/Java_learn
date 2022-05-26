@@ -125,7 +125,9 @@
             {field: "reason", title: "请假原因", width: 350},
             {
                 title: "", width: 150, type: "space", templet: function (d) {
+                    //转为json格式的字符串  这个JSON是JavaScript的内置对象
                     var strRec = JSON.stringify(d);
+                    console.info("请假单数据", d);
                     console.info("请假单数据", strRec);
                     //将请假单数据存放至data-laf属性中
                     return "<button class='layui-btn layui-btn-danger layui-btn-sm btn-audit' data-laf=" + strRec + " >审批</button>";
@@ -137,8 +139,8 @@
     // 绑定每一行的审批按钮
     $(document).on("click", ".btn-audit", function () {
         //初始化表单
-        $("#divDialog form")[0].reset();
-        $("#divDialog form form-item-value").text("");
+        $("#divDialog form")[0].reset();        //清空表单
+        $("#divDialog form form-item-value").text("");  //把已显示的数据进行清空   比如将人名，编号进行空字符串处理
         //获取当前点击按钮的请假单数据,回填至显示项
         var laf = $(this).data("laf");
         $("#dname").text(laf.department_name);
