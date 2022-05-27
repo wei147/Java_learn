@@ -6,6 +6,7 @@ import com.imooc.oa.dao.ProcessFlowDao;
 import com.imooc.oa.entity.Employee;
 import com.imooc.oa.entity.LeaveForm;
 import com.imooc.oa.entity.ProcessFlow;
+import com.imooc.oa.service.exception.BusinessException;
 import com.imooc.oa.utils.MybatisUtils;
 
 import java.util.Date;
@@ -112,13 +113,30 @@ public class LeaveFormService {
         return savedForm;
     }
 
-//    这是经过LeaveFromDaoTest.java 测试之后才写在这里的
+    //    这是经过LeaveFromDaoTest.java 测试之后才写在这里的
     public List<Map> getLeaveFormList(String pfState, Long operatorId) {
         return (List<Map>) MybatisUtils.executeQuery(sqlSession -> {
             LeaveFromDao dao = sqlSession.getMapper(LeaveFromDao.class);
             List<Map> formList = dao.selectByParams(pfState, operatorId);
             return formList;
         });
+    }
+
+    public void audit(Long formId, Long operatorId, String result, String reason) {
+        ProcessFlow processFlow = new ProcessFlow();
+        MybatisUtils.executeUpdate(sqlSession -> {
+            //1.无论同意/驳回，当前任务状态更变为complete
+            ProcessFlowDao processFlowDao = sqlSession.getMapper(ProcessFlowDao.class);//得到实现类
+            List<ProcessFlow> flowList = processFlowDao.selectByFormId(formId);
+            if (flowList.size() == 0) {
+                throw new BusinessException("PF001", "无效的审批流程");
+            }
+            //2.如果当前任务是最后一个节点，代表流程结束，更新请假单状态为对应的approved/refused
+            //3.如果当前任务不是最后一个节点且审批通过，那下一个节点的状态从ready变为process
+            //4.如果当前任务不是最后一个节点且审批驳回，则后续所有任务状态变为cancel，请假单状态变为refused
+
+        });
+
     }
 
 
