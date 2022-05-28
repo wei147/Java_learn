@@ -12,6 +12,7 @@ import com.imooc.oa.utils.MybatisUtils;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 请假单流程服务
@@ -123,7 +124,6 @@ public class LeaveFormService {
     }
 
     public void audit(Long formId, Long operatorId, String result, String reason) {
-        ProcessFlow processFlow = new ProcessFlow();
         MybatisUtils.executeUpdate(sqlSession -> {
             //1.无论同意/驳回，当前任务状态更变为complete
             ProcessFlowDao processFlowDao = sqlSession.getMapper(ProcessFlowDao.class);//得到实现类
@@ -131,13 +131,46 @@ public class LeaveFormService {
             if (flowList.size() == 0) {
                 throw new BusinessException("PF001", "无效的审批流程");
             }
+            //获取当前任务ProcessFlow对象
+            List<ProcessFlow> processList = flowList.stream().filter(p -> p.getOperatorId().equals(operatorId) && p.getState().equals("process")).collect(Collectors.toList());//filter() 对流数据进行筛选 p 代表每一个流程数据 当前节点的经办人和当前用户的编号是匹配的 最后筛选完成之后再生成一个新的list
+            ProcessFlow process = null;
+            if (processList.size() == 0) {
+                throw new BusinessException("PF002", "未找到待处理任务");
+            } else {
+                process = processList.get(0);
+                process.setState("complete");   //如果找到符合筛选条件的，将process改为complete （经过操作后）
+                process.setResult(result);
+                process.setReason(reason);
+                process.setAuditTime(new Date());
+                processFlowDao.update(process); //完成更新工作
+            }
             //2.如果当前任务是最后一个节点，代表流程结束，更新请假单状态为对应的approved/refused
-            //3.如果当前任务不是最后一个节点且审批通过，那下一个节点的状态从ready变为process
-            //4.如果当前任务不是最后一个节点且审批驳回，则后续所有任务状态变为cancel，请假单状态变为refused
+            LeaveFromDao leaveFromDao = sqlSession.getMapper(LeaveFromDao.class);
+            LeaveForm form = leaveFromDao.selectById(formId);
+            if (process.getIsLast() == 1) {    //已经是最后一个节点则需要改变请假单状态
+                form.setState(result);//approved | refused 只有两种状态，从前台传递过来的
+                leaveFromDao.update(form);  //更新表单状态
 
+            } else {
+                //流式处理  readyList 包含所有后续任务节点
+                List<ProcessFlow> readyList = flowList.stream().filter(p -> p.getState().equals("ready")).collect(Collectors.toList());
+                //3.如果当前任务不是最后一个节点且审批通过，那下一个节点的状态从ready变为process
+                if (result.equals("approved")) {  //也就是审核通过
+                    ProcessFlow readyProcess = readyList.get(0);
+                    System.out.println(readyProcess);
+                    readyProcess.setState("process");
+                    processFlowDao.update(readyProcess);
+                } else if (result.equals("refused")) {
+                    //4.如果当前任务不是最后一个节点且审批驳回，则后续所有任务状态变为cancel，请假单状态变为refused
+                    for (ProcessFlow p : readyList) {
+                        p.setState("cancel");   //为嘛是遍历？
+                        processFlowDao.update(p);
+                    }
+                    form.setState("refused");
+                    leaveFromDao.update(form);
+                }
+            }
+            return null;
         });
-
     }
-
-
 }

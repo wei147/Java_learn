@@ -14,14 +14,15 @@
 
     </insert>
 
-    <update id="update" parameterType="Long">
+    <update id="update" parameterType="com.imooc.oa.entity.ProcessFlow">
         UPDATE adm_process_flow
         SET form_id    = #{formId},
             operator_id=#{operatorId},
             action     = #{action},
-            result=#{result},
+            result=#{result}
             where process_id = #{processId}
     </update>
+
     <select id="selectByFormId" parameterType="Long" resultType="com.imooc.oa.entity.ProcessFlow">
         select *
         from adm_process_flow

@@ -14,6 +14,7 @@ public class LeaveFormServiceTest {
 
     /**
      * 市场部员工请假单（72小时以上）测试用例
+     *
      * @throws ParseException
      */
     @Test
@@ -32,6 +33,7 @@ public class LeaveFormServiceTest {
 
     /**
      * 市场部员工请假单（72小时以内）测试用例
+     *
      * @throws ParseException
      */
     @Test
@@ -50,6 +52,7 @@ public class LeaveFormServiceTest {
 
     /**
      * 研发部部门经理请假单测试用例
+     *
      * @throws ParseException
      */
     @Test
@@ -68,6 +71,7 @@ public class LeaveFormServiceTest {
 
     /**
      * 总经理请假单测试用例
+     *
      * @throws ParseException
      */
     @Test
@@ -82,5 +86,30 @@ public class LeaveFormServiceTest {
         form.setCreateTime(new Date());
         LeaveForm savedForm = leaveFormService.createLeaveForm(form);
         System.out.println(savedForm.getFormId());
+    }
+
+
+    /**
+     * 请假三天以上，部门经理审核通过
+     */
+    @Test
+    public void audit1() {
+        leaveFormService.audit(31L, 2L, "approved", "祝早日康复");
+    }
+
+    /**
+     * 请假三天以上，部门经理审核驳回
+     */
+    @Test
+    public void audit2() {
+        leaveFormService.audit(32L, 2L, "refused", "工期紧张，请勿拖延");
+    }
+
+    /**
+     * 请假三天以上，总经理审核通过
+     */
+    @Test
+    public void audit3() {
+        leaveFormService.audit(33L, 1L, "approved", "同意");
     }
 }
