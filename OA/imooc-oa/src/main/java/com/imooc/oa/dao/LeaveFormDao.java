@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-public interface LeaveFromDao {
+public interface LeaveFormDao {
     public void insert(LeaveForm form);
 
     //    public List<Map> selectByParams( Map params); 不推荐

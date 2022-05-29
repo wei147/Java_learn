@@ -1,7 +1,7 @@
 package com.imooc.oa.service;
 
 import com.imooc.oa.dao.EmployeeDao;
-import com.imooc.oa.dao.LeaveFromDao;
+import com.imooc.oa.dao.LeaveFormDao;
 import com.imooc.oa.dao.ProcessFlowDao;
 import com.imooc.oa.entity.Employee;
 import com.imooc.oa.entity.LeaveForm;
@@ -34,8 +34,8 @@ public class LeaveFormService {
             } else {
                 form.setState("processing");
             }
-            LeaveFromDao leaveFromDao = sqlSession.getMapper(LeaveFromDao.class);
-            leaveFromDao.insert(form);
+            LeaveFormDao leaveFormDao = sqlSession.getMapper(LeaveFormDao.class);
+            leaveFormDao.insert(form);
 
             //2.增加第一条流程数据，说明表单已提交，状态为complete
             ProcessFlowDao processFlowDao = sqlSession.getMapper(ProcessFlowDao.class);
@@ -117,12 +117,19 @@ public class LeaveFormService {
     //    这是经过LeaveFromDaoTest.java 测试之后才写在这里的
     public List<Map> getLeaveFormList(String pfState, Long operatorId) {
         return (List<Map>) MybatisUtils.executeQuery(sqlSession -> {
-            LeaveFromDao dao = sqlSession.getMapper(LeaveFromDao.class);
+            LeaveFormDao dao = sqlSession.getMapper(LeaveFormDao.class);
             List<Map> formList = dao.selectByParams(pfState, operatorId);
             return formList;
         });
     }
 
+    /**
+     * 审核请假单
+     * @param formId 表单编号
+     * @param operatorId 经办人（当前登录员工）
+     * @param result 审批结果
+     * @param reason 审批意见
+     */
     public void audit(Long formId, Long operatorId, String result, String reason) {
         MybatisUtils.executeUpdate(sqlSession -> {
             //1.无论同意/驳回，当前任务状态更变为complete
@@ -144,20 +151,19 @@ public class LeaveFormService {
                 process.setAuditTime(new Date());
                 processFlowDao.update(process); //完成更新工作
             }
+
+            LeaveFormDao leaveFormDao = sqlSession.getMapper(LeaveFormDao.class);
+            LeaveForm form = leaveFormDao.selectById(formId);
             //2.如果当前任务是最后一个节点，代表流程结束，更新请假单状态为对应的approved/refused
-            LeaveFromDao leaveFromDao = sqlSession.getMapper(LeaveFromDao.class);
-            LeaveForm form = leaveFromDao.selectById(formId);
             if (process.getIsLast() == 1) {    //已经是最后一个节点则需要改变请假单状态
                 form.setState(result);//approved | refused 只有两种状态，从前台传递过来的
-                leaveFromDao.update(form);  //更新表单状态
-
+                leaveFormDao.update(form);  //更新表单状态
             } else {
                 //流式处理  readyList 包含所有后续任务节点
                 List<ProcessFlow> readyList = flowList.stream().filter(p -> p.getState().equals("ready")).collect(Collectors.toList());
                 //3.如果当前任务不是最后一个节点且审批通过，那下一个节点的状态从ready变为process
                 if (result.equals("approved")) {  //也就是审核通过
                     ProcessFlow readyProcess = readyList.get(0);
-                    System.out.println(readyProcess);
                     readyProcess.setState("process");
                     processFlowDao.update(readyProcess);
                 } else if (result.equals("refused")) {
@@ -167,7 +173,7 @@ public class LeaveFormService {
                         processFlowDao.update(p);
                     }
                     form.setState("refused");
-                    leaveFromDao.update(form);
+                    leaveFormDao.update(form);
                 }
             }
             return null;

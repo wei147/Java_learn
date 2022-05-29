@@ -19,8 +19,11 @@
         SET form_id    = #{formId},
             operator_id=#{operatorId},
             action     = #{action},
-            result=#{result}
-            where process_id = #{processId}
+            result=#{result},
+            reason     = #{reason},
+            audit_time = #{auditTime},
+            state      = #{state}
+        where process_id = #{processId}
     </update>
 
     <select id="selectByFormId" parameterType="Long" resultType="com.imooc.oa.entity.ProcessFlow">
