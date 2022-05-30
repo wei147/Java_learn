@@ -37,6 +37,8 @@ public class LeaveFormServlet extends HttpServlet {
             this.create(request, response);
         } else if (methodName.equals("list")) {
             this.getLeaveFormList(request, response);
+        } else if (methodName.equals("audit")) {
+            this.audit(request, response);
         }
     }
 
@@ -109,5 +111,37 @@ public class LeaveFormServlet extends HttpServlet {
         System.out.println(json);
         //通过响应进行输出  即设计服务器给我们的信息
         response.getWriter().println(json);
+    }
+
+    /**
+     * 处理审批操作
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void audit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String formId = request.getParameter("formId");
+        String result = request.getParameter("result");
+        String reason = request.getParameter("reason");
+
+        //从当前会话中进行提取 操作人 operatorId 即 getEmployeeId
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("login_user");
+        Map mpResult = new HashMap();
+        //因为leaveFormService.audit本身会抛出异常，所以这里做一个异常捕获
+        try {
+            // Long.parseLong(formId) 转为长整形
+            leaveFormService.audit(Long.parseLong(formId), user.getEmployeeId(), result, reason);
+            mpResult.put("code", "0");
+            mpResult.put("message", "success");
+        } catch (Exception e) {
+            logger.error("请假单审核失败", e);
+            mpResult.put("code", e.getClass().getSimpleName());
+            mpResult.put("message", e.getMessage());
+        }
+        String json = JSON.toJSONString(mpResult);
+        response.getWriter().println(json); //对外进行输出
     }
 }
