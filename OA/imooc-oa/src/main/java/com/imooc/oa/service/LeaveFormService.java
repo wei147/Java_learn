@@ -2,13 +2,16 @@ package com.imooc.oa.service;
 
 import com.imooc.oa.dao.EmployeeDao;
 import com.imooc.oa.dao.LeaveFormDao;
+import com.imooc.oa.dao.NoticeDao;
 import com.imooc.oa.dao.ProcessFlowDao;
 import com.imooc.oa.entity.Employee;
 import com.imooc.oa.entity.LeaveForm;
+import com.imooc.oa.entity.Notice;
 import com.imooc.oa.entity.ProcessFlow;
 import com.imooc.oa.service.exception.BusinessException;
 import com.imooc.oa.utils.MybatisUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +53,8 @@ public class LeaveFormService {
             processFlowDao.insert(flow1);   //将第一个流程数据放入其中
             //3.分情况创建其余流程数据
             //3.1   7级以下员工，生成部门经理审批任务，请假时间大于72小时，还需生成总经理审批任务
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH时");  //具体的时间格式
+            NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
             if (employee.getLevel() < 7) {
                 Employee dmanager = employeeDao.selectLeader(employee);     //这里得到的是部门经理    dmanager
                 ProcessFlow flow2 = new ProcessFlow();
@@ -78,7 +83,13 @@ public class LeaveFormService {
                     flow2.setIsLast(1);
                     processFlowDao.insert(flow2);
                 }
+                //请假单已提交消息
+                String noticeContent = String.format("您的请假申请[%s-%s]已提交，请等待上级审批", sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeDao.insert(new Notice(employee.getEmployeeId(), noticeContent));
 
+                //通知部门经理审批消息
+                noticeContent = String.format("%s-%s提起请假申请[%s-%s],请尽快审批", employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeDao.insert(new Notice(dmanager.getEmployeeId(), noticeContent));   //部门经理的id
             } else if (employee.getLevel() == 7) {    //部门经理
                 //3.2   7级员工，生成总经理审批任务
                 Employee manger = employeeDao.selectLeader(employee);
@@ -125,10 +136,11 @@ public class LeaveFormService {
 
     /**
      * 审核请假单
-     * @param formId 表单编号
+     *
+     * @param formId     表单编号
      * @param operatorId 经办人（当前登录员工）
-     * @param result 审批结果
-     * @param reason 审批意见
+     * @param result     审批结果
+     * @param reason     审批意见
      */
     public void audit(Long formId, Long operatorId, String result, String reason) {
         MybatisUtils.executeUpdate(sqlSession -> {

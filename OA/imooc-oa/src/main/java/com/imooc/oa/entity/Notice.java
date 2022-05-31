@@ -11,12 +11,24 @@ public class Notice {
     private String content;
     private Date createTime;
 
-    public Long getNotice() {
+    //为了满足java bean的要求，这里保留默认的构造方法   后
+    public Notice(){
+
+    }
+
+    //通过构造方法简化消息的构造过程 noticeId是数据库自动赋值的，不进行赋值   先
+    public Notice(Long receiverId,String content){
+        this.receiverId = receiverId;
+        this.content = content;
+        this.createTime = new Date();
+    }
+
+    public Long getNoticeId() {
         return noticeId;
     }
 
-    public void setNotice(Long notice) {
-        this.noticeId = notice;
+    public void setNoticeId(Long noticeId) {
+        this.noticeId = noticeId;
     }
 
     public Long getReceiverId() {
