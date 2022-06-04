@@ -15,7 +15,7 @@ public class NoticeDaoTest {
         MybatisUtils.executeUpdate(sqlSession -> {
             NoticeDao dao = sqlSession.getMapper(NoticeDao.class);
             Notice notice = new Notice();
-            notice.setNotice(4L);
+            notice.setNoticeId(4L);
             notice.setReceiverId(5L);
             notice.setContent("您的请假已被部门经理XXX批准，审批意见：同意");
             notice.setCreateTime(new Date());
