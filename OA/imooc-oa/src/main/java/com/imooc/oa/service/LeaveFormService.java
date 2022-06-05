@@ -87,7 +87,7 @@ public class LeaveFormService {
                 String noticeContent = String.format("您的请假申请[%s-%s]已提交，请等待上级审批", sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
                 noticeDao.insert(new Notice(employee.getEmployeeId(), noticeContent));
 
-                //通知总经理审批消息
+                //通知部门经理审批消息
                 noticeContent = String.format("%s-%s提起请假申请[%s-%s],请尽快审批", employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
                 noticeDao.insert(new Notice(dmanager.getEmployeeId(), noticeContent));   //上级审核的id
             } else if (employee.getLevel() == 7) {    //部门经理
@@ -102,6 +102,14 @@ public class LeaveFormService {
                 flow.setOrderNo(2);     //任务流程中的第二个节点
                 flow.setIsLast(1);
                 processFlowDao.insert(flow);
+
+                //请假单已提交消息
+                String noticeContent = String.format("您的请假申请[%s-%s]已提交，请等待上级审批", sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeDao.insert(new Notice(employee.getEmployeeId(), noticeContent));
+
+                //通知总经理审批消息
+                noticeContent = String.format("%s-%s提起请假申请[%s-%s],请尽快审批", employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                noticeDao.insert(new Notice(manger.getEmployeeId(), noticeContent));
 
             } else if (employee.getLevel() == 8) {
                 //3.3   8级员工，生成总经理审批任务，系统自动通过
@@ -118,7 +126,8 @@ public class LeaveFormService {
                 flow.setIsLast(1);
                 processFlowDao.insert(flow);
 
-                String noticeContent = String.format("您的请假申请[%s-%s]系统已自动批准通过。", sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
+                String noticeContent = String.format("您的请假申请[%s-%s]系统已自动批准通过。",
+                        sdf.format(form.getStartTime()), sdf.format(form.getEndTime()));
                 noticeDao.insert(new Notice(employee.getEmployeeId(), noticeContent));
             }
             return form;
@@ -187,7 +196,7 @@ public class LeaveFormService {
                 } else if (result.equals("refused")) {
                     strResult = "驳回";
                 }
-                String noticeContent = String.format("您的请假申请[%s-%s]%s%s已%s,审批意见:%s.审批流程已结束。",
+                String noticeContent = String.format("您的请假申请[%s-%s]%s%s已%s,审批意见:%s,审批流程已结束",
                         sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                         operator.getTitle(), operator.getName(),
                         strResult, reason);//发给表单提交人的通知
@@ -209,7 +218,7 @@ public class LeaveFormService {
                     processFlowDao.update(readyProcess);
 
                     //消息1:通知表单提交人，部门经理已经审批通过，交由上级继续审批
-                    String noticeContent1 = String.format("您的请假申请[%s-%s]%s%s已批准,审批意见:%s.请继续等待总经理审批。",
+                    String noticeContent1 = String.format("您的请假申请[%s-%s]%s%s已批准,审批意见:%s,请继续等待上级审批。",
                             sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                             operator.getTitle(), operator.getName(), reason);
                     noticeDao.insert(new Notice(form.getEmployeeId(), noticeContent1));
@@ -218,13 +227,13 @@ public class LeaveFormService {
                     String noticeContent2 = String.format("%s-%s提起请假申请[%s-%s],请尽快审批",
                             sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                             employee.getTitle(), employee.getName(), reason);
-                    noticeDao.insert(new Notice(form.getEmployeeId(), noticeContent2));
+                    noticeDao.insert(new Notice(readyProcess.getOperatorId(), noticeContent2));
 
                     //消息3:通知部门经理（当前经办人），员工的申请单你已批准，交由上级继续审批
-                    String noticeContent3 = String.format("%s-%s提起请假申请[%s-%s]您已批准，审批意见%s",
+                    String noticeContent3 = String.format("%s-%s提起请假申请[%s-%s]您已批准，审批意见:%s,申请转至上级审批",
                             sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                             employee.getTitle(), employee.getName(), reason);
-                    noticeDao.insert(new Notice(form.getEmployeeId(), noticeContent3));
+                    noticeDao.insert(new Notice(operator.getEmployeeId(), noticeContent3));
 
                 } else if (result.equals("refused")) {
                     //4.如果当前任务不是最后一个节点且审批驳回，则后续所有任务状态变为cancel，请假单状态变为refused
