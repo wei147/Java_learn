@@ -225,14 +225,14 @@ public class LeaveFormService {
 
                     //消息2:通知总经理有新的审批任务
                     String noticeContent2 = String.format("%s-%s提起请假申请[%s-%s],请尽快审批",
-                            sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
-                            employee.getTitle(), employee.getName(), reason);
+                            employee.getTitle(), employee.getName(),
+                            sdf.format(form.getStartTime()), sdf.format(form.getEndTime()), reason);
                     noticeDao.insert(new Notice(readyProcess.getOperatorId(), noticeContent2));
 
                     //消息3:通知部门经理（当前经办人），员工的申请单你已批准，交由上级继续审批
-                    String noticeContent3 = String.format("%s-%s提起请假申请[%s-%s]您已批准，审批意见:%s,申请转至上级审批",
-                            sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
-                            employee.getTitle(), employee.getName(), reason);
+                    String noticeContent3 = String.format("%s-%s提起请假申请[%s-%s]您已批准，审批意见:%s,申请转至上级领导继续审批",
+                            employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()),
+                            sdf.format(form.getEndTime()), reason);
                     noticeDao.insert(new Notice(operator.getEmployeeId(), noticeContent3));
 
                 } else if (result.equals("refused")) {
