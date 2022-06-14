@@ -218,18 +218,81 @@ yum list installed 查看已安装的应用
 yum list installed *tree*	筛选
 yum remove tree.x86_64（卸载）
 yum install -y tree.x86_64 (遇到所有的询问统一用y回答)
-
- 
-
 ```
 
 
 
+#### Centos编译安装redis
+
+```
+<编译方式安装应用程序>
+如yum仓库未提供rpm,往往需要采用编译安装方式
+编译安装是指从应用官网下载源码后，对源码进行编译后使用
+编译命令：make#使用对应编译器对源码编译生成可执行文件
+```
+
+##### yum与编译安装比较
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220614143724871.png" alt="image-20220614143724871" style="zoom:50%;" />
+
+```
+编译redis之前需要下载gcc
+编译安装只会在当前编译目录中生成应用程序（而不是/usr/bin）
+在启动redis的时候需要启加载配置文件	[root@hadoop100 redis-5.0.14]# ./src/redis-server redis.con 
+```
 
 
 
+#### firewall 防火墙设置实战
 
-Linux进阶应用
+```
+什么是防火墙
+防火墙是借助硬件和软件对内外部网络环境的保护措施
+CentOS7基于firewall实现应用层防火墙，CentOS6基于iptables
+firewall--cmd是firewalle的核心命令
+
+对外开放Tomcat
+启动Tomcat [root@hadoop102 bin]# ./startup.sh 
+查看是否启动成功 netstat -tulpn|grep 8080	
+在window系统不能通过虚拟机域名+8080端口直接访问到Tomcat，需要在防火墙上设置放行
+查看防火墙是否已经启动 firewall-cmd --state
+查看防火墙放行端口 firewall-cmd --list-ports
+firewall-cmd --zone=public --permanent --add-port=8080/tcp	(zone为区域的意思，permanent为永久变更，--add-port=8080/tcp 采用tcp方式进行时会放行8080端口 )
+firewall--cmd --reload 防火墙进行配置重载
+firewall-cmd --zone=public --permanent --remove-port=8080/tcp	移除8080端口
+firewall-cmd --zone=public --permanent --add-port=8000-9000/tcp  放行一个区域的端口
+```
+
+
+
+### Linux进阶应用
+
+#### Linux系统管理命令
+
+```html
+<使用ifconfig查看网卡ip>
+<netstat查看网络端口号>  netstat -tulpn 或者netstat -ano
+```
+
+##### netstat 常用选项
+
+| 选项 | 用途                       |
+| ---- | -------------------------- |
+| t    | 显示tcp传输协议的连接状况  |
+| u    | 显示udp传输协议的连接状况  |
+| l    | 显示处于监听状态的网络连接 |
+| p    | 显示应用PID和程序名称      |
+| n    | 显示ip地址                 |
+| a    | 显示所有连接               |
+| o    | 显示计时器                 |
+
+```html
+<查看进程&杀死进程>	ps -ef （单机程序使用这个，联网程序则选择netstat） 	kill -9 PID	
+    ps -ef | grep vim	筛选包含vim的进程（|代表通道）
+     netstat -tulpn | grep 	一样可以筛选
+```
+
+
 
 
 
