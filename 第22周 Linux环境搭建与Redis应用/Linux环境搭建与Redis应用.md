@@ -294,6 +294,50 @@ firewall-cmd --zone=public --permanent --add-port=8000-9000/tcp  放行一个区
 
 
 
+#### 应用服务化
+
+```html
+<应用服务化>
+应用服务化是指让应用程序以服务方式在系统后台运行
+Linux系统对服务化应用进行统一管理
+服务管理命令：<systemctl>	（系统 control）
+```
+
+##### systemctl
+
+| 指令            | 用途             |
+| --------------- | ---------------- |
+| start           | 启动服务         |
+| stop            | 停止服务         |
+| restart         | 重启服务         |
+| enable          | 设置开机启动     |
+| disable         | 禁止开启启动     |
+| status          | 查看服务状态     |
+| daemon-reload   | 重载服务配置文件 |
+| list-unit-files | 列出所有服务     |
+
+```
+find / -name *.pid 寻找本地上的所有.pid文件。pid是应用程序的进程id
+redis pid的文件名以及存储路径 /run/redis_6379.pid
+/usr/lib/systemd/system 该路径下存储的是文件服务描述文件
+
+After=syslog.target network.target remote-fs.target nss-lookup.target	（说明：必须在这些文件启动之后才容许启动redis.service服务）
+
+[Service]
+Type=forking	描述服务类型，后台运行
+PIDFile=/run/redis_6379.pid
+ExecStart=/usr/local/redis-5.0.14/src/redis-server /usr/local/redis-5.0.14/redis.conf
+(说明在执行redis service时，会加载这些文件)
+ExecStop=/bin/kill -s QUIT $MAINPID	 利用kill命令对指定的进程进行关闭	（运行时会将/run/redis_6379.pid中的值代入到MAINPID中）	（-s QUIT 通知进程采用正常流程进行退出，-9是强制退出）
+ 
+
+
+
+
+```
+
+
+
 
 
 Linux部署OA项目
