@@ -329,6 +329,32 @@ PIDFile=/run/redis_6379.pid
 ExecStart=/usr/local/redis-5.0.14/src/redis-server /usr/local/redis-5.0.14/redis.conf
 (说明在执行redis service时，会加载这些文件)
 ExecStop=/bin/kill -s QUIT $MAINPID	 利用kill命令对指定的进程进行关闭	（运行时会将/run/redis_6379.pid中的值代入到MAINPID中）	（-s QUIT 通知进程采用正常流程进行退出，-9是强制退出）
+PrivateTmp=true 代表为每一个service设置私有的临时文件目录
+
+[Install]
+WantedBy=multi-user.target	将当前redis 服务分配到multi-user.target这个服务组上（muti-user是系统默认的服务组，系统默认该服务组的服务能和系统一起启动）
+
+[Unit]
+Description=Redis
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/run/redis_6379.pid
+ExecStart=/usr/local/redis-5.0.14/src/redis-server /usr/local/redis-5.0.14/redis.conf
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl start redis	启动redis
+2022年6月16日11:53:54 把	Type=forking 删除掉能正确运行
+软关联，类似window的快捷方式
+shutdown -r now 立即重启
+
+systemctl list-unit-files	查看当每一个服务的状态
+2022年6月16日12:12:15 redis服务还是static状态
  
 
 
