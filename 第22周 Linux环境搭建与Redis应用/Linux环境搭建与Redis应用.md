@@ -355,12 +355,120 @@ shutdown -r now 立即重启
 
 systemctl list-unit-files	查看当每一个服务的状态
 2022年6月16日12:12:15 redis服务还是static状态
- 
+```
 
 
 
+#### Linux用户与用户组管理
+
+##### Linux用户与权限
 
 ```
+<用户>
+Linux是多用户多任务系统，包含两个概念：用户与用户组
+用户与账户是同一概念，用于登录系统与区分资源权限
+用户让系统变的更安全，同时也保护了用户的个人数字资产
+
+<用户组>
+用户组就是将用户分组，隶属用户自动拥有组权限
+一个用户可隶属于多个组，用户可任意切换当前组
+用户组的出现让用户权限管理变更轻松
+```
+
+##### 用户与用户组常用命令
+
+| 命令     | 用途                            |
+| -------- | ------------------------------- |
+| useradd  | 创建新用户                      |
+| passwd   | 修改密码                        |
+| usermod  | 修改用户信息/分配组（覆盖原组） |
+| groupadd | 创建新的用户组                  |
+| chown    | 更改文件的属主或属组            |
+| chmod    | 更改文件的访问权限              |
+| newgrp   | 切换用户当前组                  |
+
+##### 项目内部文件权限管理实践
+
+```
+[root@hadoop100 wei]# adduser d1
+[root@hadoop100 wei]# adduser d2
+[root@hadoop100 wei]# adduser d3
+[root@hadoop100 wei]# adduser t1
+d1 adduser11
+d2 adduser22
+d3 adduser33
+t1 adduser11
+
+添加用户组
+[root@hadoop100 wei]# groupadd developer
+[root@hadoop100 wei]# groupadd testor
+
+添加用户到用户组
+[root@hadoop100 wei]# usermod -g developer d1
+[root@hadoop100 wei]# usermod -g developer d2
+[root@hadoop100 wei]# usermod -g testor t1
+
+查看用户隶属的用户组
+[root@hadoop100 wei]# groups
+root
+```
+
+#### Linux文件权限设置
+
+```
+/usr/local/share/ 是共享文件夹，即所有的用户都看到该文件
+[root@hadoop100 wei]# cd /usr/local/share/
+[root@hadoop100 share]# ls
+applications  info  man
+[root@hadoop100 share]# mkdir dev-document
+
+drwxr-xr-x.  2 root root   6 6月  18 15:03 dev-document
+第一个root 代表的是当前创建这个目录的是哪个用户，也就是这个目录的拥有者、宿主
+第二个root 则是对应了这个目录所关联的用户组是哪个
+
+drwx   r-x  r-x  代表root用户有完整的权限，其他组员/用户组以外 只有r-x，没有w写权限
+
+[root@hadoop100 share]# chown d1:developer dev-document
+[root@hadoop100 share]# ll
+总用量 0
+drwxr-xr-x.  2 d1   developer   6 6月  18 15:03 dev-document
+目录所关联的用户组变成了developer，宿主变成了d1	但用户组之外的人还可以访问该文件，权限并没有变
+
+chmod 750 dev-document/ 改变文件目录权限		（这里的750是指 主 7 = 4+2+1，组 5=4+1，其他 0 = 0+0+0 参考下图）
+[t1@hadoop100 share]$ cd dev-document/
+-bash: cd: dev-document/: 权限不够			此时非同一用户组的t1访问不了该文件
+
+[d1@hadoop100 dev-document]$ ll
+总用量 4
+-rw-r--r--. 1 d1 developer 24 6月  18 15:34 code.md
+带 -开头的是文件而非文件夹
+
+文件授权
+[d1@hadoop100 dev-document]$ chmod 770 code.md 
+[d1@hadoop100 dev-document]$ ll
+总用量 4
+-rwxrwx---. 1 d1 developer 24 6月  18 15:34 code.md
+
+
+如何让一个用户拥有两个组 ？
+usermod -G developer,testor d1 (需要重新连接一下才能更新)
+如果d1需要查看testor组的内容需要 切换用户组 newgrp testor
+[d1@hadoop100 ~]$ groups
+testor developer
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220618151150860.png" alt="image-20220618151150860" style="zoom:50%;" />
+
+```html
+<chmod命令>
+chmod750:组用户可读写，其他用户不允许访问
+chmod777:所有用户拥有完整权限
+chmod700:只有属主拥有完整权限
+```
+
+
+
+
 
 
 
@@ -368,7 +476,7 @@ systemctl list-unit-files	查看当每一个服务的状态
 
 Linux部署OA项目
 
-
+k
 
 ```html
 <主要知识点>
