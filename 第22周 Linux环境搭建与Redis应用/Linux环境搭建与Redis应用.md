@@ -243,28 +243,6 @@ yum install -y tree.x86_64 (遇到所有的询问统一用y回答)
 
 
 
-#### firewall 防火墙设置实战
-
-```
-什么是防火墙
-防火墙是借助硬件和软件对内外部网络环境的保护措施
-CentOS7基于firewall实现应用层防火墙，CentOS6基于iptables
-firewall--cmd是firewalle的核心命令
-
-对外开放Tomcat
-启动Tomcat [root@hadoop102 bin]# ./startup.sh 
-查看是否启动成功 netstat -tulpn|grep 8080	
-在window系统不能通过虚拟机域名+8080端口直接访问到Tomcat，需要在防火墙上设置放行
-查看防火墙是否已经启动 firewall-cmd --state
-查看防火墙放行端口 firewall-cmd --list-ports
-firewall-cmd --zone=public --permanent --add-port=8080/tcp	(zone为区域的意思，permanent为永久变更，--add-port=8080/tcp 采用tcp方式进行时会放行8080端口 )
-firewall--cmd --reload 防火墙进行配置重载
-firewall-cmd --zone=public --permanent --remove-port=8080/tcp	移除8080端口
-firewall-cmd --zone=public --permanent --add-port=8000-9000/tcp  放行一个区域的端口
-```
-
-
-
 ### Linux进阶应用
 
 #### Linux系统管理命令
@@ -468,9 +446,85 @@ chmod700:只有属主拥有完整权限
 
 
 
+#### sudo获取超级管理员权限
+
+```html
+<sudo>
+sudo可以让普通用户拥有超级管理员的执行权限
+普通用户要进行经过超级管理员授权才能使用
+授权命令：visudo
+    
+root用户下：visudo 
+在对齐root的情况下输入
+d1    ALL(ALL)	ALL	（第一个all表示从哪个主机名能执行sudo命令。第二个ALL表示容许切换其他用户。第三个ALL表示容许执行所有命令）
+普通模式下输入：100gg 	快速定位到100行
+    
+最后加上visudo -c （对这个文件进行格式检查）
+d1此时还是不能创建新用户，但是加上sudo useradd d3 就ok
+为了避免频繁的输入密码 可以加上	d1    ALL(ALL)	NOPASSWD:ALL
+```
 
 
 
+#### firewall防火墙设置实战
+
+```
+什么是防火墙
+防火墙是借助硬件和软件对内外部网络环境的保护措施
+CentOS7基于firewall实现应用层防火墙，CentOS6基于iptables
+firewall--cmd是firewalle的核心命令
+
+对外开放Tomcat
+启动Tomcat [root@hadoop102 bin]# ./startup.sh 
+查看是否启动成功 netstat -tulpn|grep 8080	
+在window系统不能通过虚拟机域名+8080端口直接访问到Tomcat，需要在防火墙上设置放行
+查看防火墙是否已经启动 firewall-cmd --state
+查看防火墙放行端口 firewall-cmd --list-ports
+firewall-cmd --zone=public --permanent --add-port=8080/tcp	(zone为区域的意思，permanent为永久变更，--add-port=8080/tcp 采用tcp方式进行时会放行8080端口 )
+firewall-cmd --reload 防火墙进行配置重载		（上一条命令配置8080端口之后需要重载才能生效。remove和add都需要重载）
+firewall-cmd --zone=public --permanent --remove-port=8080/tcp	移除8080端口
+firewall-cmd --zone=public --permanent --add-port=8000-9000/tcp  放行一个区域的端口
+
+[root@hadoop102 bin]# ./startup.sh  启动防火墙，但只能在虚拟机上访问。windows无法访问
+systemctl start firewalld 	启动防火墙
+```
+
+
+
+#### Bash Shell
+
+```shell
+什么是Shell
+Shell是一个用c语言编写的脚本解释器，是用户通过代码操作Linux的桥梁
+Shell脚本描述要执行的任务，完成系列复杂操作，文件通常以.sh后缀
+Shell脚本通过Shell解释器执行，按解释器分类分为多种类型
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220619201547785.png" alt="image-20220619201547785" style="zoom:50%;" />
+
+##### 最常用的是bash  
+
+##### 一键发布Tomcat应用程序
+
+```
+echo "准备下载Tomcat9"
+wget https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz	（从网络中下载东西）
+echo "正在解压缩Tomcat9"
+tar zxf apache-tomcat-9.0.64.tar.gz			（zxvf中的v表示显示解压缩的完整过程,在批处理中不需要）
+echo "防火墙开放8080端口"
+firewall-cmd --zone=public --permanent --add-port=8080/tcp
+firewall-cmd --reload
+echo "启动Tomcat"
+cd ./apache-tomcat-9.0.34/bin
+./startup.sh
+
+如何运行shell脚本？  /bin/bash deploy_tomcat.sh 或者 ./deploy_tomcat.sh		(./表示当前目录下，必须要加)
+
+[root@hadoop102 local]# ./deploy_tomcat.sh
+bash: ./deploy_tomcat.sh: 权限不够					提示权限不够
+
+
+```
 
 
 
