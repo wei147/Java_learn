@@ -521,14 +521,18 @@ cd ./apache-tomcat-9.0.34/bin
 如何运行shell脚本？  /bin/bash deploy_tomcat.sh 或者 ./deploy_tomcat.sh		(./表示当前目录下，必须要加)
 
 [root@hadoop102 local]# ./deploy_tomcat.sh
-bash: ./deploy_tomcat.sh: 权限不够					提示权限不够
-
-
+bash: ./deploy_tomcat.sh: 权限不够					提示权限不够，需要用chmod赋予root用户执行权限
 ```
 
 
 
-Linux部署OA项目
+#### Linux部署OA项目-环境准备
+
+##### 综合训练：Linux部署慕课网办公OA
+
+部署架构
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220620233654102.png" alt="image-20220620233654102" style="zoom:50%;" />
 
 k
 
