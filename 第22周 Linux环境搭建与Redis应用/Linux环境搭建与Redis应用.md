@@ -534,6 +534,88 @@ bash: ./deploy_tomcat.sh: 权限不够					提示权限不够，需要用chmod�
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220620233654102.png" alt="image-20220620233654102" style="zoom:50%;" />
 
+```
+需要最小化安装WEB服务器和DB数据服务器  安装参考https://www.likecs.com/show-204581261.html
+用root用户登录之后，输入ifconfig ，提示命令没有找到，需要yum install -y net-tools.x86_64 安装
+centos-db ip:192.168.10.131
+centos-web ip:192.168.10.132
+```
+
+#### CentOS安装MySQL8
+
+```html
+先找到mysql 8的链接下载地址 https://dev.mysql.com/get/mysql80-community-release-el7-6.noarch.rpm
+然后在linux 安装 wget 		yum install -y wget
+wget https://dev.mysql.com/get/mysql80-community-release-el7-6.noarch.rpm
+将下载到本地的rpm包安装，命令是:	yum localinstall -y mysql80-community-release-el7-6.noarch.rpm 
+以上，mysql 8的安装源准备好了
+<安装mysql的社区版> yum install -y mysql-community-server	(安装太慢了)
+解决思路是 先在windows下载centos的完整安装包，然后通过xftp传到 /var/cache/yum/x86_64/7/mysql-connectors-community/packages  然后在yum install -y mysql-community-server (会自动下载一些其他依赖)
+
+（遇到报错 [获取 GPG 密钥失败：[Errno 14] curl#37 - "Couldn't open file /etc/pki/rpm-gpg/RPM-GPG-KEY-mysql-2022"] 时需要 改一下 vi /etc/yum.repos.d/mysql-community.repo 不校验 令gpgcheck=0）
+
+<启动mysql>
+通过yum模式进行安装，mysql会以服务的方式在系统中进行驻留
+[root@localhost packages]# systemctl start mysqld
+[root@localhost packages]# netstat -tulpn | grep mysql	查看
+[root@localhost packages]# systemctl status mysqld		查看服务状态
+[root@localhost packages]# systemctl enable mysqld		设置mysql服务随系统自动启动
+    
+<初始化MySQL>
+mysql -uroot -p		会提示 ERROR 1045 (28000): Access denied for user 'root'@'localhost' 
+vi /var/log/mysqld.log	在这个日志文件中可以看到 mysql为我们提供的密码
+再次登录mysql后，需要改变默认的root密码
+mysql> alter user 'root'@'localhost' identified with mysql_native_password by 'Wwwei199905.'
+    （加上mysql_native_password 能兼容5.0，兼容性的考虑）
+   
+默认的root用户只能从本机登录。如何让root从远程登录？ 就涉及到如何修改root用户容许登录的设备
+    mysql> use mysql
+    mysql> select host,user from user;
+	mysql> update user set host='%' where user='root';		（%表示容许root在所有设备上登录）
+    mysql> flush privileges;		（这条命令可以让上一条修改权限的数据立即生效）
+    
+    因为要从远程访问mysql，所以要放行防火墙3306端口
+    firewall-cmd --zone=public --permanent --add-port=public --permanent --add-port=3306/tcp
+    firewall-cmd --reload		(重载，使生效)
+```
+
+
+
+#### 部署配置Web应用服务器
+
+```
+什么是open jdk? (java-1.8.0-openjdk.x86_64)	开源的java JDK
+[root@localhost ~]# yum install -y java-1.8.0-openjdk.x86_64		安装
+[root@localhost ~]# java -version		查看java版本
+[root@localhost ~]# which java		/usr/bin/java    查看安装目录
+
+[root@localhost local]# tar zxf apache-tomcat-9.0.64.tar.gz 		拖入并解压tomcat
+
+[root@localhost local]# tar zxf imooc-oa.war 解压war包	（这里报错，先安装 yum install unzip unzip 文件名）
+将解压文件移动到  mv imooc_oa ./apache-tomcat-9.0.64/webapps/
+
+先安装vim   yum install -y vim-common 公共基础包 和vim增强包 yum install -y vim-enhanced 对oa项目文件进行修改配置 mybatis-config.xml
+vim /usr/local/apache-tomcat-9.0.64/webapps/imooc-oa/src/main/resources/mybatis-config.xml
+
+修改tomcat文件 vi ./conf/server.xml
+        <Context path="/" docBase="imooc-oa" />
+      </Host>
+将imooc-oa的地址映射到根目录
+
+启动tomcat
+[root@localhost apache-tomcat-9.0.64]# ./bin/startup.sh 
+查看启动情况 netstat -tulpn
+启动之后将80端口进行对外暴露	firewall-cmd --zone=public --permanent --add-port=80/tcp
+	firewall-cmd --reload 还是重载
+	
+错误汇总：用unzip解压文件时用记得设置一个
+
+
+
+```
+
+
+
 k
 
 ```html
