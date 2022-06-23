@@ -598,7 +598,7 @@ mysql> alter user 'root'@'localhost' identified with mysql_native_password by 'W
 vim /usr/local/apache-tomcat-9.0.64/webapps/imooc-oa/src/main/resources/mybatis-config.xml
 
 修改tomcat文件 vi ./conf/server.xml
-        <Context path="/" docBase="imooc-oa" />
+        <Context path="/" docBase="imooc_oa" />
       </Host>
 将imooc-oa的地址映射到根目录
 
@@ -608,7 +608,14 @@ vim /usr/local/apache-tomcat-9.0.64/webapps/imooc-oa/src/main/resources/mybatis-
 启动之后将80端口进行对外暴露	firewall-cmd --zone=public --permanent --add-port=80/tcp
 	firewall-cmd --reload 还是重载
 	
-错误汇总：用unzip解压文件时用记得设置一个
+错误汇总：用unzip解压文件时用记得设置一个文件名
+
+为了避免其他都连接这个mysql，所以有必要做一个限制
+firewall-cmd --zone=public --permanent --remove-port=80/tcp	先屏蔽3306端口
+firewall-cmd --reload 还是重载
+
+firewall-cmd  --permanent --zone=public --add-rich-rule="rule family="ipv4" source address="192.168.10.132" port protocol="tcp" port="3306" accept"
+当防火墙遇到 192.168.10.132 这个ip
 
 
 
