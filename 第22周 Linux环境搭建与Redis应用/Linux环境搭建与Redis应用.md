@@ -610,20 +610,18 @@ vim /usr/local/apache-tomcat-9.0.64/webapps/imooc-oa/src/main/resources/mybatis-
 	
 错误汇总：用unzip解压文件时用记得设置一个文件名
 
-为了避免其他都连接这个mysql，所以有必要做一个限制
+为了避免其他都连接这个mysql，保证一个安全性所以有必要做一个限制
 firewall-cmd --zone=public --permanent --remove-port=80/tcp	先屏蔽3306端口
 firewall-cmd --reload 还是重载
 
 firewall-cmd  --permanent --zone=public --add-rich-rule="rule family="ipv4" source address="192.168.10.132" port protocol="tcp" port="3306" accept"
-当防火墙遇到 192.168.10.132 这个ip
-
-
-
+注释：这条命令当防火墙遇到 192.168.10.132 这个ip向本机3306端口发送的数据包则给予放行
+firewall-cmd --reload
 ```
 
 
 
-k
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220624132639288.png" alt="image-20220624132639288" style="zoom: 50%;" />
 
 ```html
 <主要知识点>
@@ -633,5 +631,94 @@ k
 ◆yum应用安装与卸载
 ◆CentOS的权限与系统安全
 ◆部署OA项目至Linux服务器
+```
+
+
+
+## Redis
+
+#### Redis介绍
+
+```html
+内存型数据库 no-sql数据库
+课程内容
+<Redis介绍与安装>
+<掌握Redisl的常用命令与数据类型>
+<掌握在ava中操作Redis>
+    
+redis最核心的特性就是把原本存在硬盘的那些数据，把它转移到内存中，利用内存的高性能来提高程序的性能
+    
+nosql : 不仅仅只有sql		（轻量级数据库）
+```
+
+```
+<Redis介绍>
+Redis是Key-Value型NoSQL数据库
+Redis>将数据存储在内存中，同时也能持久化到磁盘
+Redisi常用于缓存，利用内存的高效提高程序的处理速度	（模式：redis从mysql那拿到数据，再由java从redis读取速度就会快很多）
+
+java中的map 的key与value。redis可以看做是一个超大型的Map对象？
+```
+
+
+
+#### Redis特点
+
+```
+速度快
+广泛的语言支持
+持久化
+多种数据结构
+主从复制	（备份，数台redis服务器存储的数据是相同的）
+分布式与高可用 （高可用：随时打开随时可用）
+```
+
+#### 
+
+#### Linux系统安装Redis
+
+```html
+<Redis的安装和启动>
+在Linux系统中安装Redis
+在Vindows系统中安装Redis
+
+cd到/usr/local/redis/redis-5.0.14 要让源代码成为能够运行的文件，需要用make。（需要先安装gcc,编译安装的make就是来源于gcc）
+
+启动文件：/usr/local/redis/redis-5.0.14/src/redis-server
+redis的连接客户端： /usr/local/redis/redis-5.0.14/src/redis-cli
+启动命令：[root@hadoop102 redis-5.0.14]# ./src/redis-server redis.conf
+```
+
+
+
+#### Window系统安装Redis
+
+```
+启动命令 ：redis-server.exe redis.windows.conf	（在redis目录下启动）
+```
+
+
+
+#### 守护进程方式启动
+
+##### redis的常用基本配置
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220625100223007.png" alt="image-20220625100223007" style="zoom:50%;" />
+
+```
+如果想让redis以服务的形式在后台运行，需要修改 daemonize 
+daemonize yes
+
+杀死/退出进程：kill -9 pid (不推荐)
+```
+
+
+
+#### Redis常用基本配置
+
+```
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli 	检测服务可以输入ping （响应是pong） ctrl c | exit 退出
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli shutdown   （更为合适的退出redis命令）
+netstat -tulpn | grep redis
 ```
 
