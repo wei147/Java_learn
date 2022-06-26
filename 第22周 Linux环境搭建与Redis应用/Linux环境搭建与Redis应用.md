@@ -720,5 +720,81 @@ daemonize yes
 [root@hadoop102 redis-5.0.14]# ./src/redis-cli 	检测服务可以输入ping （响应是pong） ctrl c | exit 退出
 [root@hadoop102 redis-5.0.14]# ./src/redis-cli shutdown   （更为合适的退出redis命令）
 netstat -tulpn | grep redis
+
+vim redis.conf  port改为6379 -> 6380
+logfile "redis.log"  设置默认的日志文件，默认为空 （在redis-5.0.14下）
+
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli 
+Could not connect to Redis at 127.0.0.1:6379: Connection refused		（端口更改引发的错误）
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli -p 6380		（更改客户端连接端口）
+
+redis的数据库是没有名字的，以编号来区分 0-15，共16个（默认可更改）
+databases 16	（16即为数据库编号上限）
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli -p 6380 shutdown		（关闭redis服务）
+
+redis.cof 里关于设置密码的(要输入密码才能访问)	# requirepass foobared -> requirepass 1234
+127.0.0.1:6380> ping
+(error) NOAUTH Authentication required.
+127.0.0.1:6380> auth 1234		（要输入密码才能访问）
+
+ dump.rdb	redis目录下就能看到，用来备份的。防止突然带来的宕机，不会造成数据上的损失
+```
+
+
+
+#### redis通用命令
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220626095056717.png" alt="image-20220626095056717" style="zoom:50%;" />
+
+```
+keys * 用于匹配该数据库的所有键 
+```
+
+
+
+#### Redis数据类型
+
+```
+String-字符串类型
+Hash-Hash类型
+List-列表类型
+Set-集合类型
+Zset-有序集合类型
+```
+
+##### String字符串类型
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220626154417641.png" alt="image-20220626154417641" style="zoom:33%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220626154638291.png" alt="image-20220626154638291" style="zoom: 33%;" />
+
+```
+incr 只能对数字进行自增，对字符无效
+decrby age 3 对age自减3
+```
+
+
+
+##### Hash键值类型
+
+```
+Hash类型用于存储结构化数据
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220626230826717.png" alt="image-20220626230826717" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220626230902101.png" alt="image-20220626230902101" style="zoom: 50%;" />
+
+```
+127.0.0.1:6380[1]> hget emp:1 age
+"19"
+127.0.0.1:6380[1]> hgetall emp:1		（getall 获取所有emp:1的值）
+1) "name"
+2) "xiaoming"	......
+127.0.0.1:6380[1]> hmset emp:2 name wei age 23 birthday 1999-05-29 	（一次为emp:2设置多个键值）
+del emp:1 是将整个key从redis中删除
+hdel emp:1 age	是删除指定key中的某个属性
+hlen emp:1 返回属性长度
+hexists emp:1 age 查看属性是否存在
 ```
 
