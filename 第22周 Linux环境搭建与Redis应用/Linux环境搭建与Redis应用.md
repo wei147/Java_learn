@@ -798,3 +798,26 @@ hlen emp:1 返回属性长度
 hexists emp:1 age 查看属性是否存在
 ```
 
+
+
+##### List列表类型
+
+```
+Lst列表就是一系列字符串的"数组”，按插入顺序排序
+List列表最大长度为2的32次方-1，可以包含40亿个元素
+```
+
+```html
+<List命令>
+rpush listey c b a -右侧插入		（r是right，从右侧插入）
+lpush listey f e d -左侧插入		（l是left，从左侧插入）
+rpop listkey -右侧弹出
+lpop listkey -左侧弹出
+
+[root@hadoop102 ~]# cd /usr/local/redis/redis-5.0.14/
+[root@hadoop102 redis-5.0.14]# ./src/redis-server redis.conf 
+[root@hadoop102 redis-5.0.14]# ./src/redis-cli -p 6380
+
+LRANGE listkey 0 -1  （查看listkey里的值， -1代表末尾。即将第一个到最后一个都）
+```
+
