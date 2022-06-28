@@ -821,3 +821,52 @@ lpop listkey -左侧弹出
 LRANGE listkey 0 -1  （查看listkey里的值， -1代表末尾。即将第一个到最后一个都）
 ```
 
+
+
+##### Set与Zset集合类型
+
+```
+Set集合是字符串的无序集合，集合成员是唯一的
+Zset集合是字符串的有序集合，集合成员是唯一的
+
+sadd set1 a  设置key为set1的集合，值是 a
+smembers set1	查看set1的值
+
+集合的运算
+sinter set1 set2	求set1和set2的交集
+sunion set1 set2 	两个集合的并集
+sdiff set1 set2 	两个集合的差集（set1中有，set2中没有的元素）
+
+Zset
+zadd zset1 100 a	设置key为zset1的Z集合，权值为100 值为a		(权值越小，越靠前面)
+zrange zset1 0 -1	遍历zset1
+zrange zset1 0 -1 withscores	遍历时连分数也一起显示 
+zrangebyscore zset1 100 102		通过分数筛选
+```
+
+
+
+#### Jedis介绍与环境准备
+
+#### Java客户端-Jedis
+
+```
+Jedis是Java语言开发的Redis客户端工具包
+Jedis只是对Redisi命令的封装，掌握Redis命令便可轻易上手
+
+redis配置
+1.vim redis.conf
+protected-mode yes		当开启这个的话，只容许指定的IP地址才能进行访问。先设置为no （88行）
+bind 127.0.0.1			现在是只容许本机访问，改为0.0.0.0，容许其他ip访问 （69行）
+以上设置完成之后，还需要放行6379端口，才能让其他ip连接本机redis
+firewall-cmd --zone=public --add-port=6379/tcp --permanent
+firwall-cmd --reload
+本机ip是：192.168.10.102
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>4.2.0</version>
+</dependency>
+
+```
+
