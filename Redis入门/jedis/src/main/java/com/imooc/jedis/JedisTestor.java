@@ -42,7 +42,19 @@ public class JedisTestor {
             jedis.hmset("student:1999", studentMap);
             //这里的两个String是因为Map数据类型的键和值都需要转为String类型？
             Map<String, String> text = jedis.hgetAll("student:1999");
-            System.out.println(text);
+//            System.out.println(text);
+
+            //List
+            jedis.del("letter"); //清除letter
+            jedis.rpush("letter",new String[]{"e","d","z"});    //注意：这里每执行一次都会添加
+            jedis.lpush("letter", new String[]{"a","b","c"});
+//            List<String> letter = jedis.lrange("letter",0,-1);
+            List<String> letter1 = jedis.lrange("letter",0,-1);
+            jedis.lpop("letter");   //将左侧第一个元素移出 c
+            jedis.rpop("letter");   //将右侧第一个元素移出 z
+            List<String> letter = jedis.lrange("letter",0,-1);
+            System.out.println(letter1);
+            System.out.println(letter);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
