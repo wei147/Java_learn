@@ -870,3 +870,7 @@ firwall-cmd --reload
 
 ```
 
+
+
+#### 利用Jedis缓存数据
+
