@@ -205,3 +205,68 @@ public class Application {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220704155214015.png" alt="image-20220704155214015" style="zoom: 50%;" />
 
+
+
+#### Spring Ioc初体验
+
+```
+<spring-context文件说明>
+spring-core：spring最核心、最核心的代码
+spring-beans：spring对bean，也就是java对象管理的模块。像ioc容器中对对象实例化、设置关联通过该模块起作用
+spring-expression：spring内置的表达式模块
+spring-jcl：spring与日志进行交互的模块
+spring-aop：对应了面向切面编程的模块
+spring-context：上下文，通过application context对象可以让我们通过代码来对spring ioc 容器进行创建
+以上六个底层依赖完成了spring ioc容器的工作
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Spring ioc的核心配置文件。所有对象的创建以及关联的设置都是在这个xml中来进行的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 在Ioc容器启动时，自动由spring实例化Apple对象，取名为sweetApple放入到容器中 -->
+    <bean id="sweetApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="红富士"></property>
+        <property name="origin" value="欧洲"></property>
+        <property name="color" value="红色"></property>
+    </bean>
+    <bean id="sourApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="青苹果"></property>
+        <property name="origin" value="中亚"></property>
+        <property name="color" value="绿色"></property>
+    </bean>
+    <bean id="softApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="金帅"></property>
+        <property name="origin" value="中国"></property>
+        <property name="color" value="黄色"></property>
+    </bean>
+</beans>
+```
+
+```java
+package com.imooc.spring.ioc.entity.com.imooc.spring.ioc;
+import com.imooc.spring.ioc.entity.Apple;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
+
+/**
+ * 所谓ioc容器就是通过配置的方式，让我们在不需要new关键字的情况下对对象进行创建
+ * 对于Spring来说，创建对象是其最基础的工作。与此同时，它还有一个重要职能是维护对象的关联关系
+ */
+public class SpringApplication {
+    public static void main(String[] args) {
+        //作为spring ioc容器要先启动才能对配置的bean进行实例化
+        //含义是：去加载指定的xml文件来初始化Ioc容器
+        //classpath 当前类路径下去查找文件
+        //context指代了Spring ioc容器
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        Apple sweetApple = context.getBean("sweetApple", Apple.class);
+        String title = sweetApple.getTitle();
+        System.out.println(title);
+    }
+}
+```
+
