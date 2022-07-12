@@ -207,7 +207,7 @@ public class Application {
 
 
 
-#### Spring Ioc初体验
+#### Spring Ioc初体验 1
 
 ```
 <spring-context文件说明>
@@ -247,14 +247,27 @@ spring-context：上下文，通过application context对象可以让我们通�
 ```
 
 ```java
+//SpringApplication.java 已更新看下边
+```
+
+#### Spring Ioc初体验 2
+
+```java
+//SpringApplication.java
 package com.imooc.spring.ioc.entity.com.imooc.spring.ioc;
+
 import com.imooc.spring.ioc.entity.Apple;
+import com.imooc.spring.ioc.entity.Child;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
-
 /**
  * 所谓ioc容器就是通过配置的方式，让我们在不需要new关键字的情况下对对象进行创建
  * 对于Spring来说，创建对象是其最基础的工作。与此同时，它还有一个重要职能是维护对象的关联关系
+ * 利用反射技术在程序运行时动态的进行设置。灵活的
+ * 2022年7月11日00:25:47 利用spring ioc容器让我们对象和对象之间进行有效的解耦
+ * 之前：对象关系通过代码来实现  现在：对象关系通过配置来实现
+ * ioc何为控制反转：所谓控制反转是与我们程序主动创建相对的（通过new来创建）。现在是被动的从容器（所有对象、关系被ioc创建并管理）中提取。
+ * 通过ioc这个第三者的介入，让程序的维护性和拓展性上升了一个层次
  */
 public class SpringApplication {
     public static void main(String[] args) {
@@ -264,9 +277,89 @@ public class SpringApplication {
         //context指代了Spring ioc容器
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         Apple sweetApple = context.getBean("sweetApple", Apple.class);
-        String title = sweetApple.getTitle();
-        System.out.println(title);
-    }
-}
+        System.out.println(sweetApple.getTitle());
+
+        //从Ioc容器中提取beanId = Lily的对象
+        Child lily = context.getBean("lily",Child.class);
+//        System.out.println(lily.getApple().getTitle() + lily.getName());
+        lily.eat();
+
+        Child wei = context.getBean("wei",Child.class);
+        wei.eat();
+
+        Child YanFei = context.getBean("YanFei",Child.class);
+        YanFei.eat();}}
+```
+
+
+
+#### 初始化Ioc容器
+
+##### XML管理对象（Beans）
+
+```
+Bean的编码要求：java bean 必须要有默认构造函数以及属性私有并且通过get set方法设置属性
+Spring ioc容器中管理的就是一个个具体的java bean
+```
+
+```html
+<三种配置方式>
+	<基于XML配置Bean>
+//创建Ioc容器并根据配置文件创建对象
+ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+基于注解配置Bean
+基于Java代码配置Bean
+注：三种配置方式本质上是一样的，都是告诉spring ioc容器如何实例化、如何管理这些bean
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220711125227623.png" alt="image-20220711125227623" style="zoom:50%;" />
+
+```
+Core Container里的Context包含了 Ioc容器
+```
+
+如何通过带参构造方法创建对象呢？默认是无参的构造方法
+
+##### 利用带参构造方法实例化对象
+
+```
+讲解三种XML实例化Bean的配置方式
+1.基于（默认）构造方法实例化对象（重点）
+2.基于静态工厂实例化对象
+3.基于工厂实例化方法实例化对象
+根据以上三种方式可分为两种：一种是通过构造方法。另一种是基于工厂来进行对象的创建
+```
+
+```xml
+ <bean id="apple1" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--作为bean，如果不写任何信息的话，bean标签默认通过默认构造方法创建对象。     对应实体类public Apple() {-->
+<!--        <property name="title" value="青苹果"></property>-->
+     </bean>
+
+    <bean id="apple2" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--没有constructor-arg则代表调用默认构造方法实例化-->
+        <constructor-arg name="title" value="青苹果"></constructor-arg>
+        <constructor-arg name="color" value="青"></constructor-arg>
+        <constructor-arg name="origin" value="中亚"></constructor-arg>
+<!--        这里price设置的是字符串，但会根据实体类中定义自动转变类型 字符串到数字的转换-->
+        <constructor-arg name="price" value="19.9"></constructor-arg>
+    </bean>
+
+    <bean id="apple3" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--利用构造方法参数位置实现对象实例化-->
+        <constructor-arg index="0" value="青苹果"></constructor-arg>
+        <constructor-arg index="1" value="青"></constructor-arg>
+        <constructor-arg index="2" value="中亚"></constructor-arg>
+        <constructor-arg index="3" value="19.9"></constructor-arg>
+    </bean>
+```
+
+
+
+##### 基于工厂实例化对象
+
+```
+工厂：即是工厂模式。工厂模式的根本用途是隐藏创建类的细节，通过一个额外的工厂类来组织、创建我们需要的对象
+按照工厂的表现形式又可以分为静态工厂和工厂实例  
 ```
 

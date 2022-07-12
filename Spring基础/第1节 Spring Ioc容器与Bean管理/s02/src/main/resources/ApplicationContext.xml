@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Spring ioc的核心配置文件。所有对象的创建以及关联的设置都是在这个xml中来进行的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        <!--bean标签，bean的含义是用于通知ioc容器实例化哪个对象-->
+    <bean id="apple1" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--作为bean，如果不写任何信息的话，bean标签默认通过默认构造方法创建对象。     对应实体类public Apple() {-->
+<!--        <property name="title" value="青苹果"></property>-->
+     </bean>
+
+    <bean id="apple2" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--没有constructor-arg则代表调用默认构造方法实例化-->
+        <constructor-arg name="title" value="青苹果"></constructor-arg>
+        <constructor-arg name="color" value="青"></constructor-arg>
+        <constructor-arg name="origin" value="中亚"></constructor-arg>
+    <!--   这里price设置的是字符串，但会根据实体类中定义自动转变类型 字符串到数字的转换-->
+        <constructor-arg name="price" value="19.9"></constructor-arg>
+    </bean>
+
+    <bean id="apple3" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--利用构造方法参数位置实现对象实例化-->
+        <constructor-arg index="0" value="青苹果"></constructor-arg>
+        <constructor-arg index="1" value="青"></constructor-arg>
+        <constructor-arg index="2" value="中亚"></constructor-arg>
+        <constructor-arg index="3" value="19.9"></constructor-arg>
+    </bean>
+
+    <!--利用静态工厂获取对象-->
+    <bean id="apple4" class="com.imooc.spring.ioc.factory.AppleStaticFactory"
+    factory-method="createSweetApple">
+    </bean>
+
+    <!--利用工厂实例方法获取对象-->
+    <!--ioc初始化的过程中，会先对这个工厂实例化    -->
+    <bean id="AppleFactoryInstance" class="com.imooc.spring.ioc.factory.AppleFactoryInstance"></bean>
+    <bean id="apple5" factory-bean="AppleFactoryInstance" factory-method="createSweetApple"></bean>
+</beans>

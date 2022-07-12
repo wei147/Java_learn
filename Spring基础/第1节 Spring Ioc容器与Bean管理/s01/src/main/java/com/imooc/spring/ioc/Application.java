@@ -1,4 +1,4 @@
-package com.imooc.spring.ioc.entity.com.imooc.spring.ioc;
+package com.imooc.spring.ioc;
 
 import com.imooc.spring.ioc.entity.Apple;
 import com.imooc.spring.ioc.entity.Child;
