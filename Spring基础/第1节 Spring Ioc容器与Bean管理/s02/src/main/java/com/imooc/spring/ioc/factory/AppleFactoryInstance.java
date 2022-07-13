@@ -15,5 +15,4 @@ public class AppleFactoryInstance {
         apple.setColor("金色");
         return apple;
     }
-
 }

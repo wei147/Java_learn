@@ -10,14 +10,14 @@
 <!--        <property name="title" value="青苹果"></property>-->
      </bean>
 
-    <bean id="apple2" class="com.imooc.spring.ioc.entity.Apple" >
-        <!--没有constructor-arg则代表调用默认构造方法实例化-->
-        <constructor-arg name="title" value="青苹果"></constructor-arg>
-        <constructor-arg name="color" value="青"></constructor-arg>
-        <constructor-arg name="origin" value="中亚"></constructor-arg>
-    <!--   这里price设置的是字符串，但会根据实体类中定义自动转变类型 字符串到数字的转换-->
-        <constructor-arg name="price" value="19.9"></constructor-arg>
-    </bean>
+<!--    <bean id="apple2" class="com.imooc.spring.ioc.entity.Apple" >-->
+<!--        &lt;!&ndash;没有constructor-arg则代表调用默认构造方法实例化&ndash;&gt;-->
+<!--        <constructor-arg name="title" value="青苹果"></constructor-arg>-->
+<!--        <constructor-arg name="color" value="青"></constructor-arg>-->
+<!--        <constructor-arg name="origin" value="中亚"></constructor-arg>-->
+<!--    &lt;!&ndash;   这里price设置的是字符串，但会根据实体类中定义自动转变类型 字符串到数字的转换&ndash;&gt;-->
+<!--        <constructor-arg name="price" value="19.9"></constructor-arg>-->
+<!--    </bean>-->
 
     <bean id="apple3" class="com.imooc.spring.ioc.entity.Apple" >
         <!--利用构造方法参数位置实现对象实例化-->
@@ -36,4 +36,11 @@
     <!--ioc初始化的过程中，会先对这个工厂实例化    -->
     <bean id="AppleFactoryInstance" class="com.imooc.spring.ioc.factory.AppleFactoryInstance"></bean>
     <bean id="apple5" factory-bean="AppleFactoryInstance" factory-method="createSweetApple"></bean>
+
+    <bean id="apple2" class="com.imooc.spring.ioc.entity.Apple" >
+        <!--没有constructor-arg则代表调用默认构造方法实例化-->
+        <constructor-arg name="title" value="青苹果"></constructor-arg>
+        <constructor-arg name="color" value="青"></constructor-arg>
+        <constructor-arg name="origin" value="中亚"></constructor-arg>
+    </bean>
 </beans>

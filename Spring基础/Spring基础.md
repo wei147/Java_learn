@@ -363,3 +363,47 @@ Core Container里的Context包含了 Ioc容器
 按照工厂的表现形式又可以分为静态工厂和工厂实例  
 ```
 
+```java
+//AppleFactoryInstance.java
+/**
+ * 工厂实例方法创建对象是指Ioc容器对工厂类进行实例化并调用对应的实例方法创建对象的过程
+ */
+public class AppleFactoryInstance {
+    public Apple createSweetApple(){
+        Apple apple = new Apple();
+        apple.setTitle("金苹果");
+        apple.setOrigin("格林大陆");
+        apple.setColor("金色");
+        return apple;}}
+```
+
+```java
+//AppleStaticFactory.java
+/**
+ * 静态工厂通过静态方法创建对象，隐藏创建对象的细节
+ */
+public class AppleStaticFactory {
+    //创建一个甜苹果对象，返回值是apple对象
+    //静态方法：用于创建对象的方法是静态的
+    public static Apple createSweetApple(){
+        //logger.info("")   用工厂的方法能实现一些额外的功能
+        Apple apple = new Apple();
+        apple.setTitle("金苹果");
+        apple.setOrigin("格林大陆");
+        apple.setColor("金色");
+        return apple;}}
+```
+
+```xml
+<!--ApplicationContext.xml-->
+
+<!--利用静态工厂获取对象-->
+<bean id="apple4" class="com.imooc.spring.ioc.factory.AppleStaticFactory"
+factory-method="createSweetApple">
+</bean>
+
+<!--利用工厂实例方法获取对象-->
+<!--ioc初始化的过程中，会先对这个工厂实例化    -->
+<bean id="AppleFactoryInstance" class="com.imooc.spring.ioc.factory.AppleFactoryInstance"></bean>
+<bean id="apple5" factory-bean="AppleFactoryInstance" factory-method="createSweetApple"></bean>
+```
