@@ -407,3 +407,86 @@ factory-method="createSweetApple">
 <bean id="AppleFactoryInstance" class="com.imooc.spring.ioc.factory.AppleFactoryInstance"></bean>
 <bean id="apple5" factory-bean="AppleFactoryInstance" factory-method="createSweetApple"></bean>
 ```
+
+
+
+#### 从Ioc容器获取Bean
+
+```java
+Apple apple1 = context.getBean("apple1", Apple.class); //更推荐使用
+//或者 Apple apple1 = (Apple)context.getBean("apple1"); 	强制类型转换
+System.out.println(apple1.getTitle());
+```
+
+##### 
+
+```html
+    <bean id="apple4" ></bean>
+   <bean name="apple4"></bean>
+<id与name属性相同点>
+bean id与name都是设置对象在loC容器中唯一标识
+两者在同一个配置文件中都不允许出现重复
+两者允许在多个配置文件中出现重复，新对象覆盖旧对象
+    
+<id与name属性区别>
+id要求更为严格，一次只能定义一个对象标识（推荐）
+name更为宽松，一次允许定义多个对象标识
+tips:id与name的命名要求有意义，按驼峰命名书写
+    
+name 和 id在单个文件中都是不容许重复的；但如果是在多个文件中这两者就有区别
+<bean name="apple2,apple7" class="" >  name可以一次性设置多个标识，而id只能设置一个
+```
+
+
+
+#### 路径匹配表达式
+
+```
+加载配置文件时使用
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220713232152981.png" alt="image-20220713232152981" style="zoom: 33%;" />
+
+```
+实际上mave工程加载的时候，所谓的类路径指的是target下的classes目录		target/classes
+而不是源代码中的 resources， resources中的资源文件在第一次编译运行时会自动发布到target/classes 目录中
+
+classpath 指的就是target/classes
+```
+
+```java
+//加载多配置文件
+String[] configLocations = new String[]{
+        "classpath:ApplicationContext.xml","classpath:ApplicationContext-1.xml"
+};
+//初始化Ioc容器并实例化对象
+ApplicationContext context = new ClassPathXmlApplicationContext(configLocations);
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220713233117774.png" alt="image-20220713233117774" style="zoom: 50%;" />
+
+```
+classpath:config-*.xml 会涉及到一个配置文件同名id/name覆盖的问题，这里是按照阿斯克码的顺序加载，1,2,3,4..
+```
+
+
+
+#### 利用setter实现对象依赖注入
+
+##### 对象依赖注入
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220715010944335.png" alt="image-20220715010944335" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220715014303499.png" alt="image-20220715014303499" style="zoom:33%;" />
+
+```
+由ioc容器统一的将这两个对象创建好以后，来动态的进行依赖的注入。依赖注入说白了就是将两个对象关联起来
+
+<对象依赖注入>
+依赖注入是指运行时将容器内对象利用<反射>赋给其他对象的操作
+<基于setter方法注入对象>	(最常用)
+	利用setter实现静态数值注入
+	利用setter实现对象注入
+基于构造方法注入对象
+```
+

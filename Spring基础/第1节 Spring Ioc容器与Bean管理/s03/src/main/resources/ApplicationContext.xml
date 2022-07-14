@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Spring ioc的核心配置文件。所有对象的创建以及关联的设置都是在这个xml中来进行的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Ioc容器自动利用反射机制运行时调用setXXX方法为属性赋值-->
+    <bean id="apple1" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="青苹果"></property>
+        <property name="color" value="青"></property>
+        <property name="origin" value="中亚"></property>
+<!--        <property name="price" value="19.9"></property>-->
+    </bean>
+
+    <bean id="lily" class="com.imooc.spring.ioc.entity.Child">
+        <property name="name" value="莉莉"></property>
+        <!-- 利用ref注入依赖对象-->
+        <property name="apple" ref="apple1"></property>
+
+    </bean>
+</beans>
