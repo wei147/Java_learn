@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--用于保存所有的数据访问类，用于数据库的增删改查操作 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookDao" class="com.imooc.spring.ioc.bookshop.dao.BookDaoOracleImpl">
+    </bean>
+
+<!--    <bean id="bookDaoOracleImpl" class="com.imooc.spring.ioc.bookshop.dao.BookDaoOracleImpl">-->
+
+<!--    </bean>-->
+
+</beans>

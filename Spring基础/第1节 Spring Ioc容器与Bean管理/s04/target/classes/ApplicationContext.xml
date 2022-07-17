@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Spring ioc的核心配置文件。所有对象的创建以及关联的设置都是在这个xml中来进行的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--创建Computer对象-->
+    <bean id="c1" class="com.imooc.spring.ioc.entity.Computer">
+        <constructor-arg name="brand" value="华为荣耀"></constructor-arg>
+        <constructor-arg name="type" value="笔记本"></constructor-arg>
+        <constructor-arg name="sn" value="1008609"></constructor-arg>
+        <constructor-arg name="price" value="4999"></constructor-arg>
+    </bean>
+
+    <bean class="com.imooc.spring.ioc.entity.Computer">
+        <constructor-arg name="brand" value="惠普"></constructor-arg>
+        <constructor-arg name="type" value="笔记本"></constructor-arg>
+        <constructor-arg name="sn" value="1008609"></constructor-arg>
+        <constructor-arg name="price" value="6999"></constructor-arg>
+    </bean>
+
+    <bean class="com.imooc.spring.ioc.entity.Computer">
+        <constructor-arg name="brand" value="华硕"></constructor-arg>
+        <constructor-arg name="type" value="笔记本"></constructor-arg>
+        <constructor-arg name="sn" value="1008609"></constructor-arg>
+        <constructor-arg name="price" value="3999"></constructor-arg>
+    </bean>
+
+    <bean id="company" class="com.imooc.spring.ioc.entity.Company">
+        <property name="rooms">
+            <!--            <list>-->
+            <!--                <value>2001-总裁办</value>-->
+            <!--                <value>2003-总经理办公室</value>-->
+            <!--                <value>2010-研发部会议室</value>-->
+            <!--                <value>2010-研发部会议室</value>-->
+            <!--            </list>-->
+            <set>
+                <value>2001-总裁办</value>
+                <value>2003-总经理办公室</value>
+                <value>2010-研发部会议室</value>
+                <value>2010-研发部会议室</value>
+            </set>
+        </property>
+
+        <property name="computers">
+            <map>
+                <!--ref对象引用-->
+                <entry key="dev-410" value-ref="c1"></entry>
+                <entry key="dev-412">
+                    <bean class="com.imooc.spring.ioc.entity.Computer">
+                        <constructor-arg name="brand" value="小米"></constructor-arg>
+                        <constructor-arg name="type" value="笔记本"></constructor-arg>
+                        <constructor-arg name="sn" value="10086710"></constructor-arg>
+                        <constructor-arg name="price" value="5999"></constructor-arg>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+
+        <property name="info">
+            <props>
+                <!--prop的key和map要求都是字符串。（采用prop包含一些静态文本）-->
+                <prop key="phone">010-10086</prop>
+                <prop key="address">广州市天河区翻跟斗花园</prop>
+                <prop key="website">www.baidu.com</prop>
+            </props>
+        </property>
+    </bean>
+
+<!--    <bean id="computer" class="com.imooc.spring.ioc.entity.Computer">-->
+<!--    </bean>-->
+</beans>

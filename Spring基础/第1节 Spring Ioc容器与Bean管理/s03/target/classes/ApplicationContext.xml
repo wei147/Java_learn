@@ -12,9 +12,21 @@
 <!--        <property name="price" value="19.9"></property>-->
     </bean>
 
+    <bean id="sweetApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="红富士"></property>
+        <property name="color" value="红"></property>
+        <property name="origin" value="欧洲"></property>
+    </bean>
+
     <bean id="lily" class="com.imooc.spring.ioc.entity.Child">
-        <property name="name" value="青苹果"></property>
+        <property name="name" value="莉莉"></property>
+        <!-- 利用ref注入依赖对象-->
         <property name="apple" ref="apple1"></property>
-        <!--        <property name="price" value="19.9"></property>-->
+    </bean>
+
+    <bean id="chen" class="com.imooc.spring.ioc.entity.Child">
+        <constructor-arg name="name" value="小陈"></constructor-arg>
+        <!-- 利用ref注入依赖对象-->
+        <constructor-arg name="apple" ref="sweetApple"></constructor-arg>
     </bean>
 </beans>

@@ -11,6 +11,7 @@ public class Child {
 
     //对于Child的实例化也需生成带参的构造方法
     public Child(String name, Apple apple) {
+        System.out.println("构造方法参数apple: "+apple.getTitle());
         this.name = name;
         this.apple = apple;
     }

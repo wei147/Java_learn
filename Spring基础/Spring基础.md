@@ -490,3 +490,174 @@ classpath:config-*.xml 会涉及到一个配置文件同名id/name覆盖的问�
 基于构造方法注入对象
 ```
 
+
+
+#### Ioc在实际项目中的重要用途
+
+##### 体验依赖注入的优势
+
+service 和 dao写好，如何让ioc对它进行管理呢？  需要分别在Dao和service两个xml文件进行配置
+
+##### 利用改造方法实现对象依赖注入 
+
+```java
+    //利用改造方法实现对象依赖注入 
+    public Child(String name, Apple apple) {
+        System.out.println("构造方法参数apple: "+apple.getTitle());
+        this.name = name;
+        this.apple = apple;}
+```
+
+```xml
+    <bean id="chen" class="com.imooc.spring.ioc.entity.Child">
+        <constructor-arg name="name" value="小陈"></constructor-arg>
+        <!-- 利用ref注入依赖对象-->
+        <constructor-arg name="apple" ref="sweetApple"></constructor-arg>
+    </bean>
+```
+
+
+
+#### 注入集合对象   （详情见s04）
+
+```html
+注入包含多数据的集合对象：list，set，map    
+```
+
+```xml
+注入list
+<bean id="..."class="...">
+<property name="someList">
+<list>
+<value>具体值<value>
+<ref bean="beanld"></ref>
+</list>
+</property>
+</bean>
+```
+
+```xml
+注入set
+<bean id="..."class="...">
+<property name="someSet">
+<set>
+<value>具体值<value>
+<ref bean="beanld"></ref>
+</set>
+</property>
+</bean>
+```
+
+注：set里面的不可重复（自动去重），list可重复
+
+```xml
+注入Map
+<bean id="..."class="...">
+<property name="someMap">
+<map>
+<entry key="k1"value="v1"></entry>
+<entry key="k2"value-ref="beanld"></entry
+</map>
+</property>
+</bean>
+```
+
+```xml
+注入Properties   (属性类型)
+<bean id="..."class="...">
+<property name="someProperties">
+<props>
+<prop key="k1">v1</prop>
+<prop key="k2">v2</prop>
+</props>
+</property>
+</bean>
+```
+
+
+
+#### 查看容器内对象
+
+```java
+如何查看容器内的对象
+//获取容器内所有beanId数组
+String[] beanNames = context.getBeanDefinitionNames();
+System.out.println(Arrays.toString(beanNames));//Arrays.toString 将数组转成String类型
+
+//要获取一个匿名bean，使用的是类的全称          问题：有两个匿名bean，这里获取的是哪一个？
+Computer computer = context.getBean("com.imooc.spring.ioc.entity.Computer", Computer.class);
+System.out.println(computer.getBrand());    //这里获取的是第一个匿名的bean 惠普
+//ioc容器匿名提取的规则：不加#序号 默认获取第一个。 "com.imooc.spring.ioc.entity.Computer#1",获取指定的bean
+
+Computer computer1 = context.getBean("com.imooc.spring.ioc.entity.Computer#1", Computer.class);
+System.out.println(computer1.getBrand());    //这里指定获取的是第二个匿名的bean 华硕
+
+```
+
+“将自动创建一个对象和对象名,快捷键ctrl+alt+V, introduce local variable”
+
+```xml
+    <bean class="com.imooc.spring.ioc.entity.Computer">
+        <constructor-arg name="brand" value="惠普"></constructor-arg>
+    </bean>
+
+    <bean class="com.imooc.spring.ioc.entity.Computer">
+        <constructor-arg name="brand" value="华硕"></constructor-arg>
+    </bean>
+匿名的bean也会被赋予默认的名字，并依次排列
+[com.imooc.spring.ioc.entity.Computer#0, com.imooc.spring.ioc.entity.Computer#1, company]
+```
+
+会默认调用在实体类中写好的toString() 方法？ 因为toString() 方法本来是有的。 如果你在类里编写了toString，相当于覆盖了类中原有的toString， 即重写了toString() 方法
+
+重写和重载有什么区别？
+
+```java
+         重载是在同一个类中，拥有相同的方法名，不同的参数列表、参数个数、参数类型，则视为重载。重载是一个类中多态性的表现，在编译时起作用（静态多态性）。
+        
+        重写就是子类对父类在原有的方法从新编译，是父类与子类之间的多态性，在运行时起作用。子类可以继承父类的所有方法，也可以继承父类中的某个方法。在方法名、返回类型、参数列表完全一致的情况下，这就是重写。子类的访问权限不能低于父类的。
+    //这里重写了toString()方法
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "brand='" + brand + '\'' +
+                ", type='" + type + '\'' +
+                ", sn='" + sn + '\'' +
+                ", price=" + price +
+                '}';
+    }
+```
+
+关于getClass() 和getName()
+
+```java
+System.out.println("beanName: "+beanName);  //这里返回的是一个Object对象
+System.out.println("beanName.getClass: "+beanName.getClass());   //得到Object对象的类对象
+System.out.println("类型： "+context.getBean(beanName).getClass().getName()); //得到这个类对象的完整名称
+```
+
+
+
+#### bean scope属性详解
+
+```html
+scope：英文中有范围的意思
+
+<bean scope属性>
+bean scope属性用于决定对象何时被创建与作用范围
+bean scope配置将影响容器内对象的数量
+bean scope默认值singleton(单例)，指全局共享同一个对象实例
+    
+<scopel用法>
+<bean id="bookDao"
+class="com.imooc.spring.ioc.bookshop.dao.BookDaoOraclelmpl"
+scope="prototype"/>
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220717232704262.png" alt="image-20220717232704262" style="zoom: 50%;" />
+
+```
+默认是单例模式 singleton
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220717233801000.png" alt="image-20220717233801000" style="zoom:50%;" />

@@ -14,5 +14,9 @@ public class SpringApplication {
 
 //        Child lily = context.getBean("lily",Child.class);
 //        System.out.println(lily.getApple().getColor());
+
+        Child chen = context.getBean("chen", Child.class);
+//        System.out.println(lily.getApple().getTitle());
+        chen.eat();
     }
 }
