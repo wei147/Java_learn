@@ -661,3 +661,12 @@ scope="prototype"/>
 ```
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220717233801000.png" alt="image-20220717233801000" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220719022923672.png" alt="image-20220719022923672" style="zoom:33%;" />
+
+单例线程安全问题根源在于 属性在运行时会不断发生变化
+
+
+
+#### bean scope的实际应用
+
