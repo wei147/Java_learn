@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c883e88-bb64-4e00-941e-f351c8077800" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../s04/src/main/resources/ApplicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/SpringApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/dao/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/entity/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Spring基础.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Spring基础.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../s04/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../s04/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../s04/target/classes/ApplicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../s04/target/classes/ApplicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../s04/target/classes/com/imooc/spring/ioc/entity/ioc/SpringApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s05.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ApplicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ApplicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/ioc/SpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,15 +55,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -92,7 +81,8 @@
       <option name="presentableId" value="Default" />
       <updated>1658073864666</updated>
       <workItem from="1658073866683" duration="178000" />
-      <workItem from="1658160800803" duration="6207000" />
+      <workItem from="1658160800803" duration="6235000" />
+      <workItem from="1658235709788" duration="4869000" />
     </task>
     <servers />
   </component>

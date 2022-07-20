@@ -1,6 +1,7 @@
 package com.imooc.spring.ioc;
 
 import com.imooc.spring.ioc.dao.UserDao;
+import com.imooc.spring.ioc.entity.Order;
 import com.imooc.spring.ioc.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,6 +18,13 @@ public class SpringApplication {
 //        UserDao userDao2 = context.getBean("userDao",UserDao.class);
 //        UserDao userDao3 = context.getBean("userDao",UserDao.class);
 
-        UserService userService = context.getBean("userService",UserService.class);     //实例化了两个对象（面试题）
+//        UserService userService = context.getBean("userService",UserService.class);     //实例化了两个对象（面试题）
+
+        Order order1 = context.getBean("order1",Order.class);
+        order1.pay();
+
+        //用于销毁ioc容器的方法，在这个过程中会自动调用在bean中设置的
+        ((ClassPathXmlApplicationContext) context).registerShutdownHook();
+
     }
 }

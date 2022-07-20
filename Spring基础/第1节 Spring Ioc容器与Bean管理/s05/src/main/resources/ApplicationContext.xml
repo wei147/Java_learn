@@ -12,8 +12,15 @@
             到一个多例对象时同样会触发实例化操作
             作为某一个属性在运行过程中是，它恒定不变的，那就可以在目前容器中进行单例的设置。反之，多例
     -->
-    <bean id="userDao" class="com.imooc.spring.ioc.dao.UserDao"  scope="prototype"></bean>
-    <bean id="userService" class="com.imooc.spring.ioc.service.UserService"  scope="prototype">
+    <bean id="userDao" class="com.imooc.spring.ioc.dao.UserDao" scope="prototype"></bean>
+    <bean id="userService" class="com.imooc.spring.ioc.service.UserService" scope="prototype">
         <property name="userDao" ref="userDao"></property>
+    </bean>
+
+    <!--利用了init-method是在设置完属性以后再去执行的特点来完成total属性的计算-->
+    <bean id="order1" class="com.imooc.spring.ioc.entity.Order" init-method="init" destroy-method="destroy">
+        <property name="price" value="9.9"></property>
+        <property name="quantity" value="1000"></property>
+        <property name="total" value="88"></property>
     </bean>
 </beans>

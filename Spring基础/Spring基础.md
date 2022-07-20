@@ -670,3 +670,31 @@ scope="prototype"/>
 
 #### bean scope的实际应用
 
+
+
+
+
+#### bean的生命周期
+
+```
+bean的生命周期 指在ioc容器哪个阶段bean到底做了什么事情
+
+作为一个bean主要经历了五部分：
+1.对象实例化	
+2.为对象注入属性
+3.调用init-method初始化方法
+4.执行业务代码
+5.容器销毁之际，调用指定方法释放资源
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220719210655839.png" alt="image-20220719210655839" style="zoom:50%;" />
+
+```xml
+    <bean id="order1" class="com.imooc.spring.ioc.entity.Order">
+        <property name="price" value="9.9"></property>
+        <property name="quantity" value="1000"></property>
+        <property name="total" ></property></bean>
+
+问题如何让price * quantity = total，即自动赋值给total？ 	通过init-method实现，初始化方法实现
+```
+
