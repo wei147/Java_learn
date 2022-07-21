@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans>
+    <bean id="greenApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="青苹果"></property>
+        <property name="color" value="绿色"></property>
+        <property name="origin" value="中亚"></property>
+    </bean>
+<!--    对于这个配置文件是如何实现在运行时创建对象的？-->
+</beans>

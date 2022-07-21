@@ -698,3 +698,26 @@ bean的生命周期 指在ioc容器哪个阶段bean到底做了什么事情
 问题如何让price * quantity = total，即自动赋值给total？ 	通过init-method实现，初始化方法实现
 ```
 
+
+
+#### 实现极简Ioc容器
+
+```
+Ioc容器是在运行时利用反射技术动态的将对象实例化以及依赖反射技术对属性进行注入
+```
+
+自己来实现一个极简的ioc容器
+
+```
+总结：
+所谓ioc容器本质就是一个map键值对对象，将beanId与对应对象来进行一个绑定
+在容器初始化的过程中，遇到了对象实例化就去调用class.forName、newInstance() 方法来利用反射技术实现了对象的创建。
+如果遇到property标签则利用Method方法的动态调用
+
+不解的地方，调用自己？
+Object obj = c.newInstance();    //通过默认构造方法创建Apple类实例
+以及这个动态调用
+setMethod.invoke(obj,propValue); //调用这个方法。两个参数：1.要执行哪个对象的set方法？ 2.调用set方法需要传入字符串（value属性）
+
+```
+
