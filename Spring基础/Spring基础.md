@@ -721,3 +721,271 @@ setMethod.invoke(obj,propValue); //调用这个方法。两个参数：1.要执�
 
 ```
 
+```xml
+    <!--Maven 引入的-->
+<dependencies>
+        <!--Dom4j是Java的XML解析组件  Dom4j底层是依赖jaxen的，所以jaxen也下载-->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+
+        <!--jaxen是Xpath表达式解释器-->
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
+```
+
+```java
+//Apple.java  实体类
+package com.imooc.spring.ioc.entity;
+public class Apple {
+    private String title;
+    private String color;
+    private String origin;
+
+    public String getTitle() {
+        return title;}
+    public void setTitle(String title) {
+        this.title = title;}
+    public String getColor() {
+        return color;}
+    public void setColor(String color) {
+        this.color = color;}
+    public String getOrigin() {
+        return origin;}
+    public void setOrigin(String origin) {
+        this.origin = origin;}}
+```
+
+```xml
+<!-- applicationContext.xml  模拟spring的配置文件-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id="greenApple" class="com.imooc.spring.ioc.entity.Apple">
+        <property name="title" value="青苹果"></property>
+        <property name="color" value="绿色"></property>
+        <property name="origin" value="中亚"></property>
+    </bean>
+<!--    对于这个配置文件是如何实现在运行时创建对象的？-->
+</beans>
+```
+
+```java
+//ApplicationContext.java 接口类
+package com.imooc.spring.ioc.context;
+public interface ApplicationContext {
+    public Object getBean(String beanId);
+}
+```
+
+```java
+//ClassPathXmlApplicationContext.java
+package com.imooc.spring.ioc.context;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//实现applicationContext 接口并且完成ioc容器的创建过程
+public class ClassPathXmlApplicationContext implements ApplicationContext {
+    //Map键值对的结构。键对应了beanId，而值就是容器创建过程中产生的对象
+    private Map iocContainer = new HashMap();
+
+    //增加对应的默认构造方法
+    public ClassPathXmlApplicationContext() {
+        //在初始化的时候读取XML文件    getResource()方法用于从classpath下获取指定的文件资源,之后通过getPath() 方法得到applicationContext.xml的路径
+        try {
+            String filePath = this.getClass().getResource("/applicationContext.xml").getPath();
+            System.out.println("处理前 :" + filePath);   //配置文件的物理地址
+            //如果路径中含有中文可能会发生路径找不到的情况，所以还需要进行URL的解码
+            filePath = new URLDecoder().decode(filePath, "UTF-8");
+            System.out.println("处理后 :" + filePath);
+            //获取到xml路径，如何对其进行解析？
+            //SAXReader去加载解析这个filePath所对应的xml
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(new File(filePath));    //新建一个文件对象再提供给read进行读取解析，得到对应的XML文档对象
+            List<Node> beans = document.getRootElement().selectNodes("bean");//拿到根节点下的所有bean标签,返回一个列表，每一项都是一个节点
+            for (Node node : beans) {
+                Element ele = (Element) node;       //作为每一个beans，实际类型为Element
+                //读取当前节点对应的属性
+                String id = ele.attributeValue("id");
+                String className = ele.attributeValue("class");
+                //拿到对应id和class，如何对Apple这个类进行实例化？    反射技术
+                Class c = Class.forName(className);     //拿到对应的类对象
+                Object obj = c.newInstance();    //通过默认构造方法创建Apple类实例
+                //获取bean下面的property标签
+                List<Node> properties = ele.selectNodes("property");
+                for (Node p:properties){
+                    Element property = (Element) p;
+                    String propName = property.attributeValue("name");
+                    String propValue = property.attributeValue("value");
+
+                    //拼合成 setTitle   (通过setter方法注入)
+                    String setMethodName = "set"+propName.substring(0,1).toUpperCase()+propName.substring(1);
+                    System.out.println("准备执行 "+setMethodName+"方法注入数据");
+                    /**
+                     * Method Class.getMethod(String name, Class<?>... parameterTypes)的作用是获得对象所声明的公开方法
+                     * 该方法的第一个参数name是要获得方法的名字，第二个参数parameterTypes是按声明顺序标识该方法形参类型。
+                     * person.getClass().getMethod("Speak", null);
+                     * //获得person对象的Speak方法，因为Speak方法没有形参，所以parameterTypes为null
+                     */
+                    Method setMethod = c.getMethod(setMethodName, String.class);
+                    //通过setter方法注入数据
+                    setMethod.invoke(obj,propValue); //调用这个方法。两个参数：1.要执行哪个对象的set方法？ 2.调用set方法需要传入字符串（value属性）
+                }
+
+                //将id和object放入其中    (放入Map中)
+                iocContainer.put(id,obj);    //创建对象的职责已经完成   beanId对应一个Object对象
+            }
+            System.out.println(iocContainer);
+            System.out.println("Ioc容器初始化完毕");
+        } catch (Exception e) {
+            e.printStackTrace();}}
+
+    @Override
+    public Object getBean(String beanId) {
+        return iocContainer.get(beanId);   //对指定beanId进行提取
+//        return null;
+    }
+}
+```
+
+```java
+//Application.java
+package com.imooc.spring.ioc;
+import com.imooc.spring.ioc.context.ApplicationContext;
+import com.imooc.spring.ioc.context.ClassPathXmlApplicationContext;
+import com.imooc.spring.ioc.entity.Apple;
+
+public class Application {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext();
+        Apple apple = (Apple) context.getBean("greenApple");
+        System.out.println(apple.getTitle());
+        System.out.println(apple);}}
+```
+
+#### 基于注解与Java Config配置Ioc容器
+
+##### 基于注解配置Ioc容器
+
+```
+<基于注解的优势>
+摆脱繁琐的XML形式的bean与依赖注入配置
+基于"声明式"的原则，更适合轻量级的现代企业应用
+让代码可读性变得更好，研发人员拥有更好的开发体验
+```
+
+##### 三类注解
+
+组件类型注解-声明当前类的功能与职责
+自动装配注解-根据属性特征自动注入对象
+元数据注解-更细化的辅助IoC容器管理对象的注解
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220722001759060.png" alt="image-20220722001759060" style="zoom:50%;" />
+
+```
+Component 组件注解是最统称的注解。其他三个注解都是组件注解的细化。当不确定类的职责时使用@Component就可以了。
+要开启组件扫描才能使用
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220722002700365.png" alt="image-20220722002700365" style="zoom: 50%;" />
+
+```xml
+<!--XML配置开启组件扫描，才能使用注解-->
+<context:component-scan base-package="com.imooc">	<!--base-package="com.imooc" 包名-->
+	<context:exclude-filter type="regex" expression="com.imooc.exl.*"/> <!--type="regex"" type是正则表达式	expression="com.imooc.exl.*" 类名符合这个条件的将被排除在外-->
+</context:component-scan>
+```
+
+#### 基于注解初始化Ioc容器
+
+```
+只有单例模式才会在Ioc容器初始化过程中进行创建。 如果是多例模式则会延迟到getBean() 或者对象注入的时候才会创建
+```
+
+```xml
+applicationContext.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--基于注解的schema 和之前的有什么不一样？ 多了一个context的命名空间，像java的包名一样？-->
+    <!--在Ioc容器初始化时自动扫描四种组件类型并完成实例化
+        @Repository
+        @Service
+        @Controller
+        @Component	-->
+    <context:component-scan base-package="com.imooc">
+    </context:component-scan>
+</beans>
+```
+
+```java
+//dao/UserDao.java
+//Repository 用于数据持久化。也就是增删改查
+
+//组件类型注解默认beanId为类名首字母小写    beanId = userDao
+//@Repository("udao")   手动设置
+@Repository
+public class UserDao {}
+
+
+//service/UserService.java
+//用户的业务逻辑类: 提供了与用户操作的核心代码
+@Service
+public class UserService {}
+
+
+//controller/UserController.java
+//控制器常用于Web领域
+@Controller
+public class UserController {}
+
+
+//utils/StringUtils.java
+//对于不好分类的直接用 Component
+@Component("stringUtils")
+public class StringUtils {
+}
+```
+
+```java
+//SpringApplication.java
+public class SpringApplication {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        System.out.println(context.getBean("userDao"));
+        //getBeanDefinitionNames 方法获取容器内所有有效的beanId
+        String[] ids = context.getBeanDefinitionNames();
+        for (String id : ids){
+            System.out.println(id+":"+context.getBean(id));}}}
+```
+
+#### 自动装配与Autowired注解
+
+```html
+自动装配就是为了依赖注入所存在的
+
+<两类自动装配注解>
+按类型装配
+按名称装配	（鼓励按名称装配）
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220722234346082.png" alt="image-20220722234346082" style="zoom:50%;" />
+

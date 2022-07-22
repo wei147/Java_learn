@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <beans>
     <bean id="greenApple" class="com.imooc.spring.ioc.entity.Apple">
         <property name="title" value="青苹果"></property>

@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c883e88-bb64-4e00-941e-f351c8077800" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../s07/src/main/resources/applicationContext.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Spring基础.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Spring基础.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../s06/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../s06/src/main/resources/applicationContext.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +71,7 @@
       <workItem from="1658160800803" duration="6235000" />
       <workItem from="1658235709788" duration="4869000" />
       <workItem from="1658332166924" duration="404000" />
+      <workItem from="1658481875564" duration="797000" />
     </task>
     <servers />
   </component>
