@@ -983,9 +983,41 @@ public class SpringApplication {
 自动装配就是为了依赖注入所存在的
 
 <两类自动装配注解>
-按类型装配
-按名称装配	（鼓励按名称装配）
+按类型装配 
+按名称装配	 重要（鼓励按名称装配）
 ```
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220722234346082.png" alt="image-20220722234346082" style="zoom:50%;" />
 
+```java
+作为MVC是采用分层的方式依次的逐级进行调用。也就是Controller依赖于Service，而Service依赖于Dao。
+注解模式下，@Service 需要@Dao怎么办
+@Service
+public class UserService {
+    //装配注解放在不同位置上有根本不同
+    // @Autowired
+    //spring Ioc容器会自动通过反射技术将属性private修饰符自动改为public，直接进行赋值（在运行时动态完成）
+    //如果放在属性上，不再执行set方法
+    @Autowired
+    private IUserDao udao;
+	public UserService() {
+        System.out.println("正在创建UserService: " + this);}
+
+    public IUserDao getUdao() {
+        return udao;}
+    
+      //通常不会生成set方法，而是会直接在属性上增加对应的装配注解
+//    @Autowired
+//    //如果装配注解放在set方法上，则自动按类型/名称对set方法参数进行注入
+//    public void setUdao(UserDao udao) {
+//        System.out.println("setUdao" + udao);
+//        this.udao = udao;
+
+按类型注入可能会发生多个相同类型的对象冲突发生错误。而按名称进行注入就没有这个问题，名称是惟一的。项目中通常使用按名称进行注入（按名称进行装配）
+```
+
+
+
+#### Resource注解按名称装配
+
+##### @Resource  基于JSR-250规范，优先按名称、再按类型智能匹配
