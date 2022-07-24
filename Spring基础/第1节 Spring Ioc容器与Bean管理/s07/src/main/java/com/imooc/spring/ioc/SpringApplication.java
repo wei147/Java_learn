@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringApplication {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-//        UserService userService = context.getBean("userService",UserService.class);
+        UserService userService = context.getBean("userService",UserService.class);
         //这里不会自动调用setUdao方法
 //        System.out.println(userService.getUdao());
         //System.out.println(context.getBean("userDao"));

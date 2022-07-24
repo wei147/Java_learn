@@ -1021,3 +1021,99 @@ public class UserService {
 #### Resource注解按名称装配
 
 ##### @Resource  基于JSR-250规范，优先按名称、再按类型智能匹配
+
+```java
+package com.imooc.spring.ioc.service;
+import com.imooc.spring.ioc.dao.IUserDao;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+@Service
+public class DepartmentService {
+    /**
+     * 1. @Resource 设置name属性，则按name在Ioc容器中将bean注入
+     * 2. @Resource未设置name属性
+     * 2.1 以属性名作为bean  name在Ioc容器中匹配bean，如有匹配则注入
+     * 2.2 按属性名未匹配，则按类型进行匹配，同@Autowired。需加入@Primary解决冲突
+     * 使用建议：在使用@Resource对象时推荐设置name或保障属性名与bean名称一致
+     */
+//    @Resource(name = "userOracleDao")   //非常明确的在运行时将Ioc容器将 userOracleDao 注入到udao中
+//    private IUserDao udao;
+
+    @Resource
+    private IUserDao udao;     //通过规范属性名的方式，和上边有一样的效果。  没有设置bean name时。它会按照属性名进行优先匹配
+
+    public void joinDepartment(){
+    //打印出udao的类型取决于 @Primary 是放在UserDao还是UserOracleDao。（没有准确匹配到时，@Primary优先级最高 ）
+        System.out.println(udao); }}
+```
+
+```java
+强调：无论是 @Primary 还是 @Autowired 他们都可以基于不使用set方法来完成对象的注入，就像
+    @Resource
+    private IUserDao udao;   
+在运行时它的本质是通过反射技术将udao这个属性从 private 改为 public 再完成这个属性的直接赋值，赋值完之后再改回 private
+```
+
+
+
+#### 元数据注解
+
+##### 其他元数据注解
+
+```
+什么是元数据注解？ 它的作用就是来为spring ioc容器管理对象时提供一些辅助性信息
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220724232745095.png" alt="image-20220724232745095" style="zoom:50%;" />
+
+```properties
+#应用程序的配置信息
+#metaData=我是元数据
+metaData=I am meta Data
+#这样的命名方式更好。可以了解是连接时用的
+connection.driver = xxxxx
+connection.url = www.baidu.com
+connection.username = xxxx
+connection.password = xxxx
+```
+
+```xml
+applicationContext.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- property-placeholder 的作用就是加载指定路径下的property文件  -->
+    <context:property-placeholder location="classpath:config.properties"></context:property-placeholder>
+</beans>
+```
+
+```java
+//UserService.java
+public class UserService {
+    @Value("${metaData}")   //读取config.properties的metaData属性值
+    private String metaData;
+    
+    @Value("connection.url")    //这样的命名方式更好。可以了解是连接时用的
+    private String url;
+    //装配注解放在不同位置上有根本不同
+    // @Autowired
+    //spring Ioc容器会自动通过反射技术将属性private修饰符自动改为public，直接进行赋值（在运行时动态完成）
+    //如果放在属性上，不再执行set方法
+    @Autowired
+    private IUserDao udao;
+
+    public UserService() {
+        System.out.println("正在创建UserService: " + this);
+    }
+
+    @PostConstruct //和xml中的bean init-method 完全相同
+    public void init(){
+        System.out.println("初始化UserService对象, metaData="+metaData);
+    }}
+```

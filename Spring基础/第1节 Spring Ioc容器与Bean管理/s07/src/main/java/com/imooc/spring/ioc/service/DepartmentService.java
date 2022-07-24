@@ -21,6 +21,7 @@ public class DepartmentService {
     private IUserDao udao;     //通过规范属性名的方式，和上边有一样的效果。  没有设置bean name时。它会按照属性名进行优先匹配
 
     public void joinDepartment(){
+        //打印出udao的类型取决于 @Primary 是放在UserDao还是UserOracleDao。（没有准确匹配到时，@Primary优先级最高 ）
         System.out.println(udao);
     }
 

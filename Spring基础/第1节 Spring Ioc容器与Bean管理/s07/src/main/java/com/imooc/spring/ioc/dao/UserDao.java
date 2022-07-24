@@ -1,5 +1,6 @@
 package com.imooc.spring.ioc.dao;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 //Repository 用于数据持久化。也就是增删改查

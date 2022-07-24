@@ -6,6 +6,8 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- property-placeholder 的作用就是加载指定路径下的property文件  -->
+    <context:property-placeholder location="classpath:config.properties"></context:property-placeholder>
     <!--基于注解的schema 和之前的有什么不一样？ 多了一个context的命名空间，像java的包名一样？-->
     <!--在Ioc容器初始化时自动扫描四种组件类型并完成实例化
         @Repository
