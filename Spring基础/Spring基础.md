@@ -1117,3 +1117,134 @@ public class UserService {
         System.out.println("初始化UserService对象, metaData="+metaData);
     }}
 ```
+
+
+
+#### 基于Java Config配置Ioc容器
+
+```
+第三种spring ioc的配置方式 ：java Config	（Spring 3.0后推出）
+主要原理是使用Java代码来替代传统的xml文件
+```
+
+```
+<基于Java Config的优势>
+完全摆脱XML的束缚，使用独立Java类管理对象与依赖
+注解配置相对分散，利用Java Config可对配置集中管理
+可以在编译时进行依赖检查，不容易出错	(像xml配置的时候，对象创建和属性1的注入都放在xml中，只有在运行起来之后才能看到配置是否正确)
+
+即用Java类来替代原始的xml文件
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220725225253528.png" alt="image-20220725225253528" style="zoom:50%;" />
+
+详情见：s08
+
+```xml
+//在pom.xml 中引入依赖
+<repositories>
+        <repository>
+            <id>aliun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.20.RELEASE</version>
+        </dependency>
+    </dependencies>
+```
+
+```java
+//dao.UserDao.java
+package com.imooc.spring.ioc.dao;
+public class UserDao {
+    public UserDao(){
+        System.out.println("hi，这里是UserDao");}}
+
+//service.UserService.java
+package com.imooc.spring.ioc.service;
+import com.imooc.spring.ioc.dao.UserDao;
+public class UserService {
+    //UserService 依赖于 UserDao
+    private UserDao userDao;
+
+    public UserDao getUserDao() {return userDao;}
+
+    public void setUserDao(UserDao userDao) {this.userDao = userDao;}}
+
+//controller.UserController.java
+package com.imooc.spring.ioc.controller;
+import com.imooc.spring.ioc.service.UserService;
+
+public class UserController {
+    //UserController 依赖于 UserService
+    private UserService userService;
+
+    public UserService getUserService() {return userService;}
+
+    public void setUserService(UserService userService) {this.userService = userService;}}
+
+```
+
+```java
+//ioc.Config.java
+package com.imooc.spring.ioc;
+import com.imooc.spring.ioc.controller.UserController;
+import com.imooc.spring.ioc.dao.UserDao;
+import com.imooc.spring.ioc.service.UserService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * 使用Config类作为XML文件的替代者
+ */
+@Configuration  //当前类是一个配置类，用于代替application.xml
+public class Config {
+    //问题 : 如何在ioc容器中放入bean？     注：下面的代码，不要把它看成是工程的一部分，当成是配置文件
+    @Bean   //Java Config利用方法创建对象，将方法返回对象放入容器，beanId=方法名
+    public UserDao userDao(){
+        UserDao userDao = new UserDao();return userDao;}
+
+    @Bean   //等同xml中<bean id="xxx" class="xxx">的 java表现形式
+    public UserService userService(){
+        UserService userService = new UserService();return userService;}
+
+    @Bean
+    public UserController userController(){
+        UserController userController = new UserController();return userController;}}
+```
+
+```java
+//SpringApplication.java
+package com.imooc.spring.ioc;
+import com.imooc.spring.ioc.dao.UserDao;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+public class SpringApplication {
+    public static void main(String[] args) {
+        //基于Java Config配置Ioc容器的初始化
+        ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);  //基于注解配置的应用程序上下文
+        String[] ids = context.getBeanDefinitionNames();
+        for (String id : ids) {
+            System.out.println(id+" : "+context.getBean(id));
+        }
+//        UserDao userDao = context.getBean("userDao",UserDao.class);
+//        System.out.println(userDao);}}
+
+```
+
+
+
+#### Java Config-对象依赖注入
+
+```
+    //UserService 依赖于 UserDao
+    //UserController 依赖于 UserService
+    这样的关联关系怎么设置？ （关联关系依托于set方法）
+```
+
