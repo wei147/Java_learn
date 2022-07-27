@@ -1,6 +1,7 @@
 package com.imooc.spring.ioc;
 
 import com.imooc.spring.ioc.controller.UserController;
+import com.imooc.spring.ioc.dao.EmployeeDao;
 import com.imooc.spring.ioc.dao.UserDao;
 import com.imooc.spring.ioc.service.UserService;
 import org.springframework.context.annotation.*;
@@ -30,11 +31,13 @@ public class Config {
 
     @Bean   //等同xml中<bean id="xxx" class="xxx">的 java表现形式
     //先按name尝试注入，name不存在则按类型注入
-    public UserService userService(UserDao userDao){
+    public UserService userService(UserDao userDao, EmployeeDao employeeDao){
         UserService userService = new UserService();
         System.out.println("已创建 "+userService);
         userService.setUserDao(userDao);
+        userService.setEmployeeDao(employeeDao);
         System.out.println("调用setUserDao: "+ userDao);
+        System.out.println("调用setEmployeeDao: "+ employeeDao);
         return userService;
     }
 

@@ -1006,7 +1006,7 @@ public class UserService {
     public IUserDao getUdao() {
         return udao;}
     
-      //通常不会生成set方法，而是会直接在属性上增加对应的装配注解
+      //如果通过注解完成依赖注入，通常不会生成set方法，而是会直接在属性上增加对应的装配注解
 //    @Autowired
 //    //如果装配注解放在set方法上，则自动按类型/名称对set方法参数进行注入
 //    public void setUdao(UserDao udao) {
@@ -1245,6 +1245,86 @@ public class SpringApplication {
 ```
     //UserService 依赖于 UserDao
     //UserController 依赖于 UserService
-    这样的关联关系怎么设置？ （关联关系依托于set方法）
+    这样的关联关系怎么设置？ （关联关系依托于set方法）	答案 通过在Config.java中传参的形式设置关联
+    
+    Java Config多用于敏捷开发。快速迭代快速上线的工程		
+    spring boot 敏捷开发框架，默认基于Java Config 进行配置
+    而xml更多的是用于在大型项目的团队协作中（不同模块的切割，各司其职，互不干扰）
+    
+    基于Java Config的注解配置有更好的开发体验。
+    而基于xml的配置则拥有更好的程序可维护性
+```
+
+```java
+public class Config {
+    //问题 : 如何在ioc容器中放入bean？     注：下面的代码，不要把它看成是工程的一部分，当成是配置文件
+    @Bean   //Java Config利用方法创建对象，将方法返回对象放入容器，beanId=方法名
+    public UserDao udao(){
+        UserDao userDao = new UserDao();
+        System.out.println("已创建 "+userDao);
+        return userDao;}
+
+    @Bean   //Java Config利用方法创建对象，将方法返回对象放入容器，beanId=方法名
+    @Primary
+    public UserDao userDao1(){
+        UserDao userDao = new UserDao();
+        System.out.println("已创建 "+userDao);
+        return userDao;}
+
+
+    @Bean   //等同xml中<bean id="xxx" class="xxx">的 java表现形式
+    //先按name尝试注入，name不存在则按类型注入
+    public UserService userService(UserDao userDao, EmployeeDao employeeDao){
+        UserService userService = new UserService();
+        System.out.println("已创建 "+userService);
+        userService.setUserDao(userDao);
+        userService.setEmployeeDao(employeeDao);
+        System.out.println("调用setUserDao: "+ userDao);
+        System.out.println("调用setEmployeeDao: "+ employeeDao);
+        return userService;}
+
+    @Bean
+    @Scope("prototype")     //多例模式，只有在需要使用它的时候才会创建这个对象
+    public UserController userController(UserService userService){
+        UserController userController = new UserController();
+        System.out.println("已创建 "+userController);
+        userController.setUserService(userService);
+        System.out.println("调用setUserService: "+ userService);
+        return userController;}
+```
+
+
+
+```java
+//新增ioc.dao.EmployeeDao.java 用于演示注解和Java Config的合作
+package com.imooc.spring.ioc.dao;
+import org.springframework.stereotype.Repository;
+
+/**
+ * 模拟注解形式开发  （与Java Config的形式配合）
+ * 在 Config.java 中加入 @ComponentScan(basePackages = "com.imooc")     扫描整个包
+ *                          public class Config { ....
+ * 那么在EmployeeDao.java 加上@Repository 就能被 扫描到并创建对象
+ */
+@Repository
+public class EmployeeDao {}
+```
+
+
+
+#### Spring与JUnit4整合
+
+##### Spring Test测试模块
+
+```html
+<Spring Test测试模块>
+Spring Test是Spring中用于测试的模块
+Spring Test对JUnit单元测试框架有良好的整合
+通过Spring Test可在JUnit在单元测试时自动初始化IoC容器
+    
+<Spring与JUnit4整合过程>
+Maven工程依赖<spring-test>
+利用<@RunWith>与<@ContextConfiguration>描述测试用例类
+测试用例类从容器获取对象完成测试用例的执行
 ```
 

@@ -1,19 +1,18 @@
 package com.imooc.spring.ioc.service;
 
-import com.imooc.spring.ioc.dao.EmployeeDao;
 import com.imooc.spring.ioc.dao.UserDao;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
+//@Repository
 public class UserService {
-    //UserService 依赖于 UserDao
+//    @Resource
     private UserDao userDao;
-    private EmployeeDao employeeDao;
 
-    public EmployeeDao getEmployeeDao() {
-        return employeeDao;
-    }
-
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
+    public void createUser(){
+        System.out.println("调用创建用户业务代码");
+        userDao.insert();
     }
 
     public UserDao getUserDao() {
