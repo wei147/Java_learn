@@ -194,3 +194,19 @@ public class SpringApplication {
 
 #### 五种通知类型
 
+```
+所谓通知是指： 在什么时机去执行切面的方法
+四种通知: 前置、后置、返回后、异常通知
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220729234945760.png" alt="image-20220729234945760" style="zoom:50%;" />
+
+```
+After Advice 无论执行成功与否都会执行，像try catch的finally
+```
+
+```
+特殊的"通知"-引介增强
+
+```
+
