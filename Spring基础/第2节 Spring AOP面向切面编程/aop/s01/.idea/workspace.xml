@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e916a0dc-135b-4304-b243-b2cb3bf8d7c2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/EmployeeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/EmployeeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_aop_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_beans_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_context_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_core_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_expression_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_20_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../AOP面向切面编程.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../AOP面向切面编程.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/aspect/MethodAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/aspect/MethodAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/aspect/MethodAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/aspect/MethodAspect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/dao/UserDao.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,6 +203,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SpringApplication" />
@@ -207,7 +234,8 @@
       <workItem from="1588752492297" duration="332000" />
       <workItem from="1658942352689" duration="2608000" />
       <workItem from="1659017776311" duration="4352000" />
-      <workItem from="1659109668823" duration="327000" />
+      <workItem from="1659109668823" duration="3704000" />
+      <workItem from="1659195173330" duration="774000" />
     </task>
     <servers />
   </component>

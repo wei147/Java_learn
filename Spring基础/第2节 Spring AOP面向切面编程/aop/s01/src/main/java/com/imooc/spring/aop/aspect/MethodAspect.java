@@ -25,4 +25,21 @@ public class MethodAspect {
         System.out.println("---->" + now + ":" + className + "." + methodName);
 
     }
+
+    // ret代表目标方法执行的返回值
+    public void doAfterReturning(JoinPoint joinPoint,Object ret){
+        System.out.println("<-------返回后通知: "+ret);
+    }
+
+    //Throwable 是所有异常的父类。为了捕获目标方法所抛出的异常
+    public void daAfterThrowing(JoinPoint joinPoint,Throwable th){
+        System.out.println("<-------异常通知: "+th.getMessage());
+
+    }
+    //after() 无法获取到目标方法运行时所产生的返回值或者是内部抛出的异常
+    public void doAfter(JoinPoint joinPoint){
+        System.out.println("<-----触发后置通知");
+        String methodNameTest = joinPoint.getSignature().getName();
+//        System.out.println(methodNameTest+"      after方法");
+    }
 }

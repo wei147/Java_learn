@@ -196,7 +196,7 @@ public class SpringApplication {
 
 ```
 所谓通知是指： 在什么时机去执行切面的方法
-四种通知: 前置、后置、返回后、异常通知
+五种通知: 前置、后置、返回后、异常通知
 ```
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220729234945760.png" alt="image-20220729234945760" style="zoom:50%;" />
@@ -206,7 +206,50 @@ After Advice 无论执行成功与否都会执行，像try catch的finally
 ```
 
 ```
-特殊的"通知"-引介增强
+特殊的"通知"-引介增强  （现阶段了解即可）
+引介增强(Introductionlnterceptor)是对类的增强，而非方法	（本质上是一个拦截器?）
+引介增强允许在运行时为目标类增加新属性或方法
+引介增强允许在运行时改变类的行为，让类随运行环境动态变更
+```
 
+```java
+//MethodAspect.java    
+// ret代表目标方法执行的返回值
+    public void doAfterReturning(JoinPoint joinPoint,Object ret){
+        System.out.println("<-------返回后通知: "+ret);}
+
+    //Throwable 是所有异常的父类。为了捕获目标方法所抛出的异常
+    public void daAfterThrowing(JoinPoint joinPoint,Throwable th){
+        System.out.println("<-------异常通知: "+th.getMessage());}
+
+    //after() 无法获取到目标方法运行时所产生的返回值或者是内部抛出的异常
+    public void doAfter(JoinPoint joinPoint){
+        System.out.println("<-----触发后置通知");
+        String methodNameTest = joinPoint.getSignature().getName();
+//        System.out.println(methodNameTest+"      after方法");}
+```
+
+```xml
+//applicationContext.xml
+<!-- 定义切面类-->
+<aop:aspect ref="methodAspect">
+    <!-- before通知(Advice)，代表在目标方法运行前先执行methodAspect.printExecutionTime()方法 前置通知-->
+    <!--下方打印日志的前后顺序和配置的前后顺序是保持一致的-->
+    <aop:before method="printExecutionTime" pointcut-ref="pointcut"></aop:before>
+    <aop:after method="doAfter" pointcut-ref="pointcut"></aop:after>
+    <aop:after-returning method="doAfterReturning" returning="ret"
+                         pointcut-ref="pointcut"></aop:after-returning>
+    <aop:after-throwing method="daAfterThrowing" pointcut-ref="pointcut" throwing="th"></aop:after-throwing>
+</aop:aspect>
+```
+
+
+
+#### 详解环绕通知
+
+##### 利用AOP进行方法性能筛选
+
+```
+需求：在每一个dao和service上进行时间的检查，如果单个方法的时间超过1秒，我们就认为这个方法执行太慢需要优化
 ```
 
