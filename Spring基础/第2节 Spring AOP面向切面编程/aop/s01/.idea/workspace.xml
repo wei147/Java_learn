@@ -5,23 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e916a0dc-135b-4304-b243-b2cb3bf8d7c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_aop_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_beans_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_context_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_core_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_expression_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_20_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../s02/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/aspect/MethodChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../s02/src/main/java/com/imooc/spring/aop/SpringApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../AOP面向切面编程.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../AOP面向切面编程.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/aspect/MethodAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/aspect/MethodAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/spring/aop/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/aspect/MethodAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/aspect/MethodAspect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/spring/aop/dao/UserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../s02/src/main/java/com/imooc/spring/aop/aspect/MethodChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../s02/src/main/java/com/imooc/spring/aop/aspect/MethodChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../s02/src/main/java/com/imooc/spring/aop/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../s02/src/main/java/com/imooc/spring/aop/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../s02/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../s02/src/main/resources/applicationContext.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,6 +180,11 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.imooc.spring.aop.aspect" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="SpringApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.imooc.spring.aop.SpringApplication" />
@@ -236,6 +232,8 @@
       <workItem from="1659017776311" duration="4352000" />
       <workItem from="1659109668823" duration="3704000" />
       <workItem from="1659195173330" duration="774000" />
+      <workItem from="1659198616550" duration="309000" />
+      <workItem from="1659199247756" duration="129000" />
     </task>
     <servers />
   </component>

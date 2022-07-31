@@ -8,7 +8,12 @@ import com.imooc.spring.aop.dao.UserDao;
 public class UserService {
     private UserDao userDao;
 
-    public void createUser(){
+    public void createUser() {
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("执行员工入职业务逻辑");
         userDao.insert();
     }

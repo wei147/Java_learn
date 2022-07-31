@@ -41,7 +41,7 @@
         <!-- 定义切面类-->
         <aop:aspect ref="methodAspect">
             <!-- before通知(Advice)，代表在目标方法运行前先执行methodAspect.printExecutionTime()方法 前置通知-->
-            <!--下方打印的前后顺序和配置的前后顺序是保持一致的-->
+            <!--下方打印日志的前后顺序和配置的前后顺序是保持一致的-->
             <aop:before method="printExecutionTime" pointcut-ref="pointcut"></aop:before>
             <aop:after method="doAfter" pointcut-ref="pointcut"></aop:after>
             <aop:after-returning method="doAfterReturning" returning="ret"

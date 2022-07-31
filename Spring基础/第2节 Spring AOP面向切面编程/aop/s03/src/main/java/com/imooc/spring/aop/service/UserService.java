@@ -1,11 +1,16 @@
 package com.imooc.spring.aop.service;
 
 import com.imooc.spring.aop.dao.UserDao;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 用户服务
  */
+@Service
 public class UserService {
+    @Resource
     private UserDao userDao;
 
     public void createUser(){
