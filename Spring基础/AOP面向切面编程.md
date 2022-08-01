@@ -301,3 +301,223 @@ public class MethodChecker {
 
 #### 利用注解配置Spring AOP
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--初始化Ioc容器-->
+    <context:component-scan base-package="com.imooc"></context:component-scan>
+    <!--启用Spring AOP 注解模式-->
+    <aop:aspectj-autoproxy/>
+</beans>
+```
+
+```java
+//UserService.java
+package com.imooc.spring.aop.service;
+import com.imooc.spring.aop.dao.UserDao;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+/**
+ * 用户服务
+ */
+@Service
+public class UserService {
+    @Resource	//对属性进行注入 有两种方法：1.直接放在属性上(推荐) 2.如果有set方法，也直接放在set方法上
+    private UserDao userDao;
+
+    public void createUser(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();}
+        System.out.println("执行员工入职业务逻辑");
+        userDao.insert();}
+
+    public String generateRandomPassword(String type , Integer length){
+        System.out.println("按" + type + "方式生成"+ length  + "位随机密码");
+        return "Zxcquei1";}
+
+    public UserDao getUserDao() {
+        return userDao;}
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;}}
+```
+
+```java
+//MethodChecker.java
+package com.imooc.spring.aop.aspect;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ *如何配置切面类？
+ */
+
+@Component //1.标记当前类为组件，这样Ioc容器会对其进行实例化和管理
+@Aspect    //2.说明当前类是切面类，可以用于功能的拓展
+public class MethodChecker {
+    //3.环绕通知的注解,环绕通知，参数为PointCut切点表达式
+    @Around("execution(* com.imooc..*Service.*(..))")   //一般采用环绕通知进行更细粒度的控制
+//    @After()
+//    @Before()
+//    @AfterReturning()
+//    @AfterThrowing
+    //ProceedingJoinPoint是JoinPoint的升级版,在原有功能外,还可以控制目标方法是否执行
+    public Object check(ProceedingJoinPoint pjp) throws Throwable {
+        try {
+            long startTime = new Date().getTime();
+            Object ret = pjp.proceed();//执行目标方法
+            long endTime = new Date().getTime();
+            long duration = endTime - startTime; //执行时长
+            if(duration >= 1000){
+                String className = pjp.getTarget().getClass().getName();
+                String methodName = pjp.getSignature().getName();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+                String now = sdf.format(new Date());
+                System.out.println("=======" + now + ":" + className + "." + methodName + "(" + duration + "ms)======");}
+            return ret;
+        } catch (Throwable throwable) {
+            System.out.println("Exception message:" + throwable.getMessage());
+            throw throwable;}}}
+```
+
+
+
+#### 代理模式与静态代理
+
+##### Spring AOP实现原理
+
+```html
+面试题: 请你给我讲一下Spring AOP的底层实现原理是什么？
+
+<Spring AOP实现原理>
+Spring基于<代理模式>(设计模式中的代理模式)实现功能动态扩展，包含两种形式：
+目标类拥有接口，通过JDK动态代理实现功能扩展
+目标类没有接口，通过CGLib组件实现功能扩展
+
+```
+
+##### 代理模式-静态代理
+
+```
+代理模式-静态代理
+代理模式通过代理对象对原对象的实现功能扩展
+
+白话文：
+客户类可以看成是有租房需求的租户
+代理类可以看成是中介
+委托类可以看成是房东
+接口则可以看成是房子
+
+中介和房东目的是一致的就是想把房子租出去，正是因为有相同的目的，所以他们就有了共同的接口————这个接口中提供了一个租房的方法，代理类和委托类都去实现租房的这个逻辑。
+作为代理类它内部持有了委托类的对象，所以在代理类被实例化以后————也就是代理对象执行的过程中可以对原始的逻辑来产生额外的行为，比如说这个中介代理类在为客户看完房子之后除了交付给原始的房东指定的租金以外，他还要向客户另外收取一个月的代理费，这就是额外的扩展逻辑
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220801005437196.png" alt="image-20220801005437196" style="zoom: 50%;" />
+
+###### 代理类的逻辑实现，通过代码演示：
+
+```java
+//静态代理是指必须手动创建代理类的代理模式使用方式。静态代理是最简单也是最麻烦的使用方式
+JDK1.2以后，由于反射机制的引入，为我们自动创建代理类提供了可能。下一节动态代理。。。
+```
+
+```java
+//接口类
+package com.imooc.spring.aop.service;
+public interface UserService {
+    public void createUser();}
+```
+
+```java
+//实现类
+package com.imooc.spring.aop.service;
+
+//实现UserService接口
+public class UserServiceImpl implements UserService{
+    @Override
+    public void createUser() {
+        System.out.println("执行创建用户业务逻辑");}}
+```
+
+```java
+//代理类 1
+package com.imooc.spring.aop.service;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+//静态代理是指必须手动创建代理类的代理模式使用方式
+
+//代理类
+//作为其代理类，其核心特点是:持有委托类的对象
+public class UserServiceProxy implements UserService{   //作为代理类和委托类都需要实现相同的接口
+    //持有委托类的对象
+    private UserService userService;
+    //重点:构建带参的构造方法
+    public UserServiceProxy(UserService userService){   //这里需要传入具体的UserService实现。比如 UserServiceImpl
+        //为内部的委托类赋值（相当于持有了委托类的对象）
+        this.userService = userService;}
+
+    @Override
+    public void createUser() {
+
+        System.out.println(" 我是二房东  ====="+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(new Date())+"=====");
+        //因为持有了委托类的对象，我们可以发起委托类的具体的职责。重点:在方法执行前还可以扩展其他的代码
+        userService.createUser();}}
+```
+
+```java
+//代理类 2
+package com.imooc.spring.aop.service;
+public class UserServiceProxy1 implements UserService{
+    private UserService userService;
+
+    public UserServiceProxy1(UserService userService){
+        this.userService = userService;}
+    @Override
+    public void createUser() {
+        System.out.println("我也是租户，他是二房东");
+        userService.createUser();
+        System.out.println("后置扩展功能");}}
+```
+
+```java
+//启动入口
+package com.imooc.spring.aop.service;
+
+public class Application {
+    public static void main(String[] args) {
+        /**
+         * 希望将这个方法的执行时间打印出来，该如何操作？（之前是使用spring aop 的环绕通知/切面类来做的。如果通过代理来做？）
+         * 通过 UserServiceProxy 代理类来实现。
+         * 还容许有二房东的存在，即这个租户自己又把房子租给别人。即嵌套使用
+         * 静态代理是指必须手动创建代理类的代理模式使用方式
+         */
+//        UserServiceImpl userService = new UserServiceImpl();
+        UserService userService = new UserServiceProxy(new UserServiceImpl());  //在没有修改最原始代码的情况下，对我们程序的行为进行了扩展
+//        userService.createUser();
+
+        UserService userService1 = new UserServiceProxy1(new UserServiceProxy(new UserServiceImpl()));
+        userService1.createUser();}}
+```
+
+
+
+#### AOP底层原理-JDK动态代理
+
+##### 代码讲解JDK动态代理

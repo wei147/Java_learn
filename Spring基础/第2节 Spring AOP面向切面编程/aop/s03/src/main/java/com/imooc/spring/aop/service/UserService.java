@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  */
 @Service
 public class UserService {
-    @Resource
+    @Resource   //对属性进行注入 有两种方法：1.直接放在属性上(推荐) 2.如果有set方法，也直接放在set方法上
     private UserDao userDao;
 
     public void createUser(){
