@@ -219,7 +219,7 @@ After Advice 无论执行成功与否都会执行，像try catch的finally
         System.out.println("<-------返回后通知: "+ret);}
 
     //Throwable 是所有异常的父类。为了捕获目标方法所抛出的异常
-    public void daAfterThrowing(JoinPoint joinPoint,Throwable th){
+    public void doAfterThrowing(JoinPoint joinPoint,Throwable th){
         System.out.println("<-------异常通知: "+th.getMessage());}
 
     //after() 无法获取到目标方法运行时所产生的返回值或者是内部抛出的异常
@@ -265,9 +265,9 @@ public class MethodChecker {
     //ProceedingJoinPoint 是JoinPoint的升级版，在原有功能外，还可以控制目标方法是否执行
     public Object check(ProceedingJoinPoint pjp) throws Throwable {
         try {
-            long startTime = new Date().getTime();  //得到起始时间
-            Object ret = pjp.proceed();//执行目标方法  （Object对象其本质是目标方法执行后的返回值）
-            long endTime = new Date().getTime();    //方法执行后的结束时间
+            long startTime = new Date().getTime();  //得到起始时间    （这里可以视为方法执行前可以执行的操作）
+            Object ret = pjp.proceed();//执行目标方法  （Object对象其本质是目标方法执行后的返回值）  
+            long endTime = new Date().getTime();    //方法执行后的结束时间    （这里以下可以视为方法执行后可以执行的操作）
             long duration = endTime - startTime;    //执行时间
             if (duration >= 1000) {
                 String className = pjp.getTarget().getClass().getName();
@@ -544,7 +544,8 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
     //这里需要传入目标对象 Object target
     public ProxyInvocationHandler(Object target) {
-        this.target = target;}
+        this.target = target;
+    }
 
     /**
      * 在invoke() 方法对目标方法进行增强
@@ -580,12 +581,65 @@ public class ProxyInvocationHandler implements InvocationHandler {
         //动态代理,必须实现接口才可以运行（反之会报错）
         //实际学习过程中有大量的类都没有实现接口，这时那么该怎么做？ Spring为我们通过了另外一种解决方案：依赖于第三方组件CGLib实现对类的增强
         EmployeeService employeeService = new EmployeeServiceImpl();
+        //employeeServiceProxy指向了被代理对象 EmployeeServiceImpl targetObject.createEmployee()
         EmployeeService employeeServiceProxy = (EmployeeService) Proxy.newProxyInstance(employeeService.getClass().getClassLoader(),
                 employeeService.getClass().getInterfaces(), new ProxyInvocationHandler(employeeService));
         employeeServiceProxy.createEmployee();}}
+
 ```
 
 
 
 #### JDK动态代理解析
+
+#### AOP底层原理-CGLib
+
+##### Spring AOP实现原理
+
+```html
+<Spring AOP实现原理>
+Spring基于<代理模式>实现功能动态扩展，包含两种形式:
+	目标类拥有接口，通过JDK动态代理实现功能扩展	（由于项目中的类大都没有实现接口，所以第二种情况使用比较多？）
+	目标类没有接口,通过CGLib组件实现功能扩展
+```
+
+```
+<CGLib实现代理类>
+CGLib是运行时字节码增强技术	（Code Generation Library）
+Spring AOP扩展无接口类使用CGLib
+AOP会运行时生成目标继承类字节码的方式进行行为扩展
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220803004939834.png" alt="image-20220803004939834" style="zoom:50%;" />
+
+```
+userService$$EnhancerBySpringCGLib 通过类名可以知道: 通过CGLib实现类的增强，而CGLib的实现原理是在原始目标类的基础上进行继承然后重写每一个方法来实现的增强	（userService$$EnhancerByCGLib这个名词在Spring5.0之前没有spring）
+
+JdkDynamicAopProxy JDK动态AOP代理 正是因为目标类实现了接口，所以Spring 优先选择jdk动态代理来实现功能的增强（没有实现接口就用上面的CGLib）
+
+面试题 : Spring Aop的实现原理是什么？
+	答: 要分为两种情况：1.如果目标类实现了接口，则spring优先底层使用JDK动态代理，来生成目标类的代理，从而实现功能的扩展	2.如果目标类没有实现接口，则自动使用CGLib来通过继承的方式对目标类进行扩展
+```
+
+#### 总结与回顾
+
+```
+<总结与回顾>
+Spring AOP是在不修改源码的情况扩展程序的技术
+Spring AOP的核心概念与配置过程
+Spring AOP的实现原理
+
+<Spring AOP与AspectJ的关系>
+Eclipse AspectJ 一种基于Java平台的面向切面编程的语言
+Spring AOP使用AspectJWeaver实现类与方法匹配
+<Spring AOP利用代理模式实现对象运行时功能扩展>
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220803011921850.png" alt="image-20220803011921850" style="zoom: 33%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220803011955758.png" alt="image-20220803011955758" style="zoom: 33%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220803012220290.png" alt="image-20220803012220290" style="zoom:33%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220803012329217.png" alt="image-20220803012329217" style="zoom:33%;" />
 
