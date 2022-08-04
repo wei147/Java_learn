@@ -29,7 +29,141 @@ applicationContext.xml配置<DataSource>数据源		//哪种数据库  用户名�
 
 ##### JdbcTemplate实现增删改查
 
+```xml
+//pom.xml 引入依赖    
+<repositories>
+        <repository>
+            <id>aliun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <!--这是任何一个spring工程都需要引入的-->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.20.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.2.20.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+        </dependency>
+    </dependencies>
 ```
 
+```xml
+//applicationContext.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--spring jdbc的底层配置  数据源的设置-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/imooc-test?useUnicode=true&amp;characterEncoding=gbk&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+        <property name="username" value="root"></property>
+        <property name="password" value="1234"></property>
+    </bean>
+    <!--关键配置  JdbcTemplate提供数据CRUE的API jdbcTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>    <!--这里的ref指向的是上面的beanId-->
+    </bean>
+
+    <bean id="employeeDao" class="com.imooc.spring.jdbc.dao.EmployeeDao">
+        <!--为Dao注入JdbcTempla对象 （只有注入以后具体的业务方法才可以去调用jdbc相应的api完成数据库的增删改查操作）-->
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+</beans>
 ```
 
+```java
+//employee.java 实体类
+package com.imooc.spring.jdbc.entity;
+import java.util.Date;
+public class Employee {
+    private Integer eno;
+    private String ename;
+    private Float salary;
+    private String dname;
+    private Date hiredate;  //入职时间
+
+    public Integer getEno() { return eno;}
+
+    public void setEno(Integer eno) {this.eno = eno;}
+
+    public String getEname() {return ename;}
+
+    public void setEname(String ename) {this.ename = ename;}
+
+    public Float getSalary() { return salary;}
+
+    public void setSalary(Float salary) {this.salary = salary;}
+
+    public String getDname() {return dname;}
+
+    public void setDname(String dname) {this.dname = dname;}
+
+    public Date getHiredate() {return hiredate;}
+
+    public void setHiredate(Date hiredate) {this.hiredate = hiredate;}
+
+    //为了让程序更容易调试，这里重写toString 方法
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "eno=" + eno +
+                ", ename='" + ename + '\'' +
+                ", salary=" + salary +
+                ", dname='" + dname + '\'' +
+                ", hiredate=" + hiredate +
+                '}';}}
+```
+
+```java
+//EmployeeDao.java
+package com.imooc.spring.jdbc.dao;
+import com.imooc.spring.jdbc.entity.Employee;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class EmployeeDao {
+    //持有jdbcTemplate
+    private JdbcTemplate jdbcTemplate;
+
+    public Employee findById(Integer eno){
+        //queryForObject的含义是进行指定的查询，将唯一返回的数据转成对应的对象
+        String sql = "select * from employee where eno=?";
+        //如何将指定的sql转成相应的对象? BeanPropertyRowMapper的含义是 将bean的属性和每一行的列（？）来进行一一的对应(需要先刻意的将属性名和字段名按驼峰规则保持一致),
+        // 由这个对象(RowMapper)来完成从数据库记录到实体对象的转化，类似mybatis中将每一条记录转化为实体对象的过程
+        Employee employee = jdbcTemplate.queryForObject(sql,new Object[]{eno},new BeanPropertyRowMapper<Employee>(Employee.class));
+        return employee;}
+
+    public JdbcTemplate getJdbcTemplate() {return jdbcTemplate;}
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate; }}
+```
+
+```java
+//SpringApplication.java
+public class SpringApplication {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        EmployeeDao employeeDao = context.getBean("employeeDao",EmployeeDao.class);
+        Employee employee = employeeDao.findById(3308);
+        System.out.println(employee);   //这里打印employee这个对象会直接调用toString() 方法
+    }
+}
+```
