@@ -14,7 +14,7 @@
         <property name="username" value="root"></property>
         <property name="password" value="1234"></property>
     </bean>
-    <!--关键配置  JdbcTemplate提供数据CRUE的API jdbcTemplate-->
+    <!--关键配置  JdbcTemplate提供数据CRUD的API jdbcTemplate-->
     <!--CURE  C(Create):建立 + R(Retrieve):查询 + U(Update):修改 + D(Delete):删除-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"></property>    <!--这里的ref指向的是上面的beanId-->
