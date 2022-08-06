@@ -36,6 +36,32 @@ public class EmployeeDao {
         return maps;
     }
 
+    //写入操作  新增操作
+    public void insert(Employee employee){
+        String sql = "insert into employee(eno,ename,salary,dname,hiredate) value(?,?,?,?,?)";
+        //update()方法泛指所有写入操作（不只是更新操作）
+        jdbcTemplate.update(sql,new Object[]{
+            employee.getEno(),employee.getEname(),employee.getSalary(),employee.getDname(),employee.getHiredate()
+        });
+    }
+
+    //更新内容操作 修改操作
+    public int update(Employee employee){
+        String sql = "update employee set ename=?, salary=?,dname=?,hiredate=? where eno=?";
+        //int count 代表本次新增、修改或者删除操作所真实影响的数据条目
+        int count =  jdbcTemplate.update(sql, new Object[]{
+               employee.getEname(),employee.getSalary(),employee.getDname(), employee.getHiredate(), employee.getEno()
+        });
+        return count;
+    }
+
+    //删除操作
+    public int delete(Integer eno){
+        String sql = "delete from employee where eno=?";
+        int count = jdbcTemplate.update(sql,new Object[]{eno});
+        return count;
+    }
+
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }

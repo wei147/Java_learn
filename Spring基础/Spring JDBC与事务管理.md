@@ -265,3 +265,73 @@ public class JdbcTemplateTester {
 2022年8月5日01:29:03
 ```
 
+
+
+#### JdbcTemplate数据写入方法
+
+##### JdbcTemplate实现增删改查	crud 
+
+```java
+//EmployeeDao.java
+//写入操作  新增操作
+public void insert(Employee employee){
+    String sql = "insert into employee(eno,ename,salary,dname,hiredate) value(?,?,?,?,?)";
+    //update()方法泛指所有写入操作（不只是更新操作）
+    jdbcTemplate.update(sql,new Object[]{
+        employee.getEno(),employee.getEname(),employee.getSalary(),employee.getDname(),employee.getHiredate()
+    });}
+
+//更新内容操作 修改操作
+public int update(Employee employee){
+    String sql = "update employee set ename=?, salary=?,dname=?,hiredate=? where eno=?";
+    //int count 代表本次新增、修改或者删除操作所真实影响的数据条目
+    int count =  jdbcTemplate.update(sql, new Object[]{
+           employee.getEname(),employee.getSalary(),employee.getDname(), employee.getHiredate(), employee.getEno()
+    });
+    return count;
+}
+
+//删除操作
+public int delete(Integer eno){
+    String sql = "delete from employee where eno=?";
+    int count = jdbcTemplate.update(sql,new Object[]{eno});
+    return count;}
+```
+
+```java
+//JdbcTemplateTester.java 测试类
+@Test   //新增
+public void testInsert(){
+    Employee employee = new Employee();
+    employee.setEno(8008);
+    employee.setDname("研发部");
+    employee.setEname("小陈chen");
+    employee.setSalary(4999.0F);
+    employee.setHiredate(new Date());   //入职时间设置为当前
+    employeeDao.insert(employee);
+}
+
+@Test   //修改
+public void testUpdate(){
+    Employee employee = employeeDao.findById(808);
+    employee.setEno(808);
+    employee.setDname("UI部之天美分部");
+    employee.setEname("小陈虎");
+    employee.setSalary(employee.getSalary()+2000);
+    int count = employeeDao.update(employee);
+    System.out.println("本次更新 "+count+" 条数据");
+}
+
+@Test   //删除  (对于不存在的数据进行删除不会报错/产生实际影响)
+public void testDelete(){
+    int count = employeeDao.delete(8008);
+    System.out.println("本次更新 "+count+" 条数据");
+}
+```
+
+疑问：数据库的事务如何控制？没有体现到   下一节讲解编程式事务
+
+
+
+#### 编程式事务
+

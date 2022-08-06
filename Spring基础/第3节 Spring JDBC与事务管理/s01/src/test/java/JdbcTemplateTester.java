@@ -6,6 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 //测试用例类
@@ -38,4 +39,34 @@ public class JdbcTemplateTester {
         System.out.println(employeeDao.findMapByDname("研发部")); //[{empno=3308, s=6000.0}, {empno=3420, s=8700.0}]
 
     }
+
+    @Test   //新增
+    public void testInsert(){
+        Employee employee = new Employee();
+        employee.setEno(8008);
+        employee.setDname("研发部");
+        employee.setEname("小陈chen");
+        employee.setSalary(4999.0F);
+        employee.setHiredate(new Date());   //入职时间设置为当前
+        employeeDao.insert(employee);
+    }
+
+    @Test   //修改
+    public void testUpdate(){
+        Employee employee = employeeDao.findById(808);
+        employee.setEno(808);
+        employee.setDname("UI部之天美分部");
+        employee.setEname("小陈虎");
+        employee.setSalary(employee.getSalary()+2000);
+        int count = employeeDao.update(employee);
+        System.out.println("本次更新 "+count+" 条数据");
+    }
+
+    @Test   //删除  (对于不存在的数据进行删除不会报错/产生实际影响)
+    public void testDelete(){
+        int count = employeeDao.delete(8008);
+        System.out.println("本次更新 "+count+" 条数据");
+    }
+
+//    疑问：数据库的事务如何控制？没有体现到
 }
