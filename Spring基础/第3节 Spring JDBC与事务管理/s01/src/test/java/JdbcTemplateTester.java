@@ -1,5 +1,6 @@
 import com.imooc.spring.jdbc.dao.EmployeeDao;
 import com.imooc.spring.jdbc.entity.Employee;
+import com.imooc.spring.jdbc.service.EmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +18,9 @@ public class JdbcTemplateTester {
     //注入对应的类
     @Resource
     private EmployeeDao employeeDao;
+    //注入对应的类
+    @Resource
+    private EmployeeService employeeService;
 
     //第一个测试用例
     @Test
@@ -69,4 +73,12 @@ public class JdbcTemplateTester {
     }
 
 //    疑问：数据库的事务如何控制？没有体现到
+
+    @Test
+    public void testBatchImport(){
+        //这里不是由一个事务提交的，而是分为10个，创建了10个数据库连接，10次插入，10次提交。 在pom.xml中引入日志依赖logback-classic 就能发现。
+        //预期结果是一个数据库中，重复的执行insert，当这十条数据处理完后，把这个事务一提交，十条数据一次性写入，同时数据库连接释放掉
+        employeeService.batchImport();
+        System.out.println("批量导入成功");
+    }
 }

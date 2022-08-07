@@ -47,6 +47,13 @@
             <artifactId>spring-test</artifactId>
             <version>5.2.2.RELEASE</version>
         </dependency>
+
+        <!--logback日志组件，Spring框架默认集成。 (就是说 直接就能用了，不需要任何设置)-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
     </dependencies>
 
 

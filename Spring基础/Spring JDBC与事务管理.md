@@ -329,9 +329,129 @@ public void testDelete(){
 }
 ```
 
-疑问：数据库的事务如何控制？没有体现到   下一节讲解编程式事务
+疑问：数据库的事务如何控制/管理？暂时没有体现到   下一节讲解编程式事务
 
 
 
 #### 编程式事务
 
+```html
+Spring中如何进行事务管理？
+
+<什么是事务？>
+事务是以一种可靠的、一致的方式，访问和操作数据库的程序单元
+说人话：要么把事情做完，要么什么都不做，不要做一半  (commit?rollback)
+事务依赖于数据库实现，MySQL通过<事务区>作为数据缓冲地带	(mysql通过引入事务区的概念，将当前事务数据进行缓存，当所有操作完成后，提交。就可以将事务区中的数据一次性写入到真实的表中，如果出现问题则将事务区中的数据全部进行回滚，这样就相当于什么都没有做)
+
+对于Spring jdbc这个模块来说，如何进行事务控制？
+答：编程式事务
+
+<编程式事务>
+编程式事务是指通过代码手动提交回滚事务的事务控制方法
+SpringJDBC通过TransactionManager事务管理器实现事务控制
+事务管理器提供commit/rollback方法进行事务提交与回滚
+
+    
+需求：向表中导入10条数据，要么全部导入成功，要么什么都不做
+    
+    service 业务逻辑
+    
+在Spring中使用事务的方式有两种： 编程式事务 和 声明式事务
+    
+    编程式事务优点：直接写在代码中，对于人眼阅读来说非常好
+    编程式事务缺点：可能存在人为风险（忘记加事务控制了，导致数据缺失没有提交到）
+    
+    下一节由Spring提供的更高级的做法————声明式事务
+    
+```
+
+```xml
+//配置文件   
+<bean id="employeeService" class="com.imooc.spring.jdbc.service.EmployeeService">
+        <property name="employeeDao" ref="employeeDao"></property>
+        <!--关联到事务管理器-->
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <!--事务管理器  （控制事务的整体提交和整体回滚）-->
+    <!--怎么使用?  在需要事务控制的类里，去注入它 比如EmployeeService中-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">     <!--基于数据源的事务管理器-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+```
+
+```java
+//EmployeeService.java  业务逻辑
+package com.imooc.spring.jdbc.service;
+import com.imooc.spring.jdbc.dao.EmployeeDao;
+import com.imooc.spring.jdbc.entity.Employee;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import java.util.Date;
+
+public class EmployeeService {
+    //底层依赖于EmployeeDao。完成属性设置
+    private EmployeeDao employeeDao;
+    //注入事务控制器
+    private DataSourceTransactionManager transactionManager;    //还需要到 配置文件文件中关联才能使用
+
+    //批量导入
+    public void batchImport() {
+        //定义了事务默认的标准配置
+        TransactionDefinition definition = new DefaultTransactionDefinition();  //默认事务定义
+        //开始一个事务,返回事务状态，事务状态说明当前事务的执行阶段 (这句话以后,所有数据的新增修改删除都放入到事务区中，由事务统一进行管理)
+        TransactionStatus status = transactionManager.getTransaction(definition); //status事务状态，比如未提交，已提交，已回滚
+
+        try {
+            for (int i = 1; i <= 10; i++) {
+//                if (i == 3) {  //就是说，第二个之后的不会出现在数据表中。
+//                    throw new RuntimeException("意料之外的异常");
+//                }
+                Employee employee = new Employee(); //每一次循环新创建一个employee对象
+                employee.setEno(700 + i);
+                employee.setEname("员工" + i);
+                employee.setSalary(3999F);
+                employee.setDname("市场部");
+                employee.setHiredate(new Date());
+                employeeDao.insert(employee);
+            }
+        } catch (RuntimeException e) {
+            //有异常就回滚事务
+            transactionManager.rollback(status);
+//            e.printStackTrace(); //如果这里打印(处理)了，意味着异常不会向外抛出，在sql内部就被消化了
+//            但如果想让异常在外侧，也就是调用方进行处理的话，那么使用 throw e; 运行时异常被原封不动的抛出
+            throw e;
+            //异常捕获还是异常抛出要根据业务来决定
+        }
+        //当前for循环，如果执行成功。提交事务
+        transactionManager.commit(status);}
+
+    public EmployeeDao getEmployeeDao() {
+        return employeeDao;}
+
+    public void setEmployeeDao(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;}
+
+    public DataSourceTransactionManager getTransactionManager() {return transactionManager;}
+
+    public void setTransactionManager(DataSourceTransactionManager transactionManager) {this.transactionManager = transactionManager;}}
+```
+
+```java
+//测试类
+//注入对应的类
+@Resource
+private EmployeeDao employeeDao;
+//注入对应的类
+@Resource
+private EmployeeService employeeService;
+@Test
+public void testBatchImport(){
+    //这里不是由一个事务提交的，而是分为10个，创建了10个数据库连接，10次插入，10次提交。 在pom.xml中引入日志依赖logback-classic 就能发现。
+    //预期结果是一个数据库中，重复的执行insert，当这十条数据处理完后，把这个事务一提交，十条数据一次性写入，同时数据库连接释放掉
+    employeeService.batchImport();
+    System.out.println("批量导入成功");}
+```

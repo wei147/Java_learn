@@ -24,4 +24,17 @@
         <!--为Dao注入JdbcTempla对象 （只有注入以后具体的业务方法才可以去调用jdbc相应的api完成数据库的增删改查操作）-->
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
+
+    <bean id="employeeService" class="com.imooc.spring.jdbc.service.EmployeeService">
+        <property name="employeeDao" ref="employeeDao"></property>
+        <!--关联到事务管理器-->
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <!--事务管理器  （控制事务的整体提交和整体回滚）-->
+    <!--怎么使用?  在需要事务控制的类里，去注入它 比如EmployeeService中-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">     <!--基于数据源的事务管理器-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 </beans>
