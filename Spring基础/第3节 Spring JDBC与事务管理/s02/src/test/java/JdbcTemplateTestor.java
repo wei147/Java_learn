@@ -63,4 +63,11 @@ public class JdbcTemplateTestor {
         employeeService.batchImport();
         System.out.println("批量导入成功");
     }
+
+    @Test
+    public void testStartImportJob(){
+        System.out.println("批量导入开始");
+        employeeService.startImportJob();
+        System.out.println("批量导入成功——batchJob");
+    }
 }

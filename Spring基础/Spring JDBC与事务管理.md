@@ -477,3 +477,143 @@ public void testBatchImport(){
 为事务绑定PointCut切点  （PointCut用于说明在在哪些类的哪些方法上来应用通知，限定事务通知的执行范围）
 ```
 
+```xml
+xmlns:tx="http://www.springframework.org/schema/tx"		这个命名空间专用于事务控制
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/imooc-test?useUnicode=true&amp;useSSL=false&amp;characterEncoding=gbk&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+        <property name="username" value="root"></property>
+        <property name="password" value="1234"></property>
+    </bean>
+    <!--JdbcTemplate提供数据CRUD的API-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="employeeDao" class="com.imooc.spring.jdbc.dao.EmployeeDao">
+        <!--为Dao注入JdbcTemplate对象-->
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="employeeService" class="com.imooc.spring.jdbc.service.EmployeeService">
+        <property name="employeeDao" ref="employeeDao"/>
+    </bean>
+
+    <!--声明式事务-->
+    <!--1.事务管理器，用于创建事务/提交/回滚-->
+    <bean id="transactionManger" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  <!--事务管理器-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--2.事务通知配置，决定哪些方法使用事务，哪些方法不使用事务-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManger">
+        <tx:attributes>
+            <!--目标方法名为batchImport时，启用声明式事务，成功提交，运行时异常回滚-->
+            <!-- [次要] propagation:设置事务的传播行为  基本上设置为propagation="REQUIRED" 需要使用事务 required必须的-->
+            <tx:method name="batchImport" propagation="REQUIRED"/>
+            <tx:method name="bath*" propagation="REQUIRED"/>   <!--支持通配符的形式进行匹配-->
+            <!--设置所有findXXX方法不需要使用事务-->
+            <tx:method name="find*" propagation="NOT_SUPPORTED" read-only="true"/>
+            <tx:method name="get*" propagation="NOT_SUPPORTED" read-only="true"/>
+            <!--不符合上面要求的其他方法都默认使用事务-->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--定义声明式事务的作用范围-->
+    <aop:config>
+        <aop:pointcut id="pointcut" expression="execution(* com.imooc..*Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+    </aop:config>
+</beans>
+```
+
+```java
+//EmployeeService.java  由方法自己决定rollback还是commit，不需要自己写判断和捕获异常
+package com.imooc.spring.jdbc.service;
+import com.imooc.spring.jdbc.dao.EmployeeDao;
+import com.imooc.spring.jdbc.entity.Employee;
+import java.util.Date;
+
+public class EmployeeService {
+    private EmployeeDao employeeDao;
+
+    public void batchImport() {
+        for (int i = 1; i <= 10; i++) {
+//            if (i == 3){
+//                throw new RuntimeException("意料之外的异常");
+//            }
+            Employee employee = new Employee();
+            employee.setEno(8000 + i);
+            employee.setEname("员工" + i);
+            employee.setSalary(4000f);
+            employee.setDname("市场部");
+            employee.setHiredate(new Date());
+            employeeDao.insert(employee);}}
+
+    public EmployeeDao getEmployeeDao() {return employeeDao;}
+
+    public void setEmployeeDao(EmployeeDao employeeDao) {this.employeeDao = employeeDao;}}
+```
+
+
+
+#### 事务传播行为
+
+##### 事务传播行为是指多个拥有事务的方法在嵌套调用时的事务控制方式 
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220810134403592.png" alt="image-20220810134403592" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220810142426092.png" alt="image-20220810142426092" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220810143112671.png" alt="image-20220810143112671" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220810144232219.png" alt="image-20220810144232219" style="zoom:50%;" />
+
+```java
+//EmployeeService.java
+//事务的嵌套使用  startImportJob默认也是开启声明式事务的               <tx:method name="*" propagation="REQUIRED"/>
+    public void startImportJob() {  //嵌套使用时，importJob1和importJob2发现外侧有现成的事务了，运行时这两个job会加入到该外侧事务中，运行时该方法时整体是在一个事务中完成增删改查。这就有个问题：当startImportJob（）方法内发生错误时，它会回滚整个事务，就是说该事务内正常的方法也会被牵扯到	那么怎么让嵌套的方法独立呢？不受外侧事务的影响独立起来		答：让xml中的 propagation="REQUIRES_NEW" 意思是 针对这个方法在运行时会产生新的事务进行处理
+        batchService.importJob1();
+        //这个判断会影响到startImportJob() 一条数据都没有加入。 本来Job1和Job2应该是两个互不相关的方法，Job2执行不了Job2也应该执行才对 怎么实现？ 事务传播行为的设置
+        if(1==1){
+            throw new RuntimeException("意料之外的异常");
+        }
+        batchService.importJob2();}
+```
+
+```
+PROPAGATION REQUIRED(默认)	如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择
+PROPAGATION SUPPORTS	在非事务执行方式中，遇到每一次的新增修改删除它马上就会提交，所以采用非事务方式它无法保障数据的完整性
+PROPAGATION MANDATORY	使用当前的事务，如果当前没有事务，就抛出异常
+PROPAGATION REQUIRES NEW	新建事务，如果当前存在事务，把当前事务挂起
+PROPAGATION NOT SUPPORTED	以非事务方式执行操作，如果当前存在事务，就把当前事务挂起（用在查询方法上）
+PROPAGATION NEVER		以非事务方式执行，如果当前存在事务，则抛出异常（几乎不用）
+PROPAGATION NESTED	如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION REQUIRED类似的操作
+
+
+
+
+
+
+```
+
