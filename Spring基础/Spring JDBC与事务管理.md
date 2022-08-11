@@ -601,7 +601,7 @@ public class EmployeeService {
         batchService.importJob2();}
 ```
 
-```
+```xml
 PROPAGATION REQUIRED(默认)	如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择
 PROPAGATION SUPPORTS	在非事务执行方式中，遇到每一次的新增修改删除它马上就会提交，所以采用非事务方式它无法保障数据的完整性
 PROPAGATION MANDATORY	使用当前的事务，如果当前没有事务，就抛出异常
@@ -609,11 +609,222 @@ PROPAGATION REQUIRES NEW	新建事务，如果当前存在事务，把当前事�
 PROPAGATION NOT SUPPORTED	以非事务方式执行操作，如果当前存在事务，就把当前事务挂起（用在查询方法上）
 PROPAGATION NEVER		以非事务方式执行，如果当前存在事务，则抛出异常（几乎不用）
 PROPAGATION NESTED	如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION REQUIRED类似的操作
-
-
-
-
-
-
 ```
+
+
+
+#### 注解配置声明式事务
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--因为是注解形式，所以设置扫描的基本包是哪个-->
+    <context:component-scan base-package="com.imooc"/>
+    <!--系统底层共用类还是需要在这里增加bean来进行实例化-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 数据源 -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/imooc-test?useUnicode=true&amp;useSSL=false&amp;characterEncoding=gbk&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+        <property name="username" value="root"></property>
+        <property name="password" value="1234"></property>
+    </bean>
+
+    <!--初始化 JdbcTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--启用注解形式声明式事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
+```
+
+```java
+//EmployeeService.java
+package com.imooc.spring.jdbc.service;
+import com.imooc.spring.jdbc.dao.EmployeeDao;
+import com.imooc.spring.jdbc.entity.Employee;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
+import java.util.Date;
+
+@Service    //完成ioc容器的实例化
+//声明式事务核心注解
+//放在类上，将声明式事务配置应用于当前所有方法，默认事务传播为 REQUIRED
+@Transactional(propagation = Propagation.REQUIRED)
+public class EmployeeService {
+    @Resource   //完成dao的注入
+    private EmployeeDao employeeDao;
+    @Resource  //要保证属性名和bean ID保持一致就可以了 （bean id会将BatchService 变成 batchService）
+    private BatchService batchService;
+
+    //也可以单独设置事务。这里是查询方法，采用非事务的方式运行。 readOnly = true 只读的并不需要使用事务。方法上配置的优先级比类的高
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public Employee findById(Integer eno){
+        return employeeDao.findById(eno);
+    }
+
+    public void batchImport() {
+        for (int i = 1; i <= 10; i++) {
+            if(i==3){
+                throw new RuntimeException("意料之外的异常");
+            }
+            Employee employee = new Employee();
+            employee.setEno(8000 + i);
+            employee.setEname("员工" + i);
+            employee.setSalary(4000f);
+            employee.setDname("市场部");
+            employee.setHiredate(new Date());
+            employeeDao.insert(employee);
+        }
+    }
+
+    public void startImportJob(){
+        batchService.importJob1();
+        if(1==1){
+            throw new RuntimeException("意料之外的异常");}
+        batchService.importJob2();
+        System.out.println("批量导入成功");}
+
+    public EmployeeDao getEmployeeDao() { return employeeDao;}
+
+    public void setEmployeeDao(EmployeeDao employeeDao) {this.employeeDao = employeeDao;}
+
+    public BatchService getBatchService() {return batchService;}
+
+    public void setBatchService(BatchService batchService) { this.batchService = batchService; }}
+```
+
+```java
+//BatchService.java
+package com.imooc.spring.jdbc.service;
+import com.imooc.spring.jdbc.dao.EmployeeDao;
+import com.imooc.spring.jdbc.entity.Employee;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Date;
+
+@Service    //完成ioc容器的实例化
+@Transactional(propagation = Propagation.NOT_SUPPORTED,readOnly = true) //默认不使用事务，只读操作
+public class BatchService {
+    @Resource   //完成dao的注入
+    private EmployeeDao employeeDao;
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)  //设置独立的在事务中运行
+    public void importJob1(){
+        for (int i = 1; i <= 5; i++) {
+            Employee employee = new Employee();
+            employee.setEno(8000 + i);
+            employee.setEname("研发部员工" + i);
+            employee.setSalary(4000f);
+            employee.setDname("研发部");
+            employee.setHiredate(new Date());
+            employeeDao.insert(employee);}}
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void importJob2(){
+        for (int i = 1; i <= 5; i++) {
+            Employee employee = new Employee();
+            employee.setEno(9000 + i);
+            employee.setEname("市场部员工" + i);
+            employee.setSalary(4500f);
+            employee.setDname("市场部");
+            employee.setHiredate(new Date());
+            employeeDao.insert(employee);}}
+
+    public EmployeeDao getEmployeeDao() {return employeeDao;}
+
+    public void setEmployeeDao(EmployeeDao employeeDao) {this.employeeDao = employeeDao;}}
+```
+
+
+
+#### 总结和回顾
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811213654040.png" alt="image-20220811213654040" style="zoom:50%;" />
+
+```xml
+1.什么是Spring JDBC 与JdbcTemplate对象的使用  JdbcTemplate是spring jdbc的核心类，提供数据CRUD方法
+	xml中数据源、JdbcTemplate、为Dao注入JdbcTempla对象 、关联到事务管理器
+2.编程式事务和声明式事务到底有什么区别
+	事务管理器的概念（控制事务的整体提交和整体回滚）
+3.声明式事务七种事务传播行为到底是做什么用的？
+
+注：
+1.在XML，DataSource数据源描述数据库的连接信息，
+    <!--1.spring jdbc的底层配置  数据源的设置-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/imooc-test?useUnicode=true&amp;characterEncoding=gbk&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+        <property name="username" value="root"></property>
+        <property name="password" value="1234"></property>
+    </bean>
+    <!--2.关键配置  JdbcTemplate提供数据CRUD的API jdbcTemplate-->
+    <!--CURE  C(Create):建立 + R(Retrieve):查询 + U(Update):修改 + D(Delete):删除-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>    <!--这里的ref指向的是上面的beanId--></bean>
+
+    <bean id="employeeDao" class="com.imooc.spring.jdbc.dao.EmployeeDao">
+        <!--3.为Dao注入JdbcTempla对象 （只有注入以后具体的业务方法才可以去调用jdbc相应的api完成数据库的增删改查操作）-->
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214057135.png" alt="image-20220811214057135" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214057135.png" alt="image-20220811214057135" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214143585.png" alt="image-20220811214143585" style="zoom:50%;" />![image-20220811215110128](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215110128.png)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214143585.png" alt="image-20220811214143585" style="zoom:50%;" />![image-20220811215110128](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215110128.png)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214143585.png" alt="image-20220811214143585" style="zoom:50%;" />![image-20220811215110128](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215110128.png)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811214143585.png" alt="image-20220811214143585" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215110128.png" alt="image-20220811215110128" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215628836.png" alt="image-20220811215628836" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811215701048.png" alt="image-20220811215701048" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811220042411.png" alt="image-20220811220042411" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220811220344396.png" alt="image-20220811220344396" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

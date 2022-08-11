@@ -3,11 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.imooc.spring</groupId>
-    <artifactId>jdbc</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
     <repositories>
         <repository>
             <id>aliun</id>
@@ -16,9 +11,11 @@
         </repository>
     </repositories>
 
+    <groupId>com.imooc.spring</groupId>
+    <artifactId>jdbc</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
-            <!--这是任何一个spring工程都需要引入的-->
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.2.20.RELEASE</version>
@@ -28,8 +25,6 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.2.20.RELEASE</version>
         </dependency>
-
-        <!--数据库的JDBC驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -40,27 +35,29 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>5.2.20.RELEASE</version>
         </dependency>
 
-        <!--logback日志组件，Spring框架默认集成。 (就是说 直接就能用了，不需要任何设置)-->
+        <!--logback日志组件,Spring框架默认集成-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+        <!--（环绕通知自然离不开aop）声明式事务是基于aop的，aop离不开 aspect-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.5</version>
+        </dependency>
+
     </dependencies>
 
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
 
 </project>
