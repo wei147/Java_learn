@@ -56,7 +56,61 @@ idea基础的配置能通过tomcat运行网页程序
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220812121148443.png" alt="image-20220812121148443" style="zoom:50%;" />
 
+```xml
+//1.引入spring MVC Maven依赖引入    
+<repositories>
+        <repository>
+            <id>aliun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.1.9.RELEASE</version>
+        </dependency>
+    </dependencies>
+```
+
+```xml
+    <!--DispatchServlet的配置-->
+//spring mvc的web.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <!--DispatchServlet 是springMVC最重要的一个类。它的作用是对所有请求进行拦截-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <!--DispatcherServlet是Spring MVC最核心的对象
+            DispatcherServlet用于拦截Http请求，
+            并根据请求的URL调用与之对应的Controller方法，来完成Http请求的处理-->
+        <!--[次要]DispatcherServlet就是一个中转站、前台。这个前台是外部环境和公司内部人员的一个对接窗口，
+        所有的进和出都要通过这个前台来完成。而Controller可以看做是公司内部的市场部同事-->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--applicationContext.xml-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>   <!--上下文的配置路径所在-->
+            <param-value>classpath:applicationContext.xml</param-value>
+        </init-param>
+        <!--在Web应用启动时自动创建Spring IOC容器，（为什么要创建Spring IOC容器? 因为spring mvc所有的底层对象都必须依赖于spring ioc容器）
+            并初始化DispatcherServlet   -->
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <!-- "/"代表拦截所有请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
 
 
 
-
+#### Spring MVC环境配置-2
