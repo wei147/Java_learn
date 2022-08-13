@@ -1,3 +1,5 @@
+
+
 ## 第1节 SpringMVC入门与数据绑定
 
 ### 介绍
@@ -114,3 +116,116 @@ idea基础的配置能通过tomcat运行网页程序
 
 
 #### Spring MVC环境配置-2
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mv="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--组件扫描-->
+    <!--context:component-scan 标签作用
+        在Spring IOC初始化过程中。自动创建并管理com.springmvc及子包中
+        拥有以下注解的对象。
+        @Repository     （与数据发生直接交互的类 Dao类）
+        @Service        （业务逻辑类 xxxService）
+        @Controller     （用于描述Spring mvc的控制器类）
+        @Component      （不清楚类型可以使用@Component）
+    -->
+    <context:component-scan base-package="com.imooc.springmvc"/>
+    <!--启用Spring MVC的注解开发模式-->
+    <mvc:annotation-driven/>
+    <!--将图片/JS/CSS等静态资源排除在外，可提高执行效率-->
+    <mvc:default-servlet-handler/>
+</beans>
+```
+
+记得将依赖放入WEB-INF/lib中
+
+```java
+//TestController.java
+package com.imooc.springmvc.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+//处理http的请求并且返回响应
+@Controller
+public class TestController {
+    @GetMapping("/t")    //@GetMapping() 将当前这个方法绑定某个get方式请求的url   localhost/t
+    @ResponseBody           //直接向响应输出字符串数据（提供数据），不跳转页面
+    public String test(){
+        return "Success ! 嗨嗨害"; }}
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813000338268.png" alt="image-20220813000338268" style="zoom:50%;" />
+
+
+
+#### URLMapping(URL映射)
+
+##### Spring MVC数据绑定
+
+```
+在Spring MVC中如何进行数据绑定？
+	1.1什么是数据绑定？ 答：spring MVC中我们Controller控制器的某一个方法是如何和URL绑定在一起的
+	
+URLMapping ：spring mvc中最重要也是最基础的
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813001304743.png" alt="image-20220813001304743" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813001401921.png" alt="image-20220813001401921" style="zoom:50%;" />
+
+```java
+package com.imooc.springmvc.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/um")    //RequestMapping通常放在类上面 （这个注解在大多数情况下是用于进行url的全局设置的）/um/g 访问前缀
+public class URLMappingController {
+
+//    @GetMapping("/g")
+    @RequestMapping(value = "/g",method = RequestMethod.GET)   //用于模拟get方法。（也可以是其他方法）
+//    @RequestMapping("/g")   //作用在方法上，不再区分get/post请求
+    @ResponseBody
+    public String getMapping() {
+        return "This is get method";
+    }
+    @ResponseBody
+    @PostMapping("/p")
+    public String postMapping() {
+        return "This is post method";}}
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<h2>test page!</h2>-->
+<form action="/p" method="post">
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
+```
+
+#### Controller方法参数接收请求参数
+
+##### 接收请求参数
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813004525314.png" alt="image-20220813004525314" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813004724952.png" alt="image-20220813004724952" style="zoom:50%;" />
+
