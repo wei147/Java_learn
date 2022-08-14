@@ -229,3 +229,88 @@ public class URLMappingController {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220813004724952.png" alt="image-20220813004724952" style="zoom:50%;" />
 
+```java
+@Controller
+@RequestMapping("/um")    //RequestMapping通常放在类上面 （这个注解在大多数情况下是用于进行url的全局设置的）/um/g 访问前缀
+public class URLMappingController {
+
+    //@GetMapping("/g")
+    @RequestMapping(value = "/g", method = RequestMethod.GET)   //用于模拟get方法。（也可以是其他方法）
+    //@RequestMapping("/g")   //作用在方法上，不再区分get/post请求
+    @ResponseBody
+    //@RequestParam专用于这种特殊的参数来进行描述,后面跟进行映射的原始参数。请求中的manager_name这个参数在运行时会被动态的注入到managerName参数中		http://localhost:8081/um/g?manager_name=wei
+    public String getMapping(@RequestParam("manager_name") String managerName) {
+        System.out.println(managerName);  //wei
+        return "This is get method";}
+
+    @ResponseBody
+    @PostMapping("/p")
+    public String postMapping(String username, Long password) {
+        // 报400错误可能是前端表单校验不够严谨造成的
+        System.out.println("用户名: " + username + "   密码: " + password);
+        return "This is post method， 登录成功";}}
+```
+
+
+
+#### Controller实体对象接收请求参数
+
+##### 使用Java Bean 接收请求参数
+
+```
+当输入数量多的时候，一个新的问题产生了————难道要把100个输入项一个个都列举出来吗？
+结果是 方法声明的部分很长，而且不利于维护，也可以打包成一个对象但是每一次取出来都需要object.getParameter 比较麻烦。(大表单使用实体对象，缺点是需要创建一个实体类)
+
+为了解决上述问题，Spring MVC允许我们一次性的将我们前台输入的数据保存为指定的Java bean，一步到位完成了由数据到对象的转换工作  （用实体对象来接收）	    
+	@ResponseBody
+    @PostMapping("/p1")
+    public String postMapping1(User user){}
+```
+
+```java
+//URLMappingController.java
+// 在程序运行时，spring mvc就会自动的创建User这个对象，并且根据前面的请求结合实体类中的参数名来进行一一的自动赋值以及类型转换的工作 （注：实体类属性名和前台传入的参数名字保持一致）
+@ResponseBody
+@PostMapping("/p1")
+public String postMapping1(User user,String username){      //String username 一样会被赋值
+    System.out.println(user);
+    System.out.println(user.getUsername() + "  "+user.getPassword());
+    return "ok ,it's good. This is post method";}
+```
+
+```java
+//User.java  实体类
+package com.imooc.springmvc.entity;
+public class User {
+    private String username;
+    private Long password;
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username = username;}
+    public Long getPassword() {return password;}
+    public void setPassword(Long password) {this.password = password;}}
+```
+
+```html
+//index.html
+<!--<h2>test page!</h2>-->
+<form action="/um/p1" method="post">
+    <input name="username"><br/>
+    <input name="password">
+    <input type="submit" value="提交">
+</form>
+```
+
+
+
+#### 综合训练：学员调查问卷
+
+#### 接收表单复合数据（上）
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220814225824017.png" alt="image-20220814225824017" style="zoom:50%;" />
+
+```
+复合数据的获取
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220814230629151.png" alt="image-20220814230629151" style="zoom:50%;" />
+
