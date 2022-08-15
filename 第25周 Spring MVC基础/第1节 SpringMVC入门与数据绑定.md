@@ -314,3 +314,24 @@ public class User {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220814230629151.png" alt="image-20220814230629151" style="zoom:50%;" />
 
+#### URI绝对路径和相对路径
+
+```
+URI是url的一个子集，说白了就是把主机和端口前半部分去掉，只留下后面我们对应资源的路径。
+
+相对路径：以当前的文件的层级作为依据寻找其他的资源	（相对路径的好处是不用考虑上下文路径问题，只需要与form。html同级就行）
+绝对路径：完整路径
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220815211029946.png" alt="image-20220815211029946" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220815211917008.png" alt="image-20220815211917008" style="zoom:50%;" />
+
+```
+接收复合数据在spring mvc中如何做到？	spring mvc提供了两种方案
+1.一种是数组进行接收
+2.一种使用ArrayList进行接收
+
+随着编程的不断增加，数组其实用得越来越少了，因为在java中提供了更加有效的管理方式，也就是集合
+```
+
