@@ -327,11 +327,33 @@ URI是url的一个子集，说白了就是把主机和端口前半部分去掉�
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220815211917008.png" alt="image-20220815211917008" style="zoom:50%;" />
 
-```
+```java
 接收复合数据在spring mvc中如何做到？	spring mvc提供了两种方案
 1.一种是数组进行接收
 2.一种使用ArrayList进行接收
 
 随着编程的不断增加，数组其实用得越来越少了，因为在java中提供了更加有效的管理方式，也就是集合
+
+    //数组进行接收
+    public String apply(@RequestParam(value = "n",defaultValue = "ANON") ,... Integer[] purpose){
+    
+    //List进行接收
+    @ResponseBody
+    public String apply(String name, String course, @RequestParam List<Integer> purpose){   //这里都是单独接收的，但理应存为一组数据
+        //通过list来接收前端发来的其他复合数据,需要增加@RequestParam注解  （注：作为list它实际的载体是ArrayList。debug可以看到）
+        
+        
+public String apply(String name, String course, @RequestParam List<Integer> purpose){ 
+在实际应用中，对于这一组结构化的数据我们更多的时候是采用对象的方式进行接收
+    //对象的方式进行接收 (通过实体类接收复合数据)
+    @PostMapping("/apply")
+    @ResponseBody
+    public String apply(Form form){   //这里都是单独接收的，但理应存为一组数据
+    
+    
+    //用Map进行接收      （键值对的形式）复合数据不要用Map，否则数据会丢失
+    @PostMapping("/apply")
+    @ResponseBody
+    public String apply(@RequestParam Map map){
 ```
 
