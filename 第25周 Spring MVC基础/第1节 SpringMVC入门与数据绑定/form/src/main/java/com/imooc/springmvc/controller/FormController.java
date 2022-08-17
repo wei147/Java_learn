@@ -39,14 +39,22 @@ public class FormController {
     //对象的方式进行接收 (通过实体类接收复合数据)
 //    @PostMapping("/apply")
     @ResponseBody
-    public String apply(Form form){   //这里都是单独接收的，但理应存为一组数据
+    public String apply(Form form){
         return "success";
     }
 
     //用Map进行接收      （键值对的形式）复合数据不要用Map，否则数据会丢失
-    @PostMapping("/apply")
+//    @PostMapping("/apply")
     @ResponseBody
     public String apply(@RequestParam Map map){
+        return "success";
+    }
+
+    //关联对象赋值  在Form中关联了一个快递实体类 Delivery
+    @PostMapping("/apply")
+    @ResponseBody
+    public String applyDelivery( Form form){
+        System.out.println(form.getDelivery());
         return "success";
     }
 }

@@ -37,6 +37,8 @@ public class FormController_before {
     public String apply(Form form){
         return "SUCCESS";
     }
+
+
 //    @PostMapping("/apply")
     @ResponseBody
     public String apply(@RequestParam Map map){

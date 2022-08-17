@@ -348,12 +348,85 @@ public String apply(String name, String course, @RequestParam List<Integer> purp
     //对象的方式进行接收 (通过实体类接收复合数据)
     @PostMapping("/apply")
     @ResponseBody
-    public String apply(Form form){   //这里都是单独接收的，但理应存为一组数据
+    public String apply(Form form){ 
     
     
     //用Map进行接收      （键值对的形式）复合数据不要用Map，否则数据会丢失
     @PostMapping("/apply")
     @ResponseBody
     public String apply(@RequestParam Map map){
+```
+
+
+
+#### 关联对象赋值
+
+```
+什么是关联对象？ 答：就是在一个对象中引用了另外一个对象。我们需要对这个被引用对象来进行赋值的操作
+```
+
+##### 复杂内容表单
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220817000536073.png" alt="image-20220817000536073" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220817000602408.png" alt="image-20220817000602408" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220817000758728.png" alt="image-20220817000758728" style="zoom:50%;" />
+
+```java
+//Delivery.java
+package com.imooc.springmvc.entity;
+//快递类
+public class Delivery {
+    private String name;
+    private Long mobile;
+    private String address;
+
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+    public Long getMobile() {return mobile;}
+    public void setMobile(Long mobile) {this.mobile = mobile;}
+    public String getAddress() {return address;}
+    public void setAddress(String address) {this.address = address;}}
+```
+
+```java
+//表单实体类
+public class Form {
+    private String name;
+    private String course;
+    private List<Integer> purpose;
+    //包含快递的信息  关联对象赋值  delivery对应delivery.name在form.html中书写
+    private Delivery delivery =  new Delivery();....
+```
+
+```html
+//在form.html中加入 delivery.name
+<h3>收货人</h3>
+<!-- delivery是在Form.java中的  private Delivery delivery =  new Delivery();        -->
+<input name="delivery.name" class="text" style="width: 150px">
+<h3>联系电话</h3>
+<input name="delivery.mobile" class="text" style="width: 150px">
+<h3>收货地址</h3>
+<input name="delivery.address" class="text" style="width: 150px">
+```
+
+```java
+//FormController.java    控制器类
+//关联对象赋值  在Form中关联了一个快递实体类 Delivery
+    @PostMapping("/apply")
+    @ResponseBody
+    public String applyDelivery( Form form){
+        System.out.println(form.getDelivery());
+        return "success";}}
+```
+
+#### 日期类型转换
+
+```
+外国的日期表示是月日年，中国是年月日
+
+我们如何来接收程序中的日期数据并且将它转换为日期对象?
+网页报400错误往往就是 我们无法将数据转成目标类型，所导致的
 ```
 

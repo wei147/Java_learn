@@ -10,27 +10,29 @@
             left: 50%;
             top: 50%;
             width: 400px;
-            height: 300px;
+            height: 600px;
             margin-left: -200px;
-            margin-top: -150px;
+            margin-top: -300px;
             box-sizing: border-box;
             padding: 10px;
         }
-        h2{
+
+        h2 {
             margin: 10px 0px;
             text-align: center;
         }
-        h3{
-            margin: 10px  0px;
+
+        h3 {
+            margin: 10px 0px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>学员调查问卷</h2>
-        <form action="./apply" method="post">
+<div class="container">
+    <h2>学员调查问卷</h2>
+    <form action="./apply" method="post">
         <h3>您的姓名</h3>
-        <input name="name" class="text"  style="width: 150px">
+        <input name="name" class="text" style="width: 150px">
         <h3>您正在学习的技术方向</h3>
         <select name="course" style="width: 150px">
             <option value="java">Java</option>
@@ -45,11 +47,19 @@
             <input type="checkbox" name="purpose" value="3">兴趣爱好
             <input type="checkbox" name="purpose" value="4">其他
         </div>
-        <div style="text-align: center;padding-top:10px" >
+
+        <h3>收货人</h3>
+        <!-- delivery是在Form.java中的  private Delivery delivery =  new Delivery();        -->
+        <input name="delivery.name" class="text" style="width: 150px">
+        <h3>联系电话</h3>
+        <input name="delivery.mobile" class="text" style="width: 150px">
+        <h3>收货地址</h3>
+        <input name="delivery.address" class="text" style="width: 150px">
+        <div style="text-align: center;padding-top:10px">
             <input type="submit" value="提交" style="width:100px">
         </div>
-        </form>
+    </form>
 
-    </div>
+</div>
 </body>
 </html>
