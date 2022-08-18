@@ -27,4 +27,20 @@
         <!-- "/"代表拦截所有请求-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <!--filter是我们J to EE中的标准组件，用于对请求进行过滤-->
+    <filter>
+        <!--字符编码过滤器  主要作用将post请求中的原先的编码改为UTF-8-->
+        <filter-name>characterFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <!--使字符过滤器生效，需要搞一个映射-->
+    <filter-mapping>
+        <filter-name>characterFilter</filter-name>
+        <!--对所有URL进行拦截-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

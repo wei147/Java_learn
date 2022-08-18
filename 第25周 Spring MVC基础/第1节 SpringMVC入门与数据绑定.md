@@ -423,10 +423,109 @@ public class Form {
 
 #### 日期类型转换
 
-```
+```java
 外国的日期表示是月日年，中国是年月日
 
 我们如何来接收程序中的日期数据并且将它转换为日期对象?
 网页报400错误往往就是 我们无法将数据转成目标类型，所导致的
+
+
+既定义了自定义转换器又书写了@DateTimeFormat(pattern = "yyyy-MM-dd")，应该以哪个为准？
+答：在spring mvc中以最小范围规则为优先，也就是两者都配置的情况下以范围小的@DateTimeFormat注解为准。只能二选一，要么使用转换器进行全局统一转换，要么前者
+如果还有其他特殊格式，可以在MyDateConverter.java中输入的参数做判断 yyyyMMdd
 ```
 
+```xml
+//配置自定义日期转换器 进行全局统一转换
+<context:component-scan base-package="com.imooc.springmvc"/>
+<!--启用Spring MVC的注解开发模式-->
+<mvc:annotation-driven conversion-service="conversionService"/> <!--配置了conversion-service，那么所有日期转换的服务都会用conversionService来处理 -->
+<!--将图片/JS/CSS等静态资源排除在外，可提高执行效率-->
+<mvc:default-servlet-handler/>
+
+<!--转换服务的工厂bean  它的作用就是用来通知Spring mvc到底有哪些自定义的转换类-->
+<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="converters">
+        <set>
+            <!--对创建的自定义的转换器在这里进行声明-->
+            <bean class="com.imooc.springmvc.converter.MyDateConverter"></bean>
+        </set>
+    </property>
+</bean>
+```
+
+```java
+//URLMappingController.java
+@ResponseBody
+@PostMapping("/p1")
+public String postMapping1(User user, String username, @DateTimeFormat(pattern = "yyyy-MM-dd") Date createTime){      //String username 一样会被赋值
+    //直接写Date createTime 会报错：无法将“java.lang.String”类型的值转换为所需类型“java.util.Date”
+    // @DateTimeFormat 专用于按照指定的格式将前台输入的字符串转换为对应的Date对象（必须指定格式是什么）1999-09-09 和输入的格式一致
+```
+
+```java
+//MyDateConverter.java
+package com.imooc.springmvc.converter;
+import org.springframework.core.convert.converter.Converter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+//日期转换器  Converter<String, Date> Date是要转换的目标类型  希望把前台输入的字符串转换为Date日期类型 String是原始字符串
+public class MyDateConverter implements Converter<String, Date> {
+    @Override
+    public Date convert(String s) { //s代表原始的，从界面输入的字符串。返回值是经过转换的Date对象
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date d = sdf.parse(s);
+            return d;
+        } catch (ParseException e) {
+            return null;}}}
+```
+
+
+
+#### 解决请求中的中文乱码问题
+
+```
+Spring mvc如何解决中文乱码问题
+```
+
+```
+Web应用的中文乱码由来
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220818115208573.png" alt="image-20220818115208573" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220818115537082.png" alt="image-20220818115537082" style="zoom:50%;" />
+
+```xml
+中文乱码的配置 在企业中几乎都会用到
+Get请求乱码：在tomcat安装目录配置 C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf server.xml文件添加URIEncoding="UTF-8"     
+<Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000"  redirectPort="8443" URIEncoding="UTF-8"/>
+URIEncoding="UTF-8" ：代表了网址部分的编码在向Tomcat传递的时候，它自动的会将URI的字符集转换为UTF-8，从而解决get请求下传递中文的问题  （注：Tomcat8.0以后的版本默认就是UTF-8）
+
+2022年8月18日12:33:19 get请求按照要求配了但是一样乱码
+
+post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置字符过滤器
+2022年8月18日12:57:16 配置后运行无效，可能需要重启？
+```
+
+```xml
+<!--filter是我们J to EE中的标准组件，用于对请求进行过滤-->
+<filter>
+    <!--字符编码过滤器  主要作用将post请求中的原先的编码改为UTF-8-->
+    <filter-name>characterFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+</filter>
+<!--使字符过滤器生效，需要搞一个映射-->
+<filter-mapping>
+    <filter-name>characterFilter</filter-name>
+    <!--对所有URL进行拦截-->
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
