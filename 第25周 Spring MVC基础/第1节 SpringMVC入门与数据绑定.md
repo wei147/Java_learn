@@ -509,6 +509,8 @@ URIEncoding="UTF-8" ：代表了网址部分的编码在向Tomcat传递的时候
 
 post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置字符过滤器
 2022年8月18日12:57:16 配置后运行无效，可能需要重启？
+2022年8月19日21:54:17  重新运行程序无效，中文还是乱码
+2022年8月19日22:25:15 又试了一下，发现post和get请求是控制台打印是乱码，debug是能获取到中文字符的
 ```
 
 ```xml
@@ -528,4 +530,26 @@ post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置
     <!--对所有URL进行拦截-->
     <url-pattern>/*</url-pattern>
 </filter-mapping>
+```
+
+
+
+#### 解决响应中的中文乱码
+
+```xml
+//在applicationContext.xml里配置
+<mvc:annotation-driven conversion-service="conversionService">
+    <!--用来设置消息的转换器，在这里配置的转换器可以对响应中的消息进行调整  解决响应中的中文乱码-->
+    <mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <!--设置响应的、输出的字符集以及他的media类型-->
+            <property name="supportedMediaTypes">
+                <list>
+                    <!--response.setContentType("text/html;charset=utf-8") 原先Servlet配置-->
+                    <value>text/html;charset=utf-8</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:message-converters>
+</mvc:annotation-driven>
 ```

@@ -38,6 +38,6 @@ public class URLMappingController {
         System.out.println(user);
         System.out.println("createTime:   "+createTime);
         System.out.println(user.getUsername() + "  "+user.getPassword());
-        return "ok ,it's good. This is post method";
+        return "ok ,it's good. This is post method 译文：这是一个post请求";
     }
 }

@@ -20,7 +20,20 @@
     -->
     <context:component-scan base-package="com.imooc.springmvc"/>
     <!--启用Spring MVC的注解开发模式-->
-    <mvc:annotation-driven conversion-service="conversionService"/> <!--配置了conversion-service，那么所有日期转换的服务都会用conversionService来处理 -->
+    <mvc:annotation-driven conversion-service="conversionService">
+        <!--用来设置消息的转换器，在这里配置的转换器可以对响应中的消息进行调整  解决响应中的中文乱码-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!--设置响应的、输出的字符集以及他的media类型-->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!--response.setContentType("text/html;charset=utf-8") 原先Servlet配置-->
+                        <value>text/html;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven> <!--配置了conversion-service，那么所有日期转换的服务都会用conversionService来处理 -->
     <!--将图片/JS/CSS等静态资源排除在外，可提高执行效率-->
     <mvc:default-servlet-handler/>
 
