@@ -511,7 +511,10 @@ post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置
 2022年8月18日12:57:16 配置后运行无效，可能需要重启？
 2022年8月19日21:54:17  重新运行程序无效，中文还是乱码
 2022年8月19日22:25:15 又试了一下，发现post和get请求是控制台打印是乱码，debug是能获取到中文字符的
+2022年8月19日22:38:06 控制台打印乱码是因为Tomcat的配置问题 需要设置 -Dfile.encoding=UTF-8 在VM options中，见下图
 ```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220819223956092.png" alt="image-20220819223956092" style="zoom:50%;" />
 
 ```xml
 <!--filter是我们J to EE中的标准组件，用于对请求进行过滤-->
@@ -553,3 +556,27 @@ post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置
     </mvc:message-converters>
 </mvc:annotation-driven>
 ```
+
+
+
+#### 响应输出结果
+
+```
+响应是如何对外输出结果的？
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234442421.png" alt="image-20220820234442421" style="zoom:50%;" />![image-20220820234742478](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234742478.png)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234442421.png" alt="image-20220820234442421" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234742478.png" alt="image-20220820234742478" style="zoom:50%;" />
+
+```
+如果要在Spring MVC中进行页面展现的话，那就要使用ModelAndView这个对象了
+ModelAndView对象是指 数据和页面进行绑定
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820235627024.png" alt="image-20220820235627024" style="zoom:50%;" />
+
+
+

@@ -4,6 +4,7 @@ import com.imooc.springmvc.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
@@ -38,6 +39,10 @@ public class URLMappingController {
         System.out.println(user);
         System.out.println("createTime:   "+createTime);
         System.out.println(user.getUsername() + "  "+user.getPassword());
-        return "ok ,it's good. This is post method 译文：这是一个post请求";
+        return "<h2>ok ,it's good. This is post method 译文：这是一个post请求</h2>";
+    }
+    @GetMapping("/view")
+    public ModelAndView showView(){ //
+        ModelAndView mav =
     }
 }
