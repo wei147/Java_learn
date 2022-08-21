@@ -578,5 +578,119 @@ ModelAndView对象是指 数据和页面进行绑定
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820235627024.png" alt="image-20220820235627024" style="zoom:50%;" />
 
+```java
+//URLMappingController.java   
+//有效的完成了数据之间的解耦  ModelAndView将页面和数据进行绑定
+    @GetMapping("/view")
+    public ModelAndView showView(Integer userId) { //返回值 必须是ModelAndView
+        //作为ModelAndView 在默认进行跳转的时候，使用的是 请求转发
+//        ModelAndView mav = new ModelAndView("redirect:/view.jsp"); //这里的 /view.jsp 这个文件要对应的在webapp根路径下
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("view.jsp");//设置要访问哪个页面  不加/的情况下，使用的是相对路径：相当于 /um/view.jsp 注：建议用加/的绝对路径
+        User user = new User();
+        if (userId == 1) {
+            user.setUsername("王小虎");
+        } else if (userId == 2) {
+            user.setUsername("陈二虎");    //http://localhost:8081/um/view?userId=2
+        }
+        //如何将视图和数据绑定 addObject 在当前请求中增加一个对象，这个对象的别名可以自定义  http://localhost:8081/um/view?userId=2 动态的进行显示
+        mav.addObject("u", user);   //为视图赋予数据 把user对象放入u中
+        return mav;
+    }
+
+    //  用String 和 ModelMap这两个对象实现与相类似 ModelAndView的功能   modelMap对应了模型数据
+    // 工作中十分常见的书写办法
+    /**
+     *Controller方法返回String的情况
+     * 1.方法被@ResponseBody描述，SpringMVC直接响应String字符串本身
+     * 2.方法不存在@ResponseBody，则SpringMVC处理String指代的视图（页面）
+     */
+    @GetMapping("/x")       //只加这个访问http://localhost:8081/um/x?userId=1 显示的是html页面
+    //    @ResponseBody     加上这个，访问http://localhost:8081/um/x?userId=1 显示的是 纯文本 /view.jsp
+    //  作为 ModelMap这个对象不是必须的，可以去掉，在未来工作中会看到没有ModelMap对象的，
+    public String showView1(Integer userId, ModelMap modelMap){
+        String view = "/view.jsp";
+        User user = new User();
+        if (userId == 1) {
+            user.setUsername("王小虎");
+        } else if (userId == 2) {
+            user.setUsername("陈二虎");
+        }
+        //为视图赋予数据 addAttribute 和mav.addObject功能完全相同 就是为我们指定的view来提供数据的
+        modelMap.addAttribute("u",user);
+        return view;}
+```
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<h2>这是一个View 页面</h2>
+
+<hr>
+<%--u是进行绑定的时候，对象的别名 （在URLMappingController.java中）username是u的属性--%>
+<h4>UserName:${u.username}</h4>
+</body>
+</html>
+```
+
+```
+2022年8月21日00:29:06 有参数不传会报错？
+http://localhost:8081/um/view
+http://localhost:8081/um/view?userId=2
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220821002835277.png" alt="image-20220821002835277" style="zoom:50%;" />
+
+
+
+#### ModelAndView对象核心用法
+
+```java
+实现页面跳转和重定向？
+
+//作为ModelAndView 在默认进行跳转的时候，使用的是 请求转发
+ModelAndView mav = new ModelAndView("/view.jsp"); //这里的 /view.jsp 这个文件要对应的在webapp根路径下
+
+什么是请求转发？ 所谓请求转发就是指 把当前送给showView方法的请求原封不动的传递给  view.jsp
+    即 showView方法和view.jsp使用的是同一个请求
+    
+mav.addObject("u", user); //addObject方法则是向当前请求中存放新的数据，所以showView方法放入以后进行页面跳转到jsp时，在jsp中才能进行提取 "u"
+
+ModelAndView mav = new ModelAndView("/view.jsp");	//http://localhost:8081/um/view?userId=2
+ModelAndView mav = new ModelAndView("redirect:/view.jsp");	//http://localhost:8081/view.jsp
+页面重定向和请求转发最大的区别就是 ： 请求转发是我们Controller和页面共享的一个请求request对象。页面重定向就不一样了，页面重定向是Controller通知客户端浏览器重新建立一个新的请求来访问view.jsp这个地址。正是因为额外创建了一个全新的请求，所以我们的地址发生了变化(页面重定向后，原本放在请求中的数据就会丢失)
+```
+
+
+
+#### SpringMVC整合Freemarker
+
+```
+SpringMVC与Freemarker模板引擎进行整合
+
+SpringMVC默认使用jsp作为模板引擎
+
+如何在SpringMVC中增加对Freemarker的支持？
+	1.引入Freemarker依赖和Spring上下文的支持包（对Freemarker的支持类）
+	2.启用Freemarker模板引擎	（applicationContext.xml中）
+	3.配置Freemarker参数
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220821182958339.png" alt="image-20220821182958339" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220821183203836.png" alt="image-20220821183203836" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220821190218382.png" alt="image-20220821190218382" style="zoom:50%;" />
+
+
+
+
+
+
+
 
 
