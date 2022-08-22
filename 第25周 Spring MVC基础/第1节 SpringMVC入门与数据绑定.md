@@ -686,11 +686,66 @@ SpringMVC默认使用jsp作为模板引擎
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220821190218382.png" alt="image-20220821190218382" style="zoom:50%;" />
 
+```xml
+//1.pom.xml引入依赖
+<dependency>
+    <groupId>org.freemarker</groupId>
+    <artifactId>freemarker</artifactId>
+    <version>2.3.30</version>
+</dependency>
 
+<dependency>
+    <!--Spring 上下文支持包-->
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>5.2.20.RELEASE</version>
+</dependency>
+```
 
+```xml
+//2.启用Freemarker模板引擎
+<!--设置默认模板引擎为Freemarker-->
+<bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <!--[次要] freemarker需要什么格式输出 模板文件的后缀名是什么-->
+    <property name="contentType" value="text/html;charset=utf-8"/><!--解决中文乱码-->
+    <property name="suffix" value=".ftl"/>
+</bean>
 
+//3.配置Freemarker参数
+<!--对Freemarker本身进行配置  freemarkerConfig设置类-->
+<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <!--模板加载的路径  Freemarker存放的地址-->
+    <property name="templateLoaderPath" value="/WEB-INF/ftl"/>
+    <property name="freemarkerSettings" >
+        <props>
+            <prop key="defaultEncoding">UTF-8</prop>    <!--解决模板与数据进行渲染产生数据的过程中所有中文乱码的问题-->
+        </props>
+    </property>
+</bean>
+```
 
+```java
+//FreemarkerController.java
+package com.imooc.springmvc.controller;
+import com.imooc.springmvc.entity.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+@Controller
+@RequestMapping("/fm")
+public class FreemarkerController {
+    @GetMapping("/test")
+    public ModelAndView showView() {
+        ModelAndView mav = new ModelAndView();
+        //不再需要写 /test.ftl 直接写/test  会在WEB-INF/ftl中查找对应的文件
+        mav.setViewName("/test");		//http://localhost:8081/fm/test 访问
+        User user = new User();
+        user.setUsername("陈小龙");
+        mav.addObject("u",user);
+        return mav; }}
+```
 
 
 
