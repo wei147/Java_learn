@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restful实验室</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btnGet").click(function () {
+                $.ajax({
+                    url: "/restful/request",
+                    type: "get",
+                    dataType: "json",
+                    success: function (json) {
+                        $("#message").text(json.message)
+                    }
+                })
+            })
+        })
+
+        $(function () {
+            $("#btnPost").click(function () {
+                $.ajax({
+                    url: "/restful/request/100",
+                    type: "post",
+                    dataType: "json",
+                    success: function (json) {
+                        $("#message").text(json.message+":"+json.id);
+                    }
+                })
+            })
+        })
+
+        $(function () {
+            $("#btnPut").click(function () {
+                $.ajax({
+                    url: "/restful/request",
+                    type: "put",
+                    dataType: "json",
+                    success: function (json) {
+                        $("#message").text(json.message)
+                    }
+                })
+            })
+        })
+
+        $(function () {
+            $("#btnDelete").click(function () {
+                $.ajax({
+                    url: "/restful/request",
+                    type: "delete",
+                    dataType: "json",
+                    success: function (json) {
+                        $("#message").text(json.message)
+                    }
+                })
+            })
+        })
+    </script>
+    <!--  //绑定按钮并添加点击事件    //ajax函数向服务器发送一个异步请求   //通过id得到还h4这个对象   text()用来设置内部的文本    json.message指向的是 json的message key-->
+</head>
+<body>
+<h5>restful请求的发起者 客户端</h5>
+<!--点击按钮，利用ajax向服务器发送http请求-->
+<input type="button" id="btnGet" value="发送Get请求">
+<input type="button" id="btnPost" value="发送Post请求">
+<input type="button" id="btnPut" value="发送Put请求">
+<input type="button" id="btnDelete" value="发送Delete请求">
+<h4 id="message"></h4>
+</body>
+</html>

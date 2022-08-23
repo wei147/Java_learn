@@ -565,7 +565,7 @@ post请求下传递中文的问题，在src/main/webapp/WEB-INF/web.xml中配置
 响应是如何对外输出结果的？
 ```
 
-<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234442421.png" alt="image-20220820234442421" style="zoom:50%;" />![image-20220820234742478](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234742478.png)
+
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220820234442421.png" alt="image-20220820234442421" style="zoom:50%;" />
 
