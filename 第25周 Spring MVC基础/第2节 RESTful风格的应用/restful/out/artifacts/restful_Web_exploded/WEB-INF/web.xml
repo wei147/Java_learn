@@ -47,4 +47,15 @@
 
     <!--2022年8月23日11:58:48 注：characterFilter比DispatcherServlet 优先执行-->
 
+    <filter>
+        <!--表单内容过滤器  (利用这个过滤器对put和delete请求进行支持）
+        写好这个之后，put和delete请求就能完美的支持参数的获取-->
+        <filter-name>formContentFilter</filter-name>
+        <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
+    </filter>
+    <!--要增加filter mapping对url进行过滤  （默认对所有请求地址进行过滤）-->
+    <filter-mapping>
+        <filter-name>formContentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

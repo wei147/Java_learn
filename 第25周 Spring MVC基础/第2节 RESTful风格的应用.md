@@ -303,3 +303,77 @@ $(function () {
             success: function (json) {
                 $("#message").text(json.message+":"+json.id);}})})})
 ```
+
+
+
+#### 简单请求与非简单请求
+
+```
+什么是简单请求  什么是非简单请求？
+
+如果是简单的请求，我们直接把请求发过来处理就完事了。如果是非简单请求的话，首先会发送一个预检请求，预检请求的作用是让服务器返回当前这个请求能不能被正常的处理。如果服务器接收了这个请求并返回一个能进行处理。之后再由浏览器发送实际请求给服务器进行处理
+
+形象：	简单请求可以看做是送较为廉价的快递，快递员不会询问你在不在家，而是直接安排蜜蜂箱。非简单请求可以看做是较贵的或者顺丰快递，会先打电话询问在不在家，再给送快递。
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220824203017664.png" alt="image-20220824203017664" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220824203802210.png" alt="image-20220824203802210" style="zoom:50%;" />
+
+```
+如果接收一系列数据的话，最好的方式就是增加实体对象
+```
+
+```javascript
+在post请求和put请求中加入 data字段。 （post是简单请求，put是非简单请求）
+$("#btnPost").click(function () {
+                $.ajax({
+                    url: "/restful/request/100",
+                    type: "post",
+                    data:"name=wei&age=21",
+                    dataType: "json",
+                    
+$("#btnPut").click(function () {
+    $.ajax({
+        url: "/restful/request",
+        type: "put",
+        data:"name=wei&age=21",
+        dataType: "json",
+```
+
+```java
+    @PostMapping("/request/{rid}")
+//    @ResponseBody
+    public String doPostRequest(@PathVariable("rid") Integer requestId,Person person){
+        System.out.println(person.getName()+person.getAge());
+        return "{\"message\":\"数据新建成功\",\"id\":"+ requestId +"}";}
+
+    @PutMapping("/request")
+//    @ResponseBody
+    public String doPutRequest(Person person){
+        System.out.println(person.getName()+person.getAge());
+        return "{\"message\":\"数据更新成功\"}";}
+
+post能正常获取到前端传过来的数据，put请求则不能。为什么会这样？
+    答：涉及到一个历史问题，作为最早的SpringMVC当然是为我们网页服务的，默认网页在表单提交的时候只支持post和get这两种请求，对于put和delete这两种特殊请求是不支持的。但是随着技术的演进，put和delete作为Spring MVC是必须要考虑的。但SpringMvc又不能把put和delete请求的处理方式强塞进原有的代码中，所以SpringMVC做了一个折中的方案：作为put和delete这两种非简单请求，springMVC提供了一个额外的表单内容过滤器来对put和delete进行额外处理。具体写法是：在web.xml中配置表单内容过滤器 见下文
+```
+
+```xml
+    <filter>
+        <!--表单内容过滤器  (利用这个过滤器对put和delete请求进行支持）
+        写好这个之后，put和delete请求就能完美的支持参数的获取
+        作为FormContentFilter其实是对springMVC能力的拓展-->
+        <filter-name>formContentFilter</filter-name>
+        <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
+    </filter>
+    <!--要增加filter mapping对url进行过滤  （默认对所有请求地址进行过滤）-->
+    <filter-mapping>
+        <filter-name>formContentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+```
+
+
+
+#### JSON序列化
+

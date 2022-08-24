@@ -1,5 +1,6 @@
 package com.imooc.restful.controller;
 
+import com.imooc.restful.entity.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class RestfulController {
     @GetMapping("/request")
 //    @ResponseBody       //如果不写这个注解则代表这是进行页面的跳转。加了则代表直接向客户端输出结果
-    public String doGetRequest() {
+    public String doGetRequest(Person person) {
+        System.out.println(person.getName()+person.getAge());
         return "{\"message\":\"返回查询结果\"}";
     }
 
@@ -21,13 +23,15 @@ public class RestfulController {
     // 可以匹配到rid的数值会被自动注入到 requestId中
     @PostMapping("/request/{rid}")
 //    @ResponseBody
-    public String doPostRequest(@PathVariable("rid") Integer requestId){
+    public String doPostRequest(@PathVariable("rid") Integer requestId,Person person){
+        System.out.println("name : "+person.getName()+"age : "+person.getAge());
         return "{\"message\":\"数据新建成功\",\"id\":"+ requestId +"}";
     }
 
     @PutMapping("/request")
 //    @ResponseBody
-    public String doPutRequest(){
+    public String doPutRequest(Person person){
+        System.out.println(person.getName()+person.getAge());
         return "{\"message\":\"数据更新成功\"}";
     }
 
