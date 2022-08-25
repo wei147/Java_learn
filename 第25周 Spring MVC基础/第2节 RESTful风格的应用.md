@@ -377,3 +377,160 @@ post能正常获取到前端传过来的数据，put请求则不能。为什么�
 
 #### JSON序列化
 
+```
+作为目前jackson是目前世界上使用最广也是效率最高的json序列化组件	com.fasterxml.jackson.core:jackson-core
+互联网安全机构发现jackson2.9之前有着严重的安全隐患，和mysql同时使用的时候其中的漏洞会被黑客利用从而造成信息的泄露
+```
+
+```xml
+导入jackson依赖        
+<!--jackson不能独立运行，需要另外两个依赖-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.12.0</version>
+<!--            <type>bundle</type>-->
+        </dependency>
+
+        <dependency>
+            <!--databind代表数据绑定的意思。这个才是jackson与目标对象进行交互的根源所在-->
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <dependency>
+            <!--jackson注解-->
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+```
+
+```java
+/**
+ * 在SpringMVC要对对象进行json序列化是多么简单————只需要在返回之中把需要的对象就可以了
+ * 那么多个对象如何返回？ 不是单个对象 答：见下面的findPersons方法
+ * @param id
+ * @return
+ */
+@GetMapping("/person")
+public Person findByPersonId(Integer id){
+    Person p = new Person();
+    if (id == 1){
+        p.setName("神里绫华");
+        p.setAge(21);
+    }else if (id == 2){
+        p.setName("胡桃");
+        p.setAge(22);}
+    return p;   //访问http://localhost:8088/restful/person?id=1 显示 {"name":"神里绫华","age":21}
+}
+
+//返回多个对象
+@GetMapping("/persons")
+public List<Person> findPersons(){
+    List list = new ArrayList();
+    Person p1 = new Person();
+    Person p2 = new Person();
+    Person p3 = new Person();
+    p1.setName("枫原万叶");
+    p2.setName("夜兰");
+    p3.setName("班尼特");
+    
+    p1.setAge(22);
+    p2.setAge(25);
+    p3.setAge(20);
+    
+    list.add(p1);
+    list.add(p2);
+    list.add(p3);
+    return list;    //返回的是一个数组，然后数组里面是一个个json}
+```
+
+```javascript
+//解析并前端展示 响应的json数据 
+//[{"name":"枫原万叶","age":22},{"name":"夜兰","age":25},{"name":"班尼特","age":20}]
+$(function () {
+    $("#btnPersons").click(function () {
+        $.ajax({
+            url: "/restful/persons",
+            type: "get",
+            dataType: "json",
+            success: function (json) {
+                console.info(json)
+                console.log("这是log" + json)
+                for (var i = 0; i < json.length; i++) {
+                    var p = json[i];
+                    $("#divPersons").append("<h4>" + p.name + "-----" + p.age + "</h4>");
+                    $("#myTest").text( p.name + "-----" + p.age )}}})})})
+
+html部分：
+<input type="button" id="btnPersons" value="查询所有人员">
+<div id="divPersons"></div>
+</hr>
+//不用append的方式只能显示最后一个班尼特
+<h4 id="myTest"></h4>	
+```
+
+```java
+json有一个坑：
+在时间处理上，json做的不是那么理想
+	p1.setBirthday(new Date()); //前端得到的是一个时间戳
+
+在实体类中进行转换之后，,才能正常输出
+    //jackson内置的格式化输出的注解
+    //默认按照格林尼治时间。而中国与其相差8个时区,而timezone 加八则是平移了八个时区
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date birthday;
+```
+
+```java
+用SpringMVC与jackson进行序列化的输出，做法简单只需要三步：
+1.导入3个依赖
+2.在进行方法定义的时候，不再返回String而是返回你需要json序列化的对象 public Person findByPersonId(...){。
+    在springMVC对外输出响应的时候，那这个对象会被序列化，随着响应一起发送到客户端
+3.进行时间输出的时候，记得增加 @JsonFormat。这个不仅可以对日期进行格式化输出，也可以对货币、数字按格式输出
+```
+
+
+
+#### 浏览器的同源策略
+
+##### 浏览器的跨域访问
+
+```
+什么是跨域访问？ 为什么是浏览器
+跨域访问的根源是来自于 浏览器的同源策略
+```
+
+```
+一个网站a一个网站b，他们有不同的域名在不同的服务器上。如果a的某个页面向b的某个url发送了ajax请求的话，就会因为同源策略被阻止。原因很简单就是浏览器为了保证我们网站足够的安全，对于为我们资源的保护。（假如有个黑客在流量多的网站JavaScript中嵌入对一个小网站的访问，那么小网站可能会崩溃）。
+网站的页面或者是ajax请求只能获取同域名也就是同网站下的另外的资源，不能跨域名访问其他资源
+
+html里边有些标签是不受同源策略约束的
+怎么解决跨域访问的问题？	答请看下一节
+
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825150047998.png" alt="image-20220825150047998" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825150319062.png" alt="image-20220825150319062" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825150612072.png" alt="image-20220825150612072" style="zoom:50%;" />
+
+#### SpringMVC跨域访问
+
+##### CrossOrgin注解解决跨域访问
+
+```
+CORE跨域资源访问
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825152038646.png" alt="image-20220825152038646" style="zoom:50%;" />
+
+```
+SpringMVC这里边如何做到跨域访问？ 方法主要有两种 （见下图）
+第一种是局部，只在当前Controller中生效
+第二种是在配置文件中使用<mvc：cors> 一次性全局配置
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825152222898.png" alt="image-20220825152222898" style="zoom:50%;" />
