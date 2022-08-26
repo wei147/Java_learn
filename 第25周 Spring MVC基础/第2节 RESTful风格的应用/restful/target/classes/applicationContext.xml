@@ -29,4 +29,12 @@
     </mvc:annotation-driven>
     <!--将静态资源排除在外-->
     <mvc:default-servlet-handler/>
+
+    <!-- 在SpringMVC环境下进行跨域资源访问的全局设置-->
+    <mvc:cors>
+        <!--只要的远程的域名访问前缀为restful uri上，都会被这个策略进行处理。 allowed-origins=容许哪些域名进行远程访问-->
+        <mvc:mapping path="/restful/**"
+                     allowed-origins="http://localhost:8089,http:www.baidu.com"
+                     max-age="3600"/>
+    </mvc:cors>
 </beans>

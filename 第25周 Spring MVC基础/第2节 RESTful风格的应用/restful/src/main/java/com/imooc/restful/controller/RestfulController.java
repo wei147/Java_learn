@@ -13,6 +13,10 @@ import java.util.List;
 //@Controller
 @RestController //默认当前返回的都是rest形式的数据，而不是页面的跳转。加了这个就不用加 @ResponseBody
 @RequestMapping("/restful")
+//设置跨域的范围，也就是说明哪些其他域名下送过来的请求是容许被访问的？
+//@CrossOrigin(origins = {"http://localhost:8089","http://www.imooc.com"})
+//容许所有端口、所有域名以及http和https访问。maxAge是设置预检请求的处理结果缓存时间为3600秒。非简单请求都会先发送预检请求
+//@CrossOrigin(origins = "*",maxAge = 3600)
 public class RestfulController {
     @GetMapping("/request")
 //    @ResponseBody       //如果不写这个注解则代表这是进行页面的跳转。加了则代表直接向客户端输出结果

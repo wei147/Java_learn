@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mv="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 注解的形式开发  扫描包-->
+    <context:component-scan base-package="com.imooc.restful"/>
+    <!--开启SpringMVC的注解模式-->
+    <mvc:annotation-driven>
+        <!--用来设置消息的转换器，在这里配置的转换器可以对响应中的消息进行调整  解决响应中的中文乱码-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!--设置响应的、输出的字符集以及他的media类型-->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <!--响应一但产生json，会设置编码为utf-8-->
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--将静态资源排除在外-->
+    <mvc:default-servlet-handler/>
+
+    <!-- 在SpringMVC环境下进行跨域资源访问的全局设置-->
+    <mvc:cors>
+        <!--只要的远程的域名访问前缀为restful uri上，都会被这个策略进行处理。 allowed-origins=容许哪些域名进行远程访问-->
+        <mvc:mapping path="/restful/**"
+                     allowed-origins="http://localhost:8089,http:www.baidu.com"
+                     max-age="3600"/>
+    </mvc:cors>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截器需要对哪些地址进行拦截      (这里是对所有的请求进行拦截)-->
+            <mvc:mapping path="/**"/>
+            <!--exclude-mapping代表要排除的地址-->
+            <mvc:exclude-mapping path="/**.ioc"/>
+            <mvc:exclude-mapping path="/**.gif"/>
+            <mvc:exclude-mapping path="/**.jpg"/>
+            <mvc:exclude-mapping path="/**.js"/>
+            <mvc:exclude-mapping path="/**.css"/>
+            <!--指明是哪个类对拦截的url进行处理-->
+            <bean class="com.imooc.restful.interceptor.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

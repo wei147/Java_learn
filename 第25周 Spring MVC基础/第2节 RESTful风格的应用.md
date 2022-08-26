@@ -534,3 +534,47 @@ SpringMVC这里边如何做到跨域访问？ 方法主要有两种 （见下图
 ```
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220825152222898.png" alt="image-20220825152222898" style="zoom:50%;" />
+
+```java
+跨域注解：
+//设置跨域的范围，也就是说明哪些其他域名下送过来的请求是容许被访问的？
+@CrossOrigin(origins = {"http://localhost:8089","http://www.imooc.com"})
+//容许所有端口、所有域名以及http和https访问。maxAge是设置预检请求的处理结果缓存时间为3600秒。非简单请求都会先发送预检请求
+//@CrossOrigin(origins = "*",maxAge = 3600)
+public class RestfulController {...
+    
+//为什么加一个注解就能帮助我们解决跨域问题呢？ 答：其实本质上是在请求和响应中都有了说明
+    如果是跨域访问在浏览器请求头中会看到 Sec-Fetch-Mode: cors。  Request Headers中所包含的信息。
+ 	响应头vary来设置跨域访问的权限： Vary: Access-Control-Request-Method  Vary: Access-Control-Request-Headers
+//在增加了跨域注解之后，其本质就是在响应中增加了以上的信息
+        
+        那么如何一次性解决跨域的问题？ 不是在单独的controller的中用注解。（controller多了也麻烦）
+```
+
+
+
+#### CORS全局配置
+
+```xml
+在SpringMVC环境下进行跨域资源访问的全局设置
+
+全局配置和注解配置本质上是一致的，都是在请求和响应中附加了一些信息
+application.xml
+    <!-- 在SpringMVC环境下进行跨域资源访问的全局设置-->
+    <mvc:cors>
+        <!--只要的远程的域名访问前缀为restful uri上，都会被这个策略进行处理。 allowed-origins=容许哪些域名进行远程访问-->
+        <mvc:mapping path="/restful/**"
+                     allowed-origins="http://localhost:8089,http:www.baidu.com"
+                     max-age="3600"/>
+    </mvc:cors>
+```
+
+```
+CORS跨域资源访问只是在浏览器中的安全策略，如果是使用小程序或者app的话，那么刚才说到的安全策略都是不生效的
+
+如果当前的应用是一个专用于web API，也就是只对外提供 web 数据服务的话，那么就需要全局配置
+如果只是个别的controller需要对外暴露服务的话，推荐使用注解。
+
+如果配置了全局的，又配置了注解，会以注解为准
+```
+
