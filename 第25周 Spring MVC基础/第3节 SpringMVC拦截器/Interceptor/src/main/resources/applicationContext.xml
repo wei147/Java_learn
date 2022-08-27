@@ -55,5 +55,21 @@
             <!--指明是哪个类对拦截的url进行处理-->
             <bean class="com.imooc.restful.interceptor.MyInterceptor"></bean>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <!--拦截器需要对哪些地址进行拦截      (这里是对所有的请求进行拦截)-->
+            <mvc:mapping path="/restful/**"/>       <!--反向思维，对所需要的url进行拦截-->
+            <mvc:mapping path="/webapi/**"/>
+            <!--exclude-mapping代表要排除的地址-->
+            <mvc:exclude-mapping path="/**.ioc"/>
+            <mvc:exclude-mapping path="/**.gif"/>
+            <mvc:exclude-mapping path="/**.jpg"/>
+            <mvc:exclude-mapping path="/**.js"/>
+            <mvc:exclude-mapping path="/**.css"/>
+            <!--项目中的常用做法 ：通过规范静态资源目录来一次性把所有的静态资源排除在外边-->
+            <mvc:exclude-mapping path="/resources/**"/>
+            <!--指明是哪个类对拦截的url进行处理-->
+            <bean class="com.imooc.restful.interceptor.MyInterceptor1"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

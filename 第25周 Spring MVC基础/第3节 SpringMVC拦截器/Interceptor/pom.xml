@@ -56,6 +56,13 @@
             当进行打包，最终使用的时候这个jar会被排除在外-->
             <scope>provided</scope>
         </dependency>
+
+        <!--logback 日志组件，将其引入以后，SpringMVC默认就可以使用logback对日志进行输出-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
     </dependencies>
 
 

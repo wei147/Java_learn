@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--logbcak的配置文件，必须这样命名-->
+<configuration>
+    <!--追加器。 我们要定义一个向控制台书写日志的追加器-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--输出日志的格式-->
+        <encoder>
+            <!--分别代表了线程名 日期 级别 logger{10}由哪个类产生的日志，
+            如果类名太长进行相应的压缩（10对应了包名最大容许的长度） msg是日志的内容 n是换行-->
+            <pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--如何在logback中产生日志文件？  RollingFileAppender生成按天滚动的日志文件-->
+    <appender name="accessHistoryLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--滚动策略  TimeBasedRollingPolicy按照时间进行滚动-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件保存在哪  %d日期插入到文件名中-->
+            <fileNamePattern>d:/project/Jave_learn/第25周 Spring MVC基础/第3节 SpringMVC拦截器/logs/history.%d.log
+            </fileNamePattern>
+        </rollingPolicy>
+        <!--日志显示沿用格式-->
+        <encoder>
+            <pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--在当前日志中，最低容许输出debug级别的日志-->
+    <root level="debug">
+        <!--对上面定义好的console 进行引用-->
+        <appender-ref ref="console"/>
+    </root>
+
+    <!--当前这个类中所产生的日志，都会使用这个标签所描述的规则-->
+    <!--[次要] additivity="false" 单词有叠加的意思。为false的话只会向指定的RollingFileAppender文件中来进行输出-->
+    <logger name="com.imooc.restful.interceptor.AccessHistoryInterceptor" level="INFO" additivity="false">
+        <!--说明 AccessHistoryInterceptor 使用accessHistoryLog输出器对文件进行输出。并说明保存的地址-->
+        <appender-ref ref="accessHistoryLog"></appender-ref>
+    </logger>
+</configuration>
