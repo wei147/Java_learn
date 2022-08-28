@@ -71,5 +71,12 @@
             <!--指明是哪个类对拦截的url进行处理-->
             <bean class="com.imooc.restful.interceptor.MyInterceptor1"></bean>
         </mvc:interceptor>
+
+        <!--用户流量拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <bean class="com.imooc.restful.interceptor.AccessHistoryInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

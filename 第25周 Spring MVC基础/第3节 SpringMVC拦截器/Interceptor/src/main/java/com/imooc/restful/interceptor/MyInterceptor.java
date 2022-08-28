@@ -16,7 +16,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
         //可以对于某个url进行前置检查，通过就直接放行；不通过的在拦截器中进行处理，直接进行响应
 //        response.getWriter().print("[不通过]");
-        response.getWriter().print("[]");
+//        response.getWriter().print("[]");     这个开启之后，直接就是访问服务器响应500了？无法正常拿到数据
         return true;
         //return false 更像是一个阻断器，原本应该执行的所有请求和后续处理都会被阻断，同时响应在当前方法中直接产生.
         //为false时，控制台只打印了  http://localhost:8080/restful/persons准备执行

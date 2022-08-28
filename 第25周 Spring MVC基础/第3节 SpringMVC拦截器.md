@@ -159,8 +159,7 @@ public class AccessHistoryInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //当拿到了用户请求以后，应该把数据存放在哪？通常这些用户访问的额外信息，我们会通过日志文件来单独进行保存
-		return true;
-    }
+		return true;}
 ```
 
 ```xml
@@ -185,11 +184,34 @@ public class AccessHistoryInterceptor implements HandlerInterceptor {
             <pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>
         </encoder>
     </appender>
+
+    <!--如何在logback中产生日志文件？  RollingFileAppender生成按天滚动的日志文件-->
+    <appender name="accessHistoryLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--滚动策略  TimeBasedRollingPolicy按照时间进行滚动-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件保存在哪  %d日期插入到文件名中-->
+            <fileNamePattern>d:/project/Jave_learn/第25周 Spring MVC基础/第3节 SpringMVC拦截器/logs/history.%d.log
+            </fileNamePattern>
+        </rollingPolicy>
+        <!--日志显示沿用格式-->
+        <encoder>
+            <pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
     <!--在当前日志中，最低容许输出debug级别的日志-->
     <root level="debug">
         <!--对上面定义好的console 进行引用-->
         <appender-ref ref="console"/>
     </root>
+
+    <!--当前这个类中所产生的日志，都会使用这个标签所描述的规则-->
+    <!--[次要] additivity="false" 单词有叠加的意思。为false的话只会向指定的RollingFileAppender文件中来进行输出-->
+    <logger name="com.imooc.restful.interceptor.AccessHistoryInterceptor" level="INFO" additivity="false">
+        <!--说明 AccessHistoryInterceptor 使用accessHistoryLog输出器对文件进行输出。并说明保存的地址-->
+        <appender-ref ref="accessHistoryLog"></appender-ref>
+    </logger>
 </configuration>
 ```
 
@@ -197,10 +219,66 @@ public class AccessHistoryInterceptor implements HandlerInterceptor {
 <!--
 [RMI TCP Connection(3)-127.0.0.1] 2022-08-27 16:36:32,264 DEBUG o.s.w.f.CharacterEncodingFilter - Filter 'characterFilter' configured for use
 [RMI TCP Connection(3)-127.0.0.1] 2022-08-27 16:36:33,773 INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'springmvc'  -->
-<pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>
+<pattern>[%thread] %d %level %logger{10} - %msg%n</pattern>   设置好的格式会在控制台/日志文件中输出
 ```
 
+```java
+//AccessHistoryInterceptor.java
+package com.imooc.restful.interceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.HandlerInterceptor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+//访问历史拦截器
+//所有请求在被处理之前，要被这个拦截器所记录，所以这属于一个前置处理
+public class AccessHistoryInterceptor implements HandlerInterceptor {
+    private Logger logger = LoggerFactory.getLogger(AccessHistoryInterceptor.class);
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //当拿到了用户请求以后，应该把数据存放在哪？通常这些用户访问的额外信息，我们会通过日志文件来单独进行保存
+        //对内容进行输出和打印 这个内容应该包含哪些信息？
+        StringBuffer log = new StringBuffer();
+        log.append(request.getRemoteAddr());    //远程用户的IP地址
+        log.append("|");
+        log.append(request.getRequestURL());    //用户访问的url网址
+        log.append("|");
+        log.append(request.getHeader("user-agent"));    //用户的环境
+        logger.info(log.toString());
+        return true;}}
 ```
-如何在logback中产生日志文件？
+
+```xml
+        //applicationContext.xml中的拦截器配置
+        <!--用户流量拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <bean class="com.imooc.restful.interceptor.AccessHistoryInterceptor"></bean>
+        </mvc:interceptor>
 ```
+
+
+
+课后题目: 如何将文件中的信息，按ip、用户访问网址、用户环境一一截取出来   （java截取文本的基本功）
+
+
+
+#### Spring MVC处理流程
+
+```
+Spring MVC的底层的执行原理以及数据的处理流程（程序运行背后作了什么事情有所了解）
+
+Handler 也叫处理器，在计算机中也叫做句柄。
+在下图中，Handler可能是一个拦截器也可能是一个控制器
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220828174651817.png" alt="image-20220828174651817" style="zoom: 50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220828175406530.png" alt="image-20220828175406530" style="zoom:50%;" />
+
+
+
+
 

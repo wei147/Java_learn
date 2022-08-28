@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:mv="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--3.开启Spring MVC注解模式  [注: 这里不是SpringMVC开启注解模式,而是Spring框架来启用注解模式,从而在容器初始化时实例像 servlet、controller这样]-->
+    <context:component-scan base-package="com.imooc"/>
+    <!--真正开启mvc注解  SpringMVC独有的注解才能被识别 像@GetMapping-->
+    <mvc:annotation-driven/>
+    <!--将静态资源排除在外(css，js,img)，进而提高SpringMVC的处理效率-->
+    <mvc:default-servlet-handler/>
+</beans>
