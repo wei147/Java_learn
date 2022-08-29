@@ -16,31 +16,41 @@
         </repository>
     </repositories>
 
+
     <dependencies>
-        <!--Spring MVC 会自动引入Spring 依赖-->
+        <!--1.Spring MVC 会自动引入Spring基础依赖-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
 
-        <!--jackson不能独立运行，需要另外两个依赖-->
+        <!--Freemarker-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.2.20.RELEASE</version>
+        </dependency>
+
+        <!--Jackson-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.12.0</version>
         </dependency>
-
         <dependency>
-            <!--databind代表数据绑定的意思。这个才是jackson与目标对象进行交互的根源所在-->
             <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <artifactId>jackson-annotations</artifactId>
             <version>2.12.0</version>
         </dependency>
         <dependency>
-            <!--jackson注解-->
             <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <artifactId>jackson-databind</artifactId>
             <version>2.12.0</version>
         </dependency>
     </dependencies>
