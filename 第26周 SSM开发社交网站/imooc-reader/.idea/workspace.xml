@@ -10,33 +10,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc463cbc-560c-4c47-b719-124afa168efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../imooc-reader_before/imooc-reader.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/out/artifacts/first_springmvc_Web_exploded/WEB-INF/classes/com/imooc/springmvc/controller/URLMappingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/out/artifacts/first_springmvc_Web_exploded/WEB-INF/classes/com/imooc/springmvc/controller/URLMappingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/FreemarkerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/FreemarkerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/TestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/URLMappingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/controller/URLMappingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/converter/MyDateConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/converter/MyDateConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/classes/com/imooc/springmvc/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/test-classes/MyTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/first-springmvc/target/test-classes/MyTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/controller/FormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/controller/FormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/controller/FormController_before.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/controller/FormController_before.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/entity/Delivery.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/entity/Delivery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/entity/Form.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第1节 SpringMVC入门与数据绑定/form/target/classes/com/imooc/springmvc/entity/Form.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/controller/RestfulController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/controller/RestfulController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/entity/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/entity/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/interceptor/AccessHistoryInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/interceptor/AccessHistoryInterceptor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/interceptor/MyInterceptor1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/out/artifacts/Interceptor_Web_exploded/WEB-INF/classes/com/imooc/restful/interceptor/MyInterceptor1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/target/classes/com/imooc/restful/interceptor/AccessHistoryInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/target/classes/com/imooc/restful/interceptor/AccessHistoryInterceptor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/target/classes/com/imooc/restful/interceptor/MyInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../第25周 Spring MVC基础/第3节 SpringMVC拦截器/Interceptor/target/classes/com/imooc/restful/interceptor/MyInterceptor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/MyBatisPlusTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/mapper/TestMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/TestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/text.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/test.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/imooc/reader/service/TestServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imooc-reader.iml" beforeDir="false" afterPath="$PROJECT_DIR$/imooc-reader.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/test/MyTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/test/MyTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" beforeDir="false" afterPath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,15 +40,36 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="HTML File" />
+        <option value="Interface" />
+        <option value="JUnit3 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
   <component name="ProjectId" id="2E2GjKaImVYUSP7OIWH726ji2kp" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -66,20 +81,99 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.12674272" />
     <property name="project.structure.side.proportion" value="0.2926337" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.imooc.reader.mapper" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.imooc.reader.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.MyBatisPlusTest.testSelect">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.reader.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.reader" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testDelete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.reader.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.reader" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testInsert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testSelect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.reader.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.reader" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testSelect" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestServiceTest.testBatchImport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.reader.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.reader.service" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.service.TestServiceTest" />
+      <option name="METHOD_NAME" value="testBatchImport" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -176,18 +270,14 @@
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
-      <deployment />
-      <server-settings />
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MyBatisPlusTest.testSelect" />
+        <item itemvalue="JUnit.MyBatisPlusTest.testDelete" />
+        <item itemvalue="JUnit.MyBatisPlusTest.testInsert" />
+        <item itemvalue="JUnit.TestServiceTest.testBatchImport" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -197,7 +287,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1661786403904</updated>
-      <workItem from="1661786406315" duration="1338000" />
+      <workItem from="1661786406315" duration="4687000" />
+      <workItem from="1661830589114" duration="6075000" />
+      <workItem from="1661842088436" duration="11164000" />
+      <workItem from="1661858039468" duration="6628000" />
     </task>
     <servers />
   </component>
@@ -214,5 +307,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

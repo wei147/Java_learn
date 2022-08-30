@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--来让MyBatis实现属性名与字段名之间的驼峰命名转换-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <plugins>
+        <!--配置MyBatis-Plus的分页插件  MyBatis-plus 3.5版本有些小变动 应该是-->
+        <!--好了，我要换回3.3.2版本,3.5版本有个报错后面看看再解决-->
+        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">
+            <!--        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">-->
+            <!--            <property name="@page" value="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor"/>-->
+            <!--            <property name="page:dbType" value="h2"/>-->
+        </plugin>
+    </plugins>
+</configuration>
