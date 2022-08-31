@@ -4,6 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,7 +13,9 @@
             http://www.springframework.org/schema/task
             http://www.springframework.org/schema/task/spring-task.xsd
             http://www.springframework.org/schema/mvc
-            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!--3.开启Spring MVC注解模式  [注: 这里不是SpringMVC开启注解模式,而是Spring框架来启用注解模式,从而在容器初始化时实例像 servlet、controller这样]-->
     <context:component-scan base-package="com.imooc"/>
     <!--真正开启mvc注解  SpringMVC独有的注解才能被识别 像@GetMapping-->
@@ -30,20 +33,66 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--将静态资源排除在外(css,js,img)，进而提高SpringMVC的处理效率-->
     <mvc:default-servlet-handler/>
 
     <!--5.配置Freemarker模板引擎-->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
+        <!--Freemarker本身的配置-->
         <property name="freemarkerSettings">
             <props>
+                <!--freemarker采用utf-8编码读取ftl文件-->
                 <prop key="defaultEncoding">UTF-8</prop>
             </props>
         </property>
     </bean>
+    <!--视图解析器决定了到底使用哪种模板引擎来对数据进行解析-->
     <bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <!--在视图解析器将数据和模板引擎结合，所产生的新的html片段，那么向响应输出时设置 contentType内容类型为 value的值（utf-8）-->
         <property name="contentType" value="text/html;charset=utf-8"/>
         <!--要加载模板引擎拓展名是什么-->
         <property name="suffix" value=".ftl"/>
     </bean>
+
+    <!--Mybatis与Spring的整合配置-->
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/imooc_reader?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+        <!--代表了数据库连接池初始化的时候要创建多少个连接。 maxActive 代表数据库连接池中最大容许出现的数据库连接的总量-->
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="20"/>
+    </bean>
+
+    <!--SqlSessionFactoryBean用于根据配置信息创建SqlSessionFactory, 不再需要我们自己编码创建-->
+    <!--原生MyBatis与Spring整合  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+    <bean id="sessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--代表用于存储Sql语句的mapper xml文件存储在哪个目录中-->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <!--5.MyBatis配置文件地址-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+
+    </bean>
+    <!--4.配置Mapper扫描器。 [注：就是在Spring 初始化MyBatis过程中，之前我们通过接口方式来进行MyBatis数据库增删改查，
+    那么这个MyBatis扫描器就是用于扫描这些MyBatis的Mapper接口的]。
+    针对于这个接口，我们就称之为 Mapper接口。它的职责就是完成与之对于的数据表增删改查操作。
+    但是这个接口又有一个新问题: 系统中的接口有很多,并不是所有的接口都是相应的Mapper接口。
+    为了将这些特殊的Mapper和其他系统的标准接口区分开, 所以我们要进行mapper扫描器的配置-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.imooc.reader.mapper"></property>
+    </bean>
+
+    <!--声明式事务配置-->
+    <!--基于数据源的事务管理器,用于用于控制我们事务的打开、提交或者回滚-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--启用与之对应的注解模式-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
 </beans>

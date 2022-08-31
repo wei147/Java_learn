@@ -630,3 +630,195 @@ book、member、evaluation(评价)、category(分类)、member_read_state(会员
 
 #### Bootstrap入门介绍
 
+
+
+```
+卸载5.7 安装8.0
+C:\Users\w1216\Documents\Navicat	已压缩的mysql数据
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220831163356317.png" alt="image-20220831163356317" style="zoom:50%;" />
+
+
+
+#### 显示图书类别
+
+```
+1.category表对应了实体类中的Category
+2.创建与之对应的Mapper接口(继承自MyBatis-Plus的BaseMapper)
+3.有了接口就要有与之对应的xml （resources/mappers下的category.xml）
+
+以上,分类表的配置完成
+```
+
+```java
+//1.category表对应了实体类中的Category
+package com.imooc.reader.entity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+//图书分类实体
+@TableName("category")
+public class Category {
+    @TableId(type = IdType.AUTO)
+    private Long categoryId;
+
+//    @TableField("category_name")  这里可以不加,符合驼峰命名转换的要求
+    private String categoryName;
+
+    public Long getCategoryId() {return categoryId;}
+    public void setCategoryId(Long categoryId) {this.categoryId = categoryId;}
+    public String getCategoryName() {return categoryName;}
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;}
+	//为看起来更清晰，要重写实体类的toString方法
+        @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +", categoryName='" + categoryName + '\'' +'}';}}
+```
+
+```java
+//2.创建与之对应的Mapper接口(继承自MyBatis-Plus的BaseMapper)
+package com.imooc.reader.mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.imooc.reader.entity.Category;
+
+//图书分类Mapper接口
+public interface CategoryMapper extends BaseMapper<Category> {
+}
+```
+
+```xml
+//3.有了接口就要有与之对应的xml （resources/mappers下的category.xml）
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imooc.reader.mapper.CategoryMapper">
+</mapper>
+```
+
+```
+自从学习了Spring 以后,一直在强调接口的重要性————"面向接口编程",通过接口可以隐藏很多底层类的创建细节。所以在我们实际开发时,很多实际项目在具体的实现类基础上还要额外的去定义一个接口		创建CategoryService接口
+此时,有了Service接口,那就要有Service的实现	创建impl/CategoryServiceImpl.java  (impl是具体实现类的存放包)
+
+```
+
+```java
+//具体的实现类
+package com.imooc.reader.impl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.imooc.reader.entity.Category;
+import com.imooc.reader.mapper.CategoryMapper;
+import com.imooc.reader.service.CategoryService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
+import java.util.List;
+
+//作为beanId通常是和接口保持一致的。why? 因为在具体使用时引入的是接口,而生成的属性是categoryService,保持属性和beanId一致是一个基本的规则。详情见CategoryServiceImplTest引入
+@Service("categoryService")
+//事务控制的注解。[事务的传播方式]意味着在当前方法中默认情况下所有方法是不需要使用事务的 (如果遇到了某个方法需要写操作的话,那需要额外的在方法上增加@Transactional来开启事务)
+@Transactional(propagation = Propagation.NOT_SUPPORTED,readOnly = true)
+public class CategoryServiceImpl implements CategoryService {
+    @Resource
+    private CategoryMapper categoryMapper;
+
+    /**
+     * 查询所有图书分类
+     * @return  图书分类List
+     */
+    @Override
+    public List<Category> selectAll() {
+        //创建了一个全新的对象,里边没有设置任何条件就意味着查询所有
+        List<Category> list = categoryMapper.selectList(new QueryWrapper<Category>());
+        return list;}}
+```
+
+```java
+//测试类
+package com.imooc.reader.impl;
+import com.imooc.reader.entity.Category;
+import com.imooc.reader.service.CategoryService;
+import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@RunWith(SpringJUnit4ClassRunner.class)//junit4在运行时，会自动初始化ioc容器
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"}) //说明配置文件在什么地方
+public class CategoryServiceImplTest extends TestCase {
+    @Resource
+    private CategoryService categoryService;
+
+    @Test
+    public void testSelectAll() {
+        List<Category> list = categoryService.selectAll();
+        System.out.println(list); }}
+```
+
+```
+至此Service最关键的工作就写好了,下面进入Controller开发环节。作为Controller控制器它是整个系统中承上启下的组件。新建class controller/BookController 在这里完成一系列的url与方法之间的绑定
+```
+
+```java
+//控制器
+package com.imooc.reader.controller;
+import com.imooc.reader.entity.Category;
+import com.imooc.reader.impl.CategoryServiceImpl;
+import com.imooc.reader.service.CategoryService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Controller
+public class BookController {
+    @Resource
+    private CategoryService categoryService;
+
+    /**
+     * 显示首页
+     * @return
+     */
+    @GetMapping("/")
+    public ModelAndView showIndex() {
+        List<Category> categoryList = categoryService.selectAll();
+        ModelAndView mav = new ModelAndView("/index");
+        mav.addObject("categoryList", categoryList);
+        return mav;}}
+```
+
+```html
+//在index.ftl中用Freemarker的语法把Controller传过来的数据进行遍历并显示并且展示怎么去除最后一个竖杠的问题	酷 !!!
+        <div class="col-8 mt-2">
+            <span data-category="-1" style="cursor: pointer" class="highlight  font-weight-bold category">全部</span>
+            |
+            <#list categoryList as category>
+                <a style="cursor: pointer" data-category="#{category.categoryId}"
+                   class="text-black-50 font-weight-bold category">${category.categoryName}</a>
+                <#--category_has_next 代表是否后面还有其他元素呢? 如果有则执行if块中的语句;如果没有就不会执行   [注:用于去除最后面还有 | 的情况,不够美观]-->
+                <#if category_has_next>|</#if>
+            </#list>
+        </div>
+```
+
+```
+这一节完成了一个非常具体的功能 : 从底层的数据库将数据查询出来并一步一步地填充到前端的展示页面上。其实这个路径也是我们程序员在日常工作时一个标准的套路
+1.肯定是要先开发实体类
+2.然后开发Mapper接口以及它所对应的xml
+3.以上都准备好,那么就可以向上推进到了Service上,作为Service根据实际业务的需要来决定查询还是写入
+4.那么Service写好,再往上推进,推到Controller上,来完成对Service的调用,调用成功之后将查询出来的结果放入到当前的请求中与模板引擎进行组合。模板引擎去读取指定的数据,完成界面的渲染产生html,于是就看到了我们最终的结果
+```
+

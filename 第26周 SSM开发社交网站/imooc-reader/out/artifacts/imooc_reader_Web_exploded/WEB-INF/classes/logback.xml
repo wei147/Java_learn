@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!--追加器  向控制器进行输出  [class是具体追加器的实现类]-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--编码器，用于说明向控制台输出的日志格式是什么 [PatternLayoutEncoder自定义日志输出格式]-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--%d对应时间  %-5level:将日志级别进行打印输出  %thread:当前线程的名字
+            %logger:代表日志中说明是哪个类的哪个方法所产生的日志  %msg%n:对应的日志信息和换行-->
+            <pattern>%d{HH:mm:ss} %-5level [%thread] %logger{30} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--日志的最低输出级别为 debug-->
+    <root level="debug">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

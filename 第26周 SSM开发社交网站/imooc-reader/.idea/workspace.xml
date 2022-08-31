@@ -10,26 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc463cbc-560c-4c47-b719-124afa168efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/MyBatisPlusTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/mapper/TestMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/TestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/text.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/test.ftl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/imooc/reader/service/TestServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/controller/BookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/mapper/CategoryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/category.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/index.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/imooc/reader/impl/CategoryServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/test/MyTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/test/MyTestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/MyBatisPlusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/MyBatisPlusTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" beforeDir="false" afterPath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,13 +80,16 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.12674272" />
     <property name="project.structure.side.proportion" value="0.2926337" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\Jave_learn\第26周 SSM开发社交网站\imooc-reader\src\main\webapp\WEB-INF\ftl" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
     </key>
@@ -97,10 +97,11 @@
       <recent name="com.imooc.reader.mapper" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.imooc.reader.impl" />
       <recent name="com.imooc.reader.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MyBatisPlusTest.testSelect">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 8.5">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -110,6 +111,22 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CategoryServiceImplTest.testSelectAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.reader.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.reader.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.impl.CategoryServiceImplTest" />
+      <option name="METHOD_NAME" value="testSelectAll" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -272,6 +289,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CategoryServiceImplTest.testSelectAll" />
         <item itemvalue="JUnit.MyBatisPlusTest.testSelect" />
         <item itemvalue="JUnit.MyBatisPlusTest.testDelete" />
         <item itemvalue="JUnit.MyBatisPlusTest.testInsert" />
@@ -291,6 +309,11 @@
       <workItem from="1661830589114" duration="6075000" />
       <workItem from="1661842088436" duration="11164000" />
       <workItem from="1661858039468" duration="6628000" />
+      <workItem from="1661915165483" duration="1109000" />
+      <workItem from="1661932245326" duration="998000" />
+      <workItem from="1661934670134" duration="806000" />
+      <workItem from="1661937556047" duration="4027000" />
+      <workItem from="1661948611629" duration="3495000" />
     </task>
     <servers />
   </component>
