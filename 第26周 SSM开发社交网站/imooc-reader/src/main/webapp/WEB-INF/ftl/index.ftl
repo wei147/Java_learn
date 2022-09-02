@@ -9,6 +9,7 @@
     <script src="./resources/jquery.3.3.1.min.js"></script>
     <script src="./resources/bootstrap/bootstrap.min.js"></script>
     <script src="./resources/art-template.js"></script>
+    <script src="./resources/raty/lib/jquery.raty.js"></script>
 
     <style>
         .highlight {
@@ -37,6 +38,88 @@
         }
     </style>
 
+    <#--定义模板-->
+    <#--type说明script中内容的类型 tpl英文模板template的简写-->
+    <script type="text/html" id="tpl">
+        <a href="/book/{{bookId}}" style="color: inherit">
+            <div class="row mt-2 book">
+                <div class="col-4 mb-2 pr-2">
+                    <img class="img-fluid" src="{{cover}}">
+                </div>
+                <div class="col-8  mb-2 pl-0">
+                    <h5 class="text-truncate">{{bookName}}</h5>
+
+                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">{{author}}</div>
+
+
+                    <div class="mb-2 w-100">{{subTitle}}</div>
+
+                    <p>
+                        <#--data-score并不是我们自定义的属性,而是raty强制的要求。通过data-score属性描述组件当前的评分是多少-->
+                        <span class="stars" data-score="{{evaluationScore}}" title="gorgeous"></span>
+                        <span class="mt-2 ml-2">{{evaluationScore}}</span>
+                        <span class="mt-2 ml-2">{{evaluationQuantity}}人已评</span>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </script>
+
+    <script>
+        $(function () {
+            //指定存储星型图片的目录在哪
+            $.fn.raty.defaults.path ="./resources/raty/lib/images"
+            $.ajax({
+                url: "/books",
+                //JavaScript处理的时候会给p加上双引号,当做字符串处理
+                data: {p: 1},
+                type: "get",
+                dataType: "json",
+                //服务器返回数据时,用success函数来接收
+                success: function (json) {
+                    var list = json.records;
+                    for (var i = 0; i < list.length; i++) {
+                        var book = json.records[i];
+                        // var html = "<li>"+book.bookName+"</li>";
+                        //将数据结合tpl模板,生成html
+                        var html = template("tpl", book);
+                        console.info(html);
+                        $("#bookList").append(html);
+                    }
+                    //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+                    $(".stars").raty({readonly:true})
+                }
+            })
+
+            //绑定加载更多按钮的单击事件
+            $(function (){
+                $("#btnMore").click(function (){
+                    var nextPage = $("#nextPage").val();
+                    $.ajax({
+                        url: "/books",
+                        //JavaScript处理的时候会给p加上双引号,当做字符串处理
+                        data: {p: nextPage},
+                        type: "get",
+                        dataType: "json",
+                        //服务器返回数据时,用success函数来接收
+                        success: function (json) {
+                            var list = json.records;
+                            for (var i = 0; i < list.length; i++) {
+                                var book = json.records[i];
+                                // var html = "<li>"+book.bookName+"</li>";
+                                //将数据结合tpl模板,生成html
+                                var html = template("tpl", book);
+                                console.info(html);
+                                $("#bookList").append(html);
+                            }
+                            //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+                            $(".stars").raty({readonly:true})
+                        }
+                    })
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -67,7 +150,7 @@
             <#list categoryList as category>
                 <a style="cursor: pointer" data-category="#{category.categoryId}"
                    class="text-black-50 font-weight-bold category">${category.categoryName}</a>
-                <#--category_has_next 代表是否后面还有其他元素呢? 如果有则执行if块中的语句;如果没有就不会执行   [注:用于去除最后面还有 | 的情况,不够美观]-->
+            <#--category_has_next 代表是否后面还有其他元素呢? 如果有则执行if块中的语句;如果没有就不会执行   [注:用于去除最后面还有 | 的情况,不够美观]-->
                 <#if category_has_next>|</#if>
             </#list>
         </div>
@@ -88,323 +171,6 @@
 
     <div id="bookList">
 
-        <a href="/book/5" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img4.mukewang.com/5ce256ea00014bc903600480.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">从 0 开始学爬虫</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">梁睿坤 · 19年资深架构师</div>
-
-
-                    <div class="mb-2 w-100">零基础开始到大规模爬虫实战</div>
-
-                    <p>
-                        <span class="stars" data-score="4.9" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.9" readonly=""></span>
-                        <span class="mt-2 ml-2">4.9</span>
-                        <span class="mt-2 ml-2">15人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/25" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img1.mukewang.com/5da923d60001a92f05400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">网络协议那些事儿</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">Oscar · 一线大厂高级软件工程师</div>
-
-
-                    <div class="mb-2 w-100">前后端通用系列课</div>
-
-                    <p>
-                        <span class="stars" data-score="4.9" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.9" readonly=""></span>
-                        <span class="mt-2 ml-2">4.9</span>
-                        <span class="mt-2 ml-2">15人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/32" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img.mukewang.com/5dff8f33000138fa05400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">给程序员的职场情商课</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">风落几番 · 蚂蚁金服测试专家</div>
-
-
-                    <div class="mb-2 w-100">懂技术，更要懂说话的艺术</div>
-
-                    <p>
-                        <span class="stars" data-score="4.7" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-half.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.7" readonly=""></span>
-                        <span class="mt-2 ml-2">4.7</span>
-                        <span class="mt-2 ml-2">15人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/1" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img2.mukewang.com/5c247b0b0001a0a903600480.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">教你用 Python 进阶量化交易</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">袁霄 · 全栈工程师</div>
-
-
-                    <div class="mb-2 w-100">你的量化交易开发第一课</div>
-
-                    <p>
-                        <span class="stars" data-score="4.9" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.9" readonly=""></span>
-                        <span class="mt-2 ml-2">4.9</span>
-                        <span class="mt-2 ml-2">14人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/7" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img2.mukewang.com/5cfdcd1e00015cf203600480.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">手把手带你打造自己的UI样式库</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">Rosen · 一线互联网架构设计师</div>
-
-
-                    <div class="mb-2 w-100">前端开发进阶必学</div>
-
-                    <p>
-                        <span class="stars" data-score="4.9" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.9" readonly=""></span>
-                        <span class="mt-2 ml-2">4.9</span>
-                        <span class="mt-2 ml-2">14人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/6" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img3.mukewang.com/5cf47cb800010dde03600480.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">零基础学透 TypeScript</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">Lison · 前端高级工程师</div>
-
-
-                    <div class="mb-2 w-100">关于TS的前世今生一篇打尽</div>
-
-                    <p>
-                        <span class="stars" data-score="4.6" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-half.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.6" readonly=""></span>
-                        <span class="mt-2 ml-2">4.6</span>
-                        <span class="mt-2 ml-2">13人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/31" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img4.mukewang.com/5df760170001512305400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">Python 数据分析通关攻略</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">Lemeng_study · 8年经验资深数据挖掘专家</div>
-
-
-                    <div class="mb-2 w-100">编程技术提升职场竞争力系列</div>
-
-                    <p>
-                        <span class="stars" data-score="4.8" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.8" readonly=""></span>
-                        <span class="mt-2 ml-2">4.8</span>
-                        <span class="mt-2 ml-2">13人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/34" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img3.mukewang.com/5e16e9730001d85605400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">智能时代：写给想学习大数据的你</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">RangeYan · 一线互联网公司数据研发专家</div>
-
-
-                    <div class="mb-2 w-100">驾驭未来工作的利器</div>
-
-                    <p>
-                        <span class="stars" data-score="4.7" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-half.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.7" readonly=""></span>
-                        <span class="mt-2 ml-2">4.7</span>
-                        <span class="mt-2 ml-2">13人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/33" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img1.mukewang.com/5e0deb5c0001282f05400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">分布式技术面试大厂真题30讲</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">王炸 · 8年经验一线大厂架构师</div>
-
-
-                    <div class="mb-2 w-100">让你在寒冬求职季脱颖而出</div>
-
-                    <p>
-                        <span class="stars" data-score="4.9" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.9" readonly=""></span>
-                        <span class="mt-2 ml-2">4.9</span>
-                        <span class="mt-2 ml-2">12人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
-
-        <hr>
-
-        <a href="/book/17" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="https://img4.mukewang.com/5d5510fa00011fa605400720.jpg">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">你的第一本Python基础入门书</h5>
-
-                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">黄浮云 · 资深云计算工程师</div>
-
-
-                    <div class="mb-2 w-100">人人受益的Python开学第一课</div>
-
-                    <p>
-                        <span class="stars" data-score="4.7" title="gorgeous"><img alt="1"
-                                                                                   src="./resources/raty/lib/images/star-on.png"
-                                                                                   title="gorgeous">&nbsp;<img alt="2"
-                                                                                                               src="./resources/raty/lib/images/star-on.png"
-                                                                                                               title="gorgeous">&nbsp;<img
-                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
-                                    alt="5" src="./resources/raty/lib/images/star-half.png" title="gorgeous"><input
-                                    name="score" type="hidden" value="4.7" readonly=""></span>
-                        <span class="mt-2 ml-2">4.7</span>
-                        <span class="mt-2 ml-2">11人已评</span>
-                    </p>
-                </div>
-            </div>
-        </a>
 
         <hr>
     </div>

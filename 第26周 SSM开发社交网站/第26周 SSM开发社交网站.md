@@ -822,3 +822,357 @@ public class BookController {
 4.那么Service写好,再往上推进,推到Controller上,来完成对Service的调用,调用成功之后将查询出来的结果放入到当前的请求中与模板引擎进行组合。模板引擎去读取指定的数据,完成界面的渲染产生html,于是就看到了我们最终的结果
 ```
 
+
+
+#### 实现图书分页查询
+
+```
+分页查询来说 是我们日常非常普遍的一个应用场景。该如何实现 ? 
+答: 作为MyBatis-Plus内置了分页插件,可以大幅度的简化我们对分页的处理
+```
+
+```java
+分页查询离不开Book表,在entity中创建实体类Book,然后是BookMapper.java与其对应的book.xml,接着是Service最后是实现类Impl。重点是MyBatis-Plus提供的分页组件(Ipage以及selectPage方法)
+
+    public IPage<Book> paging(Integer page, Integer rows) {
+        Page<Book> p = new Page<Book>(page, rows);
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<Book>();
+        //还没有任何需要筛选的条件,所以直接将queryWrapper对象放入到第二个参数。相当于对原始的所有数据进行分页查询了
+        IPage<Book> pageObject = bookMapper.selectPage(p, queryWrapper);
+        return pageObject;}}
+
+生成对应实现类的小技巧 : 选中BookService类名,在上面按 alt + 回车 (无法复现,可能是我修改过了)
+
+idea显示方法参数提示 Ctrl + p
+```
+
+```java
+//实体类
+package com.imooc.reader.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName("book")
+public class Book {
+    @TableId(type = IdType.AUTO)
+    private Long bookId;
+    private String bookName;
+    private String subTitle;
+    private String author;
+    private String cover;
+    private String description;
+    private Long categoryId;
+    private Float evaluationScore;
+    private Long evaluationQuantity;
+
+    public Long getBookId() {return bookId;}
+    public void setBookId(Long bookId) {this.bookId = bookId;}
+    public String getBookName() { return bookName;}
+    public void setBookName(String bookName) {this.bookName = bookName;}
+    public String getSubTitle() {return subTitle;}
+    public void setSubTitle(String subTitle) {this.subTitle = subTitle;}
+    public String getAuthor() {return author;}
+    public void setAuthor(String author) {this.author = author;}
+    public String getCover() {return cover;}
+    public void setCover(String cover) {this.cover = cover;}
+    public String getDescription() {return description;}
+    public void setDescription(String description) { this.description = description;}
+    public Long getCategoryId() {return categoryId}
+    public void setCategoryId(Long categoryId) {this.categoryId = categoryId;}
+    public Float getEvaluationScore() {return evaluationScore;}
+    public void setEvaluationScore(Float evaluationScore) {this.evaluationScore = evaluationScore;}
+    public Long getEvaluationQuantity() {return evaluationQuantity;}
+    public void setEvaluationQuantity(Long evaluationQuantity) {this.evaluationQuantity = evaluationQuantity;}}
+```
+
+```java
+//Mapper 接口类
+package com.imooc.reader.mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.imooc.reader.entity.Book;
+
+public interface BookMapper extends BaseMapper<Book> {}
+```
+
+```xml
+//mappers文件夹下的book.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imooc.reader.mapper.BookMapper">
+
+</mapper>
+```
+
+
+
+```java
+//BookService.java
+package com.imooc.reader.service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.imooc.reader.entity.Book;
+
+/**
+ * 图书服务
+ * IPage是由MyBatis-Plus提供分页对象。这个分页对象中不仅包含了当前查询出来的页数据;也包含了一系列的的与分页相关的信息。详情ctrl进去(好像没有中文注释了?哈哈)
+ * 生成对应实现类的小技巧 : 选中BookService类名,在上面按 alt + 回车
+ */
+public interface BookService {
+    /**
+     * 分页查询图书
+     * @param page 页号
+     * @param rows 每页记录数
+     * @return 分页对象
+     */
+    public IPage<Book> paging(Integer page, Integer rows);}
+```
+
+```java
+//实现类
+package com.imooc.reader.impl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.imooc.reader.entity.Book;
+import com.imooc.reader.mapper.BookMapper;
+import com.imooc.reader.service.BookService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
+
+@Service("bookService")
+@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)    //目前里边的每一个方法默认不开启事务
+public class BookServiceImpl implements BookService {
+    @Resource
+    private BookMapper bookMapper;
+
+    /**
+     * 分页查询图书
+     *
+     * @param page 页号
+     * @param rows 每页记录数
+     * @return 分页对象
+     */
+    @Override
+    public IPage<Book> paging(Integer page, Integer rows) {
+        Page<Book> p = new Page<Book>(page, rows);
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<Book>();
+        //还没有任何需要筛选的条件,所以直接将queryWrapper对象放入到第二个参数。相当于对原始的所有数据进行分页查询了
+        IPage<Book> pageObject = bookMapper.selectPage(p, queryWrapper);
+        return pageObject;}}
+```
+
+
+
+```java
+//测试类
+package com.imooc.reader.impl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.imooc.reader.entity.Book;
+import com.imooc.reader.service.BookService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)//junit4在运行时，会自动初始化ioc容器
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"}) //说明配置文件在什么地方
+public class BookServiceImplTest {
+
+    @Resource
+    private BookService bookService;
+
+    @Test
+    public void paging() {
+        //查询第1页的数据每页10条 1-10    (如果是page:2,rows:10,查询到的是 11-20)
+        //查询的步骤: 1.先是获取没有分页的时候数据总数是多少,只有数据总数才能计算出一共有多少页 [SELECT COUNT(1) FROM book ]
+        // 2.总数再除以每页的记录数就能计算出本次查询一共有多少页 [SELECT book_id,book_name,...,evaluation_quantity FROM book LIMIT ?,? ]
+        IPage<Book> pageObject = bookService.paging(2, 10);
+        List<Book> records = pageObject.getRecords();
+        System.out.println("=================================");
+        for (Book b : records) {
+            System.out.println(b.getBookId() + " : " + b.getBookName());
+        }
+        //获取总页数
+        System.out.println("总页数 : " + pageObject.getPages());      //5
+        //获取总记录数
+        System.out.println("总记录数 : " + pageObject.getTotal());    //44
+ }}
+```
+
+
+
+#### Ajax动态加载图书信息
+
+```
+作为图书的信息我们采用哪种方式来进行加载呢?
+1.可以在Freemarker中一次性直接生成
+2.也可以当这个界面显示以后,利用JavaScript提供Ajax和Controller来进行交互。
+这两种不同的方式处理代码也是不一样的。更倾向于后者，选择Ajax。
+why?
+答: 最下方有一个点击加载更多,如果采用Freemarker渲染重新返回的话,必然会导致点击按钮之后，我们界面整体重新刷新，然后页面滚回到最上方的位置。采用Ajax动态加载就不会这样,因为Ajax是在当前页面进行局部刷新,追加服务器返回新的图书数据,这样界面的交换会更加友好。但是有一个缺点:Ajax相比起Freemarker中进行渲染,它的开发的难度会稍微大一点,因为全程需要加入JavaScript来控制请求的提交以及返回的数据的处理。
+```
+
+```java
+//控制器类 BookController 新增分页查询图书列表
+package com.imooc.reader.controller;
+import ...
+
+@Controller
+public class BookController {
+    @Resource
+    private CategoryService categoryService;
+    @Resource
+    private BookService bookService;
+
+    /**
+     * 显示首页
+     *
+     * @return
+     */
+    @GetMapping("/")
+    public ModelAndView showIndex() {
+        List<Category> categoryList = categoryService.selectAll();
+        ModelAndView mav = new ModelAndView("/index");
+        mav.addObject("categoryList", categoryList);
+        return mav;
+    }
+
+    /**
+     * 分页查询图书列表
+     *
+     * @param p 页号(从前台传过来的)
+     * @return分页对象
+     */
+    @GetMapping("/books")
+    @ResponseBody
+    public IPage<Book> selectBook(Integer p) {
+        if (p == null) {
+            p = 1;
+        }
+        IPage<Book> pageObject = bookService.paging(p, 10);
+        //自动的会Json序列化输出
+        return pageObject;}}
+
+```
+
+```JavaScript
+//index.ftl, Ajax与服务器交互以后所产生的json数据,我们要转换成对应的html,然后动态的加载到对应的数据容器中。(这是在日常开发中最普遍的做法,这里是针对简单的html拼接字符串,如果复杂的话就不ok。为了解决这个问题,新的小技术————js模板引擎,完成复杂页面的构建工作)
+<script>
+    $(function () {
+        $.ajax({
+            url: "/books",
+            //JavaScript处理的时候会给p加上双引号,当做字符串处理
+            data: {p: 1},
+            type: "get",
+            dataType: "json",
+            //服务器返回数据时,用success函数来接收
+            success: function (json) {
+                var list = json.records;
+                for (var i = 0; i < list.length; i++) {
+                    var book = json.records[i];
+                    // var html = "<li>"+book.bookName+"</li>";
+                    var html = "<h4>"+book.bookName+"</h4>";
+                    $("#bookList").append(html);
+                }}})})
+</script>
+```
+
+
+
+#### JS模板引擎 Art-Template使用入门
+
+##### Art-Template 腾讯JS模板引擎
+
+##### 星型评分组件raty
+
+```javascript
+基于腾讯开源的高性能的Js模板引擎。其主要的用途是高效的基于模板来生成复杂的html片段
+http://aui.github.io/art-template/zh-cn/index.html
+
+Art-Template的使用:
+1.引入js引擎	    <script src="./resources/art-template.js"></script>
+2.定义模板	[需要指定type和给其一个id]
+    <#--定义模板-->
+    <#--type说明script中内容的类型 tpl英文模板template的简写-->
+    <script type="text/html" id="tpl">
+        <a href="/book/{{bookId}}" style="color: inherit">
+            <div class="row mt-2 book">
+                <div class="col-4 mb-2 pr-2">
+                    <img class="img-fluid" src="{{cover}}"></div>
+                <div class="col-8  mb-2 pl-0">
+                    <h5 class="text-truncate">{{bookName}}</h5>
+
+                    <div class="mb-2 bg-light small  p-2 w-100 text-truncate">{{author}}</div>
+                    <div class="mb-2 w-100">{{subTitle}}</div><p>
+                        <span class="stars" data-score="{{evaluationScore}}" title="gorgeous"><img alt="1" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img  alt="2"
+                                    src="./resources/raty/lib/images/star-on.png"
+                                    title="gorgeous">&nbsp;<img
+                                    alt="3" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
+                                    alt="4" src="./resources/raty/lib/images/star-on.png" title="gorgeous">&nbsp;<img
+                                    alt="5" src="./resources/raty/lib/images/star-on.png" title="gorgeous"><input
+                                    name="score" type="hidden" value="{{evaluationScore}}" readonly=""></span>
+                        <span class="mt-2 ml-2">{{evaluationScore}}</span>
+                        <span class="mt-2 ml-2">{{evaluationQuantity}}</span></p></div></div></a></script>
+3.在Ajax接收到数据以后,通过template方法将模板和数据结合生成新的html,这样我们将html追加到对应的图书容器中就可以显示出来了 
+    <script>
+        $(function () {
+            //指定存储星型图片的目录在哪
+            $.fn.raty.defaults.path ="./resources/raty/lib/images"
+            $.ajax({
+                url: "/books",
+                //JavaScript处理的时候会给p加上双引号,当做字符串处理
+                data: {p: 1},
+                type: "get",
+                dataType: "json",
+                //服务器返回数据时,用success函数来接收
+                success: function (json) {
+                    var list = json.records;
+                    for (var i = 0; i < list.length; i++) {
+                        var book = json.records[i];
+                        // var html = "<li>"+book.bookName+"</li>";
+                        //将数据结合tpl模板,生成html
+                        var html = template("tpl", book);
+                        console.info(html);
+                        $("#bookList").append(html);}
+                        //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+                    $(".stars").raty({readonly:true})
+                }})})</script>
+```
+
+```javascript
+[这里还有一个隐藏的Bug:将第一本书的评分改为2.9,前端评分改变了但是星星却没有动静。星星是如何产生的呢?这就涉及到另外一个星型评分组件raty的用法了] 
+1.导入组件依赖     
+    <script src="./resources/raty/lib/jquery.raty.js"></script>
+    <link rel="stylesheet" href="./resources/raty/lib/jquery.raty.css">
+    <script src="./resources/jquery.3.3.1.min.js"></script>
+2. //指定存储星型图片的目录在哪 [详情见上文]
+	$.fn.raty.defaults.path ="./resources/raty/lib/images"
+3..<p><#--data-score并不是我们自定义的属性,而是raty强制的要求。通过data-score属性描述组件当前的评分是多少-->
+                        <span class="stars" data-score="{{evaluationScore}}" title="gorgeous"></span>
+                        <span class="mt-2 ml-2">{{evaluationScore}}</span>
+                        <span class="mt-2 ml-2">{{evaluationQuantity}}人已评</span></p>
+4.//显示星型评价组件   $(".stars").raty({readonly:true})
+```
+
+
+
+#### 实现图书列表分页查询
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220902214119271.png" alt="image-20220902214119271" style="zoom:50%;" />
+
+```
+点击加载更多的按钮其本质就是对数据的分页查询,每天点一次加载更多就去查询下一页的数据,直到所有数据查完就提示没有更多数据了。作为这个功能主要考察我们对于JavaScript中分页的处理能力。
+
+这里又产生了一个问题,作为下一页到底是第几页? 得有一个地方去保存下一页的页号
+```
+
