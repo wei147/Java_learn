@@ -1174,5 +1174,249 @@ Art-Template的使用:
 点击加载更多的按钮其本质就是对数据的分页查询,每天点一次加载更多就去查询下一页的数据,直到所有数据查完就提示没有更多数据了。作为这个功能主要考察我们对于JavaScript中分页的处理能力。
 
 这里又产生了一个问题,作为下一页到底是第几页? 得有一个地方去保存下一页的页号
+
+还有一个新的问题 : 到了最后一页 "加载更多按钮"就不该存在了
 ```
 
+```javascript
+//绑定加载更多按钮的单击事件
+$(function () {
+    $("#btnMore").click(function () {
+        var nextPage = $("#nextPage").val();
+        $.ajax({
+            url: "/books",
+            //JavaScript处理的时候会给p加上双引号,当做字符串处理
+            data: {p: nextPage},
+            type: "get",
+            dataType: "json",
+            //服务器返回数据时,用success函数来接收
+            success: function (json) {
+                var list = json.records;
+                for (var i = 0; i < list.length; i++) {
+                    var book = json.records[i];
+                    // var html = "<li>"+book.bookName+"</li>";
+                    //将数据结合tpl模板,生成html
+                    var html = template("tpl", book);
+                    console.info(html);
+                    $("#bookList").append(html);
+                }
+                //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+                $(".stars").raty({readonly: true});
+
+                //判断是否到最后一页
+                //json.current代表当前页号, json.pages是总页数。这里还有一个小细节:json.current可能会被JavaScript当成字符串来处理,解决方法是增加parseInt转换为数字
+                if (json.current < json.pages) {
+                    $("#nextPage").val(parseInt(json.current) + 1);
+                    $("#btnMore").show();
+                    $("#divNoMore").hide();
+                } else {
+                    $("#btnMore").hide();
+                    $("#divNoMore").show();}}})})})
+```
+
+```
+以上关于动态加载分页的工作已经完成了。但此时我们的代码不太好看,因为在上面初始化的工程中来进行了一次Ajax请求和下面加载更多的时候两者的代码是非常像的。 那能不能对其重构和梳理? 养成代码及时重构和梳理是一个好习惯。具体的做法
+```
+
+```javascript
+//对代码进行重构之后,新增标志位isReset,如果isReset为true的话,nextPage设置为1,即加载首页。大大减少了代码量
+<script>
+        $(function () {
+            //指定存储星型图片的目录在哪
+            $.fn.raty.defaults.path = "./resources/raty/lib/images";
+
+            //loadMore() 加载更多数据
+            //isReset参数设置为true,代表从第一页开始查询,否则按nextPage查询后续页
+            function loadMore(isReset) {
+                if (isReset == true) {
+                    $("#nextPage").val(1);
+                }
+                var nextPage = $("#nextPage").val();
+                $.ajax({
+                    url: "/books",
+                    //JavaScript处理的时候会给p加上双引号,当做字符串处理
+                    data: {p: nextPage},
+                    type: "get",
+                    dataType: "json",
+                    //服务器返回数据时,用success函数来接收
+                    success: function (json) {
+                        var list = json.records;
+                        for (var i = 0; i < list.length; i++) {
+                            var book = json.records[i];
+                            // var html = "<li>"+book.bookName+"</li>";
+                            //将数据结合tpl模板,生成html
+                            var html = template("tpl", book);
+                            console.info(html);
+                            $("#bookList").append(html);
+                        }
+                        //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+                        $(".stars").raty({readonly: true});
+
+                        //判断是否到最后一页
+                        //json.current代表当前页号, json.pages是总页数。这里还有一个小细节:json.current可能会被JavaScript当成字符串来处理,解决方法是增加parseInt转换为数字
+                        if (json.current < json.pages) {
+                            $("#nextPage").val(parseInt(json.current) + 1);
+                            $("#btnMore").show();
+                            $("#divNoMore").hide();
+                        } else {
+                            $("#btnMore").hide();
+                            $("#divNoMore").show();
+                        }
+                    }
+                })
+            }
+
+            // $.ajax({
+            //     url: "/books",
+            //     //JavaScript处理的时候会给p加上双引号,当做字符串处理
+            //     data: {p: 1},
+            //     type: "get",
+            //     dataType: "json",
+            //     //服务器返回数据时,用success函数来接收
+            //     success: function (json) {
+            //         var list = json.records;
+            //         for (var i = 0; i < list.length; i++) {
+            //             var book = json.records[i];
+            //             // var html = "<li>"+book.bookName+"</li>";
+            //             //将数据结合tpl模板,生成html
+            //             var html = template("tpl", book);
+            //             console.info(html);
+            //             $("#bookList").append(html);
+            //         }
+            //         //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
+            //         $(".stars").raty({readonly: true})
+            //     }
+            // })
+    
+            //这里设置为ture,即默认加载第一页(nextPage=1)
+            loadMore(true)
+
+            //绑定加载更多按钮的单击事件
+            $(function () {
+                $("#btnMore").click(function () {
+                    loadMore();
+                })})}) </script>
+```
+
+
+
+#### 多条件分页查询
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220903194739595.png" alt="image-20220903194739595" style="zoom:50%;" />
+
+```javascript
+针对这样的查询功能,其本质还是建立在我们前面写过的分页方法基础之上,只不过增加了一些额外的条件。
+作为当前这个功能,我们要分成两个步骤来完成 :
+    1.当我们点击了这些超链接([筛选条件 全部、前端、后端...])以后,我们要它对应的进行高亮显示。[具体实现逻辑是不管点击了哪个超链接先把所有的高亮都移除,所有都设置为灰色,最后将点击的那个超链接单独设置为高亮]
+                    //.category css类是每一个分类超链接都必然拥有的css类。通过.category对当前页面所有的分类的超链接进行捕获
+                $(".category").click(function (){
+                    $(".category").removeClass("highlight");    //移除所有高亮显示
+                    $(".category").addClass(" text-black-50");  //设置为灰色
+                    $(this).addClass("highlight");  //捕获当前当前点击的超链接并设置高亮
+                })
+
+                //.order css类是每一个排序超链接都必然拥有的css类
+                $(".order").click(function (){
+                    $(".order").removeClass("highlight");    //移除所有高亮显示
+                    $(".order").addClass(" text-black-50");  //设置为灰色
+                    $(this).addClass("highlight");  //捕获当前当前点击的超链接并设置高亮
+                })
+    2.在点击之后根据所选的条件在后台进行动态的分页查询
+    //要实现联动的功能,需要修改SQL语句。在BookService.java中增加参数
+     /**
+     * 分页查询图书
+     *
+     * @param category 分页编号
+     * @param order    排序方式
+     * @param page     页号
+     * @param rows     每页记录数
+     * @return 分页对象
+     */
+     public IPage<Book> paging(Long category, String order, Integer page, Integer rows);
+	对应了前台的分类编号以及要排序的规则
+```
+
+```
+单元测试完成之后,重点来到控制器和前台页面的交互上,我们只需要保障,从前台页面传入categoryId以及order就可以完成对应的数据处理了。具体做法回到index.ftl页面
+```
+
+```java
+package ...
+    
+//多条件分页查询新增的代码	BookServiceImpl.java
+@Service("bookService")
+@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)    //目前里边的每一个方法默认不开启事务
+public class BookServiceImpl implements BookService {
+    @Resource
+    private BookMapper bookMapper;
+
+    /**
+     * 分页查询图书
+     *
+     * @param categoryId 分页编号
+     * @param order      排序方式
+     * @param page       页号
+     * @param rows       每页记录数
+     * @return 分页对象
+     */
+    @Override
+    public IPage<Book> paging(Long categoryId, String order, Integer page, Integer rows) {
+        Page<Book> p = new Page<Book>(page, rows);
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<Book>();
+        //这个判断代表了从前台传入了有效的分页编号
+        if (categoryId != null && categoryId != -1) {
+            queryWrapper.eq("category_id", categoryId);
+        }
+        if (order != null) {
+            //排序的规则有两种
+            //按照评价人数来进行排序
+            if (order.equals("quantity")) {
+                queryWrapper.orderByDesc("evaluation_quantity");    //按照指定字段进行降序排列
+                //按照具体的评分进行降序排列
+            } else if (order.equals("score")) {
+                queryWrapper.orderByDesc("evaluation_score");}}
+```
+
+```javascript
+//.category css类是每一个分类超链接都必然拥有的css类。通过.category对当前页面所有的分类的超链接进行捕获
+$(".category").click(function () {
+    $(".category").removeClass("highlight");    //移除所有高亮显示
+    $(".category").addClass(" text-black-50");  //设置为灰色
+    $(this).addClass("highlight");  //捕获当前当前点击的超链接并设置高亮
+    //这里对应的是自定义属性data后边的值   <span data-category="-1"...
+    //一旦执行了这句话,那么它就会得到当前点击的超链接它的categoryId编号,接着将编号赋值给隐藏域categoryId。
+    // 一旦赋值后,在进行数据加载过程中就会读取这个结果来完成数据的筛选
+    var categoryId = $(this).data("category");
+    $("#categoryId").val(categoryId);
+    //每点击图书类别的时候,相当于进行重新的查询
+    loadMore(true);
+})
+
+//.order css类是每一个排序超链接都必然拥有的css类
+$(".order").click(function () {
+    $(".order").removeClass("highlight");    //移除所有高亮显示
+    $(".order").addClass(" text-black-50");  //设置为灰色
+    $(this).addClass("highlight");  //捕获当前当前点击的超链接并设置高亮
+    var order = $(this).data("order");
+    $("#order").val(order);
+    loadMore(true);
+})
+```
+
+```javascript
+//将获取到的值传给 Controller处理   data: {p: nextPage, "categoryId": categoryId, "order": order} 利用get传值
+function loadMore(isReset) {
+    if (isReset == true) {
+        //将原有已经查询的所有图书信息来给予清空。 [不然的话会增加到已有信息的后面]
+        $("#bookList").html("");
+        $("#nextPage").val(1);
+    }
+    var nextPage = $("#nextPage").val();
+    //获取两个隐藏域的数值 分类id和排序编号
+    var categoryId = $("#categoryId").val();
+    var order = $("#order").val();
+    $.ajax({
+        url: "/books",
+        //JavaScript处理的时候会给p加上双引号,当做字符串处理
+        data: {p: nextPage, "categoryId": categoryId, "order": order},
+```

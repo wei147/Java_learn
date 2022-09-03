@@ -36,16 +36,18 @@ public class BookController {
     /**
      * 分页查询图书列表
      *
-     * @param p 页号(从前台传过来的)
+     * @param categoryId 分页编号
+     * @param order      排序方式
+     * @param p          页号(从前台传过来的)
      * @return分页对象
      */
     @GetMapping("/books")
     @ResponseBody
-    public IPage<Book> selectBook(Integer p) {
+    public IPage<Book> selectBook(Long categoryId, String order, Integer p) {
         if (p == null) {
             p = 1;
         }
-        IPage<Book> pageObject = bookService.paging(p, 10);
+        IPage<Book> pageObject = bookService.paging(categoryId, order, p, 10);
         //自动的会Json序列化输出
         return pageObject;
     }
