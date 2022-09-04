@@ -36,4 +36,11 @@ public class BookServiceImplTest {
         System.out.println("总记录数 : " + pageObject.getTotal());    //44
 
     }
+
+    @Test
+    public void selectById() {
+        Book book = bookService.selectById(5L); //从 0 开始学爬虫
+        System.out.println(book);
+        System.out.println(book.getBookName());
+    }
 }

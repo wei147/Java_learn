@@ -1420,3 +1420,109 @@ function loadMore(isReset) {
         //JavaScript处理的时候会给p加上双引号,当做字符串处理
         data: {p: nextPage, "categoryId": categoryId, "order": order},
 ```
+
+
+
+#### 图书详情页-读取图书信息
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220904193740645.png" alt="image-20220904193740645" style="zoom:50%;" />
+
+```
+对于详情页来说,其主要内容包含了两大块: 
+1.为上图的左半部分
+2.为短评部分,处于页面的最下方。上图的右半部分
+```
+
+```javascript
+<#--定义模板-->
+<#--type说明script中内容的类型 tpl英文模板template的简写-->
+<script type="text/html" id="tpl">
+    <a href="/book/{{bookId}}" style="color: inherit">
+        <div class="row mt-2 book"><div class="col-4 mb-2 pr-2">
+                <img class="img-fluid" src="{{cover}}"></div><div class="col-8  mb-2 pl-0">
+                <h5 class="text-truncate">{{bookName}}</h5>
+                <div class="mb-2 bg-light small  p-2 w-100 text-truncate">{{author}}</div>
+                <div class="mb-2 w-100">{{subTitle}}</div><p>
+                    <#--data-score并不是我们自定义的属性,而是raty强制的要求。通过data-score属性描述组件当前的评分是多少-->
+                    <span class="stars" data-score="{{evaluationScore}}" title="gorgeous"></span>
+                    <span class="mt-2 ml-2">{{evaluationScore}}</span>
+                    <span class="mt-2 ml-2">{{evaluationQuantity}}人已评</span>
+                </p></div> </div></a></script>
+```
+
+```java
+当我们点击上面的超链接的时候,它访问的图书地址是 /book/{{bookId}},那对于当前的超链接来说图书的id是存放在url中,我们要把它提取出来。这底层传递的是图书编号,那自然要提供一个按照图书id去获取图书对象的操作。下面开发这个方法
+
+基于Book实体类以及对应Mapper接口和xml都已经准备好了,那下面的工作自然是打开BookService接口,在这里定义全新的方法
+    //BookService.java中新增查询方法
+    /**
+     * 根据图书编号查询图书对象
+     *
+     * @param bookId 图书编号
+     * @return 图书对象
+     */
+    public Book selectById(Long bookId);
+
+	//BookServiceImpl.java	实现类实现BookService接口中的方法
+    @Override
+    public Book selectById(Long bookId) {
+        Book book = bookMapper.selectById(bookId);
+        return book;
+    }
+
+在BookController中根据index.ftl提供的地址/book/{{bookId}},我们要做相应的url绑定
+    //BookController.java中的新增，注意这里使用了路径变量
+        /**
+     * 使用id这个路径变量获取存放在url中的图书编号
+     * (show开头即显示页面)
+     */
+    @GetMapping("/book/{id}")
+    //这个id从哪来呢? 从前面的路径变量。所以在参数部分增加注解@PathVariable("id"),这个("id")要和路径变量里的名字一致
+    public ModelAndView showDetail(@PathVariable("id") Long id){
+        Book book = bookService.selectById(id);
+        ModelAndView mav = new ModelAndView("/detail");
+        mav.addObject("book",book);
+        return mav;}
+```
+
+```
+新的问题: 当从index.ftl 跳转到 detail.ftl页面时,部分css和js失效了, 原因是请求url有问题
+Request URL: http://localhost/book/resources/bootstrap/bootstrap.css
+本来应该是	http://localhost/resources/bootstrap/bootstrap.css
+为什么会增加了一个book的前缀?  在实际应用场景下,应该是从localhost直接访问到resources目录才是正确的,这是为什么?  原因很明确,是因为在我们实际开发时,这里使用的是相对路径	href="./resources/bootstrap/bootstrap.css"。
+那么这些资源的地址实际上,它是会附加到最后一级目录后面的,也就是指作为相对路径它是基于我们目前url所在的路径之后再进行附加。因为book的存在导致对应访问的资源找不到出现404错误。
+为了解决这个问题,建议是在实际应用开发时尽量的不要使用相对地址,而要使用绝对地址
+"/resources/bootstrap/bootstrap.css" 把.点去掉意味着从locahost以后开始查找相应的资源
+```
+
+```html
+//在html中用Freemarker语法嵌入对应的数据就ok ${book.bookName}
+<div class="row">
+    <div class="col-4 mb-2 pl-0 pr-0">
+        <img style="width: 110px;height: 160px"
+             src="${book.cover}">
+    </div>
+    <div class="col-8 pt-2 mb-2 pl-0">
+        <h6 class="text-white">${book.bookName}</h6>
+        <div class="p-1 alert alert-warning small" role="alert">
+            ${book.subTitle}
+```
+
+```
+至此,图书详情页-读取图书信息完成(图书基本信息的展示)。 
+还有一个问题就是,图片通过idea不能直接访问到(报错403),但是在浏览器中却能打开
+https://img4.mukewang.com/5ce256ea00014bc903600480.jpg
+看看解决这个问题
+```
+
+
+
+#### 图书详情页-显示评论列表
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220904212039225.png" alt="image-20220904212039225" style="zoom:50%;" />
+
+```
+数据来自evaluation,评论表。创建与之对应的实体类
+
+```
+

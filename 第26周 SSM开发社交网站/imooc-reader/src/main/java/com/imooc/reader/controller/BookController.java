@@ -7,6 +7,7 @@ import com.imooc.reader.service.BookService;
 import com.imooc.reader.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,5 +51,18 @@ public class BookController {
         IPage<Book> pageObject = bookService.paging(categoryId, order, p, 10);
         //自动的会Json序列化输出
         return pageObject;
+    }
+
+    /**
+     * 使用id这个路径变量获取存放在url中的图书编号
+     * (show开头即显示页面)
+     */
+    @GetMapping("/book/{id}")
+    //这个id从哪来呢? 从前面的路径变量。所以在参数部分增加注解@PathVariable("id"),这个("id")要和路径变量里的名字一致
+    public ModelAndView showDetail(@PathVariable("id") Long id){
+        Book book = bookService.selectById(id);
+        ModelAndView mav = new ModelAndView("/detail");
+        mav.addObject("book",book);
+        return mav;
     }
 }
