@@ -3,8 +3,10 @@ package com.imooc.reader.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.reader.entity.Book;
 import com.imooc.reader.entity.Category;
+import com.imooc.reader.entity.Evaluation;
 import com.imooc.reader.service.BookService;
 import com.imooc.reader.service.CategoryService;
+import com.imooc.reader.service.EvaluationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,8 @@ public class BookController {
     private CategoryService categoryService;
     @Resource
     private BookService bookService;
+    @Resource
+    private EvaluationService evaluationService;
 
     /**
      * 显示首页
@@ -61,8 +65,11 @@ public class BookController {
     //这个id从哪来呢? 从前面的路径变量。所以在参数部分增加注解@PathVariable("id"),这个("id")要和路径变量里的名字一致
     public ModelAndView showDetail(@PathVariable("id") Long id){
         Book book = bookService.selectById(id);
+        //在BookController得到对应的图书编号以后,可以基于Service查询对应的短评信息
+        List<Evaluation> evaluationList = evaluationService.selectByBookId(id);
         ModelAndView mav = new ModelAndView("/detail");
         mav.addObject("book",book);
+        mav.addObject("evaluationList",evaluationList);
         return mav;
     }
 }

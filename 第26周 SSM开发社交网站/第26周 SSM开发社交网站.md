@@ -1522,7 +1522,366 @@ https://img4.mukewang.com/5ce256ea00014bc903600480.jpg
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220904212039225.png" alt="image-20220904212039225" style="zoom:50%;" />
 
 ```
-数据来自evaluation,评论表。创建与之对应的实体类
+数据来自evaluation,评论表。创建与之对应的实体类、Mappers接口,然后是Service类、实现类,接着是Controller类,最后渲染到页面
 
 ```
 
+```java
+//EvaluationService.java
+package com.imooc.reader.service;
+import com.imooc.reader.entity.Evaluation;
+import java.util.List;
+
+public interface EvaluationService {
+    /**
+     * 按图书编号查询有效短评
+     *
+     * @param bookId 图书编号
+     * @return 评论列表
+     */
+    public List<Evaluation> selectByBookId(Long bookId);}
+```
+
+```java
+//实现类 EvaluationServiceImpl.java,实现EvaluationService中的方法
+import ...
+
+@Service("evaluationService")
+@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+public class EvaluationServiceImpl implements EvaluationService {
+    //在类实例化的时候用@Resource注入对应的Mapper接口
+    @Resource
+    private EvaluationMapper evaluationMapper;
+    /**
+     * 按图书编号查询有效短评
+     *
+     * @param bookId 图书编号
+     * @return 评论列表
+     */
+    @Override
+    public List<Evaluation> selectByBookId(Long bookId) {
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<Evaluation>();
+        //首先按照bookId来进行筛选
+        queryWrapper.eq("book_id",bookId);
+        //筛选有效短评,当然是根据state这个字段
+        queryWrapper.eq("state","enable");
+        //同时默认情况下,按创建时间的降序来进行排列
+        queryWrapper.orderByDesc("create_time");
+        List<Evaluation> evaluationList = evaluationMapper.selectList(queryWrapper);
+        return evaluationList;
+    }}
+```
+
+```java
+//BookController.java新增evaluationList传数据给ftl页面
+/**
+ * 使用id这个路径变量获取存放在url中的图书编号
+ * (show开头即显示页面)
+ */
+@GetMapping("/book/{id}")
+//这个id从哪来呢? 从前面的路径变量。所以在参数部分增加注解@PathVariable("id"),这个("id")要和路径变量里的名字一致
+public ModelAndView showDetail(@PathVariable("id") Long id){
+    Book book = bookService.selectById(id);
+    //在BookController得到对应的图书编号以后,可以基于Service查询对应的短评信息
+    List<Evaluation> evaluationList = evaluationService.selectByBookId(id);
+    ModelAndView mav = new ModelAndView("/detail");
+    mav.addObject("book",book);
+    mav.addObject("evaluationList",evaluationList);
+    return mav;
+}
+```
+
+```java
+//Evaluation.java  评论表
+import java.util.Date;
+
+@TableName("evaluation")
+public class Evaluation {
+    @TableId(type = IdType.AUTO)
+    private Long evaluationId;
+    private Long bookId;
+    private String content;
+    private Integer score;
+    private Date createTime;
+    private Long memberId;
+    private Integer enjoy;
+    private String state;
+    private String disableReason;
+    private Date disableTime;
+
+    //在很多情况下,我们确实需要在这个实体中增加一些与数据库字段不对应的属性,比如说这里有一个bookId
+    //但是它只能表明id这个信息,如果想获取评论的时候也把与之对应的图书的名字也打印出来,该怎么做?
+    //在当前实体中增加     private Book book; 属性名为book,为其生成get、set方法,那这样作为这个属性
+    //就拥有了一个book的关联对象,但是作为这个关联对象,它底层肯定是不会在Evaluation表中有对应字段的,
+    //所以针对于这种没有对应字段的属性,我们还需要增加一个注解  @TableField(exist = false)  另外一个与evaluation关联的就是member 会员对象(表)了
+    @TableField(exist = false)  //说明book属性没有对应字段,不会参与到sql自动生成
+    private Book book;
+
+    public Book getBook() {
+        return book;}
+
+    public void setBook(Book book) {
+        this.book = book;}
+    
+    //创建会员对象
+    import com.baomidou.mybatisplus.annotation.TableName;
+
+    import java.util.Date;
+
+    //由于数据库8版本存在细微差异member被选为保留字段，建议在表名上加上反引号，避免保留字段和表名冲突，			如:/@TableName("`member`")
+    @TableName("member")
+    public class Member {
+        @TableId(type = IdType.AUTO)
+        private Long memberId;
+        private String username;
+        private String password;
+        private Integer salt;
+        private Date createTime;
+        private String nickname;
+        ....
+    //然后是对应的Mapper接口和xml
+            ...
+    //回到Evaluation.java 实体类  持有Member对象
+    @TableField(exist = false)  //说明book属性没有对应字段,不会参与到sql自动生成
+    private Book book;
+
+    @TableField(exist = false)
+    private Member member;
+
+    public Book getBook() {return book;}
+        
+    
+    //关键地方来了,这里的book和member我们如何对他们把数据填充上 ?
+    //答: 这就要依托于书写是Service实现类了 EvaluationServiceImpl
+        
+    public class EvaluationServiceImpl implements EvaluationService {
+    //在类实例化的时候用@Resource注入对应的Mapper接口
+    @Resource
+    private EvaluationMapper evaluationMapper;
+    //memberMapper在查询每条评论与之对应的会员对象时用得到 1.通过evaluation表中的member_id
+    // 2.然后由member表查询这个id，进而可以把member表中信息显示在evaluation模块中 （BookMapper也类似）
+    @Resource
+    private MemberMapper memberMapper;
+    @Resource
+    private BookMapper bookMapper;
+    /**
+     * 按图书编号查询有效短评
+     *
+     * @param bookId 图书编号
+     * @return 评论列表
+     */
+    @Override
+    public List<Evaluation> selectByBookId(Long bookId) {
+        Book book = bookMapper.selectById(bookId);
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<Evaluation>();
+        //首先按照bookId来进行筛选
+        queryWrapper.eq("book_id",bookId);
+        //筛选有效短评,当然是根据state这个字段
+        queryWrapper.eq("state","enable");
+        //同时默认情况下,按创建时间的降序来进行排列
+        queryWrapper.orderByDesc("create_time");
+        List<Evaluation> evaluationList = evaluationMapper.selectList(queryWrapper);
+
+        //[book和member我们如何对他们把数据填充上? 答:这就要依托于书写是Service实现类了EvaluationServiceImpl]
+        // 在获取到对应的Evaluation List集合的时候,我们也要进行额外的查询工作————来查询
+        // 每一个评论它所对应的会员以及图书的信息
+        for(Evaluation eva:evaluationList){
+            //查询该评论与之对应的会员对象
+            Member member = memberMapper.selectById(eva.getMemberId());
+            eva.setMember(member);
+            eva.setBook(book);
+        }
+        return evaluationList;}
+        
+      	//最后在detail.ftl使用 		${evaluation.member.nickname}
+        <#--对于日期进行格式化-->
+        <span class="pt-1 small text-black-50 mr-2">${evaluation.createTime?string('yy-MM-dd')}</span>
+        <span class="mr-2 small pt-1">${evaluation.member.nickname}</span>	//引用
+        <span class="stars mr-2" data-score="${evaluation.score}"></span>
+```
+
+```java
+写在本节课最后的结语: 作为MyBatis-Plus的实体类它是可以承载与字段没有任何对应的属性,只需要使用(如下)
+    @TableField(exist = false)  //说明book属性没有对应字段,不会参与到sql自动生成
+    private Book book;
+那么这些与字段无关的属性,我们需要在Service实现类中进行手动的赋值 (如下),
+        for(Evaluation eva:evaluationList){
+            //查询该评论与之对应的会员对象
+            Member member = memberMapper.selectById(eva.getMemberId());
+            eva.setMember(member);}
+有了以上操作,才可以在我们后续处理中被进行调用和访问(在detail.ftl中使用)
+<span class="mr-2 small pt-1">${evaluation.member.nickname}</span>
+```
+
+
+
+#### 会员注册与登录
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220906143447991.png" alt="image-20220906143447991" style="zoom:50%;" />
+
+```
+验证码的主要用途就是 进行人机校验。 什么是人机校验? 就是为了防止大量的机器脚本来自动注册用户。
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220906143823212.png" alt="image-20220906143823212" style="zoom:50%;" />
+
+```
+本节课先学习一个比较简单的字符验证码的生成方式,在后面的学习过程中,会通过辅助材料的形式为大家提供如何实现基于腾讯云的滑块验证码的方案
+```
+
+##### Kaptcha验证码组件 （验证码生成工具）
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220906144253460.png" alt="image-20220906144253460" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220906144511909.png" alt="image-20220906144511909" style="zoom:50%;" />
+
+```xml
+使用步骤
+1.导入依赖
+        <!--Kaptcha验证码组件-->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+2.打开核心配置文件	applicationCont.xml
+    <!--配置Kaptcha (设置所生成的图片样式)-->
+    <bean id="kaptchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <!--验证码图片不生成边框 no-->
+                        <prop key="kaptcha.border">yes</prop>
+                        <!--验证码图片宽度为120像素-->
+                        <prop key="kaptcha.image.width">120</prop>
+                        <!--验证码图片字体颜色为蓝色-->
+                        <prop key="kaptcha.textproducer.font.color">green</prop>
+                        <!--每个字符最大占用40像素-->
+                        <prop key="kaptcha.textproducer.font.size">40</prop>
+                        <!--验证码包含4个字符-->
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+3.那我们该如何使用? 在controller下创建 KaptchaController
+```
+
+```java
+//KaptchaController.java  访问http://localhost/verify_code 能看到验证码
+import ...
+
+@Controller
+public class KaptchaController {
+    @Resource
+    //要与applicationContext.xml 定义的 kaptcha beanId一致  (Producer实际上是一个接口,而在xml中引入的...kaptcha.impl...就是实现Producer接口)
+    private Producer kaptchaProducer;
+
+    //生成验证码图片
+    //SpringMVC 底层还是依赖于J2EE的web模块————Servlet,对于在开发中有一些特殊的场景必须要使用到原生的请求或者响应对象,那此时就可以像当前这样书写,把原生对象放在参数列表中
+    @GetMapping("/verify_code")
+    public void createVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //响应立即过期
+        response.setDateHeader("Expires",0);
+        //因为每一次要求生成的验证码都是全新的,所以我们要把所有的与浏览器的缓存都清空掉 (不存储、不缓存、必须重新进行校验 | no-store,no-cache..)
+        response.setHeader("Cache-Control","no-store,no-cache,must-revalidate");
+        //这两项比较古老了,是在ie5以后的扩展指令,其用意也是和缓存控制相关,平时用不到,出于兼容性的考虑将其加上
+        response.setHeader("Cache-Control","post-check=0,pre-check=0");
+        response.setHeader("Pragma","no-cache");
+        //返回的内容类型
+        response.setContentType("image/png");
+
+        //生成验证码文本
+        String verifyCode = kaptchaProducer.createText();
+        //将验证码放入会话中
+        request.getSession().setAttribute("kaptchaVerifyCode",verifyCode);
+        System.out.println(request.getSession().getAttribute("kaptchaVerifyCode"));
+        //创建验证码图片 (根据传入的验证码文本创建图片)
+        BufferedImage image = kaptchaProducer.createImage(verifyCode);
+        //因为这里得到的图片是二进制的,所以使用getOutputStream输出流; 如果输出内容是字符的话,就要使用getWriter来输出字符
+        ServletOutputStream out = response.getOutputStream();
+        //javax.imageio包中所提供的图片的输入输出功能。将image放入到out输出流中,其输出的图片格式为 png。
+        // 通过这一句话,就可以完成将图片从服务器端通过响应发送给客户端浏览器,客户端浏览器收到了这个图片数据以后,一看内容类型是png就当图片进行展示了
+        ImageIO.write(image,"png",out);
+        out.flush();    //立即输出
+        out.close();    //关闭输出流
+        
+        //注: Servlet程序向ServletOutputStream或PrintWriter对象中写入的数据将被Servlet引擎从response里面获取，
+        // Servlet引擎将这些数据当做响应消息的正文，然后再与响应状态行和各响应头组合后输出到客户端。
+    }} 
+```
+
+```
+验证码准备好了,那如何进行校验? 这就涉及到与前台界面的交互工作了,将在用户与注册时实现
+```
+
+
+
+#### 登录注册功能
+
+```
+生成验证码之后,需要和前台页面联合在一起才有实际使用的价值。本节课通过实现会员注册这个页面来学习如何将验证码运用在项目实战中。
+
+```
+
+```html
+将/verify_code加在该img上就能正常显示验证码
+<!-- 验证码图片 -->
+<img id="imgVerifyCode" src="/verify_code" style="width: 120px;height:50px;cursor: pointer">
+```
+
+```java
+//MemberController.java
+import ...
+//会员控制器
+@Controller
+public class MemberController {
+    // .html可写可不写,但是如果是在互联网应用中,在我们互联网能够访问的情况下,建议跳转页面时将其加上后缀。
+    // 一旦加上以后对于百度、谷歌这样的搜索引擎对其进行抓取时是十分友好的 对网站宣传、营销有用
+    @GetMapping("/register.html")
+    public ModelAndView showRegister(){
+        return new ModelAndView("/register");}}
+```
+
+```javascript
+新需求: 当我们点击注册页面的验证码时会对其进行刷新,因为我们有些一些验证码生成之后可能看不清,需要对其更换,这样的点击事件该怎么处理?
+
+//重新发送请求,刷新验证码
+function reloadVerifyCode() {
+    //请在这里实现刷新验证码   [attr() 添加参数,attr(参数名,具体的值)]    ts即timestamp 时间戳
+    //我们都知道现在通过src发起的是一个get请求,get请求是容易被浏览器缓存起来的,所以就可能出现点击以后尽管这个	代码执行了但是没有刷新验证码的情况,是因为缓存
+    //为了解决这个问题,我们要保证每一次发起的verify_code请求的url都不一样,最简单的做法就是增加时间戳 new Date().getTime()
+        $("#imgVerifyCode").attr("src", "/verify_code?ts="+ new Date().getTime())
+    }
+
+    //点击验证码图片刷新验证码
+    $("#imgVerifyCode").click(function () {
+        reloadVerifyCode();});
+```
+
+```
+对于当前的验证码,如何对其进行校验? 
+其实原理也很简单我们填写的验证码,当提交了以后和服务器端和session中的验证码进行比对就可以了,结果不对就代表输入的验证码有问题
+```
+
+```java
+//在MemberController.java 新增验证码比对和返回响应内容 
+@PostMapping("registe")
+@ResponseBody
+public Map registe(String vc, String username, String password, String nickname, HttpServletRequest request) {
+    //在这里要比对前台传入的验证码和Session中的验证码,那么怎么拿到 Session中的验证码? 和在KaptchaController.java中一样,在参数列表加入原生请求参数 拿Session中的信息
+    //正确的验证码
+    String verifyCode = (String) request.getSession().getAttribute("kaptchaVerifyCode");
+    Map result = new HashMap();
+    //验证码比对     (在忽略大小写的情况下来对两者进行比对,如果两者不匹配的时候,对比失败)
+    if (vc == null || verifyCode == null || !vc.equalsIgnoreCase(verifyCode)) {
+        result.put("code","VC01");
+        result.put("msg","验证码错误");
+    }else {
+        result.put("code","0");
+        result.put("msg","success");
+    }
+    return result;}
+```
