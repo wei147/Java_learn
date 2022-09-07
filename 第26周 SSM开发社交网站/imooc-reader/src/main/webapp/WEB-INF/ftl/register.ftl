@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="input-group  mt-4 ">
-                    <input type="text" id="nickname" name="nickname" class="form-control p-4" placeholder="请输入用户名"
+                    <input type="text" id="nickname" name="nickname" class="form-control p-4" placeholder="请输入昵称"
                     >
                 </div>
 
@@ -147,9 +147,11 @@
     $("#btnSubmit").click(function () {
         //表单校验
         var username = $.trim($("#username").val());
-        var regex = /^.{6,10}$/;
+        // var regex = /^.{6,10}$/;
+        var regex = /^.{2,7}$/;
         if (!regex.test(username)) {
-            showTips(true, "alert-danger", "用户名请输入正确格式（6-10位）");
+            // showTips(true, "alert-danger", "用户名请输入正确格式（6-10位）");
+            showTips(true, "alert-danger", "用户名请输入正确格式（2-7位）");
             return;
         } else {
             showTips(false);

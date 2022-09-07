@@ -1,4 +1,4 @@
-package com.imooc.reader.impl;
+package com.imooc.reader.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.imooc.reader.entity.Category;

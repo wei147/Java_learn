@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="never">
-    <title>会员注册-慕课书评网</title>
+    <title>会员登录-慕课书评网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
-
+<#--    <link rel="stylesheet" href="http://cdn.itlaoqi.com./resources/bootstrap4/css/bootstrap.css">-->
     <link rel="stylesheet" href="./resources/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="./resources/raty/lib/jquery.raty.css">
-    <script src="./resources/jquery.3.3.1.min.js"></script>
+    <link rel="stylesheet" href="/resources/raty/lib/jquery.raty.css">
+
+    <script src="/resources/jquery.3.3.1.min.js"></script>
     <script src="./resources/bootstrap/bootstrap.min.js"></script>
     <style>
         .container {
@@ -54,24 +55,21 @@
     <div class="container mt-2 p-2 m-0">
         <form id="frmLogin">
             <div class="passport bg-white">
-                <h4 class="float-left">会员注册</h4>
-                <h6 class="float-right pt-2"><a href="/login.html">会员登录</a></h6>
+                <h4 class="float-left">会员登录</h4>
+                <h6 class="float-right pt-2"><a href="/register.html">会员注册</a></h6>
                 <div class="clearfix"></div>
                 <div class="alert d-none mt-2" id="tips" role="alert">
 
                 </div>
 
                 <div class="input-group  mt-2 ">
-                    <input type="text" id="username" name="username" class="form-control p-4" placeholder="请输入用户名">
+                    <input type="text" id="username" name="username" class="form-control p-4" placeholder="请输入用户名"
+                           aria-label="Username" aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group  mt-4 ">
-                    <input id="password" name="password" class="form-control p-4" placeholder="请输入密码" type="password">
-                </div>
-
-                <div class="input-group  mt-4 ">
-                    <input type="text" id="nickname" name="nickname" class="form-control p-4" placeholder="请输入昵称"
-                    >
+                    <input id="password" name="password" class="form-control p-4" placeholder="请输入密码" type="password"
+                           aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mt-4 ">
@@ -79,39 +77,20 @@
                         <input type="text" id="verifyCode" name="vc" class="form-control p-4" placeholder="验证码">
                     </div>
                     <div class="col-4 p-0 pl-2 pt-0">
-                        <!-- 验证码图片 -->
                         <img id="imgVerifyCode" src="/verify_code"
                              style="width: 120px;height:50px;cursor: pointer">
                     </div>
 
                 </div>
 
-                <a id="btnSubmit" class="btn btn-success  btn-block mt-4 text-white pt-3 pb-3">注&nbsp;&nbsp;&nbsp;&nbsp;册</a>
+                <a id="btnSubmit" class="btn btn-success  btn-block mt-4 text-white pt-3 pb-3">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
             </div>
         </form>
 
     </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                您已注册成功
-            </div>
-            <div class="modal-footer">
-                <a href="/login.html" type="button" class="btn btn-primary">去登录</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <script>
-    //控制错误信息的显示与隐藏
     function showTips(isShow, css, text) {
         if (isShow) {
             $("#tips").removeClass("d-none")
@@ -126,32 +105,18 @@
             $("#tips").addClass("alert")
         }
     }
-
-    //重新发送请求,刷新验证码
-    function reloadVerifyCode() {
-        //请在这里实现刷新验证码   [attr() 添加参数,attr(参数名,具体的值)]    ts即timestamp 时间戳
-        //我们都知道现在通过src发起的是一个get请求,get请求是容易被浏览器缓存起来的,所以就可能出现点击以后尽管这个代码执行了但是没有刷新验证码的情况,是因为缓存
-        //为了解决这个问题,我们要保证每一次发起的verify_code请求的url都不一样,最简单的做法就是增加时间戳 new Date().getTime()
-        $("#imgVerifyCode").attr("src", "/verify_code?ts="+ new Date().getTime())
-
+    function reloadVerifyCode(){
+        $("#imgVerifyCode").attr("src", "/verify_code?ts=" + new Date().getTime());
     }
-
-    //点击验证码图片刷新验证码
     $("#imgVerifyCode").click(function () {
         reloadVerifyCode();
     });
 
-    //点击提交按钮,向/registe发起ajax请求
-    //提交请求包含四个参数
-    //vc:前台输入验证码  username:用户名 password:密码 nickname:昵称
     $("#btnSubmit").click(function () {
-        //表单校验
         var username = $.trim($("#username").val());
-        // var regex = /^.{6,10}$/;
-        var regex = /^.{2,7}$/;
+        var regex = /^.{1,10}$/;
         if (!regex.test(username)) {
-            // showTips(true, "alert-danger", "用户名请输入正确格式（6-10位）");
-            showTips(true, "alert-danger", "用户名请输入正确格式（2-7位）");
+            showTips(true, "alert-danger", "用户名请输入正确格式（1-10位）");
             return;
         } else {
             showTips(false);
@@ -160,7 +125,7 @@
         var password = $.trim($("#password").val());
 
         if (!regex.test(password)) {
-            showTips(true, "alert-danger", "密码请输入正确格式（6-10位）");
+            showTips(true, "alert-danger", "密码请输入正确格式（1-10位）");
             return;
         } else {
             showTips(false);
@@ -170,27 +135,19 @@
 
         $btnReg.text("正在处理...");
         $btnReg.attr("disabled", "disabled");
-
-        //发送ajax请求
         $.ajax({
-            url: "/registe",
+            url: "/check_login",
             type: "post",
             dataType: "json",
             data: $("#frmLogin").serialize(),
             success: function (data) {
-                //结果处理,根据服务器返回code判断服务器处理状态
-                //服务器要求返回JSON格式:
-                //{"code":"0","msg":"处理消息"}
-                console.info("服务器响应:", data);
+                console.info(data);
                 if (data.code == "0") {
-                    //显示注册成功对话框
-                    $("#exampleModalCenter").modal({});
-                    $("#exampleModalCenter").modal("show");
+                    window.location = "/?ts=" + new Date().getTime();
                 } else {
-                    //服务器校验异常,提示错误信息
                     showTips(true, "alert-danger", data.msg);
                     reloadVerifyCode();
-                    $btnReg.text("注    册");
+                    $btnReg.text("登录");
                     $btnReg.removeAttr("disabled");
                 }
             }

@@ -187,9 +187,18 @@
             </li>
 
         </ul>
-        <a href="/login.html" class="btn btn-light btn-sm">
-            <img style="width: 2rem;margin-top: -5px" class="mr-1" src="./images/user_icon.png">登录
-        </a>
+        <#--流啤 ! 在MemberController放入的Session信息可以在这里被拿到  (session.setAttribute("loginMember",member);)-->
+        <#--如果loginMember存在的时候 [??两个问号代表loginMember(即前提条件)存在的情况下]  已登录和未登录两种情况区分开-->
+        <#if loginMember??>
+            <h6>
+                <img style="width: 2rem;margin-top: -5px" class="mr-1"
+                     src="./images/user_icon.png">${loginMember.nickname}
+            </h6>
+        <#else >
+            <a href="/login.html" class="btn btn-light btn-sm">
+                <img style="width: 2rem;margin-top: -5px" class="mr-1" src="./images/user_icon.png">登录
+            </a>
+        </#if>
     </nav>
     <div class="row mt-2">
 

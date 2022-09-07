@@ -1715,7 +1715,9 @@ public class Evaluation {
 
 
 
-#### 会员注册与登录
+#### Kaptcha验证码的使用和对比
+
+##### 会员注册与登录
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220906143447991.png" alt="image-20220906143447991" style="zoom:50%;" />
 
@@ -1819,7 +1821,9 @@ public class KaptchaController {
 
 
 
-#### 登录注册功能
+#### Kaptch验证码的使用和对比
+
+##### 登录注册功能
 
 ```
 生成验证码之后,需要和前台页面联合在一起才有实际使用的价值。本节课通过实现会员注册这个页面来学习如何将验证码运用在项目实战中。
@@ -1885,3 +1889,250 @@ public Map registe(String vc, String username, String password, String nickname,
     }
     return result;}
 ```
+
+
+
+#### 实现会员注册功能
+
+```java
+作为会员注册,对应的自然就是 MemberService, 接着创建对应的实现类    [Interface abstract methods cannot have body]
+import ...
+public interface MemberService {
+
+    /**
+     * 会员注册,创建新会员   (所谓注册其实就是创建一个新的会员)
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param nickname 昵称
+     * @return 新会员对象
+     */
+    public Member createMember(String username, String password, String nickname);}
+```
+
+```java
+//自定义的异常	com/imooc/reader/service/exception/BussinessException.java
+package com.imooc.reader.service.exception;
+/**
+ * BussinessException 业务逻辑异常
+ */
+//与业务逻辑相关的异常  (Bussiness与Business)
+public class BussinessException extends RuntimeException {
+    private String code;
+    private String msg;
+
+    public BussinessException(String code, String msg) {
+        //先调用super() 完成父类构造方法的调用 (父类构造方法继承自 RuntimeException)
+        super(code + ":" + msg);
+        this.code = code;
+        this.msg = msg;}
+
+    public String getCode() { return code;}
+    public void setCode(String code) {this.code = code;}
+    public String getMsg() {return msg;}
+    public void setMsg(String msg) {this.msg = msg;}}
+```
+
+```java
+密码不能明文保存在数据库,因此对前端页面传过来的密码进行加密再存储	(基于md5来进行加密)
+
+package com.imooc.reader.utils;
+import org.apache.commons.codec.digest.DigestUtils;
+
+public class MD5Utils {
+    public static String md5Digest(String source, Integer salt) {
+        char[] ca = source.toCharArray();   //获取到字符数组
+        //混淆源数据
+        for (int i = 0; i < ca.length; i++) {
+            ca[i] = (char) (ca[i] + salt);
+        }
+        String target = new String(ca);
+        String md5 = DigestUtils.md5Hex(target);
+        return md5;}}
+```
+
+```java
+用户注册的底层逻辑  MemberServiceImpl.java
+package com.imooc.reader.service.impl;
+import java.util.Random;
+
+@Service("memberService")
+//作为当前的实现类,它的主要职责是完成与会员的交互,比如说会员的注册、登录、评论、点赞等功能。
+//以上应该是写操作比较多,我们针对于当前声明式事务的配置默认是打开事务
+@Transactional
+public class MemberServiceImpl implements MemberService {
+    @Resource
+    private MemberMapper memberMapper;
+
+    /**
+     * 会员注册,创建新会员   (所谓注册其实就是创建一个新的会员)
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param nickname 昵称
+     * @return 新会员对象
+     */
+    @Override
+    public Member createMember(String username, String password, String nickname) {
+        QueryWrapper<Member> queryWrapper= new QueryWrapper<Member>();
+        queryWrapper.eq("username",username);
+        List<Member> memberList = memberMapper.selectList(queryWrapper);
+        //判断用户名是否已存在
+        if (memberList.size() > 0){
+            throw new BussinessException("M01","用户名已存在");   //这个错误将在前台页面进行显示
+        }
+        Member member = new Member();
+        member.setUsername(username);
+        member.setNickname(nickname);
+
+        int salt = new Random().nextInt(1000) + 1000;   //盐值 1001-2000
+        String password_md5 = MD5Utils.md5Digest(password, salt);
+        member.setPassword(password_md5);
+        member.setSalt(salt);
+        member.setCreateTime(new Date());
+        memberMapper.insert(member);
+        return member;}}
+```
+
+```
+单元测试完成,向上推进到 Controller
+```
+
+```java
+@PostMapping("registe")
+@ResponseBody
+public Map registe(String vc, String username, String password, String nickname, HttpServletRequest request) {
+    //在这里要比对前台传入的验证码和Session中的验证码,那么怎么拿到 Session中的验证码? 和在KaptchaController.java中一样,在参数列表加入原生请求参数 拿Session中的信息
+    //正确的验证码
+    String verifyCode = (String) request.getSession().getAttribute("kaptchaVerifyCode");
+    Map result = new HashMap();
+    //验证码比对     (在忽略大小写的情况下来对两者进行比对,如果两者不匹配的时候,对比失败)
+    if (vc == null || verifyCode == null || !vc.equalsIgnoreCase(verifyCode)) {
+        result.put("code", "VC01");
+        result.put("msg", "验证码错误");
+    } else {
+        try {
+            //如果没有异常的话直接写入数据库
+            memberService.createMember(username, password, nickname);
+            result.put("code", "0");
+            result.put("msg", "success");
+            //存在异常的话,将异常信息放入result,最终在前台进行显示
+        } catch (BussinessException ex) {
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+    }
+    return result;
+}
+```
+
+```
+新的问题,impl包移动到Service包下导致的
+Annotation-specified bean name 'bookService' for bean class [com.imooc.reader.service.impl.BookServiceImpl] conflicts with existing, non-compatible bean definition of same name and class [com.imooc.reader.impl.BookServiceImpl]
+
+2022年9月7日16:27:16 已解决  移动整个文件夹时,要选择移动所有,不然可能会产生beanId冲突
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220907162834055.png" alt="image-20220907162834055" style="zoom:50%;" />
+
+
+
+#### 实现会员登录功能
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220907163114452.png" alt="image-20220907163114452" style="zoom:50%;" />
+
+```java
+1.将登录页面移至项目中,命名为login.ftl,接着在MemberService类新增登录检查接口
+    /**
+     * 登录检查
+     * @param username  用户名
+     * @param password  密码
+     * @return  登录对象
+     */
+    public Member checkLogin(String username, String password);
+```
+
+```java
+2.然后是书写具体的实现类
+    /**
+     * 登录检查
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录对象
+     */
+    @Override
+    public Member checkLogin(String username, String password) {
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<Member>();
+        queryWrapper.eq("username", username);
+        Member member = memberMapper.selectOne(queryWrapper);
+        //判断用户名是否已存在
+        if (member == null) {
+            throw new BussinessException("M02", "用户名不存在");
+        }
+        String password_md5 = MD5Utils.md5Digest(password, member.getSalt()); //拿数据库的加密密码和前台传过来经过同样经过加密处理的密码作比较
+        if (!member.getPassword().equals(password_md5)) {
+            throw new BussinessException("M03", "输入密码有误");
+        }return member;}
+```
+
+```java
+3.整体checkLogin方法完成后,那业务逻辑写好,下面就该到Controller中调用了
+    
+    //作为HttpSession这个对象,也是容许直接进行注入的,只需要把HttpSession对象放在参数列表中。至于这个对象的用途是: 在我们进行登录校验后,会将当前登录的这个会员信息存放到Session中,以备后续使用
+    @PostMapping("/check_login")
+    @ResponseBody
+    public Map checkLogin(String username, String password, String vc, HttpSession session) {
+        //正确的验证码        (相比于上面拿到Session数据这里直接使用session就可以,好像这种方式更快捷?)
+        String verifyCode = (String) session.getAttribute("kaptchaVerifyCode");
+        Map result = new HashMap();
+        //验证码比对
+        if (vc == null || verifyCode == null || !vc.equalsIgnoreCase(verifyCode)) {
+            result.put("code", "VC01");
+            result.put("msg", "验证码错误");
+        } else {
+            try {
+                Member member = memberService.checkLogin(username, password);
+                result.put("code", "0");
+                result.put("msg", "success");
+            } catch (BussinessException ex) {
+                ex.printStackTrace();
+                result.put("code", ex.getCode());
+                result.put("msg", ex.getMsg());
+            }} return result;}
+```
+
+```java
+4.当登录成功之后,需要将当前登录的会员信息存放到当前的Session中,这样可以在前台页面————首页拿到会员的信息进行显示
+//MemberController.java
+//登录校验成功之后会返回一个Member对象,我们可以将这个member当前登录用户存放在Session中,以备后续使用。 (这里放入的Session信息可以在index.ftl中被拿到,太强了)
+Member member = memberService.checkLogin(username, password);
+//这样只要这个会话还存在,用户登录成功后就可以通过LoginMember来提取到当前登录用户的数据了 将其放在首页显示,index.ftl
+session.setAttribute("loginMember",member);
+
+下面是拿放入的Session信息
+```
+
+```html
+<#--流啤 ! 在MemberController放入的Session信息可以在这里被拿到  (session.setAttribute("loginMember",member);)-->
+<#--如果loginMember存在的时候 [??两个问号代表loginMember(即前提条件)存在的情况下]  已登录和未登录两种情况区分开-->
+<#if loginMember??>
+    <h6>
+        <img style="width: 2rem;margin-top: -5px" class="mr-1"
+             src="./images/user_icon.png">${loginMember.nickname}
+    </h6>
+<#else >
+    <a href="/login.html" class="btn btn-light btn-sm">
+        <img style="width: 2rem;margin-top: -5px" class="mr-1" src="./images/user_icon.png">登录
+    </a>
+</#if>
+```
+
+##### 太强了
+
+
+
+#### 获取会员阅读状态
+
+##### 实现会员交互功能
+
