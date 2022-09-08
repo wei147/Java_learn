@@ -97,7 +97,7 @@
                             // var html = "<li>"+book.bookName+"</li>";
                             //将数据结合tpl模板,生成html
                             var html = template("tpl", book);
-                            console.info(html);
+                            // console.info(html); 打印这个模板 Template
                             $("#bookList").append(html);
                         }
                         //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
@@ -167,8 +167,8 @@
                     $(".order").removeClass("highlight");    //移除所有高亮显示
                     $(".order").addClass(" text-black-50");  //设置为灰色
                     $(this).addClass("highlight");  //捕获当前当前点击的超链接并设置高亮
-                    var order = $(this).data("order");
-                    $("#order").val(order);
+                    var order = $(this).data("order");  //这里$(this).data("order"); 拿到的实际就是 data-order="quantity/score"
+                    $("#order").val(order);     //$("#order").val(order);  这里是为对应的隐藏域进行赋值 id="order"
                     loadMore(true);
                 })
             })
@@ -230,9 +230,10 @@
     <div class="d-none">
         <input type="hidden" id="nextPage" value="2">
         <#--如果设置categoryId=-1的话,则默认代表查询所有数据。如果设置为非-1的话,那就代表筛选指定的类目。
-         与此同时,order这里设置是quantity,也就是按数量/热度来进行默认排序   -->
+         与此同时,order这里设置是quantity,也就是按热度/评分来进行默认排序 默认按热度来排序?但我隐藏域这里改了score没有变化的 -->
         <input type="hidden" id="categoryId" value="-1">
-        <input type="hidden" id="order" value="quantity">
+<#--        <input type="hidden" id="order" value="quantity">-->
+        <input type="hidden" id="order" value="score">
     </div>
 
     <div id="bookList">

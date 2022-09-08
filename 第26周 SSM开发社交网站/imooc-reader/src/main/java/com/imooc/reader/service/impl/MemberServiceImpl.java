@@ -2,11 +2,14 @@ package com.imooc.reader.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.imooc.reader.entity.Member;
+import com.imooc.reader.entity.MemberReadState;
 import com.imooc.reader.mapper.MemberMapper;
+import com.imooc.reader.mapper.MemberReadStateMapper;
 import com.imooc.reader.service.MemberService;
 import com.imooc.reader.service.exception.BussinessException;
 import com.imooc.reader.utils.MD5Utils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -21,6 +24,9 @@ import java.util.Random;
 public class MemberServiceImpl implements MemberService {
     @Resource
     private MemberMapper memberMapper;
+
+    @Resource
+    private MemberReadStateMapper memberReadStateMapper;
 
     /**
      * 会员注册,创建新会员   (所谓注册其实就是创建一个新的会员)
@@ -73,5 +79,60 @@ public class MemberServiceImpl implements MemberService {
             throw new BussinessException("M03", "输入密码有误");
         }
         return member;
+    }
+
+    /**
+     * 获取阅读状态
+     *
+     * @param memberId 会员编号
+     * @param bookId   图书编号
+     * @return 阅读状态对象   (这里有两种情况,1.是该用户压根对这本书无操作  2.是看过或者想看)
+     */
+    @Override
+    //select方法不需要开启事务
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public MemberReadState selectMemberReadState(Long memberId, Long bookId) {
+        QueryWrapper<MemberReadState> queryWrapper = new QueryWrapper<MemberReadState>();
+        queryWrapper.eq("member_id", memberId);
+        queryWrapper.eq("book_id", bookId);
+
+        //作为当前的查询结果要么只有一条数据,要么就是null
+        MemberReadState memberReadState = memberReadStateMapper.selectOne(queryWrapper);
+
+        return memberReadState;
+    }
+
+    /**
+     * 更新阅读状态
+     *
+     * @param memberId  会员编号
+     * @param bookId    图书编号
+     * @param readState 阅读状态
+     * @return 阅读状态对象
+     */
+    @Override
+    public MemberReadState updateMemberReadState(Long memberId, Long bookId, Integer readState) {
+        //首先要进行状态的查询,如果这个会员没有对应的阅读状态,则我们需要新建一条阅读状态保存到数据;
+        // 但是如果这个会员之前已经有了对应的阅读状态,则需要对这个阅读状态的字段进行更新即可
+        QueryWrapper<MemberReadState> queryWrapper = new QueryWrapper<MemberReadState>();
+        queryWrapper.eq("member_id", memberId);
+        queryWrapper.eq("book_id", bookId);
+        MemberReadState memberReadState = memberReadStateMapper.selectOne(queryWrapper);
+        //如果阅读状态是空的,则代表没有点过按钮,需要新建数据
+        //无则新增,有则更新
+        if (memberReadState.getReadState() == null) {
+            memberReadState = new MemberReadState();
+            memberReadState.setMemberId(memberId);
+            memberReadState.setBookId(bookId);
+            memberReadState.setCreateTime(new Date());
+            memberReadState.setReadState(readState);
+            memberReadStateMapper.insert(memberReadState);
+            //如果之前这个状态已经存在,只需要更新即可。(阅读状态改为前台传来的readState)
+        } else {
+            memberReadState.setReadState(readState);
+            //为什么这里的updateById 传入的是一个对象..? 看源码说明,传入的可以是一个实体类?
+            memberReadStateMapper.updateById(memberReadState);
+        }
+        return memberReadState;
     }
 }

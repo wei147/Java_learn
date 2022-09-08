@@ -2136,3 +2136,200 @@ session.setAttribute("loginMember",member);
 
 ##### 实现会员交互功能
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220908134411844.png" alt="image-20220908134411844" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220908134524954.png" alt="image-20220908134524954" style="zoom:50%;" />
+
+```java
+阅读状态变更: 想看和看过这两个状态是互斥的只能二选一
+
+member_read_state表保存了会员的阅读状态,其中阅读状态read_state 1代表想看,2代表看过
+
+创建这张表与之对应的实体类
+接着是创建Mapper接口和对应的Mapper配置文件xml
+程序向上推演到Service层,作为Service关于会员交互的功能肯定是在MemberService中来进行书写
+
+    //MemberService.java
+    /**
+     * 获取阅读状态
+     *
+     * @param memberId 会员编号
+     * @param bookId   图书编号
+     * @return 阅读状态对象   (这里有两种情况,1.是该用户压根对这本书无操作  2.是看过或者想看)
+     */
+    public MemberReadState selectMemberReadState(Long memberId, Long bookId);
+
+然后通过实现类对上面的接口进行实现
+    //MemberServiceImpl.java
+    public MemberReadState selectMemberReadState(Long memberId, Long bookId) {
+        QueryWrapper<MemberReadState> queryWrapper = new QueryWrapper<MemberReadState>();
+        queryWrapper.eq("member_id",memberId);
+        queryWrapper.eq("book_id",bookId);
+
+        //作为当前的查询结果要么只有一条数据,要么就是null
+        MemberReadState memberReadState = memberReadStateMapper.selectOne(queryWrapper);
+        return memberReadState;
+    }
+
+问题: 那么selectMemberReadState这个获取阅读状态的方法该在什么时候被调用 ?
+    最直接的调用时间是在我们BookController.java中,在显示detail详情页面的时候我们就可以进行查询————根据当前登录的状态以及会员的编号来进行查询。
+    具体的做法是 :首先在参数列表中新增一个HTTPSession(因为要获取当前登录用户的信息),如果loginMember不为空的话,则通过ModelAndView传到detail.ftl前台页面
+    //BookController.java
+    @GetMapping("/book/{id}")
+    public ModelAndView showDetail(@PathVariable("id") Long id, HttpSession session){
+		...
+        ModelAndView mav = new ModelAndView("/detail");
+
+        //将当前用户登录信息拿出来
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        //获取会员阅读状态  (而用户阅读状态必须要登录才能进行的,所以要判断用户时否已经登录)
+        if (loginMember!=null){
+            //将当前用户登录的会员id和bookId传入。 作为当前的这个阅读状态,我们将结果保存在ModelAndView中
+            MemberReadState memberReadState = memberService.selectMemberReadState(loginMember.getMemberId(), id);
+            mav.addObject("memberReadState",memberReadState);
+        }
+        mav.addObject("book",book);
+        mav.addObject("evaluationList",evaluationList);
+        return mav;}
+
+还有一种情况是: 作为当前这个会员他可能从来没有看过这本书,也没有点过想看或者看过的按钮,所以此时的memberReadState有可能是空,我们在对这个属性使用的时候也要进行一下阅读状态的非空判断,下面就是与界面进行连接(打开deatil.ftl)
+    
+```
+
+```javascript
+//detail.ftl
+<script>
+	...
+    $(function () {
+        //如果memberReadState存在的时候,则代表当前会员要么点过想看要么点过看过,总之要将对应的按钮高亮显示
+        <#if memberReadState ??>
+            // $("*[data-read-state='1']") 代表着将当前页面中任何拥有data-read-state这个自定义属性且值为1的元素选中。(当然这里不能写死)
+            //readState 用户阅读状态: 想看值为 1;看过值为 2
+            //这一句话结合服务器端、Freemarker动态的在页面加载后利用JavaScript将对应按钮的状态置为了高亮
+            $("*[data-read-state='${memberReadState.readState}']").addClass("highlight")
+        </#if>
+    })</script>
+看下图,d登录后能正常根据从数据库查询的readState的值(1/2)分别对应显示在前台页面
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220908174854880.png" alt="image-20220908174854880" style="zoom:50%;" />
+
+
+
+#### 更新会员阅读状态
+
+```
+我们已经将会员的阅读状态进行回填和高亮显示,但是它还不具备任何的交互性,接下来将对两个按钮进行处理,使其点击后动态的调整它的阅读状态
+
+[重点]
+在开发之前,无论是调整阅读状态,还是下面的写短评或者是为其他的短评点赞都有一个前置操作————那就是必须会员登录以后才可以进行后续操作。作为这个前置的检查,我们如何完成?  这当然也是后台需要我们通过代码来进行控制的
+
+
+```
+
+```javascript
+回到detail.ftl页面,做登录的前置处理 即登录控制(对会员阅读状态、写短评按钮、点赞短评做处理。不登录的情况下)
+        $(function () {
+		...
+//如果loginMember不存在的情况下,也就是没有登录的情况下 (登录控制)
+            <#if !loginMember ??>
+            //只要某个标签拥有了data-read-state这个自定义属性的话,那我就给你选中,去绑定点击事件  这里对应会员阅读状态、写短评按钮、点赞短评按钮做登录控制
+            $("*[data-read-state],#btnEvaluation,*[data-evaluation-id]").click(function () {
+                //未登录情况下提示 "需要登录"
+                //首先利用JQuery选择器选中对话框div, 然后.modal()是JQuery bootstrap中提供的对话框函数,而show是执行对应的动作
+                $("#exampleModalCenter").modal("show");})
+            </#if>
+          })
+```
+
+```java
+登录的前置处理已完成,那下面我们要进行后续操作,作为点击想看或者看过以后要产生对应的状态数据,作为这个状态数据的方法,咱们要打开MemberService.java,额外新增方法
+	//MemberService.java
+    /**
+     * 更新阅读状态
+     *
+     * @param memberId  会员编号
+     * @param bookId    图书编号
+     * @param readState 阅读状态
+     * @return 阅读状态对象
+     */
+    public MemberReadState updateMemberReadState(Long memberId, Long bookId, Integer readState);
+```
+
+```java
+//具体实现类的工作 MemberServiceImpl.java   
+public MemberReadState updateMemberReadState(Long memberId, Long bookId, Integer readState) {
+    //首先要进行状态的查询,如果这个会员没有对应的阅读状态,则我们需要新建一条阅读状态保存到数据;
+    // 但是如果这个会员之前已经有了对应的阅读状态,则需要对这个阅读状态的字段进行更新即可
+    QueryWrapper<MemberReadState> queryWrapper = new QueryWrapper<MemberReadState>();
+    queryWrapper.eq("member_id", memberId);
+    queryWrapper.eq("book_id", bookId);
+    MemberReadState memberReadState = memberReadStateMapper.selectOne(queryWrapper);
+    //如果阅读状态是空的,则代表没有点过按钮,需要新建数据
+    //无则新增,有则更新
+    if (memberReadState.getReadState()==null){
+        memberReadState = new MemberReadState();
+        memberReadState.setMemberId(memberId);
+        memberReadState.setBookId(bookId);
+        memberReadState.setCreateTime(new Date());
+        memberReadState.setReadState(readState);
+        memberReadStateMapper.insert(memberReadState);
+        //如果之前这个状态已经存在,只需要更新即可。(阅读状态改为前台传来的readState)
+    }else{
+        memberReadState.setReadState(readState);
+        //为什么这里的updateById 传入的是一个对象..? 看源码说明,传入的可以是一个实体类?
+        memberReadStateMapper.updateById(memberReadState);
+    }return memberReadState;}
+```
+
+```java
+接着来到MemberController.java,MemberController是用于会员交互的控制器
+
+    /**
+     * 更新想看/看过阅读状态
+     *
+     * @param memberId  会员id
+     * @param bookId    图书id
+     * @param readState 阅读状态
+     * @return 处理结果
+     */
+    @PostMapping("/update_read_state")
+    @ResponseBody
+    public Map updateReadState(Long memberId, Long bookId, Integer readState) {
+        Map result = new HashMap();
+        //这个更新方法并没有抛出任何的业务逻辑异常,为什么在这还要捕获?
+        //答: 现在你没有抛出不代表未来不会抛出,所以我们在这进行一下捕获,也是为了未来程序的扩展性考虑的
+        try {
+            MemberReadState memberReadState = memberService.updateMemberReadState(memberId, bookId, readState);
+            result.put("code", "0");
+            result.put("msg", "success");
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }return result;}
+```
+
+```javascript
+继续向上推演来到 detail.ftl,在页面中发送Ajax请求来完成处理,
+
+            <#if loginMember??>
+            //选中想看或者看过这两个按钮
+                $("*[data-read-state]").click(function () {
+                    //首先获取当前点击按钮的data read-state这个自定义的属性值
+                    //如果点击想看,这个readState数据就是1;如果点击看过这里就是2,
+                    var readState = $(this).data("read-state"); //对应data-read-state="" 中的值,1或者2
+                    // console.log(readState+'$(this).data("read-state")')
+                    //之后发起Ajax请求
+                    $.post("/update_read_state",{
+                        memberId:${loginMember.memberId},
+                        bookId:${book.bookId},
+                        readState:readState
+                    },function (json) {
+                        if (json.code == "0"){
+                            $("*[data-read-state]").removeClass("highlight"); //清除css样式,让两个按钮回到默认的状态
+                            $("*[data-read-state='"+ readState+"']").addClass("highlight");  //将与状态对应的按钮设为高亮
+                        }})})
+            </#if>
+```
+

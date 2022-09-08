@@ -1,6 +1,7 @@
 package com.imooc.reader.controller;
 
 import com.imooc.reader.entity.Member;
+import com.imooc.reader.entity.MemberReadState;
 import com.imooc.reader.service.MemberService;
 import com.imooc.reader.service.exception.BussinessException;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-//会员控制器
+//会员控制器 (用于会员交互的控制器)
 
 @Controller
 public class MemberController {
@@ -78,7 +79,7 @@ public class MemberController {
                 //登录校验成功之后会返回一个Member对象,我们可以将这个member当前登录用户存放在Session中,以备后续使用。 (这里放入的Session信息可以在index.ftl中被拿到,太强了)
                 Member member = memberService.checkLogin(username, password);
                 //这样只要这个会话还存在,用户登录成功后就可以通过LoginMember来提取到当前登录用户的数据了 将其放在首页显示,index.ftl
-                session.setAttribute("loginMember",member);
+                session.setAttribute("loginMember", member);
                 result.put("code", "0");
                 result.put("msg", "success");
             } catch (BussinessException ex) {
@@ -86,6 +87,32 @@ public class MemberController {
                 result.put("code", ex.getCode());
                 result.put("msg", ex.getMsg());
             }
+        }
+        return result;
+    }
+
+    /**
+     * 更新想看/看过阅读状态
+     *
+     * @param memberId  会员id
+     * @param bookId    图书id
+     * @param readState 阅读状态
+     * @return 处理结果
+     */
+    @PostMapping("/update_read_state")
+    @ResponseBody
+    public Map updateReadState(Long memberId, Long bookId, Integer readState) {
+        Map result = new HashMap();
+        //这个更新方法并没有抛出任何的业务逻辑异常,为什么在这还要捕获?
+        //答: 现在你没有抛出不代表未来不会抛出,所以我们在这进行一下捕获,也是为了未来程序的扩展性考虑的
+        try {
+            MemberReadState memberReadState = memberService.updateMemberReadState(memberId, bookId, readState);
+            result.put("code", "0");
+            result.put("msg", "success");
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
         }
         return result;
     }
