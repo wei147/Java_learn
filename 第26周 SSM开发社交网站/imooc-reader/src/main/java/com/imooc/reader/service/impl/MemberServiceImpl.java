@@ -120,7 +120,8 @@ public class MemberServiceImpl implements MemberService {
         MemberReadState memberReadState = memberReadStateMapper.selectOne(queryWrapper);
         //如果阅读状态是空的,则代表没有点过按钮,需要新建数据
         //无则新增,有则更新
-        if (memberReadState.getReadState() == null) {
+//        if (memberReadState.getReadState() == null) {  2022年9月9日23:24:56 这里的逻辑搞错了,getReadState()会报空指针异常(null是不能从里面拿东西的,合理)
+        if (memberReadState == null) {
             memberReadState = new MemberReadState();
             memberReadState.setMemberId(memberId);
             memberReadState.setBookId(bookId);

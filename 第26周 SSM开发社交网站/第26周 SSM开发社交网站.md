@@ -2333,3 +2333,31 @@ public MemberReadState updateMemberReadState(Long memberId, Long bookId, Integer
             </#if>
 ```
 
+
+
+#### 实现写短评功能
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220909223804823.png" alt="image-20220909223804823" style="zoom:50%;" />
+
+```java
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.DispatcherServlet - POST "/update_read_state", parameters={masked}
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.imooc.reader.controller.MemberController#updateReadState(Long, Long, Integer)
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Creating new transaction with name [com.imooc.reader.service.impl.MemberServiceImpl.updateMemberReadState]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Acquired Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] for JDBC transaction
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Switching JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] to manual commit
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Creating a new SqlSession
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.s.t.SpringManagedTransaction - JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] will be managed by Spring
+22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - ==>  Preparing: SELECT rs_id,book_id,member_id,read_state,create_time FROM member_read_state WHERE (member_id = ? AND book_id = ?) 
+22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - ==> Parameters: 1(Long), 5(Long)
+22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - <==      Total: 0
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
+22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Initiating transaction rollback
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Rolling back JDBC transaction on Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69]
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Releasing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] after transaction
+22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.DispatcherServlet - Failed to complete request: java.lang.NullPointerException
+
+```
+

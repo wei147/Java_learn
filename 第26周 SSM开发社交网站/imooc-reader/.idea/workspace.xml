@@ -10,26 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc463cbc-560c-4c47-b719-124afa168efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../OA/imooc-oa/.idea/artifacts/unnamed.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../OA/imooc-oa/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/entity/MemberReadState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/mapper/MemberReadStateMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/member_read_state.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/out/artifacts/imooc_oa_Web_exploded/WEB-INF/classes/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/imooc-oa/out/artifacts/imooc_oa_Web_exploded/WEB-INF/classes/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/imooc-oa/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/src/test/java/com/imooc/oa/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/imooc-oa/src/test/java/com/imooc/oa/service/UserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/target/classes/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/imooc-oa/target/classes/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/target/test-classes/com/imooc/oa/service/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/imooc-oa/target/test-classes/com/imooc/oa/service/UserServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OA/imooc-oa/out/artifacts/unnamed/OA.war" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/impl/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/reader/service/impl/MemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/detail.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/detail.ftl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/imooc/reader/service/impl/MemberServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/imooc/reader/service/impl/MemberServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" beforeDir="false" afterPath="$PROJECT_DIR$/../第26周 SSM开发社交网站.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +98,17 @@
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8.5">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BookServiceImplTest.paging" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="imooc-reader" />
       <extension name="coverage">
@@ -176,17 +173,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyBatisPlusTest.testSelect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberServiceImplTest.updateMemberReadState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="imooc-reader" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.imooc.reader.*" />
+          <option name="PATTERN" value="com.imooc.reader.service.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.imooc.reader" />
-      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.MyBatisPlusTest" />
-      <option name="METHOD_NAME" value="testSelect" />
+      <option name="PACKAGE_NAME" value="com.imooc.reader.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.reader.service.impl.MemberServiceImplTest" />
+      <option name="METHOD_NAME" value="updateMemberReadState" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -286,11 +283,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MemberServiceImplTest.updateMemberReadState" />
         <item itemvalue="JUnit.MemberServiceImplTest.createMember" />
         <item itemvalue="JUnit.BookServiceImplTest.selectById" />
         <item itemvalue="JUnit.BookServiceImplTest.paging" />
         <item itemvalue="JUnit.CategoryServiceImplTest.testSelectAll" />
-        <item itemvalue="JUnit.MyBatisPlusTest.testSelect" />
       </list>
     </recent_temporary>
   </component>
@@ -330,7 +327,8 @@
       <workItem from="1662538215422" duration="6629000" />
       <workItem from="1662556112357" duration="3758000" />
       <workItem from="1662615762929" duration="2195000" />
-      <workItem from="1662625173777" duration="14060000" />
+      <workItem from="1662625173777" duration="15979000" />
+      <workItem from="1662734141229" duration="3016000" />
     </task>
     <servers />
   </component>

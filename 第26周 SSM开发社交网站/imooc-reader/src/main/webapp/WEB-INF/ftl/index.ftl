@@ -233,10 +233,10 @@
     <div class="d-none">
         <input type="hidden" id="nextPage" value="2">
         <#--如果设置categoryId=-1的话,则默认代表查询所有数据。如果设置为非-1的话,那就代表筛选指定的类目。
-         与此同时,order这里设置是quantity,也就是按热度/评分来进行默认排序 默认按热度来排序?但我隐藏域这里改了score没有变化的 -->
+         与此同时,order这里设置是quantity,也就是按热度/评分来进行默认排序 默认按热度来排序?但我隐藏域这里改了score有变化的 -->
         <input type="hidden" id="categoryId" value="-1">
-<#--        <input type="hidden" id="order" value="quantity">-->
-        <input type="hidden" id="order" value="score">
+        <input type="hidden" id="order" value="quantity">
+<#--        <input type="hidden" id="order" value="score">-->
     </div>
 
     <div id="bookList">

@@ -1,5 +1,6 @@
 package com.imooc.reader.service.impl;
 
+import com.imooc.reader.entity.MemberReadState;
 import com.imooc.reader.service.MemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,5 +18,13 @@ public class MemberServiceImplTest {
     @Test
     public void createMember() {
         memberService.createMember("wei","123456","友人A");
+    }
+
+    @Test
+    public void updateMemberReadState() {
+        MemberReadState memberReadState = memberService.selectMemberReadState(1L, 5L);
+        System.out.println("2222"+memberReadState);
+        System.out.println("1111"+memberReadState.getReadState());
+//        memberService.updateMemberReadState(1L,5L,1);
     }
 }

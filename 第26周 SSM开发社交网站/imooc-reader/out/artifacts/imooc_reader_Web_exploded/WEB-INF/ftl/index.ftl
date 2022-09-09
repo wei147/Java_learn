@@ -156,6 +156,9 @@
                     //这里对应的是自定义属性data后边的值   <span data-category="-1"...
                     //一旦执行了这句话,那么它就会得到当前点击的超链接它的categoryId编号,接着将编号赋值给隐藏域categoryId。
                     // 一旦赋值后,在进行数据加载过程中就会读取这个结果来完成数据的筛选
+                    //2022年9月8日20:21:25,针对上面文本的说明:今晚我会疑惑于为什么要放数据到隐藏域。把分类id放到隐藏域是因为后面loadMore方法会拿到
+                    // 隐藏域的id传到给后台进行查询然后响应数据展示  现在的问题是:不能直接把分类id给loadMore方法吗 我想清楚了一些,
+                    // 因为class="order"的这个标签里面的data="热度或者评分"是不应该变的,转而需要一个中间人、不影响页面内容的情况下接下"保存变量"这个任务。over
                     var categoryId = $(this).data("category");
                     $("#categoryId").val(categoryId);
                     //每点击图书类别的时候,相当于进行重新的查询
@@ -230,10 +233,10 @@
     <div class="d-none">
         <input type="hidden" id="nextPage" value="2">
         <#--如果设置categoryId=-1的话,则默认代表查询所有数据。如果设置为非-1的话,那就代表筛选指定的类目。
-         与此同时,order这里设置是quantity,也就是按热度/评分来进行默认排序 默认按热度来排序?但我隐藏域这里改了score没有变化的 -->
+         与此同时,order这里设置是quantity,也就是按热度/评分来进行默认排序 默认按热度来排序?但我隐藏域这里改了score有变化的 -->
         <input type="hidden" id="categoryId" value="-1">
-<#--        <input type="hidden" id="order" value="quantity">-->
-        <input type="hidden" id="order" value="score">
+        <input type="hidden" id="order" value="quantity">
+<#--        <input type="hidden" id="order" value="score">-->
     </div>
 
     <div id="bookList">

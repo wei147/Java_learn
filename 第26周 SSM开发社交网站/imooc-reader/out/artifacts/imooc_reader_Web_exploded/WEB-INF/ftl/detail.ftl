@@ -85,7 +85,7 @@
             <#--                $("#exampleModalCenter").modal("show");-->
             <#--            })-->
             <#--            </#if>-->
-            <#-- 用户登录去情况下-->
+            <#-- 用户登录已经情况下-->
             <#if loginMember??>
             //选中想看或者看过这两个按钮
                 $("*[data-read-state]").click(function () {
@@ -100,7 +100,7 @@
                         readState:readState
                     },function (json) {
                         if (json.code == "0"){
-                            $("*[data-read-state]").removeClass("highlight"); //清楚css样式,让两个按钮回到默认的状态
+                            $("*[data-read-state]").removeClass("highlight"); //清除css样式,让两个按钮回到默认的状态
                             $("*[data-read-state='"+ readState+"']").addClass("highlight");  //将与状态对应的按钮设为高亮
                         }
                     })
