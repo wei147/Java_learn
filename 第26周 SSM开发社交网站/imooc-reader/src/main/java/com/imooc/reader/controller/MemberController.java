@@ -1,5 +1,6 @@
 package com.imooc.reader.controller;
 
+import com.imooc.reader.entity.Evaluation;
 import com.imooc.reader.entity.Member;
 import com.imooc.reader.entity.MemberReadState;
 import com.imooc.reader.service.MemberService;
@@ -109,6 +110,47 @@ public class MemberController {
             MemberReadState memberReadState = memberService.updateMemberReadState(memberId, bookId, readState);
             result.put("code", "0");
             result.put("msg", "success");
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+        return result;
+    }
+
+    @PostMapping("/evaluate")
+    @ResponseBody
+    public Map evaluate(Long memberId, Long bookId, Integer score, String content){
+        Map result = new HashMap();
+        try {
+            Evaluation evaluate = memberService.evaluate(memberId, bookId, score, content);
+            result.put("code", "0");
+            result.put("msg", "success");
+            //这个evaluate由具体的业务逻辑决定要不要进入到返回值。(可以直接在响应中看到)
+            result.put("evaluate",evaluate);
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+        return result;
+    }
+
+    /**
+     * 短评点赞
+     *
+     * @param evaluationId 短评编号
+     * @return 短评对象
+     */
+    @PostMapping("/enjoy")
+    @ResponseBody
+    public Map enjoy(Long evaluationId){
+        Map result = new HashMap();
+        try {
+            Evaluation evaluation = memberService.enjoy(evaluationId);
+            result.put("code", "0");
+            result.put("msg", "success");
+            result.put("evaluation",evaluation);
         } catch (BussinessException ex) {
             ex.printStackTrace();
             result.put("code", ex.getCode());

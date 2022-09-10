@@ -1,8 +1,10 @@
 package com.imooc.reader.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.imooc.reader.entity.Evaluation;
 import com.imooc.reader.entity.Member;
 import com.imooc.reader.entity.MemberReadState;
+import com.imooc.reader.mapper.EvaluationMapper;
 import com.imooc.reader.mapper.MemberMapper;
 import com.imooc.reader.mapper.MemberReadStateMapper;
 import com.imooc.reader.service.MemberService;
@@ -27,6 +29,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Resource
     private MemberReadStateMapper memberReadStateMapper;
+
+    @Resource
+    private EvaluationMapper evaluationMapper;
 
     /**
      * 会员注册,创建新会员   (所谓注册其实就是创建一个新的会员)
@@ -135,5 +140,46 @@ public class MemberServiceImpl implements MemberService {
             memberReadStateMapper.updateById(memberReadState);
         }
         return memberReadState;
+    }
+
+    /**
+     * 发布新的短评
+     *
+     * @param memberId 会员编号
+     * @param bookId   图书编号
+     * @param score    评分
+     * @param content  短评内容
+     * @return 短评对象
+     */
+    @Override
+    public Evaluation evaluate(Long memberId, Long bookId, Integer score, String content) {
+        //先判断有没有这条记录,有则更新,无则新增。不对,应该是一个用户可以发布多条信息,直接追加/新增就行
+        Evaluation evaluate = new Evaluation();
+        evaluate.setMemberId(memberId);
+        evaluate.setBookId(bookId);
+        evaluate.setScore(score);
+        evaluate.setContent(content);
+        evaluate.setCreateTime(new Date());
+        evaluate.setEnjoy(0);
+        evaluate.setState("enable");
+        evaluationMapper.insert(evaluate);
+        return evaluate;
+    }
+
+    /**
+     * 短评点赞
+     *
+     * @param evaluationId 短评编号
+     * @return 短评对象
+     */
+    @Override
+    public Evaluation enjoy(Long evaluationId) {
+        //先搜索到该条短评
+        Evaluation evaluation = evaluationMapper.selectById(evaluationId);
+        //对enjoy+1 (即点赞操作)
+        evaluation.setEnjoy(evaluation.getEnjoy()+1);
+        //更新
+        evaluationMapper.updateById(evaluation);
+        return evaluation;
     }
 }

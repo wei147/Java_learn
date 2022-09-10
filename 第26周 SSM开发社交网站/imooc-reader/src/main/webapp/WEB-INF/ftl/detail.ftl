@@ -88,23 +88,66 @@
             <#-- 用户登录已经情况下-->
             <#if loginMember??>
             //选中想看或者看过这两个按钮
-                $("*[data-read-state]").click(function () {
-                    //首先获取当前点击按钮的data read-state这个自定义的属性值
-                    //如果点击想看,这个readState数据就是1;如果点击看过这里就是2,
-                    var readState = $(this).data("read-state"); //对应data-read-state="" 中的值,1或者2
-                    // console.log(readState+'$(this).data("read-state")')
-                    //之后发起Ajax请求
-                    $.post("/update_read_state",{
-                        memberId:${loginMember.memberId},
-                        bookId:${book.bookId},
-                        readState:readState
-                    },function (json) {
-                        if (json.code == "0"){
-                            $("*[data-read-state]").removeClass("highlight"); //清除css样式,让两个按钮回到默认的状态
-                            $("*[data-read-state='"+ readState+"']").addClass("highlight");  //将与状态对应的按钮设为高亮
-                        }
-                    })
+            $("*[data-read-state]").click(function () {
+                //首先获取当前点击按钮的data read-state这个自定义的属性值
+                //如果点击想看,这个readState数据就是1;如果点击看过这里就是2,
+                var readState = $(this).data("read-state"); //对应data-read-state="" 中的值,1或者2
+                // console.log(readState+'$(this).data("read-state")')
+                //之后发起Ajax请求
+                $.post("/update_read_state", {
+                    memberId: ${loginMember.memberId},
+                    bookId: ${book.bookId},
+                    readState: readState
+                }, function (json) {
+                    console.log(json)
+                    if (json.code == "0") {
+                        $("*[data-read-state]").removeClass("highlight"); //清除css样式,让两个按钮回到默认的状态
+                        $("*[data-read-state='" + readState + "']").addClass("highlight");  //将与状态对应的按钮设为高亮
+                    }
                 })
+            })
+            $("#btnEvaluation").click(function () {
+                $("#score").raty({}); //转换为星型组件
+                $("#dlgEvaluation").modal("show");  //显示短评对话框
+            })
+            $("#btnSubmit").click(function () {
+                //首先将基础的数据拿到 score评分和content内容
+                var score = $("#score").raty("score"); //获取评分
+                var content = $("#content").val();
+                console.log("这里是content" + content);
+                //评分不能为空或者如果删除前后空格之后是一个空字符串,则认为用户没有输入 [$.trim() 用于删除前后空格。]
+                if (score == 0 || $.trim("#content") == "") {
+                    //禁止提交,方法直接中断
+                    return 0;
+                }
+                $.post("/evaluate", {
+                    memberId: ${loginMember.memberId},
+                    bookId: ${book.bookId},
+                    score: score,
+                    content: content
+                }, function (json) {
+                    if (json.code == "0") {
+                        console.log(json)
+                        //服务器处理成功,要对当前评论列表进行刷新
+                        //发布短评成功
+                        window.location.reload(); //刷新当前页面
+                    }
+                }, "json")
+            })
+
+            //评论点赞
+            $("*[data-evaluation-id]").click(function () {
+                var evaluationId = $(this).data("evaluation-id");   //evaluationId的值
+                $.post("/enjoy", {evaluationId: evaluationId}, function (json) {
+                    if (json.code == "0") {
+                        console.log(json)
+                        //含义是: 找到当前点击按钮下面的span标签,因为在每一个按钮中只有唯一一个span,
+                        // 然后通过text()来更改显示的内容,把服务器更新后 新的点赞数量回填到这个span标签中
+                        $("*[data-evaluation-id='" + evaluationId + "'] span").text(json.evaluation.enjoy);
+                    }
+                },"json")
+            })
+
             </#if>
 
         })
@@ -185,7 +228,7 @@
                     <span class="mr-2 small pt-1">${evaluation.member.nickname}</span>
                     <span class="stars mr-2" data-score="${evaluation.score}"></span>
 
-                    <button type="button" data-evaluation-id="41"
+                    <button type="button" data-evaluation-id="${evaluation.evaluationId}"
                             class="btn btn-success btn-sm text-white float-right" style="margin-top: -3px;">
                         <img style="width: 24px;margin-top: -5px;" class="mr-1"
                              src="https://img3.doubanio.com/f/talion/7a0756b3b6e67b59ea88653bc0cfa14f61ff219d/pics/card/ic_like_gray.svg"/>
@@ -218,13 +261,13 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal 点评输入框-->
 <div class="modal fade" id="dlgEvaluation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h6>为"从 0 开始学爬虫"写短评</h6>
+                <h6>为"${book.bookName}"写短评</h6>
                 <form id="frmEvaluation">
                     <div class="input-group  mt-2 ">
                         <span id="score"></span>

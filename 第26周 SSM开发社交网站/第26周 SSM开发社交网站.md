@@ -2340,24 +2340,203 @@ public MemberReadState updateMemberReadState(Long memberId, Long bookId, Integer
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220909223804823.png" alt="image-20220909223804823" style="zoom:50%;" />
 
 ```java
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.DispatcherServlet - POST "/update_read_state", parameters={masked}
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.imooc.reader.controller.MemberController#updateReadState(Long, Long, Integer)
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Creating new transaction with name [com.imooc.reader.service.impl.MemberServiceImpl.updateMemberReadState]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Acquired Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] for JDBC transaction
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Switching JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] to manual commit
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Creating a new SqlSession
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.s.t.SpringManagedTransaction - JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] will be managed by Spring
-22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - ==>  Preparing: SELECT rs_id,book_id,member_id,read_state,create_time FROM member_read_state WHERE (member_id = ? AND book_id = ?) 
-22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - ==> Parameters: 1(Long), 5(Long)
-22:58:01 DEBUG [http-nio-80-exec-3] c.i.r.m.M.selectOne - <==      Total: 0
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
-22:58:01 DEBUG [http-nio-80-exec-3] o.m.spring.SqlSessionUtils - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4178d231]
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Initiating transaction rollback
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Rolling back JDBC transaction on Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69]
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.j.d.DataSourceTransactionManager - Releasing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@5659d69] after transaction
-22:58:01 DEBUG [http-nio-80-exec-3] o.s.w.s.DispatcherServlet - Failed to complete request: java.lang.NullPointerException
+首先需要在detail.ftl中显示评价对话框
+                <#-- 用户登录已经情况下-->
+            <#if loginMember??>
+            //选中想看或者看过这两个按钮
+            $("*[data-read-state]").click
+			....
+            $("#btnEvaluation").click(function () {
+                $("#score").raty({}); //转换为星型组件
+                $("#dlgEvaluation").modal("show");  //显示短评对话框
+            })
+            </#if>
+ 接着在MemberService中书写发布新短评的接口,然后用MemberServiceImpl去实现
+    怎么实现? 
+    拿到memberId、bookId、score以及content写入数据库就行了? 2022年9月10日00:53:49 明天自己先实现一下
+    2022年9月10日13:39:39 js逻辑方面还是未能全部考虑到,学习到蛮多,拿输入框的值以及判断输入是否为空,拿评分组件的值
+        
+ 然后在MemberService中新增接口
+            /**
+     * 发布新的短评
+     *
+     * @param memberId 会员编号
+     * @param bookId   图书编号
+     * @param score    评分
+     * @param content  短评内容
+     * @return 短评对象
+     */
+    public Evaluation evaluate(Long memberId, Long bookId, Integer score, String content);
 
+
+由MemberServiceImpl实现类去实现该接口
+        @Override
+    public Evaluation evaluate(Long memberId, Long bookId, Integer score, String content) {
+        //先判断有没有这条记录,有则更新,无则新增。不对,应该是一个用户可以发布多条信息,直接追加/新增就行
+        Evaluation evaluate = new Evaluation();
+        evaluate.setMemberId(memberId);
+        evaluate.setBookId(bookId);
+        evaluate.setScore(score);
+        evaluate.setContent(content);
+        evaluate.setCreateTime(new Date());
+        evaluate.setEnjoy(0);
+        evaluate.setState("enable");
+        evaluationMapper.insert(evaluate);
+        return evaluate;}
+    
+紧跟着是MemberController
+        @PostMapping("/evaluate")
+    @ResponseBody
+    public Map evaluate(Long memberId, Long bookId, Integer score, String content){
+        Map result = new HashMap();
+        try {
+            Evaluation evaluate = memberService.evaluate(memberId, bookId, score, content);
+            result.put("code", "0");
+            result.put("msg", "success");
+            //这个evaluate由具体的业务逻辑决定要不要进入到返回值。(可以直接在响应中看到)
+            result.put("evaluate",evaluate);
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }return result;}
+
+最后是detil.ftl的js逻辑
+                $("#btnSubmit").click(function () {
+                //首先将基础的数据拿到 score评分和content内容
+                var score = $("#score").raty("score"); //获取评分
+                var content = $("#content").val();
+                //评分不能为空或者如果删除前后空格之后是一个空字符串,则认为用户没有输入 [$.trim() 用于删除前后空格。]
+                if (score == 0 || $.trim("#content") == "") {
+                    // alert("评分和输出内容不能为空")
+                    //禁止提交,方法直接中断
+                    return;
+                }
+                $.post("/evaluate", {
+                    memberId: ${loginMember.memberId},
+                    bookId: ${book.bookId},
+                    score: score,
+                    content: content
+                }, function (json) {
+                    if (json.code == "0") {
+                        //服务器处理成功,要对当前评论列表进行刷新
+                        //发布短评成功
+                        window.location.reload(); //刷新当前页面
+                    }
+                },"json")})
+
+```
+
+```
+2022年9月10日14:06:10  短评模块问题:评分为空时 return; 没有生效。但是内容却可以为空,并可以提交成功。判断有误?
+```
+
+
+
+##### 会员点赞的核心实现
+
+##### 短评点赞
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220910141008656.png" alt="image-20220910141008656" style="zoom:50%;" />
+
+```html
+<button type="button" data-evaluation-id="${evaluation.evaluationId}" class="btn btn-success btn-sm text-white float-right" style="margin-top: -3px;"><img style="width: 24px;margin-top: -5px;" class="mr-1" src="https://img3.doubanio.com/f/talion/7a0756b3b6e67b59ea88653bc0cfa14f61ff219d/pics/card/ic_like_gray.svg"/><span>${evaluation.enjoy}</span></button>
+
+evaluation-id对应的当前短评的数据库编号,当我们点击对应的按钮时,会将当前的evaluation-id通过Ajax提交至后端服务然后对enjoy点赞数量自增+1就可以了,, (同一用户只能对每一个短评点赞一次吧)
+```
+
+```java
+还是打开MemberService接口,
+    /**
+     * 短评点赞
+     *
+     * @param evaluationId 短评编号
+     * @return 短评对象
+     */
+    public Evaluation enjoy(Long evaluationId);
+
+
+//MemberServiceImpl实现类
+        @Override
+    public Evaluation enjoy(Long evaluationId) {
+        //先搜索到该条短评
+        Evaluation evaluation = evaluationMapper.selectById(evaluationId);
+        //对enjoy+1 (即点赞操作)
+        evaluation.setEnjoy(evaluation.getEnjoy()+1);
+        //更新
+        evaluationMapper.updateById(evaluation);
+        return evaluation;}
+
+//控制器类
+    @PostMapping("/enjoy")
+    @ResponseBody
+    public Map enjoy(Long evaluationId){
+        Map result = new HashMap();
+        try {
+            Evaluation evaluation = memberService.enjoy(evaluationId);
+            result.put("code", "0");
+            result.put("msg", "success");
+            result.put("evaluation",evaluation);
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+        return result;}
+```
+
+```javascript
+//用户已经登录的情况下
+//评论点赞
+$("*[data-evaluation-id]").click(function () {
+    var evaluationId = $(this).data("evaluation-id");   //evaluationId的值
+    $.post("/enjoy", {evaluationId: evaluationId}, function (json) {
+        if (json.code == "0") {
+            console.log(json)
+            //含义是: 找到当前点击按钮下面的span标签,因为在每一个按钮中只有唯一一个span,
+            // 然后通过text()来更改显示的内容,把服务器更新后 新的点赞数量回填到这个span标签中
+            $("*[data-evaluation-id='" + evaluationId + "'] span").text(json.evaluation.enjoy);
+        }
+    },"json")})
+
+现在还存在的问题是 只要点赞,点赞数就一直在加,没有一个控制,类似恶意刷好评
+```
+
+
+
+#### Spring Task定时任务
+
+```
+Spring Task定时任务顾名思义就是我们希望在几点几分几秒或者一个固定的时间间隔内执行java中的某一段代码,这就是定时任务,定时任务是在日常工作中非常常见的应用场景。比如闹钟应用
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220910193005751.png" alt="image-20220910193005751" style="zoom:50%;" />
+
+```
+什么是Cron表达式
+按照下图第一行的6位表达式的书写具体含义是 : 在任意年任意日任意小时任意分零秒的时候来执行一次任务,也就是每分钟执行一次
+
+按照下图第二行的6位表达式的书写具体含义是 : 在2000年每小时的前5分钟的第0秒以及第30秒的时间来执行指定的任务
+
+按照下图第三行的6位表达式的书写具体含义是 : 在每周三的上午9点到下午6点每个小时整点的时候来执行相应的任务
+
+问号代表的是忽略星期,星期和日是互斥的;逗号代表或;横杠代表范围
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220910193148833.png" alt="image-20220910193148833" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220910194722764.png" alt="image-20220910194722764" style="zoom:50%;" />
+
+```sql
+这里的计算图书评分是指 将某一本书的所有评分加起来再除以评分人数就是该书的评分
+-- 子查询的用意: 以上面一块为例,在进行数据更新的时候因为我们现在可以看到作为update book表没有增加额外的where子句也就是对所有数据进行更新,但在更新时mysql会将book表中的数据一条一条的代入到子查询中来完成计算工作,再将计算后的数据赋予给对应的字段。 举例: 比如book表中有三本书编号为1、2、3,那么在执行这段代码的时候,作为这个子查询会被执行3次,会依次将编号代入book_id中,经过计算就得到了1号图书的平均评分分数并将这个分数赋值给1号图书的evaluation_score字段..
+update book b set evaluation_score=(
+-- 平均的评分（只对有效的评论）
+SELECT ifnull(avg(score),0) from evaluation where book_id = b.book_id and state='enable'),
+-- 具体的评价人数
+evaluation_quantity = (SELECT ifnull(COUNT(*),0) from evaluation where book_id =b.book_id and state='enable')
+
+
+ifnull(avg(score),0) 如果avg(score)为null的话,会把值设置为 0,为避免null时再赋值会产生的报错。
 ```
 
