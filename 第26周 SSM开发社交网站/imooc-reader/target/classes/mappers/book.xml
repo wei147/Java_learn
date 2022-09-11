@@ -4,5 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.imooc.reader.mapper.BookMapper">
-
+    <update id="updateEvaluation">
+        update book b
+        set evaluation_score=(
+-- 平均的评分（只对有效的评论）
+            SELECT ifnull(avg(score), 0) from evaluation where book_id = b.book_id and state = 'enable'),
+-- 具体的评价人数
+            evaluation_quantity = (SELECT ifnull(COUNT(*), 0)
+                                   from evaluation
+                                   where book_id = b.book_id and state = 'enable')
+    </update>
 </mapper>

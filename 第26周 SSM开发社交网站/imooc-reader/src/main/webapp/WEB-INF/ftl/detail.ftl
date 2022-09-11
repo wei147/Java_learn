@@ -201,7 +201,7 @@
             </div>
         </div>
         <div class="row" style="background-color: rgba(0,0,0,0.1);">
-            <div class="col-2"><h2 class="text-white">4.9</h2></div>
+            <div class="col-2"><h2 class="text-white">${book.evaluationScore}</h2></div>
             <div class="col-5 pt-2">
                 <span class="stars" data-score="${book.evaluationScore}"></span>
             </div>

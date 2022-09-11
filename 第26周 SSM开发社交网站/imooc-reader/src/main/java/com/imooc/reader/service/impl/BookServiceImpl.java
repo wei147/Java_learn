@@ -62,4 +62,17 @@ public class BookServiceImpl implements BookService {
         Book book = bookMapper.selectById(bookId);
         return book;
     }
+
+    /**
+     * 更新图书评分/评价数量
+     */
+    //疑惑: 我从前台的不管是Controller还是什么,直接调用BookMapper不就可以了吗
+    // 答: 虽然从语法上没问题,但是在实际的工作中绝对不允许,因为我们一直强调基于MVC的按层逐级调用。就像当前的例子禁止从Controller直接调
+    // 用某个Mapper的方法来完成数据的操作,中间必须要经过Service,也就是说作为Controller直接面向的是Service,再由Service去调用对应的Mapper。
+    // 要完成这个严格的按层逐级调用的工作。如果每一个工程师都遵循这样的开发规范,会让我们程序维护起来变得非常的轻松
+    @Override
+    @Transactional //这里是更新操作要开启声明式事务
+    public void updateEvaluation() {
+        bookMapper.updateEvaluation();
+    }
 }

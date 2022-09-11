@@ -2540,3 +2540,208 @@ evaluation_quantity = (SELECT ifnull(COUNT(*),0) from evaluation where book_id =
 ifnull(avg(score),0) 如果avg(score)为null的话,会把值设置为 0,为避免null时再赋值会产生的报错。
 ```
 
+
+
+#### 实现图书评分自动计算
+
+结合java程序让上面的sql语句明分钟执行一次
+
+```sql
+1.打开mappers/book.xml增加SQL语句(简单的SQL语句可以做到自动生成,复杂的不行。转为MyBatis-plus它只是对Mysql进行了扩展,并不修改mysql原始的任何功能,所以以前mybatis的标准用法依然是适用的)
+
+<mapper namespace="com.imooc.reader.mapper.BookMapper">
+    <update id="updateEvaluation">
+        update book b
+        set evaluation_score=(
+-- 平均的评分（只对有效的评论）
+            SELECT ifnull(avg(score), 0) from evaluation where book_id = b.book_id and state = 'enable'),
+-- 具体的评价人数
+            evaluation_quantity = (SELECT ifnull(COUNT(*), 0)
+                                   from evaluation
+                                   where book_id = b.book_id and state = 'enable')
+    </update>
+</mapper>
+```
+
+```java
+2.还要打开对应的mapper接口来增加方法定义
+//BookMapper.java
+public interface BookMapper extends BaseMapper<Book> {
+
+    /**
+     * 更新图书评分/评价数量
+     */
+    public void updateEvaluation();
+}
+
+3.向上推演找到BookService.java
+//在BookService.java中新增(和BookMapper中完全一样)
+public interface BookService {
+        public void updateEvaluation();
+}
+
+4.接口对应的实现类
+    //疑惑: 我从前台的不管是Controller还是什么,直接调用BookMapper不就可以了吗
+    // 答: 虽然从语法上没问题,但是在实际的工作中绝对不允许,因为我们一直强调基于MVC的按层逐级调用。就像当前的例子禁止从Controller直接调
+    // 用某个Mapper的方法来完成数据的操作,中间必须要经过Service,也就是说作为Controller直接面向的是Service,再由Service去调用对应的Mapper。
+    // 要完成这个严格的按层逐级调用的工作。如果每一个工程师都遵循这样的开发规范,会让我们程序维护起来变得非常的轻松
+    @Override
+    @Transactional //这里是更新操作要开启声明式事务
+    public void updateEvaluation() {
+        bookMapper.updateEvaluation();}
+```
+
+```xml
+下面的关键问题就在于: 如何每分钟来执行一次updateEvaluation()方法 ?  这就需要Spring Task模块了
+
+并不需要额外引入Spring Task模块,它被包含在Spring-context jar包中,天然的支持
+
+在applicationContext.xml中配置:
+
+    <!--开启Spring Task定时任务的注解模式-->
+    <task:annotation-driven/>
+```
+
+```java
+该如何使用？
+在reade包下额外新增子包 task/ComputeTask.java
+package com.imooc.reader.task;
+
+import com.imooc.reader.service.BookService;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * 完成自动计算任务
+ */
+@Component //通用的组件注解
+public class ComputeTask {
+    @Resource
+    private BookService bookService;
+
+    //任务调度 (定时调度)       [对应是 每分钟0秒的时候自动的执行下面的定时任务]
+    @Scheduled(cron = "0 * * * * ?")
+    public void updateEvaluation(){
+        bookService.updateEvaluation();
+        System.out.println("已更新所有图书评分");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = sdf.format(new Date());
+        System.out.println("现在的时间是 "+time);}}
+```
+
+```
+以上,课程的前台功能已完成。剩下自己要解决的问题有 :
+	1.重复点赞一直新增的问题
+	2.完善相关提示
+	3.,,,,
+```
+
+
+
+
+
+### 后台管理功能 - 图书管理
+
+#### 富文本编辑器wangEditor使用入门
+
+```
+在进行图书资料管理时,会遇到一个新问题: 如何对图书的信息进行图文编辑?  这里就需要引入一个全新的JavaScript组件————富文本编辑器wangEditor
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220911155959861.png" alt="image-20220911155959861" style="zoom:50%;" />
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#--引入wangEditor-->
+    <script src="/resources/wangEditor.min.js"></script>
+</head>
+<body>
+<#--hi here is me ， 随风而去吧-->
+<div>
+    <button id="btnRead">读取内容</button>
+    <button id="btnWrite">写入内容</button>
+</div>
+<div id="divEditor" style="width: 800px;height: 600px"></div>
+
+
+<script>
+    var E = window.wangEditor;
+    var editor = new E("#divEditor"); //完成富文本编辑器初始化
+    editor.create(); //创建富文本编辑器,显示在页面上
+
+    //从富文本编辑器中获取当前内容的方式
+    document.getElementById("btnRead").onclick = function () {
+        var content = editor.txt.html();
+        alert(content)
+        console.log(content)
+    }
+    //将当前内容写入富文本编辑器中的方式
+    document.getElementById("btnWrite").onclick = function () {
+        var content = '<h2><span style="text-decoration-line: underline; color: rgb(249, 150, 59); background-color: rgb(0, 0, 0);">kingdom,about he</span></h2>'
+        editor.txt.html(content);
+    }
+</script>
+</body>
+</html>
+```
+
+```
+wangEditor 最基本的使用办法: 如何初始化、如何读取内容及如何写入内容
+```
+
+
+
+#### wangEditor图书上传-1
+
+##### 实现图书管理功能
+
+```
+引入wangEditor富文本编辑器之后,来实现文件上传的功能。作为图书消息来说,图文混排是一个基础的操作,但是作为wangEditor它只是一个纯粹的JavaScript客户端的组件,在这里为了能让我们的图片存储在服务器上,所以要针对wangEditor来开发与之对应的图书上传功能
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220911211113455.png" alt="image-20220911211113455" style="zoom:50%;" />
+
+```
+这里的后台管理页面选用和Oa系统一样的风格,LayUI
+```
+
+```
+导入后台管理页面 book.ftl,新增控制器/management/MBookController.java
+```
+
+```
+wangEditor如何和后台进行对接 ?
+```
+
+
+
+
+
+#### wangEditor图书上传-2
+
+以下是一些必要的配置
+
+```xml
+1.在pom.xml 中引入springMVC文件上传的底层依赖 (不要忘记把新下载的jar包进行发布)
+        <!--Spring MVC文件上传的底层依赖-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+2.打开Spring核心配置文件 applicationContext.xml进行配置
+    <!--激活spring MVC 文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+```
+

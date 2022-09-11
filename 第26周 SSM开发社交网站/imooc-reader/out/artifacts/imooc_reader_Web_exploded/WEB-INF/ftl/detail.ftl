@@ -127,6 +127,7 @@
                     content: content
                 }, function (json) {
                     if (json.code == "0") {
+                        console.log(json)
                         //服务器处理成功,要对当前评论列表进行刷新
                         //发布短评成功
                         window.location.reload(); //刷新当前页面
@@ -200,7 +201,7 @@
             </div>
         </div>
         <div class="row" style="background-color: rgba(0,0,0,0.1);">
-            <div class="col-2"><h2 class="text-white">4.9</h2></div>
+            <div class="col-2"><h2 class="text-white">${book.evaluationScore}</h2></div>
             <div class="col-5 pt-2">
                 <span class="stars" data-score="${book.evaluationScore}"></span>
             </div>

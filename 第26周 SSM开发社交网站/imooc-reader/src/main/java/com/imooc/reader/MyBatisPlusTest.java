@@ -6,10 +6,13 @@ import com.imooc.reader.service.TestService;
 //import org.junit.Test;
 import com.imooc.reader.entity.Test;
 import org.junit.runner.RunWith;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)//junit4在运行时，会自动初始化ioc容器
@@ -47,5 +50,14 @@ public class MyBatisPlusTest {
         List<Test> testList = testMapper.selectList(queryWrapper);
         System.out.println(testList);
 //        System.out.println(testList.get(0));
+    }
+
+    @org.junit.Test
+    @Scheduled(cron = "0 * * * * ?")
+    public void myTest(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = sdf.format(new Date());
+        System.out.println("现在的时间是 "+time);
+
     }
 }
