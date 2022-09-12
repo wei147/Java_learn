@@ -96,8 +96,10 @@
             {field: 'bookName', title: '书名', width: '300'}
             , {field: 'subTitle', title: '子标题', width: '200'}
             , {field: 'author', title: '作者', width: '200'}
+            //最核心的是templet,用于对数据进行重新的渲染,来生成我们所需要的html。 function中的d参数则对应了当前我们每生成一行的行数据,用d来进行指代
             , {type: 'space', title: '操作', width: '200' , templet : function(d){
 					//为每一行表格数据生成"修改"与"删除"按钮,并附加data-id属性代表图书编号
+                    //data-id='" + d.bookId + "',无论更新还是删除都会附带当前这一行图书编号是多少
                     return "<button class='layui-btn layui-btn-sm btn-update'  data-id='" + d.bookId + "' data-type='update' onclick='showUpdate(this)'>修改</button>" +
                         "<button class='layui-btn layui-btn-sm btn-delete'  data-id='" + d.bookId + "'   onclick='showDelete(this)'>删除</button>";
                 }

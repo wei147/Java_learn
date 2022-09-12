@@ -99,13 +99,13 @@
         </dependency>
         <!--Servlet  (在一开始运行时会报错，其中有一个是说 Caused by: java.lang.ClassNotFoundException:
         javax.servlet.ServletContext。所以加入这个Servlet依赖 )-->
-<!--        2022年9月11日23:10:30 request.getServletContext()会报红,听说引入3.0版本之后才有这个方法。所以使用这个有点不一样Servlet-->
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>servlet-api</artifactId>-->
-<!--            <version>2.5</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <!--        2022年9月11日23:10:30 request.getServletContext()会报红,听说引入3.0版本之后才有这个方法。所以使用这个有点不一样Servlet-->
+        <!--        <dependency>-->
+        <!--            <groupId>javax.servlet</groupId>-->
+        <!--            <artifactId>servlet-api</artifactId>-->
+        <!--            <version>2.5</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -146,8 +146,14 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
-    </dependencies>
 
+        <!--Jsonp Html解析组件-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.2</version>
+        </dependency>
+    </dependencies>
 
 
     <properties>

@@ -17,7 +17,8 @@ public class ComputeTask {
     private BookService bookService;
 
     //任务调度 (定时调度)       [对应是 每分钟0秒的时候自动的执行下面的定时任务]
-    @Scheduled(cron = "0 * * * * ?")
+//    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 10 * * * ?")
     public void updateEvaluation(){
         bookService.updateEvaluation();
         System.out.println("已更新所有图书评分");

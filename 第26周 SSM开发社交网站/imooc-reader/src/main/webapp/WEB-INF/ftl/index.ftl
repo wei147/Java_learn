@@ -101,7 +101,7 @@
                             $("#bookList").append(html);
                         }
                         //显示星型评价组件  [选中class为stars的span标签,利用.raty便可以将对应的span转换为可视的星型组件。 readonly:true这里只是对用户进行显示并不容许用户更改]
-                        $(".stars").raty({readonly: true});
+                        $(".stars").raty({readOnly: true});
 
                         //判断是否到最后一页
                         //json.current代表当前页号, json.pages是总页数。这里还有一个小细节:json.current可能会被JavaScript当成字符串来处理,解决方法是增加parseInt转换为数字

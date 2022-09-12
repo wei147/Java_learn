@@ -75,4 +75,17 @@ public class BookServiceImpl implements BookService {
     public void updateEvaluation() {
         bookMapper.updateEvaluation();
     }
+
+    /**
+     * 创建新的图书
+     */
+    @Override
+    @Transactional
+    public Book createBook(Book book) {
+        bookMapper.insert(book);
+        //那么在插入成功后,因为book的主键是自增的,在执行完insert()以后,
+        // 由MyBatis-plus会自动的将新生成的主键回填到bookId编号中,所以将参数中的
+        //book进行返回就可以了,只不过此时的book相比参数中的book它多了一个图书编号
+        return book;
+    }
 }

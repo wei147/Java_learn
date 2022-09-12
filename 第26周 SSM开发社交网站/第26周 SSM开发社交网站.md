@@ -2745,3 +2745,121 @@ wangEditor如何和后台进行对接 ?
     </bean>
 ```
 
+```java
+3.这里/upload要接收来自wangEditor提交的文件,通过MultipartFile file对象能拿到wangEditor传过来的文件,将该图片文件存到本地out下的upload文件夹中,
+该文件之所以能被wangEdi识别,是因为由我们服务器返回的响应中,按照wangEditor的要求是:
+			{"errno":0,"data":["/upload/20220912151554037.jpg"]}
+可以看到上面的json中将图片文件访问的地址也进行了返回,那wangEditor就在编辑器上原封不动的进行显示 (文件上传功能完成)
+import ...
+
+@Controller
+@RequestMapping("/management/book")
+//@RequestMapping("management/book")
+public class MBookController {
+    @GetMapping("/index.html")
+    public ModelAndView show() {
+        return new ModelAndView("/management/book");
+    }
+
+    /**
+     * wangEditor 文件上传
+     *
+     * @param file    上传文件
+     * @param request 原生请求对象
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/upload")
+    @ResponseBody
+    //因为WangEditor需要返回json字符串,代表服务器是否处理成功
+    //book.ftl 中的editor.customConfig.uploadFileName = 'img';//设置图片上传参数
+    //设置好这一步我们就能通过基于参数file对象获取到从客户端上传到服务器的文件了
+    //为什么要加HttpServletRequest原生的请求对象 ?  是因为文件上传以后总是要保存到某一个具体的目录下吧
+    public Map upload(@RequestParam("img") MultipartFile file, HttpServletRequest request) throws IOException, URISyntaxException {
+        //这个根路径不是webapp所在的路径,因为这句话是在运行时执行的,那肯定是在web应用发布运行起来以后这句话才执行,
+        // 所以这句话实际得到的是在我们自动发布以后————也就是out目录下的imooc_reader_Web_exploded它的实际路径(有的是在target文件夹中)。
+        //一定要区分开开在运行时路径是out下面的imooc_reader_Web_exploded
+        //得到上传目录
+        String uploadPath = request.getServletContext().getResource("/").toURI().getPath() + "/upload/"; //加上toURI()后面 D:/project/Jave_learn/第26周 SSM开发社交网站
+        //String uploadPath2 = request.getServletContext().getResource("").getPath()+"/upload/";  //D:/project/Jave_learn/第26周%20SSM开发社交网站
+        //文件名
+        String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+        //拓展名 (找到最后一次出现.的位置,然后将其余的字符进行截取,得到文件拓展名)
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        //保存文件到upload目录
+        file.transferTo(new File(uploadPath + fileName + suffix));
+//        file.transferTo(new File("wei/chen.png")); //能正常保存图片
+
+        System.out.println("这个file都有什么? " + file.getOriginalFilename());
+
+        //作为文件上传时,要让wangEditor认为服务器处理成功还需要按它的格式返回结果。组织格式
+        Map result = new HashMap();
+        result.put("errno", 0);
+        result.put("data", new String[]{"/upload/" + fileName + suffix});
+        return result;}}
+```
+
+```java
+2022年9月12日15:26:18 会出现空格变成 %20的情况,这里使用 加上toURI()方法能解决			
+String uploadPath = request.getServletContext().getResource("/").toURI().getPath()+"/upload/"; 
+D:\project\Jave_learn\第26周 SSM开发社交网站\imooc-reader\out\artifacts\imooc_reader_Web_exploded\upload
+D:\project\Jave_learn\第26周%20SSM开发社交网站\imooc-reader\out\artifacts\imooc_reader_Web_exploded\upload
+```
+
+
+
+#### 实现图书新增功能
+
+```java
+1.在BookService新增createBook接口
+    /**
+     * 创建新的图书
+     */
+    public Book createBook(Book book);
+
+2.在BookServiceImpl实现createBook接口
+
+    @Transactional
+    public Book createBook(Book book) {
+        bookMapper.insert(book);
+        //那么在插入成功后,因为book的主键是自增的,在执行完insert()以后,
+        // 由MyBatis-plus会自动的将新生成的主键回填到bookId编号中,所以将参数中的
+        //book进行返回就可以了,只不过此时的book相比参数中的book它多了一个图书编号
+        return book;}
+
+3.向上推进回到MBookController中
+        /**
+     * 图书新增功能
+     * @param book
+     * @return
+     */
+    @PostMapping("/create")
+    @ResponseBody
+    public Map createBook(Book book){
+        Map result = new HashMap();
+        try {
+            book.setEvaluationQuantity(0L);
+            //如何把图片链接放到这里? 推荐使用Jsoup————java中html解析器(图片链接来自于提交的description中的第一张图片)
+            Document doc = Jsoup.parse(book.getDescription());  //解析图书详情
+            Element img = doc.select("img").first();//获取图书详情中第一个图片的元素对象
+            String cover = img.attr("src");//获取当前这个元素的指定属性值
+            book.setCover(cover);    //来自于description描述的第一张图片
+            bookService.createBook(book);
+            result.put("code", "0");
+            result.put("msg", "success");
+        }catch (BussinessException ex){
+            result.put("code",ex.getCode());
+            result.put("code",ex.getCode());
+        }return result;}
+    
+以上,图书新增功能完成
+```
+
+
+
+#### 实现图书分页查询
+
+
+
+ 
+
