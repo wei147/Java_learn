@@ -3,6 +3,7 @@ package com.imooc.reader.controller.management;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.reader.entity.Book;
 import com.imooc.reader.service.BookService;
+import com.imooc.reader.service.EvaluationService;
 import com.imooc.reader.service.exception.BussinessException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -119,4 +120,82 @@ public class MBookController {
         return result;
 
     }
+
+    /**
+     * 获取图书信息
+     *
+     * @param id 前台传过来的id
+     * @return 返回从数据库中查询到的book信息, 交由前台进行显示
+     */
+    @GetMapping("/id/{id}")
+    @ResponseBody
+    public Map getBookInfo(@PathVariable("id") Long id) {
+        System.out.println("id===================  " + id);
+        Book book = bookService.selectById(id);
+        Map result = new HashMap();
+
+        result.put("code", 0);
+        result.put("msg", "success");
+        result.put("data", book);    //原来是这里把book对象放到了data中
+        return result;
+    }
+
+    /**
+     * 更新图书信息
+     * 2022年9月13日11:46:36 这里我的想法是:前端post请求发过来的book对象已经包含了所有该填写的图书信息,而我只需要把这些信息更新到数据库就是。
+     * 2022年9月13日11:54:11 测试成功,能正常更新图书信息  !!!酷
+     * 2022年9月13日12:56:55 看了视频还是老师的做法比较严谨,个人还是考虑一下不周,这就是实际开发经验吧
+     *
+     * @param book 新图书数据
+     * @return 更新后的数据
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public Map update(Book book) {
+        //用book对象来接收前台传入的数据,但是对于这个book对象来说,不要直接将它进行更新,原因是这里边只包含了前台提交来的数据,关于其他
+        // 的字段,比如评分、评分人数等这些他都是没有的,一旦对这个book直接进行更新,轻则程序报错重则数据产生混乱,这样会更危险。
+        //那么一个有效的做法是: 根据传入的book编号,把原始数据库的对象先查询出来,然后在这个原始数据的基础上进行依次的赋值。
+        //以后在实际开发时一旦涉及更新操作,第一反应应该是先查询原始的数据,在原始数据基础上进行对应属性的调整,这是正确的做法。
+        // 决不能出现直接对某一个对象进行更新操作
+        Map result = new HashMap();
+        try {
+            Book rawBook = bookService.selectById(book.getBookId());
+            rawBook.setBookName(book.getBookName());
+            rawBook.setSubTitle(book.getSubTitle());
+            rawBook.setAuthor(book.getAuthor());
+            rawBook.setCategoryId(book.getCategoryId());
+            //如果图书封面发生了变化则需要更换
+            Document doc = Jsoup.parse(book.getDescription());
+            String cover = doc.select("img").first().attr("src");
+            rawBook.setCover(cover);
+
+            bookService.updateBook(book);
+            result.put("code", 0);
+            result.put("msg", "success");
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+        return result;
+    }
+
+    @GetMapping("/delete/{id}")
+    @ResponseBody
+    //作为参数bookId不单是要把对应的图书信息进行删除,那么与之相关的数据还有评论信息和阅读状态这两项也是需要清除的,
+    // 所以对于deleteBook来说,它底层实际影响到了多张表
+    public Map delete(@PathVariable("id") Long bookId) {
+        Map result = new HashMap();
+        try {
+            bookService.deleteBook(bookId);
+            result.put("code", 0);
+            result.put("msg", "success");
+        } catch (BussinessException ex) {
+            ex.printStackTrace();
+            result.put("code", ex.getCode());
+            result.put("msg", ex.getMsg());
+        }
+        return result;
+    }
+
 }

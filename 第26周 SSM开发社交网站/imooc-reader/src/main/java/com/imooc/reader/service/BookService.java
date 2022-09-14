@@ -38,4 +38,17 @@ public interface BookService {
      * 创建新的图书
      */
     public Book createBook(Book book);
+
+    /**
+     * 更新图书信息
+     * @param book
+     * @return
+     */
+    public Book updateBook(Book book);
+
+    /**
+     * 删除图书及相关数据
+     * @param bookId 图书编号
+     */
+    public void deleteBook(Long bookId);
 }

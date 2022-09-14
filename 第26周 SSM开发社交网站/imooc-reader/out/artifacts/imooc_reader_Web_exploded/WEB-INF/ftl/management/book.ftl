@@ -96,8 +96,11 @@
             {field: 'bookName', title: '书名', width: '300'}
             , {field: 'subTitle', title: '子标题', width: '200'}
             , {field: 'author', title: '作者', width: '200'}
+            //最核心的是templet,用于对数据进行重新的渲染,来生成我们所需要的html。 function中的d参数则对应了当前我们每生成一行的行数据,用d来进行指代
             , {type: 'space', title: '操作', width: '200' , templet : function(d){
-					//为每一行表格数据生成"修改"与"删除"按钮,并附加data-id属性代表图书编号
+					//为每一行表格数据生成"修改"与"删除"按钮,并附加data-id的自定义属性代表图书编号 data-id='" + d.bookId + "'
+                    //data-id='" + d.bookId + "',无论更新还是删除都会附带当前这一行图书编号是多少。正是因为有了这个图书编号,
+                    // 在我们点击修改按钮也就是触发了showDelete()操作的时候,我们才知道操作具体的图书编号是哪一个
                     return "<button class='layui-btn layui-btn-sm btn-update'  data-id='" + d.bookId + "' data-type='update' onclick='showUpdate(this)'>修改</button>" +
                         "<button class='layui-btn layui-btn-sm btn-delete'  data-id='" + d.bookId + "'   onclick='showDelete(this)'>删除</button>";
                 }
@@ -128,7 +131,8 @@
 
 		//发送ajax请求,获取对应图书信息
         $.get("/management/book/id/" + bookId , {} , function(json){
-			//文本框回填已有数据
+            editor.txt.html(json.description); //设置图文内容
+            //文本框回填已有数据
             $("#dlgBook #bookName").val(json.data.bookName);//书名
             $("#dlgBook #subTitle").val(json.data.subTitle); //子标题
             $("#dlgBook #author").val(json.data.author);//作者

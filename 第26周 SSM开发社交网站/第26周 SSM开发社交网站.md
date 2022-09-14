@@ -2810,6 +2810,8 @@ D:\project\Jave_learn\第26周%20SSM开发社交网站\imooc-reader\out\artifact
 
 #### 实现图书新增功能
 
+#### 实现图书删除功能
+
 ```java
 1.在BookService新增createBook接口
     /**
@@ -2859,7 +2861,237 @@ D:\project\Jave_learn\第26周%20SSM开发社交网站\imooc-reader\out\artifact
 
 #### 实现图书分页查询
 
+```java
+1.直接在MBookController.java中书写list方法,因为分页查询在之前已经写过了,这次是传进去的参数有所减少
+@GetMapping("/list")
+@ResponseBody
+public Map list(Integer page, Integer limit) {
+    if (page == null) {
+        page = 1;
+    }
+    if (limit == null) {
+        limit = 10;
+    }
+    //作为数据表格查询时,并不需要按类别、order进行排序,所以设置前两个设置为null
+    IPage<Book> pageObject = bookService.paging(null, null, page, limit);
+    //如果json序列化pageObject对象输出到客户端,layUI是无法识别的,因为它也要求了属于自己的规范。以下按layUI的格式进行书写
+    Map result = new HashMap();
+    result.put("code", 0);
+    result.put("msg", "success");
+    result.put("data", pageObject.getRecords());//当前页面数据
+    result.put("count", pageObject.getTotal());//未分页时记录总数
+    return result;}
 
+
+2.这是之前在BookService中定义好的接口方法,后续实现类可以自己点进去看,
+    /**
+     * 分页查询图书
+     *
+     * @param categoryId 分页编号
+     * @param order      排序方式
+     * @param page       页号
+     * @param rows       每页记录数
+     * @return 分页对象
+     */
+    public IPage<Book> paging(Long categoryId, String order, Integer page, Integer rows);
+```
 
  
+
+#### 实现图书修改更新功能
+
+```java
+注: 2022年9月13日11:20:37 自己借鉴老师的写法,已大致完成修改和删除功能(后台逻辑)。不得不说前端js也是很重要的点
+2022年9月13日12:00:00  独立完成在后台的图书修改、更新、删除功能已完成。(不看老师的视频教程)
+bug:
+1.网络图片插入失败
+```
+
+```
+这里是课程正文笔记
+
+作为修改比较特殊,需要和数据库建立两次通讯: 1.是点击修改按钮的时候需要把与之对应的图书信息进行访问并回填到原有的输入框中 2.才是修改图书信息
+```
+
+
+
+```java
+1.在BookService中新增两个接口: 更新和删除
+/**
+ * 更新图书信息
+ * @param book
+ * @return
+ */
+public Book updateBook(Book book);
+
+/**
+ * 在在后台中删除图书
+ * @param bookId
+ */
+public void deleteBook(Long bookId);
+```
+
+```java
+2.具体的实现类(更新和删除),主要是调用MyBatis-Plus的接口(要考虑到删除图书及其相关信息)
+
+
+/**
+* 更新图书信息
+* @param book 新图书数据
+* @return 更新后的数据
+*/
+@Override
+@Transactional
+public Book updateBook(Book book) {
+    bookMapper.updateById(book);
+    return book;}
+
+    /**
+     * 删除图书及相关数据
+     * @param bookId 图书编号
+     */
+    @Override
+    @Transactional
+    //作为参数bookId不单是要把对应的图书信息进行删除,那么与之相关的数据还有评论信息和阅读状态这两项也是需要清除的,
+    // 所以对于deleteBook来说,它底层实际影响到了多张表
+    public void deleteBook(Long bookId) {
+        bookMapper.deleteById(bookId);
+        //这里会衍生出一个新问题: 删除的时候是根据图书编号将所有对应的会员阅读信息一并删除,那这时基于阅读状态表Id进行删除显然效率太低了,我们需要
+        // 一次性删除多条数据怎么做? 可以考虑用 delete
+        QueryWrapper<MemberReadState> mrsQueryWrapper = new QueryWrapper<MemberReadState>();
+        mrsQueryWrapper.eq("book_id",bookId);
+        memberReadStateMapper.delete(mrsQueryWrapper);
+
+        QueryWrapper<Evaluation> eQueryWrapper = new QueryWrapper<Evaluation>();
+        eQueryWrapper.eq("book_id",bookId);
+        evaluationMapper.delete(eQueryWrapper);}
+```
+
+```java
+3.向上推进来到MBookController,在修改图书信息之前需要获取图书信息展示在wangEditor编辑器中,所以需要传入id进行查询数据库信息。接着就是接收前台传过来的已修改的数据,我们更新到数据表就是。删除功能就更简单了(2022年9月13日18:02:50 删除功能也没那么简单,考虑到需要删除图书以及相关信息)
+/**
+ * 获取图书信息
+ * @param id 前台传过来的id
+ * @return 返回从数据库中查询到的book信息,交由前台进行显示
+ */
+public Map getBookInfo(@PathVariable("id") Long id){
+    System.out.println("id===================  "+id);
+    Book book = bookService.selectById(id);
+    Map result = new HashMap();
+    result.put("code",0);
+    result.put("msg","success");
+    result.put("data",book);    //原来是这里把book对象放到了data中
+    return result;
+    }
+
+/**
+ * 更新图书信息
+ * 2022年9月13日11:46:36 这里我的想法是:前端post请求发过来的book对象已经包含了所有该填写的图书信息,而我只需要把这些信息更新到数据库就是。
+ * 2022年9月13日11:54:11 测试成功,能正常更新图书信息  !!!酷
+ * @param book 新图书数据
+ * @return 更新后的数据
+ */
+@PostMapping("/update")
+@ResponseBody
+public Map update(Book book){
+    Map result = new HashMap();
+    try {
+        bookService.updateBook(book);
+        result.put("code",0);
+        result.put("msg","success");
+    }catch (BussinessException ex){
+        result.put("code",ex.getCode());
+        result.put("msg",ex.getMsg());
+    }
+    return result;
+}
+
+@GetMapping("/delete/{id}")
+@ResponseBody
+public Map delete(@PathVariable("id") Long id){
+    Map result = new HashMap();
+    try {
+        bookService.deleteBook(id);
+        System.out.println("执行成功");
+        result.put("code",0);
+        result.put("msg","success");
+    }catch (BussinessException ex){
+        result.put("code",ex.getCode());
+        result.put("msg",ex.getMsg());
+    }
+    return result;}
+```
+
+```java
+3.1 视频中老师的做法 这就是考虑得当吧 实际开发经验
+/**
+ * 更新图书信息
+ * 2022年9月13日11:46:36 这里我的想法是:前端post请求发过来的book对象已经包含了所有该填写的图书信息,而我只需要把这些信息更新到数据库就是。
+ * 2022年9月13日11:54:11 测试成功,能正常更新图书信息  !!!酷
+ * 2022年9月13日12:56:55 看了视频还是老师的做法比较严谨,个人还是考虑一下不周,这就是实际开发经验吧
+ *
+ * @param book 新图书数据
+ * @return 更新后的数据
+ */
+@PostMapping("/update")
+@ResponseBody
+public Map update(Book book) {
+    //用book对象来接收前台传入的数据,但是对于这个book对象来说,不要直接将它进行更新,原因是这里边只包含了前台提交来的数据,关于其他
+    // 的字段,比如评分、评分人数等这些他都是没有的,一旦对这个book直接进行更新,轻则程序报错重则数据产生混乱,这样会更危险。
+    //那么一个有效的做法是: 根据传入的book编号,把原始数据库的对象先查询出来,然后在这个原始数据的基础上进行依次的赋值。
+    //以后在实际开发时一旦涉及更新操作,第一反应应该是先查询原始的数据,在原始数据基础上进行对应属性的调整,这是正确的做法。
+    // 决不能出现直接对某一个对象进行更新操作
+    Map result = new HashMap();
+    try {
+        Book rawBook = bookService.selectById(book.getBookId());
+        rawBook.setBookName(book.getBookName());
+        rawBook.setSubTitle(book.getSubTitle());
+        rawBook.setAuthor(book.getAuthor());
+        rawBook.setCategoryId(book.getCategoryId());
+        //如果图书封面发生了变化则需要更换
+        Document doc = Jsoup.parse(book.getDescription());
+        String cover = doc.select("img").first().attr("src");
+        rawBook.setCover(cover);
+
+        bookService.updateBook(book);
+        result.put("code", 0);
+        result.put("msg", "success");
+    } catch (BussinessException ex) {
+        result.put("code", ex.getCode());
+        result.put("msg", ex.getMsg());
+    }
+    return result;}
+```
+
+
+
+##### 为后台管理系统添加首页
+
+```java
+作业: 
+1.参考后台图书管理实现对短评管理进行实现
+    1.1 能正常显示短评数据在后台页面
+    2022年9月14日02:29:27 访问http://localhost/management/evaluation/list有数据,但是layUI无法渲染?
+	2022年9月14日11:09:47 不是layUI无法渲染,而是缺少必要的参数,前端页面无法渲染
+    1.2可以对短评进行禁用,前台将不显示该条短评
+2.完成登录功能后台
+    2.1账号密码验证、退出登录
+    2.2登录控制
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220914004208650.png" alt="image-20220914004208650" style="zoom:50%;" />
+
+```
+累了累了,暂时无法解决返回ftl文件中要求的数据格式 2022年9月14日17:14:26
+```
+
+
+
+#### 课程总结
+
+##### 总结与回顾
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220914172007307.png" alt="image-20220914172007307" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220914172604839.png" alt="image-20220914172604839" style="zoom:50%;" />
 

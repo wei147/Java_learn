@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.reader.entity.Book;
+import com.imooc.reader.entity.Evaluation;
+import com.imooc.reader.entity.MemberReadState;
 import com.imooc.reader.mapper.BookMapper;
+import com.imooc.reader.mapper.EvaluationMapper;
+import com.imooc.reader.mapper.MemberReadStateMapper;
 import com.imooc.reader.service.BookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,6 +21,10 @@ import javax.annotation.Resource;
 public class BookServiceImpl implements BookService {
     @Resource
     private BookMapper bookMapper;
+    @Resource
+    private MemberReadStateMapper memberReadStateMapper;
+    @Resource
+    private EvaluationMapper evaluationMapper;
 
     /**
      * 分页查询图书
@@ -87,5 +95,38 @@ public class BookServiceImpl implements BookService {
         // 由MyBatis-plus会自动的将新生成的主键回填到bookId编号中,所以将参数中的
         //book进行返回就可以了,只不过此时的book相比参数中的book它多了一个图书编号
         return book;
+    }
+
+    /**
+     * 更新图书信息
+     * @param book 新图书数据
+     * @return 更新后的数据
+     */
+    @Override
+    @Transactional
+    public Book updateBook(Book book) {
+        bookMapper.updateById(book);//按照id号对数据进行更新
+        return book;
+    }
+
+    /**
+     * 删除图书及相关数据
+     * @param bookId 图书编号
+     */
+    @Override
+    @Transactional
+    //作为参数bookId不单是要把对应的图书信息进行删除,那么与之相关的数据还有评论信息和阅读状态这两项也是需要清除的,
+    // 所以对于deleteBook来说,它底层实际影响到了多张表
+    public void deleteBook(Long bookId) {
+        bookMapper.deleteById(bookId);
+        //这里会衍生出一个新问题: 删除的时候是根据图书编号将所有对应的会员阅读信息一并删除,那这时基于阅读状态表Id进行删除显然效率太低了,我们需要
+        // 一次性删除多条数据怎么做? 可以考虑用 delete
+        QueryWrapper<MemberReadState> mrsQueryWrapper = new QueryWrapper<MemberReadState>();
+        mrsQueryWrapper.eq("book_id",bookId);
+        memberReadStateMapper.delete(mrsQueryWrapper);
+
+        QueryWrapper<Evaluation> eQueryWrapper = new QueryWrapper<Evaluation>();
+        eQueryWrapper.eq("book_id",bookId);
+        evaluationMapper.delete(eQueryWrapper);
     }
 }

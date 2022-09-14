@@ -1,6 +1,8 @@
 package com.imooc.reader.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.reader.entity.Book;
 import com.imooc.reader.entity.Evaluation;
 import com.imooc.reader.entity.Member;
@@ -56,4 +58,57 @@ public class EvaluationServiceImpl implements EvaluationService {
         }
         return evaluationList;
     }
+
+
+    /**
+     * 分页查询评论
+     * @param page 页号
+     * @param rows  每页记录数
+     * @return 分页对象
+     */
+    @Override
+    public IPage<Evaluation> paging(Integer page, Integer rows) {
+        Page<Evaluation> e = new Page<Evaluation>();
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<Evaluation>();
+        //还没有任何需要筛选的条件,所以直接将queryWrapper对象放入到第二个参数。相当于对原始的所有数据进行分页查询了
+        IPage<Evaluation> evaluationObject = evaluationMapper.selectPage(e, queryWrapper);
+        return evaluationObject;
+    }
+
+    /**
+     * 按短评编号查询短评
+     *
+     * @param evaluationId 短评编号
+     * @return 短评对象
+     */
+    @Override
+    public Evaluation selectById(Long evaluationId) {
+        Evaluation evaluation = evaluationMapper.selectById(evaluationId);
+        return evaluation;
+    }
+
+    /**
+     * 禁言短评操作
+     *
+     * @param evaluation
+     * @return
+     */
+    @Override
+    public Evaluation disableEvaluation(Evaluation evaluation) {
+        evaluationMapper.updateById(evaluation);
+        return evaluation;
+    }
+
+    /**
+     * 查询所有评论信息
+     *
+     * @return
+     */
+    @Override
+    public List<Evaluation> selectAll() {
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<Evaluation>();
+        return evaluationMapper.selectList(queryWrapper);
+    }
+
+
 }
