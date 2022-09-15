@@ -37,24 +37,24 @@ public class MEvaluationController {
         //缺少book.bookName和member.username
         Map result = new HashMap();
         IPage<Evaluation> evaluationObject = evaluationService.paging(page, limit);
-//        List<Evaluation> all_Evaluation = evaluationService.selectAll();
-//        List<Long> list = new ArrayList<>();
-//        for (Evaluation evaluation : all_Evaluation) {
-//            Long bookId = evaluation.getBookId();
-//            list.add(bookId);
-//        }
-//        LinkedHashSet<Long> hashSet = new LinkedHashSet<>(list);
-//        ArrayList<Long> bookIdList = new ArrayList<>(hashSet); //bookId去重
-//        System.out.println("=============");
-//        System.out.println(bookIdList);
-//        ArrayList evaluationList = new ArrayList();
-//        for (int i = 0; i < bookIdList.size(); i++) {
-////            evaluationList.add(evaluationService.selectByBookId(bookIdList.get(i)));
-//            List<Evaluation> evaluations = evaluationService.selectByBookId(bookIdList.get(i));
-////            evaluations += evaluations;
-//            result.put("data", evaluations);
-//
-//        }
+        List<Evaluation> all_Evaluation = evaluationService.selectAll();
+        List<Long> list = new ArrayList<>();
+        for (Evaluation evaluation : all_Evaluation) {
+            Long bookId = evaluation.getBookId();
+            list.add(bookId);
+        }
+        LinkedHashSet<Long> hashSet = new LinkedHashSet<>(list);
+        ArrayList<Long> bookIdList = new ArrayList<>(hashSet); //bookId去重
+        System.out.println("=============");
+        System.out.println(bookIdList);
+        ArrayList evaluationList = new ArrayList();
+        for (int i = 0; i < bookIdList.size(); i++) {
+//            evaluationList.add(evaluationService.selectByBookId(bookIdList.get(i)));
+            List<Evaluation> evaluations = evaluationService.selectByBookId(bookIdList.get(i));
+//            evaluations += evaluations;
+            result.put("data", evaluations);
+
+        }
         result.put("code", 0);
         result.put("msg", "success");
         result.put("data", evaluationObject.getRecords());//当前页面数据
