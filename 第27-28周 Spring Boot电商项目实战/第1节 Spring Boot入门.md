@@ -251,3 +251,52 @@ public class ConfigController {
     public String gradeClass(){
         return "年级:" + schoolConfig.grade + "班级: " + schoolConfig.classNum;}}
 ```
+
+
+
+#### 完成Service和DAO的编写
+
+```
+学生信息查询案例
+```
+
+```xml
+//引入依赖
+<!--MyBatis-->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>2.1.1</version>
+</dependency>
+
+<!--Mysql-->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.22</version>
+</dependency>
+```
+
+```java
+//application.properties
+//Spring Boot连接mysql
+#端口配置
+#server.port=8080
+#给整个项目建立统一的前缀
+#server.servlet.context-path=/first
+school.grade=6
+school.classNum=9
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=1234
+spring.datasource.url=jdbc:mysql://localhost:3306/springbootlearn?useSSL=false&useUnicode=true&\
+  characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+```
+
+
+
+#### 课程总结
+
+##### 总结:Spring Boot入门
+
