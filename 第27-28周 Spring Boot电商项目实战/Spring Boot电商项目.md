@@ -56,6 +56,32 @@
 
 
 
+#### 项目演示-后台
+
+
+
+#### 项目开发所需工具准备
+
+```
+idea插件:
+Maven Helper
+Free MyBatis plugin（这个没有搜索到,通过课件安装了）
+
+接口测试工具: postman
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220918234651409.png" alt="image-20220918234651409" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220918234711444.png" alt="image-20220918234711444" style="zoom:50%;" />
+
+#### 数据表设计
+
+##### 数据库设计与项目初始化
+
+
+
+
+
 
 
 
