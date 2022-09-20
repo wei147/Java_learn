@@ -111,3 +111,69 @@ imooc_mall_order_item表(订单项目表),实际上我们一个订单下面会�
 
 
 
+#### 技术选型
+
+```
+Spring Boot2.2.1RELEASE
+Mybatis 3.4.6(优点)
+	使用MyBatis有以下优点:
+		1.封装了jdbc的大部分操作,减少了开发量而且它是半自动的不是全自动的,这使得开发人员可以很清楚灵活的去控制以及编写sql语句,这在项目庞大的时候尤其是在后续需要对性能进行优化的时候是非常重要的
+		2.另外使用Java代码可以让java代码和SQL语句分离维护成本低并且学习成本不高。如果我们之前对数据库语句比较熟悉的话就很容易上手而不需要额外再记忆很多的特殊语句语法  (Mybatis VS JPA)
+Maven 3.6.1
+log4j2 2.12.1
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920012303170.png" alt="image-20220920012303170" style="zoom:50%;" />
+
+```
+确保技术前进步伐: 选择的这个技术不应该过于老旧、不应该停止维护。如果我们选择的技术/框架已经停止维护了,没有前进步伐的话,在遇到问题的话没有人可以帮你解决
+
+技术为业务服务
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920013007142.png" alt="image-20220920013007142" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920013508399.png" alt="image-20220920013508399" style="zoom:50%;" />
+
+#### 项目初始化
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920013635868.png" alt="image-20220920013635868" style="zoom:50%;" />
+
+```xml
+1.初始化第一步改pom.xml文件,改对应的Spring Boot版本
+2.整合MyBatis generator 插件用来自动生成数据库文件
+            <!--mybatis.generator插件-->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <!--是否覆盖原有的文件-->
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+	然后是新增src/main/resources/generatorConfig.xml文件(复制过来)需要修改的地方:
+3.双击该插件就能自动生成一系列文件(有mapper接口以及对应mapper.xml文件、实体类)。在这里值得大家注意的是,我们之前的配置的Free Mybatis plugin(idea插件) 生效了,生效的标志是在mapper接口的左侧有绿色的箭头,点击之后可以跳转到对应的mapper.xml文件中
+
+至此完成了数据库逆向的工作
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920165814084.png" alt="image-20220920165814084" style="zoom:50%;" />
+
+#### 打通数据库链路
+
+```
+那下一步我们希望能通过一些方法来调用mapper接口的方法,看看是不是真的打通了数据库,那我们就来编写Controller层和Service层,,
+```
+
+
+
+#### 配置log4j2日志组件
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920221930304.png" alt="image-20220920221930304" style="zoom:50%;" />
+
+```
+
+```
+
