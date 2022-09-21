@@ -173,7 +173,120 @@ log4j2 2.12.1
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220920221930304.png" alt="image-20220920221930304" style="zoom:50%;" />
 
+```xml
+排除Logback依赖
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!--排除特定的依赖(以便排除冲突) 排除日志组件logback-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+引入log4j2依赖
+        <!--log4j2 的依赖 (要先排除自带的logback组件,可以免除版本的指定,会自动匹配Spring boot对应版本)-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+配置log4j2 放入log4j2.xml
+```
+
+
+
+#### AOP统一处理Web请求日志
+
+```
+下一步就是也就是项目初始化的最后一个环节————AOP统一处理Web请求日志
 ```
 
 ```
+为什么需要AOP统一处理Web请求日志 ?
+	有了这个aop统一处理之后,实际上是对系统健壮性的一种保证,在真实的项目中几乎都会有这样的功能,我们会用filter把每一个请求都打印出来。这样的良好习惯可以提高我们开发和调试的效率,我们将要做的目的就是创建filter并且把我们的请求的信息和返回信息给打印出来,,
+```
+
+```xml
+引入aop依赖
+        <!--要想引入aop的功能,首先要引入一个依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+有了依赖以后,需要建一个过滤器来对我们请求进行拦截和打印,新建mall/filter/WebLogAspect.java,
+```
+
+```java
+//WebLogAspect.java
+package com.imooc.mall.filter;
+import java.util.Arrays;
+
+/**
+ * 打印请求和响应信息
+ */
+@Aspect
+@Component
+public class WebLogAspect {
+
+    //定义好log类来记录日志
+    private final Logger log = LoggerFactory.getLogger(WebLogAspect.class);
+    //编写将要拦截的内容和拦截点
+
+    //该方法指定拦截点
+    @Pointcut("execution(public * com.imooc.mall.controller.*.*(..))")  //拦截controller包下面所有的
+    public void webLog() {
+
+    }
+
+    //在这个拦截点的前和后分别进行拦截
+    //在此之前的是请求信息
+
+    @Before("webLog()")
+    public void doBefore(JoinPoint joinPoint) {  //joinPoint记录的是类的信息,比如说方法信息
+        //收到请求,记录请求内容
+        //除此之外还想得到请求信息,所以这里利用RequestContextHolder
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+
+        //用log类来记录日志
+        log.info("URL : " + request.getRequestURI().toString());  //请求url
+        log.info("HTTP_METHOD : " + request.getMethod()); //方法 get/post
+        log.info("IP : " + request.getRemoteAddr());      //ip
+        log.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());  //获取到一些类的信息加上签名信息
+        //参数可能不止1个,需要用到数组,然后用toString() 将其转为字符串
+        log.info("ARGS(参数) : " + Arrays.toString(joinPoint.getArgs()));
+    }
+
+
+    //在此之后的是响应信息
+    @AfterReturning(returning = "res", pointcut = "webLog()")
+    public void doAfterReturning(Object res) throws JsonProcessingException {
+        //处理完请求,返回内容
+        //ObjectMapper()是由jackson提供的把对象转为json的工具
+        log.info("RESPONSE : " + new ObjectMapper().writeValueAsString(res));
+    }}
+```
+
+
+
+#### 用户模块-整体介绍
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220921224921071.png" alt="image-20220921224921071" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220921225745066.png" alt="image-20220921225745066" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220921230039783.png" alt="image-20220921230039783" style="zoom:50%;" />
+
+```
+https://shimo.im/docs/K3WhpQ33RcqvkdyD/read  接口文档网址
+```
+
+
+
+#### API统一返回对象
 

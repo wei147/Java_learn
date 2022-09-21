@@ -1,0 +1,60 @@
+[22:03:08:215] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 14608 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[22:03:08:222] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:03:09:995] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 8080 (http)
+[22:03:10:008] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-8080"]
+[22:03:10:010] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:03:10:011] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:03:10:160] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:03:10:161] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1816 ms
+[22:03:11:087] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:03:11:411] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-8080"]
+[22:03:11:450] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 8080 (http) with context path ''
+[22:03:11:454] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 3.788 seconds (JVM running for 9.392)
+[22:08:41:649] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:08:41:649] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:08:41:661] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 10 ms
+[22:14:38:530] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[22:15:03:688] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 23004 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[22:15:03:694] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:15:05:033] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[22:15:05:047] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[22:15:05:049] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:15:05:050] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:15:05:195] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:15:05:195] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1411 ms
+[22:15:06:075] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:15:06:424] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[22:15:06:460] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[22:15:06:466] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 3.181 seconds (JVM running for 7.885)
+[22:15:13:546] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:15:13:546] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:15:13:560] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 13 ms
+[22:17:38:625] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 22268 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[22:17:38:676] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:17:39:992] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[22:17:40:002] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[22:17:40:003] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:17:40:003] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:17:40:160] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:17:40:161] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1430 ms
+[22:17:40:998] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:17:41:305] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[22:17:41:338] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[22:17:41:345] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 3.144 seconds (JVM running for 7.796)
+[22:18:07:071] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 23384 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[22:18:07:077] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:18:08:419] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[22:18:08:430] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[22:18:08:431] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:18:08:432] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:18:08:573] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:18:08:574] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1442 ms
+[22:18:09:377] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:18:09:677] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[22:18:09:711] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[22:18:09:715] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 3.093 seconds (JVM running for 7.875)
+[22:18:10:089] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:18:10:089] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:18:10:101] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[22:18:10:196] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[22:18:10:415] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
