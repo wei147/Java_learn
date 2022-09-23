@@ -417,3 +417,147 @@ public enum ImoocMallExceptionEnum {
 
 #### 注册接口开发
 
+
+
+
+
+#### 自定义异常类
+
+```java
+package com.imooc.mall.exception;
+
+/**
+ * 统一异常
+ */
+public class ImoocMallException extends Exception {
+    private final Integer code;
+    private final String message;
+
+    //这里不写构造函数赋值的话,上边会报错,可能是和final这个关键字有关
+    public ImoocMallException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    //有更方便的办法 : 和刚才统一处理异常的思路一致,我们可以直接传入一个异常的枚举,
+    // 然后在里面调用上一个构造函数,这样一来我们就可以用一个枚举来构造出异常了
+    public ImoocMallException(ImoocMallExceptionEnum exceptionEnum) {
+        this(exceptionEnum.getCode(), exceptionEnum.getMsg());}
+
+    public Integer getCode() {return code;}
+
+    @Override
+    public String getMessage() {
+        return message;}}
+```
+
+```java
+//UserServiceImpl.java   上面的异常类应用在这里,Service层的抛出异常,比如重名异常、插入失败异常
+@Override
+public void register(String username, String password) throws ImoocMallException {
+    //查询用户名是否存在,不允许重名
+    User result = userMapper.selectByName(username);
+    if (result != null) {
+        //由于每一层的分工是非常明确的,,不应该在Service去触碰那些和最终返回相关的内
+        // 容,那些是Controller层的职责。所以我们在此用一个巧妙的方法———抛出异常的方法来解决这个问题
+        throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+    }
+    //写到数据库
+    User user = new User();
+    user.setUsername(username);
+    user.setPassword(password);
+
+    int count = userMapper.insertSelective(user);//选择性插入
+    if (count == 0) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.INSERT_FAILED);
+    }
+}
+```
+
+```json
+//密码长度异常响应信息是这样的,而用户重名异常返回的格式有些不一样,所以我们希望把它统一起来,我们应该用一个统一异常处理的办法来把这些信息异常起来(像timestamp和error)。这样不仅可以安全而且可以让返回非常统一。方案:下一节的统一异常处理
+{
+    "status": 10003,
+    "msg": "密码长度不能小于6位",
+    "data": null
+}
+
+
+{
+    "timestamp": "2022-09-22T16:16:52.818+0000",
+    "status": 500,
+    "error": "Internal Server Error",
+    "message": "不允许重名,注册失败",
+    "path": "/register"
+}
+```
+
+```
+http://localhost/register?username=  &password=123899   无法判断空格是不允许的?  这样可以通过后端的检测(不应该是这样)
+```
+
+
+
+#### GlobalExceptionHandler编写(解决异常返回的格式有些不一样,系统异常)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220923004646580.png" alt="image-20220923004646580" style="zoom:50%;" />
+
+```java
+//
+package com.imooc.mall.exception;
+/**
+ * 处理统一异常的handler
+ */
+//这个ControllerAdvice注解的作用就是拦截这些异常单的
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    //目前有两种类型的异常需要拦截: 1.系统异常  2.业务异常
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Object handleException(Exception e) {
+        log.error("Default Exception : ",e);
+        return ApiRestResponse.error(ImoocMallExceptionEnum.SYSTEM_ERROR);
+    }
+
+    @ExceptionHandler(ImoocMallException.class)
+    @ResponseBody
+    public Object handleImoocMallException(ImoocMallException e) {
+        log.error("ImoocMallException : ",e);
+        //这里传进来的是什么就正常打印出去
+        return ApiRestResponse.error(e.getCode(),e.getMessage());}}
+```
+
+```json
+//处理成功
+{
+    "status": 10004,
+    "msg": "不允许重名,注册失败",
+    "data": null
+}
+```
+
+
+
+#### Java异常体系
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220923160409911.png" alt="image-20220923160409911" style="zoom:50%;" />
+
+```java
+首先RuntimeException一旦发生一定是我们程序员的问题。
+
+Error以及RuntimeException实际上都是我们编译器无法提前预测的,我们把这种异常统称为非受检查异常,
+uncheckedExcepiton
+
+
+在Exception下面除了RuntimeException外的所有Exception,这种异常我们把它称为受检查异常,CheckedException
+
+比如FileNotFoundException(没有找到对应的文件),既然是受检查异常这就意味着我们可以在程序中提前对他们进行处理,所以某个方法会抛出这样的异常,编译器就要求我们对这种可能出现的异常情况做及时的处理,这样一来就增加了我们java程序的健壮性
+    
+java异常体系主要有两种分类:第一个是从error和Exception角度去分的。error主要是jvm发生一些不可逆转的大错误,而Exception我们有一定的挽救可能,在Exception中主要分为runtimeException和其他的所有,,
+
+非受检查异常: RuntimeException 和error共同构成
+受检查异常: 在Exception下面除了RuntimeException外的所有Exception
+```
+
