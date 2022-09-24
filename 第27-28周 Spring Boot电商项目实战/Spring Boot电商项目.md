@@ -561,3 +561,124 @@ java异常体系主要有两种分类:第一个是从error和Exception角度去�
 受检查异常: 在Exception下面除了RuntimeException外的所有Exception
 ```
 
+
+
+#### 对密码进行MD5保护
+
+```java
+//mall/util/MD5Utils.java  用于加密密码
+package com.imooc.mall.util;
+import com.imooc.mall.common.Constant;
+import org.apache.tomcat.util.codec.binary.Base64;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+/**
+ * MD5工具
+ * <p>
+ * 说明:其实MD5它是一种哈希算法,它会把一种字符串通过哈希的方式转换为另外一个难以辨认的字符串,
+ * 如果我们把哪个字符串给存下来,它是无法通过生成后的字符串去反推之前的原始字符串的。它本质是一种哈希运算,
+ * 那么由于它无法反推,所以它不具备解密的能力,这就意味着实际上它并不是一种严格意义上的加密算法,
+ * 严格意义上它是一种哈希算法,所以为了更严谨这里叫做MD5工具,
+ */
+public class MD5Utils {
+    public static String getMd5Str(String strValue) throws NoSuchAlgorithmException {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        //加上较为复杂的盐值 https://www.cmd5.com/ 这个网站也无法破解 (穷举法)
+        return Base64.encodeBase64String(md5.digest((strValue + Constant.SALT).getBytes()));}
+
+    //用这个方法测试生成的MD5的值
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        String str = getMd5Str("test");
+        System.out.println(str);}}
+```
+
+```java
+//UserServiceImpl.java
+
+//写到数据库
+User user = new User();
+user.setUsername(username);
+try {
+    //对密码进行加密
+    user.setPassword(MD5Utils.getMd5Str(password));
+} catch (NoSuchAlgorithmException e) {
+    e.printStackTrace();
+}
+//user.setPassword(password);
+```
+
+```java
+package com.imooc.mall.common;
+/**
+ * 常量值
+ * <p>
+ * 放常量值的地方
+ */
+public class Constant {
+    public static final String SALT = "yidou_8&.3@";    //用MD5的盐值}
+```
+
+```
+至此,注册接口开发完成
+```
+
+
+
+#### 登录接口开发
+
+```
+Http协议本身是无状态的协议,也就是说,也就是说它无法记录用户的访问或者登录状态,而且每次请求都是独立的没有关联,一次请求就是一次请求
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220924145338676.png" alt="image-20220924145338676" style="zoom:50%;" />
+
+```
+先在实现类(UserServiceImpl)中写好方法,接着在实体类中的方法上加上@Override,然后再利用idea的修复功能即可以实现自动生成Service类(UserService)中的方法
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220924222412699.png" alt="image-20220924222412699" style="zoom:50%;" />
+
+```java
+//UserServiceImpl.java
+    @Override
+    public User login(String username, String password) throws ImoocMallException {
+        String md5Password = null;
+        try {
+            md5Password = MD5Utils.getMd5Str(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        User user = userMapper.selectLogin(username, password);
+        if (user == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_PASSWORD);
+        }
+        return user;}
+```
+
+```java
+//UserController.java
+@PostMapping("/login")   //因为参数是在请求中的,所以需要加上@RequestParam
+@ResponseBody
+public ApiRestResponse login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+    //登录时所要用的关键任务 HttpSession session对象
+    if (StringUtils.isEmpty(username)) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
+    }
+    //2.校验 password不能为空
+    if (StringUtils.isEmpty(password)) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_PASS_WORD);
+    }
+    User user = userService.login(username, password);
+    //保存用户信息时,不保存密码(为了安全起见这里的password设置为空,不会返回给用户)
+    user.setPassword(null);
+    session.setAttribute(Constant.IMOOC_MALL_USER, user);
+    return ApiRestResponse.success(user);}
+```
+
+```
+以上用户登录接口开发完毕
+```
+

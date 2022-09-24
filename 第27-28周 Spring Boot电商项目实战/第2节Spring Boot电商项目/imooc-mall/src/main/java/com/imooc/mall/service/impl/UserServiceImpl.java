@@ -5,9 +5,11 @@ import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.dao.UserMapper;
 import com.imooc.mall.model.pojo.User;
 import com.imooc.mall.service.UserService;
+import com.imooc.mall.util.MD5Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * UserService 实现类
@@ -35,11 +37,39 @@ public class UserServiceImpl implements UserService {
         //写到数据库
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        try {
+            //对密码进行加密
+            user.setPassword(MD5Utils.getMd5Str(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        //user.setPassword(password);
 
         int count = userMapper.insertSelective(user);//选择性插入
         if (count == 0) {
             throw new ImoocMallException(ImoocMallExceptionEnum.INSERT_FAILED);
         }
+    }
+
+    @Override
+    public User login(String username, String password) throws ImoocMallException {
+        String md5Password = null;
+        try {
+            md5Password = MD5Utils.getMd5Str(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        User user = userMapper.selectLogin(username, password);
+        if (user == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_PASSWORD);
+        }
+        return user;
+    }
+
+    @Override
+    public void updateUserInformation(User user) throws ImoocMallException {
+        //更新个性签名
+        int updateCount = userMapper.updateByPrimaryKeySelective(user);
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
     }
 }
