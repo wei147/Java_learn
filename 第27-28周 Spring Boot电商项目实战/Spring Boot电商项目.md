@@ -682,3 +682,130 @@ public ApiRestResponse login(@RequestParam("username") String username, @Request
 以上用户登录接口开发完毕
 ```
 
+
+
+#### 用户模块剩余接口开发
+
+```
+小技巧: 在需要if判断的代码最后面.if 即可快速实现if判断代码模块
+```
+
+
+
+
+
+#### 总结用户模块
+
+```java
+//UserServiceImpl.java  新增更新用户签名接口、管理员登录接口
+@Override
+public void updateUserInformation(User user) throws ImoocMallException {
+    //更新个性签名
+    int updateCount = userMapper.updateByPrimaryKeySelective(user);
+    if (updateCount>1){
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+    }}
+
+@Override
+public boolean checkAdminRole(User user){
+    //1是普通用户  2是管理员
+    return user.getRole().equals(2);}
+```
+
+```java
+//UserController.java 新增更新个性签名、登出和管理员登录功能
+
+/**
+ * 更新个性签名
+ * @param session
+ * @param signature
+ * @return
+ * @throws ImoocMallException
+ */
+@PostMapping("/user/update")   //因为参数是在请求中的,所以需要加上@RequestParam
+@ResponseBody
+public ApiRestResponse updateUserInfo(HttpSession session, @RequestParam String signature) throws ImoocMallException {
+    User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+    if (currentUser == null) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
+    }
+    User user = new User();
+    //会通过id找到该用户将用户昵称进行更新
+    user.setId(currentUser.getId());
+    user.setPersonalizedSignature(signature);
+    userService.updateUserInformation(user);
+    return ApiRestResponse.success();
+}
+
+/**
+ * 登出,清除session
+ *
+ * @param session
+ * @return
+ * 只需要在Controller层清除session信息就可以, 不需要到Service
+ */
+@PostMapping("/user/logout")
+@ResponseBody
+public ApiRestResponse logout(HttpSession session) {
+    //清除Session
+    session.removeAttribute(Constant.IMOOC_MALL_USER);
+    return ApiRestResponse.success();
+}
+
+/**
+ * 管理员登录接口
+ * @param username
+ * @param password
+ * @param session
+ * @return
+ * @throws ImoocMallException
+ */
+@PostMapping("/adminLogin")   //因为参数是在请求中的,所以需要加上@RequestParam
+@ResponseBody
+public ApiRestResponse adminLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+    //登录时所要用的关键任务 HttpSession session对象
+    if (StringUtils.isEmpty(username)) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
+    }
+    //2.校验 password不能为空
+    if (StringUtils.isEmpty(password)) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_PASS_WORD);
+    }
+    User user = userService.login(username, password);
+    //验证是否是管理员
+    if (userService.checkAdminRole(user)) {
+        //是管理员,执行操作
+        //保存用户信息时,不保存密码(为了安全起见这里的password设置为空,不会返回给用户)
+        user.setPassword(null);
+        session.setAttribute(Constant.IMOOC_MALL_USER, user);
+    } else {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
+    }
+    return ApiRestResponse.success(user);}
+```
+
+
+
+#### 用户模块自测、重难点总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220925190118976.png" alt="image-20220925190118976" style="zoom:50%;" />
+
+```java
+三个重难点:
+1.统一响应对象 就是我们的ApiRestResponse,有了这个类之后,我们的每一次返回都是统一格式的非常方便,,,
+2.登录状态保持 使用session,登录的时候保持住,登出的时候会清除
+3.统一异常处理,我们在Service层抛出异常之后,如果对异常不进行处理的话,会造成安全隐患同时前端也很难辨认不同的数据格式,于是对异常进行了统一处理,返回变得整齐划一
+```
+
+
+
+#### 商品分类模块介绍
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220925191524001.png" alt="image-20220925191524001" style="zoom:50%;" />
+
+```
+天猫和京东商品分类采用的都是三级目录
+```
+
+
+

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        User user = userMapper.selectLogin(username, password);
+        User user = userMapper.selectLogin(username, md5Password);
         if (user == null) {
             throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_PASSWORD);
         }
@@ -70,6 +70,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserInformation(User user) throws ImoocMallException {
         //更新个性签名
         int updateCount = userMapper.updateByPrimaryKeySelective(user);
-        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        if (updateCount>1){
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        }
+    }
+
+    @Override
+    public boolean checkAdminRole(User user){
+        //1是普通用户  2是管理员
+        return user.getRole().equals(2);
     }
 }
