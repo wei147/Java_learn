@@ -807,5 +807,9 @@ public ApiRestResponse adminLogin(@RequestParam("username") String username, @Re
 天猫和京东商品分类采用的都是三级目录
 ```
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220926234713451.png" alt="image-20220926234713451" style="zoom:50%;" />
+
+
+
 
 
