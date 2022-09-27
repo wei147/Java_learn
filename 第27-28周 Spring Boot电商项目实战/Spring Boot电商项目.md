@@ -809,7 +809,11 @@ public ApiRestResponse adminLogin(@RequestParam("username") String username, @Re
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220926234713451.png" alt="image-20220926234713451" style="zoom:50%;" />
 
+#### 开发添加分类接口
 
+```
+//plain ordinary java object	
+```
 
 
 
