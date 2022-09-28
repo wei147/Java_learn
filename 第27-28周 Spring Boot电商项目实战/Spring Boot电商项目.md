@@ -815,5 +815,232 @@ public ApiRestResponse adminLogin(@RequestParam("username") String username, @Re
 //plain ordinary java object	
 ```
 
+```java
+@Resource
+
+@Autowired
+疑问: 这两个哪个用得多
+```
+
+```java
+//CategoryServiceImpl.java
+package com.imooc.mall.service.impl;
+
+/**
+ * 目录分类Service实现类
+ */
+@Service("categoryService")
+public class CategoryServiceImpl implements CategoryService {
+    @Resource
+    CategoryMapper categoryMapper;
+
+    @Override
+    public void add(AddCategoryReq addCategoryReq) {
+        Category category = new Category();
+//        category.setName(addCategoryReq.getName());
+        //copyProperties它就会把两个类里面如果字段类型一样,字段名一样的话,他就会拷贝过去,省得我们一个一个去写
+        //copyProperties(source,target)  第一个参数source从哪里拷贝 第一个参数target拷贝到哪里
+        BeanUtils.copyProperties(addCategoryReq, category);
+
+        //如果有重名分类名不允许再添加
+        Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
+        if (categoryOld != null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+        }
+        int count = categoryMapper.insertSelective(category);
+        if ((count == 0)) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.CREATE_FAILED);
+        }}}
+```
+
+```java
+//CategoryController
+package com.imooc.mall.controller;
+
+/**
+ * 目录Controller
+ */
+@Controller
+public class CategoryController {
+    @Resource
+    UserService userService;
+    @Resource
+    CategoryService categoryService;
+
+    @PostMapping("admin/category/add")
+    @ResponseBody
+    //加了@RequestBody之后,我们的Spring就可以从我们的body中,去把这个AddCategoryReq类给对应起来
+    public ApiRestResponse addCategory(HttpSession session,@RequestBody AddCategoryReq addCategoryReq) {
+        //1.要先做登录验证, 2.而且是管理员才能进行操作
+        if (addCategoryReq.getName() == null || addCategoryReq.getType() == null ||
+                addCategoryReq.getParentId() == null || addCategoryReq.getOrderNum() == null) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.PARA_NOT_NULL);
+        }
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        //校验是否已经登录
+        if (currentUser == null) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
+        }
+        //校验是否是管理员
+        boolean adminRole = userService.checkAdminRole(currentUser);
+        if (adminRole) {
+            //是管理员,执行操作
+            categoryService.add(addCategoryReq);
+            return ApiRestResponse.success();
+        } else {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
+        }}}
+```
+
+```java
+/**
+ * 统一异常
+ */
+//public class ImoocMallException extends Exception {
+// 这里改成RuntimeException就不用在后续方法中抛出异常或者try catch了.(对于RuntimeException这样的Exception是可以不做额外处理的)
+public class ImoocMallException extends RuntimeException {
+    private final Integer code;
+    private final String message;
+```
+
+```java
+//之前的继承 Exception
+public void add(AddCategoryReq addCategoryReq) throws ImoocMallException{
+    ....
+    Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
+    if (categoryOld !=null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED );
+    }
+    
+    
+//改为继承RuntimeException后
+public void add(AddCategoryReq addCategoryReq){
+    ....
+Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
+    if (categoryOld !=null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED );
+    }
+```
 
 
+
+#### @Valid注解优雅校验入参
+
+```java
+//关于怎么去优化这个判断 (参数校验的工作)    
+if (addCategoryReq.getName() == null || addCategoryReq.getType() == null ||
+                addCategoryReq.getParentId() == null || addCategoryReq.getOrderNum() == null) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.PARA_NOT_NULL);
+        }
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20220928131603928.png" alt="image-20220928131603928" style="zoom:50%;" />
+
+```
+第一条相当于是一个总开关,而当开关开启之后,二三四可以分别的起作用,
+```
+
+```
+idea小技巧:输入ltil 可以快速生成 for循环
+```
+
+```java
+//CategoryController.java    
+@PostMapping("admin/category/add")
+    @ResponseBody
+    //加了@RequestBody之后,我们的Spring就可以从我们的body中,去把这个AddCategoryReq类给对应起来
+    public ApiRestResponse addCategory(HttpSession session,@Valid @RequestBody AddCategoryReq addCategoryReq) {
+        //1.要先做登录验证, 2.而且是管理员才能进行操作
+        //下面的if判断校验交给@Valid来实现了,在AddCategoryReq中有参数校验
+//        if (addCategoryReq.getName() == null || addCategoryReq.getType() == null ||
+//                addCategoryReq.getParentId() == null || addCategoryReq.getOrderNum() == null) {
+//            return ApiRestResponse.error(ImoocMallExceptionEnum.PARA_NOT_NULL);
+//        }
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+```
+
+```java
+//mall/exception/GlobalExceptionHandler.java    //把异常处理为对外暴露的提示
+
+//处理方法的参数不合规的异常(情况)
+    @ExceptionHandler(MethodArgumentNotValidException.class)    //异常的类型
+    @ResponseBody
+    public ApiRestResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException : ", e);
+        return handleBindingResult(e.getBindingResult());
+    }
+
+    //在绑定出问题的时候,我们来把这个异常处理成一个返回的ApiRestResponse,,,
+    private ApiRestResponse handleBindingResult(BindingResult result) {
+        //把异常处理为对外暴露的提示
+        List<String> list = new ArrayList<>();
+        if (result.hasErrors()) {   //是否包含错误
+            List<ObjectError> allErrors = result.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                String message = objectError.getDefaultMessage();   //getDefaultMessage 拿到错误信息
+                list.add(message);
+            }
+            if (list.size() == 0) {
+                return ApiRestResponse.error(ImoocMallExceptionEnum.REQUEST_PARAM_ERROR);
+            }}
+        return ApiRestResponse.error(ImoocMallExceptionEnum.REQUEST_PARAM_ERROR.getCode(), list.toString());}
+```
+
+```java
+//这个独立的类用的注解形式做参数校验,一旦有校验不通过(异常)会通过全局异常处理GlobalExceptionHandler中的ApiRestResponse统一返回校验不通过的响应,可以清晰明了的知道添加分类信息哪里有问题
+//imooc.mall.model.request;
+/**
+ * 添加目录的一个请求类
+ */
+public class AddCategoryReq {
+
+    //分类名字符不能大于5个小于2个且不能为空
+    @Size(min = 2,max = 5)
+    @NotNull(message = "name不能为null")
+    private String name;
+
+    //分类名层级数最大为3
+    @NotNull(message = "type不能为null")
+    @Max(3)
+    private Integer type;
+
+    @NotNull(message = "parentId不能为null")
+    private Integer parentId;
+
+    @NotNull(message = "orderNum不能为null")
+    private Integer orderNum;
+    ....
+```
+
+
+
+#### Swagger自动生成API文档
+
+```xml
+<!--swagger 依赖 (swagger用于自动生成API文档的)-->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>3.0.0</version>
+</dependency>
+
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+```java
+//开启Swagger
+package com.imooc.mall;
+
+@SpringBootApplication
+//需要在这里也加上注解才能找到mapper文件
+@MapperScan(basePackages = "com.imooc.mall.model.dao")
+@EnableSwagger2
+public class ImoocMallApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ImoocMallApplication.class, args);}}
+```

@@ -57,6 +57,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+        <!--swagger 依赖 (swagger用于自动生成API文档的)-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -77,6 +90,16 @@
                     <overwrite>true</overwrite>
                 </configuration>
             </plugin>
+
+
+            <!--2022年9月28日13:06:23 运行时报错。所以添加 该plugin  Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.2:test-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <skipTests>true</skipTests>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
 
         </plugins>
     </build>

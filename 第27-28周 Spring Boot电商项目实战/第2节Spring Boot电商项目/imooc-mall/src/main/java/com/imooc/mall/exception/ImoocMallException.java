@@ -3,7 +3,9 @@ package com.imooc.mall.exception;
 /**
  * 统一异常
  */
-public class ImoocMallException extends Exception {
+//public class ImoocMallException extends Exception {
+// 这里改成RuntimeException就不用在后续方法中抛出异常或者try catch了.(对于RuntimeException这样的Exception是可以不做额外处理的)
+public class ImoocMallException extends RuntimeException {
     private final Integer code;
     private final String message;
 
