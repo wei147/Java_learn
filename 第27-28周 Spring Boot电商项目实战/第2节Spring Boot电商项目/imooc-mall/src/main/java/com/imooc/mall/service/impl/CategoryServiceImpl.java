@@ -1,10 +1,12 @@
 package com.imooc.mall.service.impl;
 
+import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.dao.CategoryMapper;
 import com.imooc.mall.model.pojo.Category;
 import com.imooc.mall.model.request.AddCategoryReq;
+import com.imooc.mall.model.request.UpdateCategoryReq;
 import com.imooc.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,32 @@ public class CategoryServiceImpl implements CategoryService {
         int count = categoryMapper.insertSelective(category);
         if ((count == 0)) {
             throw new ImoocMallException(ImoocMallExceptionEnum.CREATE_FAILED);
+        }
+    }
+
+//我写的没有考虑到重名的问题
+//    @Override
+//    public void update(UpdateCategoryReq updateCategoryReq) {
+//        Category category = categoryMapper.selectByPrimaryKey(updateCategoryReq.getId());
+//        BeanUtils.copyProperties(updateCategoryReq, category);
+//        int count = categoryMapper.updateByPrimaryKeySelective(category);
+//        if ((count == 0)) {
+//            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+//        }
+//    }
+
+    @Override
+    public void update(Category updateCategory) {
+        if (updateCategory.getName() != null) {
+            Category categoryOld = categoryMapper.selectByName(updateCategory.getName());
+            //如果传进来的id和数据库里的id不一样的话而且你们名字还是一样的话,此时便拒绝掉 (这里便是避免了重名操作,比如id为31的小黄鱼去改id=8的鱼类是不允许的)
+            if (categoryOld != null && !categoryOld.getId().equals(updateCategory.getId())) {
+                throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+            }
+        }
+        int count = categoryMapper.updateByPrimaryKeySelective(updateCategory);
+        if ((count == 0)) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
         }
     }
 }

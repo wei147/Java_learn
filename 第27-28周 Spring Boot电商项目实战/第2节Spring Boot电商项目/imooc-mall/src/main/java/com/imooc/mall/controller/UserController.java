@@ -6,6 +6,7 @@ import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.pojo.User;
 import com.imooc.mall.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class UserController {
      * @return
      * @throws ImoocMallException
      */
+    @ApiOperation("注册")
     @PostMapping("/register")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
     public ApiRestResponse register(@RequestParam("username") String username, @RequestParam("password") String password) throws ImoocMallException {
@@ -59,6 +61,7 @@ public class UserController {
      * @return
      * @throws ImoocMallException
      */
+    @ApiOperation("登录")
     @PostMapping("/login")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
     public ApiRestResponse login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
@@ -84,6 +87,7 @@ public class UserController {
      * @return
      * @throws ImoocMallException
      */
+    @ApiOperation("更新个性签名")
     @PostMapping("/user/update")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
     public ApiRestResponse updateUserInfo(HttpSession session, @RequestParam String signature) throws ImoocMallException {
@@ -106,6 +110,7 @@ public class UserController {
      * @return
      * 只需要在Controller层清除session信息就可以, 不需要到Service
      */
+    @ApiOperation("用户登出")
     @PostMapping("/user/logout")
     @ResponseBody
     public ApiRestResponse logout(HttpSession session) {
@@ -122,6 +127,7 @@ public class UserController {
      * @return
      * @throws ImoocMallException
      */
+    @ApiOperation("管理员登录接口")
     @PostMapping("/adminLogin")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
     public ApiRestResponse adminLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {

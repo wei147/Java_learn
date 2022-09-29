@@ -60,5 +60,4 @@ public class WebLogAspect {
         //ObjectMapper()是由jackson提供的把对象转为json的工具
         log.info("RESPONSE : " + new ObjectMapper().writeValueAsString(res));
     }
-
 }

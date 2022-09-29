@@ -1,5 +1,6 @@
 package com.imooc.mall.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -16,8 +17,11 @@ public class SpringFoxConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+//        return new Docket(DocumentationType.OAS_30)// // 注意此处改动，需要将SWAGGER_2改成OAS_30
                 .apiInfo(apiInfo())
                 .select()
+                // 扫描所有有注解的api，用这种方式更灵活
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();

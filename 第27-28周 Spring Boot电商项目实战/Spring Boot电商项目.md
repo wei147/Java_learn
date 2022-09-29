@@ -1032,7 +1032,7 @@ public class AddCategoryReq {
 ```
 
 ```java
-//开启Swagger
+//开启Swagger注解
 package com.imooc.mall;
 
 @SpringBootApplication
@@ -1043,4 +1043,281 @@ public class ImoocMallApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ImoocMallApplication.class, args);}}
+```
+
+```java
+//一些配置 1
+package com.imooc.mall.config;
+
+@Configuration
+public class SpringFoxConfig {
+
+    //访问http://localhost:8083/swagger-ui.html可以看到API文档
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("慕慕生鲜")
+                .description("")
+                .termsOfServiceUrl("")
+                .build();}}
+```
+
+```java
+//一些配置 2
+package com.imooc.mall.config;
+/**
+ * 配置地址映射
+ */
+@Configuration
+public class ImoocMallWebMvcConfig implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+//                "classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**").addResourceLocations(
+//                "classpath:/META-INF/resources/webjars/");
+        
+        registry.addResourceHandler("/**").addResourceLocations(
+                "classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
+        WebMvcConfigurer.super.addResourceHandlers(registry);}}
+```
+
+```java
+//用 @ApiOperation 开启文字说明     @ApiOperation("后台添加分类目录")
+package com.imooc.mall.controller;
+
+/**
+ * 目录Controller
+ */
+@Controller
+public class CategoryController {
+...
+    @ApiOperation("后台添加分类目录")
+    @PostMapping("admin/category/add")
+    @ResponseBody
+    //加了@RequestBody之后,我们的Spring就可以从我们的body中,去把这个AddCategoryReq类给对应起来
+    public ApiRestResponse addCategory(HttpSession session,@Valid @RequestBody AddCategoryReq addCategoryReq) {
+       ..
+```
+
+```
+访问 http://localhost/swagger-ui.html 即可看到自动生成的api文档
+```
+
+
+
+#### 更新目录接口开发
+
+```java
+//UpdateCategoryReq.java
+package com.imooc.mall.model.request;
+/**
+ * 更新分类目录的一个请求类
+ */
+public class UpdateCategoryReq {
+    @NotNull
+    private Integer id; //更新分类目录必须要传入id,其他的可以为空
+    //分类名字符不能大于5个小于2个
+    @Size(min = 2,max = 5)
+    private String name;
+
+    //分类名层级数最大为3
+    @Max(3)
+    private Integer type;
+    private Integer parentId;
+    private Integer orderNum;
+    ....get and set
+```
+
+```java
+//CategoryServiceImpl.java  更新分类目录
+
+//我写的没有考虑到重名的问题
+//    @Override
+//    public void update(UpdateCategoryReq updateCategoryReq) {
+//        Category category = categoryMapper.selectByPrimaryKey(updateCategoryReq.getId());
+//        BeanUtils.copyProperties(updateCategoryReq, category);
+//        int count = categoryMapper.updateByPrimaryKeySelective(category);
+//        if ((count == 0)) {
+//            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+//        }
+//    }
+
+
+@Override
+public void update(Category updateCategory) {
+    if (updateCategory.getName() != null) {
+        Category categoryOld = categoryMapper.selectByName(updateCategory.getName());
+        //如果传进来的id和数据库里的id不一样的话而且你们名字还是一样的话,此时便拒绝掉 (这里便是避免了重名操作,比如id为31的小黄鱼去改id=8的鱼类是不允许的)
+        if (categoryOld != null && !categoryOld.getId().equals(updateCategory.getId())) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+        }
+    }
+    int count = categoryMapper.updateByPrimaryKeySelective(updateCategory);
+    if ((count == 0)) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+    }}
+```
+
+```java
+//CategoryController.java  
+@ApiOperation("后台更新分类目录")
+@PostMapping("admin/category/update")
+@ResponseBody
+public ApiRestResponse updateCategory(HttpSession session, @Valid @RequestBody UpdateCategoryReq updateCategoryReq) {
+    User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+    //校验是否已经登录
+    if (currentUser == null) {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
+    }
+    //校验是否是管理员
+    boolean adminRole = userService.checkAdminRole(currentUser);
+    if (adminRole) {
+        //是管理员,执行操作
+        Category category = new Category();
+        BeanUtils.copyProperties(updateCategoryReq, category);
+        categoryService.update(category);
+        return ApiRestResponse.success();
+    } else {
+        return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);}}
+```
+
+
+
+#### 统一校验管理员身份
+
+```java
+package com.imooc.mall.filter;
+
+import com.imooc.mall.common.ApiRestResponse;
+import com.imooc.mall.common.Constant;
+import com.imooc.mall.exception.ImoocMallExceptionEnum;
+import com.imooc.mall.model.pojo.User;
+import com.imooc.mall.service.CategoryService;
+import com.imooc.mall.service.UserService;
+
+import javax.annotation.Resource;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ * 管理员校验过滤器 (统一校验管理员身份)
+ */
+public class AdminFilter implements Filter {
+
+    @Resource
+    UserService userService;
+
+    @Resource
+    CategoryService categoryService;
+
+    @Override
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        //校验是否已经登录
+        if (currentUser == null) {
+//            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN); 方法是void,不允许return
+            PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
+            out.write("{\n" +
+                    "    \"status\": 10007,\n" +
+                    "    \"msg\": \"NEED_LOGIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+            out.flush();
+            out.close();
+            return;
+        }
+        //校验是否是管理员
+        boolean adminRole = userService.checkAdminRole(currentUser);
+        if (adminRole) {
+            //这就代表我们会继续到下一个过滤器,相当于是校验通过
+            filterChain.doFilter(servletRequest, servletResponse);
+            //是管理员,执行操作
+//            categoryService.add(addCategoryReq);
+//            return ApiRestResponse.success();
+        } else {
+            PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
+            out.write("{\n" +
+                    "    \"status\": 10009,\n" +
+                    "    \"msg\": \"NEED_ADMIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+            out.flush();
+            out.close();
+        }
+    }
+
+    @Override
+    public void destroy() {
+        Filter.super.destroy();
+    }
+}
+```
+
+```
+有了filter之后,我们还需要把它配置上去,就有了AdminFilterConfig
+```
+
+
+
+```java
+package com.imooc.mall.config;
+
+import com.imooc.mall.filter.AdminFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.FilterRegistration;
+
+/**
+ * Admin 过滤器的配置 (com/imooc/mall/filter/AdminFilter.java)
+ */
+@Configuration
+public class AdminFilterConfig {
+    //想要配置一个Filter有两步:  1.把这个Filter给定义出来  2.是我们的这个Filter放到我们整个的过滤器的链路中去
+    @Bean   //要加一个@Bean才能识别到
+    public AdminFilter adminFilter() {
+        return new AdminFilter();
+    }
+
+    @Bean(name = "adminFilterConf") //bean的名字不能设置成和类名一样否则就冲突了
+    public FilterRegistrationBean adminFilterConfig() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(adminFilter());
+        //设置需要拦截的、需要管理员权限的url
+        filterRegistrationBean.addUrlPatterns("/admin/category/*");
+        filterRegistrationBean.addUrlPatterns("/admin/product/*");
+        filterRegistrationBean.addUrlPatterns("/admin/order/*");
+        //给过滤器配置设置一个名字,以便于区分不同的配置
+        filterRegistrationBean.setName("adminFilterConfig");
+        return filterRegistrationBean;
+    }
+}
 ```
