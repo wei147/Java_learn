@@ -118,11 +118,17 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectByName" resultType="com.imooc.mall.model.pojo.Category" parameterType="java.lang.String">
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from imooc_mall_category
         where name= #{name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from imooc_mall_category
     </select>
 
 </mapper>

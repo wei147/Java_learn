@@ -1269,15 +1269,11 @@ public class AdminFilter implements Filter {
                     "    \"data\": null\n" +
                     "}");
             out.flush();
-            out.close();
-        }
-    }
+            out.close();}}
 
     @Override
     public void destroy() {
-        Filter.super.destroy();
-    }
-}
+        Filter.super.destroy();}}
 ```
 
 ```
@@ -1317,7 +1313,112 @@ public class AdminFilterConfig {
         filterRegistrationBean.addUrlPatterns("/admin/order/*");
         //给过滤器配置设置一个名字,以便于区分不同的配置
         filterRegistrationBean.setName("adminFilterConfig");
-        return filterRegistrationBean;
-    }
-}
+        return filterRegistrationBean;}}
 ```
+
+```
+2022年9月30日02:24:54 实现了对于管理员权限的校验还包括登录权限的校验。(把统一的校验都抽到外面进行校验)
+```
+
+
+
+#### 删除目录接口、分页功能开发
+
+```java
+com/imooc/mall/model/vo/CategoryVO.java
+
+vo是什么意思? 在vo下面,它所存储的是我们经过一定的转换之后所最终返回给前端的这样一个类,,,,
+```
+
+```xml
+1.引入分页功能依赖
+        <!--pom.xml分页功能依赖-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.13</version>
+        </dependency>
+
+   <!--com.imooc.mall.model.dao.CategoryMapper中的sql语句 -->
+<select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from imooc_mall_category
+</select>
+```
+
+```java
+//2.实现类 CategoryServiceImpl.java  这里的分页功能实现起来好像也挺简单的
+@Override
+public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+    //实现分页功能
+    //排序规则: 首先按照type作为第一优先级排序,然后同样的type下再按照order_num进行排序
+    PageHelper.startPage(pageNum, pageSize, "type,order_num");
+    List<Category> categoryList = categoryMapper.selectList();
+    PageInfo pageInfo = new PageInfo(categoryList);
+    return pageInfo;}
+```
+
+```java
+//3.CategoryController.java 
+@ApiOperation("后台分类目录列表")
+@PostMapping("admin/category/list")
+@ResponseBody
+public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    //分页有这么几个好处:  1.减少系统的消耗,提高性能,提高速度(实际上我们没必要把那么多少数据都查出来一次性返回给用户,用户也不一定会看)
+    //2.符合用户习惯(用户一般看的是前30条)
+    //3.对于前端来讲,需要有大小的一个限制。要不然你那么多数据,前端页面也不好设计
+    PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
+    return ApiRestResponse.success(pageInfo);}
+```
+
+```json
+//最终样式 (已解决字段值为null的问题  resultMap="BaseResultMap")
+{
+    "status": 10000,
+    "msg": "SUCCESS",
+    "data": {
+        "total": 21,
+        "list": [
+            {
+                "id": 3,
+                "name": "新鲜水果",
+                "type": 1,
+                "parentId": null,
+                "orderNum": null,
+                "createTime": null,
+                "updateTime": null
+            },
+            {
+                "id": 5,
+                "name": "海鲜水产",
+                "type": 1,
+                "parentId": null,
+                "orderNum": null,
+                "createTime": null,
+                "updateTime": null
+            },
+        ],
+        "pageNum": 1,
+        "pageSize": 10,
+        "size": 10,
+        "startRow": 1,
+        "endRow": 10,
+        "pages": 3,
+        "prePage": 0,
+        "nextPage": 2,
+        "isFirstPage": true,
+        "isLastPage": false,
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "navigatePages": 8,
+        "navigatepageNums": [
+            1,
+            2,
+            3
+        ],
+        "navigateFirstPage": 1,
+        "navigateLastPage": 3
+    }}
+```
+

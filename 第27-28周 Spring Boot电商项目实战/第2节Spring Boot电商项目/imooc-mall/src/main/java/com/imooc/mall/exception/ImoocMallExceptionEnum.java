@@ -17,6 +17,7 @@ public enum ImoocMallExceptionEnum {
     PARA_NOT_NULL(100010, "名字不能为空"),
     CREATE_FAILED(100011, "新增失败"),
     REQUEST_PARAM_ERROR(100012, "参数错误"),
+    DELETE_FAILED(100013, "删除失败"),
 
     //系统异常
     SYSTEM_ERROR(20000, "系统异常");

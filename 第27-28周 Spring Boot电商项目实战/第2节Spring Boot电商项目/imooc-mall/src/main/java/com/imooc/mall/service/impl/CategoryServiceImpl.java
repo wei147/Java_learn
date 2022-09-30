@@ -1,5 +1,7 @@
 package com.imooc.mall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
@@ -7,11 +9,14 @@ import com.imooc.mall.model.dao.CategoryMapper;
 import com.imooc.mall.model.pojo.Category;
 import com.imooc.mall.model.request.AddCategoryReq;
 import com.imooc.mall.model.request.UpdateCategoryReq;
+import com.imooc.mall.model.vo.CategoryVO;
 import com.imooc.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 目录分类Service实现类
@@ -31,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         //如果有重名分类名不允许再添加
         Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
+        System.out.println("categoryOld:  "+categoryOld.toString());
         if (categoryOld != null) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
         }
@@ -64,5 +70,27 @@ public class CategoryServiceImpl implements CategoryService {
         if ((count == 0)) {
             throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
         }
+    }
+
+    public void delete(Integer id) {
+        Category categoryOld = categoryMapper.selectByPrimaryKey(id);
+        //查不到记录,无法删除,删除失败
+        if (categoryOld == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+        }
+        int count = categoryMapper.deleteByPrimaryKey(id);
+        if ((count == 0)) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+        }
+    }
+
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        //实现分页功能
+        //排序规则: 首先按照type作为第一优先级排序,然后同样的type下再按照order_num进行排序
+        PageHelper.startPage(pageNum, pageSize, "type,order_num");
+        List<Category> categoryList = categoryMapper.selectList();
+        PageInfo pageInfo = new PageInfo(categoryList);
+        return pageInfo;
     }
 }

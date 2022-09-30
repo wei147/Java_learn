@@ -1,5 +1,6 @@
 package com.imooc.mall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -86,5 +88,24 @@ public class CategoryController {
         } else {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
         }
+    }
+
+    @ApiOperation("后台删除分类目录")
+    @PostMapping("admin/category/delete")
+    @ResponseBody
+    public ApiRestResponse deleteCategory(@RequestParam Integer id) {
+        categoryService.delete(id);
+        return ApiRestResponse.success();
+    }
+
+    @ApiOperation("后台分类目录列表")
+    @PostMapping("admin/category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        //分页有这么几个好处:  1.减少系统的消耗,提高性能,提高速度(实际上我们没必要把那么多少数据都查出来一次性返回给用户,用户也不一定会看)
+        //2.符合用户习惯(用户一般看的是前30条)
+        //3.对于前端来讲,需要有大小的一个限制。要不然你那么多数据,前端页面也不好设计
+        PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
     }
 }
