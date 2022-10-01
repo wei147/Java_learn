@@ -1422,3 +1422,187 @@ public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @Requ
     }}
 ```
 
+#### 用户分类列表接口开发
+
+```
+这里感觉是相对难了一些些 (递归获取所有子类别)
+```
+
+```java
+package com.imooc.mall.model.vo;
+
+//vo是什么意思? 在vo下面,它所存储的是我们经过一定的转换之后所最终返回给前端的这样一个类
+//这个类相比pojo中的Category类只多了一个childCategory
+public class CategoryVO {
+    private Integer id;
+    private String name;
+    private Integer type;
+    private Integer parentId;
+    private Integer orderNum;
+    private Date createTime;
+    private Date updateTime;
+    private List<CategoryVO> childCategory = new ArrayList<>();
+```
+
+
+
+```xml
+//对应的sql语句 CategoryMapper.xml
+<select id="selectCategoriesByParentId" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from imooc_mall_category
+    where parent_id= #{parentId}
+</select>
+```
+
+```java
+//CategoryServiceImpl.java
+
+@Override
+public List<CategoryVO> listCategoryForCustomer() {
+    ArrayList<CategoryVO> categoryVOList = new ArrayList<>();
+    //怎么往里面添加数据?
+    //对于一级目录而言,他的父id为0,
+    recursivelyFindCategories(categoryVOList, 0);
+    return categoryVOList;
+}
+
+//往往在这个方法中需要做一些额外数据处理的话,新写一个方法会比较合适,让每个方法有自己独自的职能,叫做单一原则
+//recursivelyFindCategories 递归的去查找目录
+private void recursivelyFindCategories(List<CategoryVO> categoryVOList, Integer parentId) {
+    //ArrayList<CategoryVO> categoryVOList 传入这个参数的目的是为了往里面添加数据。第二个参数parentId就是我们父目录的类别
+    //递归获取所有子类别,并组合成为一个"目录树"
+    List<Category> categoryList = categoryMapper.selectCategoriesByParentId(parentId);
+    //对集合进行空判断用这种方法不是特别好(categoryList==null),也许它被初始化但里面没有内容,所以可以用一个更好的方法 如下
+    if (!CollectionUtils.isEmpty(categoryList)) {
+        for (int i = 0; i < categoryList.size(); i++) {
+            Category category =  categoryList.get(i);
+            CategoryVO categoryVO = new CategoryVO();
+            BeanUtils.copyProperties(category,categoryVO);
+            categoryVOList.add(categoryVO);
+            //设置childCategory的值
+            recursivelyFindCategories(categoryVO.getChildCategory(),categoryVO.getId());
+        }}}
+```
+
+```java
+//CategoryController.java
+@ApiOperation("前台分类目录列表")
+@PostMapping("category/list")
+@ResponseBody
+public ApiRestResponse listCategoryForCustomer() {
+    //对于前台用户而言,不需要传入页码或者pageSize,因为这是我们直接返回给他的,由我们来决定
+    List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer();
+    return ApiRestResponse.success(categoryVOList);}
+```
+
+```json
+//最后得到的结果
+{
+    "status": 10000,
+    "msg": "SUCCESS",
+    "data": [
+        {
+            "id": 3,
+            "name": "新鲜水果",
+            "type": 1,
+            "parentId": 0,
+            "orderNum": 1,
+            "createTime": "2019-12-17T17:17:00.000+0000",
+            "updateTime": "2019-12-28T09:11:26.000+0000",
+            "childCategory": [
+                {
+                    "id": 4,
+                    "name": "橘子橙子",
+                    "type": 2,
+                    "parentId": 3,
+                    "orderNum": 1,
+                    "createTime": "2019-12-17T17:17:00.000+0000",
+                    "updateTime": "2019-12-28T08:25:10.000+0000",
+                    "childCategory": [
+                        {
+                            "id": 19,
+                            "name": "果冻橙",
+                            "type": 3,
+                            "parentId": 4,
+                            "orderNum": 1,
+                            "createTime": "2019-12-17T17:17:00.000+0000",
+                            "updateTime": "2020-02-10T16:37:02.000+0000",
+                            "childCategory": []}]},}
+```
+
+#### 利用Redis缓存加速响应
+
+```java
+1.pom.xml引入两个依赖
+2.在配置文件中配置 (application.properties)
+    spring.redis.host=localhost
+    spring.redis.port=6379
+    spring.redis.password=
+3.注解的形式启用
+    @EnableCaching //使用Spring提供的cache功能(redis缓存)
+4.给希望缓存的方法加一个注解
+    //CategoryServiceImpl下的listCategoryForCustomer方法
+    @Cacheable(value = "listCategoryForCustomer") //value即它在存储中的key值
+    
+还需要对redis进行配置(主要是对redis超时时间的配置)
+    1.新建redis配置类 com/imooc/mall/config/CachingConfig.java
+package com.imooc.mall.config;
+/**
+ * 缓存的配置类
+ */
+@Configuration
+@EnableCaching
+public class CachingConfig {
+    //当返回RedisCacheManager之后,spring就会知道你对它进行了这样的配置,它会找到对应的bean进行注入
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter
+                .lockingRedisCacheWriter(connectionFactory);
+        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+        cacheConfiguration = cacheConfiguration.entryTtl(Duration.ofSeconds(30)); //这里设置的超时时间是30秒
+        RedisCacheManager redisCacheManager = new RedisCacheManager(redisCacheWriter,
+                cacheConfiguration);
+        return redisCacheManager;}}
+
+以上,完成了redis的配置
+    
+---------------------------
+    测试:会报错,提示 没办法序列化。因为我们需要把它保存在缓存中的话,必须需要把这个类实现一个接口,这样它才能被我们保存,,
+```
+
+```java
+//window环境  cmd测试redis
+C:\Users\w1216>redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379>
+```
+
+```xml
+<!--redis-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+<!--和redis配套的,是用于和Spring做缓存的-->
+<!--当引入这两个以后,就可以利用Spring给我们提供的缓存框架来快速的完成利用redis做缓存目标-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
+```
+
+```java
+package com.imooc.mall;
+@SpringBootApplication
+//需要在这里也加上注解才能找到mapper文件
+@MapperScan(basePackages = "com.imooc.mall.model.dao")
+@EnableSwagger2 //(自动生成Api文档)
+@EnableCaching //使用Spring提供的cache功能(redis缓存)
+public class ImoocMallApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ImoocMallApplication.class, args);}}
+```

@@ -12,10 +12,15 @@ import com.imooc.mall.model.request.UpdateCategoryReq;
 import com.imooc.mall.model.vo.CategoryVO;
 import com.imooc.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         //如果有重名分类名不允许再添加
         Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
-        System.out.println("categoryOld:  "+categoryOld.toString());
+        System.out.println("categoryOld:  " + categoryOld.toString());
         if (categoryOld != null) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
         }
@@ -92,5 +97,34 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = categoryMapper.selectList();
         PageInfo pageInfo = new PageInfo(categoryList);
         return pageInfo;
+    }
+
+    @Override
+    @Cacheable(value = "listCategoryForCustomer") //value即它在存储中的key值
+    public List<CategoryVO> listCategoryForCustomer() {
+        ArrayList<CategoryVO> categoryVOList = new ArrayList<>();
+        //怎么往里面添加数据?
+        //对于一级目录而言,他的父id为0,
+        recursivelyFindCategories(categoryVOList, 0);
+        return categoryVOList;
+    }
+
+    //往往在这个方法中需要做一些额外数据处理的话,新写一个方法会比较合适,让每个方法有自己独自的职能,叫做单一原则
+    //recursivelyFindCategories 递归的去查找目录
+    private void recursivelyFindCategories(List<CategoryVO> categoryVOList, Integer parentId) {
+        //ArrayList<CategoryVO> categoryVOList 传入这个参数的目的是为了往里面添加数据。第二个参数parentId就是我们父目录的类别
+        //递归获取所有子类别,并组合成为一个"目录树"
+        List<Category> categoryList = categoryMapper.selectCategoriesByParentId(parentId);
+        //对集合进行空判断用这种方法不是特别好(categoryList==null),也许它被初始化但里面没有内容,所以可以用一个更好的方法 如下
+        if (!CollectionUtils.isEmpty(categoryList)) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                Category category = categoryList.get(i);
+                CategoryVO categoryVO = new CategoryVO();
+                BeanUtils.copyProperties(category, categoryVO);
+                categoryVOList.add(categoryVO);
+                //设置childCategory的值
+                recursivelyFindCategories(categoryVO.getChildCategory(), categoryVO.getId());
+            }
+        }
     }
 }

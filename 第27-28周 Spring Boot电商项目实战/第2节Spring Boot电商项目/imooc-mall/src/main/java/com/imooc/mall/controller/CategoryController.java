@@ -8,6 +8,7 @@ import com.imooc.mall.model.pojo.Category;
 import com.imooc.mall.model.pojo.User;
 import com.imooc.mall.model.request.AddCategoryReq;
 import com.imooc.mall.model.request.UpdateCategoryReq;
+import com.imooc.mall.model.vo.CategoryVO;
 import com.imooc.mall.service.CategoryService;
 import com.imooc.mall.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 目录Controller
@@ -107,5 +109,14 @@ public class CategoryController {
         //3.对于前端来讲,需要有大小的一个限制。要不然你那么多数据,前端页面也不好设计
         PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
+    }
+
+    @ApiOperation("前台分类目录列表")
+    @PostMapping("category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForCustomer() {
+        //对于前台用户而言,不需要传入页码或者pageSize,因为这是我们直接返回给他的,由我们来决定
+        List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer();
+        return ApiRestResponse.success(categoryVOList);
     }
 }
