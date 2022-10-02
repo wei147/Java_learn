@@ -1569,8 +1569,22 @@ public class CachingConfig {
 以上,完成了redis的配置
     
 ---------------------------
-    测试:会报错,提示 没办法序列化。因为我们需要把它保存在缓存中的话,必须需要把这个类实现一个接口,这样它才能被我们保存,,
+    测试:会报错,提示 没办法序列化(NotSerializableException)。因为我们需要把它保存在缓存中的话,必须需要把这个类实现一个Serializable接口,这样它才能被我们保存
+        public class CategoryVO implements Serializable {   //implements Serializable 为这个类开启缓存
+    第一次响应的时间会比较长,接着发第二次请求,响应会非常快
+    //有没有一些更直观的方法可以让我们确信这个缓存生效? 有两种办法: 
+        1.打断点(如下图。只有第一次访问会经过断点,第二三次往后都不会经过该断点[过期时间之前,30秒]) 。因为直接从缓存中读取了
+        2.用命令行的形式  (keys * 的含义是把所有当前存在的key都给列出来)
+        
+        结语: 通过这个方法,我们以后可以把常用接口或者是访问量大的接口通过Spring Boot整合redis并且整合cache这样的一个做法来实现对于想要的内容的缓存,可以大大提高我们运行的速度
+       
 ```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002000756845.png" alt="image-20221002000756845" style="zoom:50%;" />
+
+
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002001930943.png" alt="image-20221002001930943" style="zoom:50%;" />
 
 ```java
 //window环境  cmd测试redis
@@ -1606,3 +1620,42 @@ public class ImoocMallApplication {
     public static void main(String[] args) {
         SpringApplication.run(ImoocMallApplication.class, args);}}
 ```
+
+
+
+#### IDEA调试技巧介绍
+
+```
+断点统一开关
+条件断点 (下图,右键断点图标,触发条件断点。符合这个条件才会进入到断点)
+单步调试
+	Step into 它会进入到这个方法内部
+	Step over 相当于跳到下一行
+	Step out 跳出这个方法
+表达式求值
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002002535887.png" alt="image-20221002002535887" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002003828252.png" alt="image-20221002003828252" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002004042128.png" alt="image-20221002004042128" style="zoom:50%;" />
+
+
+
+#### 商品分类章节总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002141332929.png" alt="image-20221002141332929" style="zoom:50%;" />
+
+#### 商品模块介绍
+
+```
+图片上传功能的开发
+
+重名会导致将原来的图片覆盖
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002175822499.png" alt="image-20221002175822499" style="zoom:50%;" />
+
+#### 图片上传接口开发
+

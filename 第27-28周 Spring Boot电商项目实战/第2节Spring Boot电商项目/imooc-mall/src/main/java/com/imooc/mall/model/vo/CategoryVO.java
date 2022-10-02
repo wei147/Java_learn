@@ -1,12 +1,13 @@
 package com.imooc.mall.model.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 //vo是什么意思? 在vo下面,它所存储的是我们经过一定的转换之后所最终返回给前端的这样一个类
 //这个类相比pojo中的Category类只多了一个childCategory
-public class CategoryVO{
+public class CategoryVO implements Serializable {   //implements Serializable 为这个类开启缓存
     private Integer id;
 
     private String name;

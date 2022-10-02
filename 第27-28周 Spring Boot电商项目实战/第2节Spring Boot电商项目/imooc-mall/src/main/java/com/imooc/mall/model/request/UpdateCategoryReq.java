@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  */
 public class UpdateCategoryReq {
 
-    @NotNull
+    @NotNull(message = "id不能为空")
     private Integer id; //更新分类目录必须要传入id,其他的可以为空
 
     //分类名字符不能大于5个小于2个
