@@ -1,5 +1,6 @@
 package com.imooc.mall.model.request;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class AddProductReq {
     private Integer price;
 
     @NotNull(message = "商品库存不能为null")
-    @Min(value = 10000, message = "库存不能大于10000")
+    @Max(value = 10000, message = "库存不能大于10000")
     private Integer stock;
 
     private Integer status;
