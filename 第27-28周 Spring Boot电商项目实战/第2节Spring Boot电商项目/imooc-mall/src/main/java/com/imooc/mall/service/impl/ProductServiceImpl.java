@@ -34,4 +34,11 @@ public class ProductServiceImpl implements ProductService {
             throw new ImoocMallException(ImoocMallExceptionEnum.CREATE_FAILED);
         }
     }
+
+    public void update(Product updateProduct) {
+        Product productOld = productMapper.selectByName(productOld.getName());
+        //同名且不同id,不能修改
+        if (productOld!=null)
+
+    }
 }

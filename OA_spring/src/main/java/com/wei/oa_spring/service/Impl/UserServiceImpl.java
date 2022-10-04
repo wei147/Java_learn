@@ -8,7 +8,6 @@ import com.wei.oa_spring.model.pojo.User;
 import com.wei.oa_spring.service.UserService;
 import com.wei.oa_spring.utils.MD5Utils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.security.NoSuchAlgorithmException;

@@ -42,6 +42,7 @@ public class LeaveFormServiceImpl implements LeaveFormService {
         return leaveFormMapper.selectByParams(pfState, operatorId);
     }
 
+    @Override
     public void audit(AuditProcessFlowReq auditProcessFlowReq) {
         //1.无论同意/驳回，当前任务状态更变为complete
         List<ProcessFlow> flowList = processFlowMapper.selectByFormId(auditProcessFlowReq.getFormId());

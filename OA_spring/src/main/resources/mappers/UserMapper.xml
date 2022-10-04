@@ -98,7 +98,4 @@
     where username = #{username,jdbcType=VARCHAR}
     and password = #{password}
   </select>
-    <select id="selectNodeByUserId" resultMap="BaseResultMap">
-
-    </select>
 </mapper>

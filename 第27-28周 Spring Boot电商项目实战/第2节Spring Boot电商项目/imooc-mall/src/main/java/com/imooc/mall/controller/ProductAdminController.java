@@ -4,8 +4,11 @@ import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
+import com.imooc.mall.model.pojo.Product;
 import com.imooc.mall.model.request.AddProductReq;
+import com.imooc.mall.model.request.UpdateProductReq;
 import com.imooc.mall.service.ProductService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +49,6 @@ public class ProductAdminController {
         //生成文件名称UUID
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + suffix;
-        String testName = uuid + suffix;
         //创建文件
         File fileDirectory = new File(Constant.FILE_UPLOAD_DIR);//文佳夹
         File destFile = new File(Constant.FILE_UPLOAD_DIR + newFileName);//目标文件
@@ -83,5 +85,11 @@ public class ProductAdminController {
         }
         //获得我们想要的那部分的信息的uri,而把多余的信息剔除掉
         return effectiveURI;
+    }
+
+    @PostMapping("admin/product/update")
+    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq){
+        Product product = new Product();
+        BeanUtils.copyProperties(updateProductReq,product);
     }
 }

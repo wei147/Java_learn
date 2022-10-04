@@ -1649,6 +1649,56 @@ public class ImoocMallApplication {
 
 #### 商品模块介绍
 
+#### 添加商品接口开发
+
+```java
+package com.imooc.mall.service.impl;
+/**
+ * 商品服务实现类
+ */
+@Service("productService")
+public class ProductServiceImpl implements ProductService {
+
+    @Resource
+    ProductMapper productMapper;
+
+    @Override
+    public void add(AddProductReq addProductReq) {
+        Product product = new Product();
+        BeanUtils.copyProperties(addProductReq, product);
+        Product productOld = productMapper.selectByName(addProductReq.getName());
+        //判断是否重名
+        if (productOld != null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+        }
+        int count = productMapper.insertSelective(product);
+        if (count == 0) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.CREATE_FAILED);}}}
+```
+
+```java
+//添加商品接口一样需要自定义一个request的实体类,方便后续传入的参数做校验(@Valid )。但目前需要上传图片的参数还没拿到
+package com.imooc.mall.controller;
+/**
+ * 后台商品管理Controller
+ */
+@RestController
+public class ProductAdminController {
+
+    @Resource
+    ProductService productService;
+
+    @PostMapping("admin/product/add")
+    //addProduct也是需要我们自己去定义一个request的实体类,因为我们会对它做校验
+    public ApiRestResponse addProduct(@Valid @RequestBody AddProductReq addProductReq) {
+
+        productService.add(addProductReq);
+        //有一个参数拿不到————图片
+        return ApiRestResponse.success();}
+```
+
+#### UUID介绍
+
 ```
 图片上传功能的开发
 
@@ -1658,4 +1708,100 @@ public class ImoocMallApplication {
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221002175822499.png" alt="image-20221002175822499" style="zoom:50%;" />
 
 #### 图片上传接口开发
+
+```java
+//controller/ProductAdminController.java    
+//这里需要传入两个参数: 1.为了在图片地址中保存我们的地址,比如说url、ip等,  2.文件类型。而且这个file要加上注解方便它识别
+    @PostMapping("admin/upload/file")
+    public ApiRestResponse upload(HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) {
+        //给图片生成uuid的名字,但后缀是不变的。获取后缀名
+        String fileName = file.getOriginalFilename(); //获取原始图片名字
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        //生成文件名称UUID
+        UUID uuid = UUID.randomUUID();
+        String newFileName = uuid.toString() + suffix;
+        String testName = uuid + suffix;
+        //创建文件
+        File fileDirectory = new File(Constant.FILE_UPLOAD_DIR);//文佳夹
+        File destFile = new File(Constant.FILE_UPLOAD_DIR + newFileName);//目标文件
+//判断文件夹是否存在
+        if (!fileDirectory.exists()) {
+            //如果创建失败
+            if (!fileDirectory.mkdir()) {
+                throw new ImoocMallException(ImoocMallExceptionEnum.MKDIR_FAILED);}}
+        try {
+            file.transferTo(destFile);} catch (IOException e) {
+            e.printStackTrace();}
+        try {
+            //getRequestURL() 得到的是一个StringBuffer,而new URI()方法需要传入一个String类型。所以加上""就可以转为String
+            return ApiRestResponse.success(getHost( new URI(httpServletRequest.getRequestURL()+""))+"/images/"+newFileName);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();}
+        return ApiRestResponse.error(ImoocMallExceptionEnum.UPLOAD_FAILED);}
+
+    //用于获取ip和端口号
+    private URI getHost(URI uri){
+        URI effectiveURI;
+        try {
+            effectiveURI = new URI(uri.getScheme(),uri.getUserInfo(),uri.getHost(), uri.getPort(),
+                    null,null,null);
+        } catch (URISyntaxException e) {
+            //如果新建的过程中失败了,那么就把它设置为null
+            effectiveURI = null;}
+        //获得我们想要的那部分的信息的uri,而把多余的信息剔除掉
+        return effectiveURI;}
+```
+
+```java
+com/imooc/mall/common/Constant.java
+// 这个的file.upload.dir最终会在 application.properties配置文件中去指定文件上传的路径
+
+    //上传文件的地址
+    //这样写的 FILE_UPLOAD_DIR并没有取到  why? 这个变量和普通变量不一样,它是静态的带String,对于这种变量用普通的方式进行处理是注入不进去的,解决方案如下: 给它写一个方法
+//    @Value("${file.upload.dir}")
+//    public static String FILE_UPLOAD_DIR;
+
+    public static String FILE_UPLOAD_DIR;
+
+    //用set方法去把静态变量进行赋值,这样可以成功获取到在配置文件中定义的路径的值 application.properties
+    @Value("${file.upload.dir}")
+    public void setFileUploadDir(String fileUploadDir){
+        FILE_UPLOAD_DIR = fileUploadDir;}
+```
+
+```properties
+# application.properties
+#上传文件的路径,根据部署情况，自行修改
+#file.upload.dir = D:/project/Jave_learn/第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/prepare-static  中文路径会乱码?
+file.upload.dir = D:/project/Jave_learn/mall-prepare-static/
+```
+
+
+
+#### 资源映射开发
+
+```json
+上传图片成功之后,但是通过链接访问不了该图片 为什么会这样呢?
+因为 图片的路径是这个 http://localhost/images/b9011fd9-9fc2-4538-8e1e-2b06f54343c9.png, 但本地的路径确是D:\project\Jave_learn\mall-prepare-static\b9011fd9-9fc2-4538-8e1e-2b06f54343c9.png。所以答案很明显了,要把网络路径(多出来的images)映射到本地路径,在package com.imooc.mall.config.ImoocMallWebMvcConfig.java种配置。见下文
+{
+    "status": 10000,
+    "msg": "SUCCESS",
+    "data": "http://localhost/images/61982e62-254c-4b39-9d7d-8879407ad443.png"
+}
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221004150908566.png" alt="image-20221004150908566" style="zoom:50%;" />
+
+```java
+package com.imooc.mall.config.ImoocMallWebMvcConfig.java
+//关于上传图片的自定义静态资源映射目录  (就是说http://localhost/images/uuid.png 对应的就是本地 FILE_UPLOAD_DIR的文件路径)
+registry.addResourceHandler("/images/**")
+        .addResourceLocations("file:" + Constant.FILE_UPLOAD_DIR);
+```
+
+
+
+#### 更新和删除商品接口开发
+
+
 

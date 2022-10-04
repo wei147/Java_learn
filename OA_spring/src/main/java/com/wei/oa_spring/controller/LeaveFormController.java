@@ -62,7 +62,8 @@ public class LeaveFormController {
         if (user == null) {
             return ApiRestResponse.error(OAExceptionEnum.NEED_LOGIN);
         }
-        BeanUtils.copyProperties(auditProcessFlowReq,processFlow);
-        leaveFormService.audit()
+        BeanUtils.copyProperties(auditProcessFlowReq, processFlow);
+        leaveFormService.audit(auditProcessFlowReq);
+        return ApiRestResponse.success();
     }
 }
