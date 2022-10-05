@@ -1803,5 +1803,89 @@ registry.addResourceHandler("/images/**")
 
 #### 更新和删除商品接口开发
 
+```java
+//ProductServiceImpl.java
+
+@Override
+public void update(Product updateProduct) {
+    Product productOld = productMapper.selectByName(updateProduct.getName());
+    //同名且不同id,不能修改
+    if (productOld != null && !productOld.getId().equals(updateProduct.getId())) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
+    }
+    int count = productMapper.updateByPrimaryKeySelective(updateProduct);
+    if (count == 0) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);}}
+
+@Override
+public void delete(Integer id) {
+    Product productOld = productMapper.selectByPrimaryKey(id);
+    //查不到该记录,无法删除
+    //删除商品在业务上不是很推荐,因为为了保证数据库信息的沉淀,有商品可以对其更新、上下架。下架就是变相的软删除方式
+    if (productOld == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+    }
+    int count = productMapper.deleteByPrimaryKey(id);
+    if (count == 0) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);}}
+```
+
+```java
+//ProductAdminController.java
+@ApiOperation(value = "后台更新商品")
+@PostMapping("admin/product/update")
+public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq) {
+    Product product = new Product();
+    BeanUtils.copyProperties(updateProductReq, product);
+    productService.update(product);
+    return ApiRestResponse.success();
+}
+
+@ApiOperation(value = "后台更新商品")
+@PostMapping("admin/product/delete")
+public ApiRestResponse deleteProduct(Integer id) {
+    productService.delete(id);
+    return ApiRestResponse.success();
+}
+```
+
+```
+小结: 新增商品和上传图片接口是两个不同的接口,新增商品中理应带上实际图片地址,这个后续到后台可视化界面应该有实现。
+
+更新商品信息需要搞一个请求类,注意有个点是同商品名且不同id的不能修改
+删除商品逻辑是 先删除有没有这条数据再执行删除
+```
 
 
+
+#### 批量上下架	(一个相对有难度的接口)
+
+```xml
+ProductMapper.xml
+<!--批量上下架 重点是(遍历ids的值)-->
+<update id="batchUpdateSellStatus">
+    update imooc_mall_product
+    set status = #{sellStatus}
+    where id in
+    <foreach collection="ids" close=")" item="id" open="(" separator=",">
+        #{id}
+    </foreach>
+</update>
+```
+
+```java
+//ProductServiceImpl.java
+@Override
+public void batchUpdateSellStatus(Integer[] ids, Integer sellStatus) {
+    //最重要的是对于mapper的实现
+    productMapper.batchUpdateSellStatus(ids, sellStatus);}
+```
+
+```java
+//ProductAdminController.java
+@ApiOperation(value = "后台批量上下架接口")
+@PostMapping("admin/product/batchUpdateSellStatus") //批量更新销售状态
+public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids, @RequestParam Integer sellStatus) { //sellStatus决定上架还是下架
+    productService.batchUpdateSellStatus(ids,sellStatus);
+    return ApiRestResponse.success();}
+```

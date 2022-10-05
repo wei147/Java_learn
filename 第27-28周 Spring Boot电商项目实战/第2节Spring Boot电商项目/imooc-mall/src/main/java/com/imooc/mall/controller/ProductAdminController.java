@@ -1,5 +1,6 @@
 package com.imooc.mall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
@@ -8,6 +9,7 @@ import com.imooc.mall.model.pojo.Product;
 import com.imooc.mall.model.request.AddProductReq;
 import com.imooc.mall.model.request.UpdateProductReq;
 import com.imooc.mall.service.ProductService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +68,7 @@ public class ProductAdminController {
         }
         try {
             //getRequestURL() 得到的是一个StringBuffer,而new URI()方法需要传入一个String类型。所以加上""就可以转为String
-            return ApiRestResponse.success(getHost( new URI(httpServletRequest.getRequestURL()+""))+"/images/"+newFileName);
+            return ApiRestResponse.success(getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/images/" + newFileName);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -74,11 +76,11 @@ public class ProductAdminController {
     }
 
     //用于获取ip和端口号
-    private URI getHost(URI uri){
+    private URI getHost(URI uri) {
         URI effectiveURI;
         try {
-            effectiveURI = new URI(uri.getScheme(),uri.getUserInfo(),uri.getHost(), uri.getPort(),
-                    null,null,null);
+            effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(),
+                    null, null, null);
         } catch (URISyntaxException e) {
             //如果新建的过程中失败了,那么就把它设置为null
             effectiveURI = null;
@@ -87,9 +89,33 @@ public class ProductAdminController {
         return effectiveURI;
     }
 
+    @ApiOperation(value = "后台更新商品")
     @PostMapping("admin/product/update")
-    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq){
+    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq) {
         Product product = new Product();
-        BeanUtils.copyProperties(updateProductReq,product);
+        BeanUtils.copyProperties(updateProductReq, product);
+        productService.update(product);
+        return ApiRestResponse.success();
+    }
+
+    @ApiOperation(value = "后台删除商品")
+    @PostMapping("admin/product/delete")
+    public ApiRestResponse deleteProduct(@RequestParam Integer id) {
+        productService.delete(id);
+        return ApiRestResponse.success();
+    }
+
+    @ApiOperation(value = "后台批量上下架接口")
+    @PostMapping("admin/product/batchUpdateSellStatus") //批量更新销售状态
+    public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids, @RequestParam Integer sellStatus) { //sellStatus决定上架还是下架
+        productService.batchUpdateSellStatus(ids, sellStatus);
+        return ApiRestResponse.success();
+    }
+
+    @ApiOperation(value = "后台商品列表接口")
+    @PostMapping("admin/product/list") //批量更新销售状态
+    public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageInfo pageInfo = productService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
     }
 }
