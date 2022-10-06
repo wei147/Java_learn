@@ -19,5 +19,5 @@ public interface LeaveFormMapper {
 
     int updateByPrimaryKey(LeaveForm record);
 
-    public List<Map> selectByParams(@Param("pf_state") String pfState, @Param("pf_operator_id") Long operatorId);
+    List<Map> selectByParams(@Param("pf_state") String pfState, @Param("pf_operator_id") Long operatorId);
 }

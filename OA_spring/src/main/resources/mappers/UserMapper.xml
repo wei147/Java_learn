@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--可能和RbacMapper.xml指向的namespace有关? 这两个文件的某些id不能同名  所以在后面加一个new BaseResultMap_new-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wei.oa_spring.model.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.wei.oa_spring.model.pojo.User">
+  <resultMap id="BaseResultMap_new" type="com.wei.oa_spring.model.pojo.User">
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
     <result column="salt" jdbcType="INTEGER" property="salt" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List_new">
     user_id, username, `password`, employee_id, salt
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap_new">
     select 
     <include refid="Base_Column_List" />
     from sys_user
@@ -91,7 +92,7 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
 
-  <select id="selectLogin" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectLogin" parameterType="map" resultMap="BaseResultMap_new">
     select
     <include refid="Base_Column_List"/>
     from sys_user

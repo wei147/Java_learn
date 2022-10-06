@@ -78,6 +78,8 @@ public class UserController {
         return ApiRestResponse.success(nodeList);
     }
 
+
+    //未实现
     @GetMapping("/user/department")
     @ResponseBody
     public ApiRestResponse getDepartment(HttpSession session) {

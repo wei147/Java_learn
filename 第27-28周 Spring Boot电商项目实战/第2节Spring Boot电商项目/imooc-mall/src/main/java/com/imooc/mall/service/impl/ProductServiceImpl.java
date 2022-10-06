@@ -7,13 +7,19 @@ import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.dao.ProductMapper;
 import com.imooc.mall.model.pojo.Product;
+import com.imooc.mall.model.query.ProductListQuery;
 import com.imooc.mall.model.request.AddProductReq;
+import com.imooc.mall.model.request.ProductListReq;
+import com.imooc.mall.model.vo.CategoryVO;
+import com.imooc.mall.service.CategoryService;
 import com.imooc.mall.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Resource
     ProductMapper productMapper;
+
+    @Resource
+    CategoryService categoryService;
 
     @Override
     public void add(AddProductReq addProductReq) {
@@ -85,5 +94,42 @@ public class ProductServiceImpl implements ProductService {
     public Product detail(Integer id) {
         Product product = productMapper.selectByPrimaryKey(id);
         return product;
+    }
+
+    //像这种复杂查询的时候,我们通常还有一个技巧 就是去构建一个query对象。这个query对象专门用于查询的,
+    // 因为往往查询的条件越多,我们一个一个的去拼接这种打散装的结构,他们就会更加的不聚合,所以在后期拓展的时候会显得代码凌乱
+    //新建包 com/imooc/mall/model/query
+    public PageInfo list(ProductListReq productListReq) {
+        //构建query对象
+        ProductListQuery productListQuery = new ProductListQuery();
+
+        //搜索处理
+        if (!StringUtils.isEmpty(productListReq.getKeyword())) {
+            //StringBuffer() 是合成字符串用的
+            //String keyword = "%" + productListReq.getKeyword() + "%"; 这样不行吗?
+            String keyword = new StringBuffer().append("%").append(productListReq.getKeyword()).append("%").toString();
+            productListQuery.setKeyword(keyword);
+        }
+
+        //目录处理:如果查某个目录下的商品,不仅是需要查出该目录下的,,还要把所有子目录的所有商品查出来,所以要拿到一个目录id的List
+        if (productListReq.getCategoryId() != null) {
+            List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer(productListReq.getCategoryId());
+            //上面拿到的 categoryVOList是一个树状结构的,要将其平铺展开
+            ArrayList<Integer> categoryIds = new ArrayList<>();
+            getCategoryIds(categoryVOList, categoryIds);
+            productListQuery.setCategoryIds(categoryIds);
+        }
+    }
+
+    private void getCategoryIds(List<CategoryVO> categoryVOList, ArrayList<Integer> categoryIds) {
+        for (int i = 0; i < categoryVOList.size(); i++) {
+            CategoryVO categoryVO = categoryVOList.get(i);
+            if (categoryVO != null) {
+                categoryIds.add(categoryVO.getId());
+                //神奇的递归
+                getCategoryIds(categoryVO.getChildCategory(), categoryIds);
+            }
+
+        }
     }
 }

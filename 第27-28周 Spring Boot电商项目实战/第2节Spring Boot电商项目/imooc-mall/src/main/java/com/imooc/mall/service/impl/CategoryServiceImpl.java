@@ -101,11 +101,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Cacheable(value = "listCategoryForCustomer") //value即它在存储中的key值
-    public List<CategoryVO> listCategoryForCustomer() {
+    public List<CategoryVO> listCategoryForCustomer(Integer parentId) {
         ArrayList<CategoryVO> categoryVOList = new ArrayList<>();
         //怎么往里面添加数据?
         //对于一级目录而言,他的父id为0,
-        recursivelyFindCategories(categoryVOList, 0);
+        recursivelyFindCategories(categoryVOList, parentId);
         return categoryVOList;
     }
 

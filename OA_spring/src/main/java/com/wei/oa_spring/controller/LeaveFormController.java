@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/leave")
+@RequestMapping("/leaveForm/")
 public class LeaveFormController {
 
     @Resource
     LeaveFormService leaveFormService;
 
-    @PostMapping("/leaveForm/create")
+    @PostMapping("create")
     //加了@RequestBody之后,我们的Spring就可以从我们的body中,去把这个CreateLeaveFormReq类给对应起来
     public ApiRestResponse create(@Valid @RequestBody CreateLeaveFormReq createLeaveFormReq, HttpSession session) {
         //1.接收各项请假单数据
@@ -41,7 +41,7 @@ public class LeaveFormController {
     }
 
     //查询需要审核的请假单列表
-    @GetMapping("/leaveForm/list")
+    @GetMapping("/list")
     public ApiRestResponse getLeaveFormList(HttpSession session) {
         //1.接收各项请假单数据
         User user = (User) session.getAttribute(Constant.OA_USER);
@@ -53,8 +53,9 @@ public class LeaveFormController {
         return ApiRestResponse.success(formList);
     }
 
+    //具体实现类没搞好
     //审批操作
-    @GetMapping("/leaveForm/audit")
+    @GetMapping("/audit")
     public ApiRestResponse audit(HttpSession session, @Valid @RequestBody AuditProcessFlowReq auditProcessFlowReq) {
         //这个登录判断后面可以仿 统一校验管理员身份,做一个统一校验登录
         ProcessFlow processFlow = new ProcessFlow();

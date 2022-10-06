@@ -24,7 +24,7 @@ public class MD5Utils {
 
     //用这个方法测试生成的MD5的值
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        String str = getMd5Str("test");
+        String str = getMd5Str("1234");
         System.out.println(str);
     }
 }

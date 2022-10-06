@@ -10,6 +10,7 @@ import com.wei.oa_spring.model.request.AuditProcessFlowReq;
 import com.wei.oa_spring.model.request.CreateLeaveFormReq;
 import com.wei.oa_spring.service.LeaveFormService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service("leaveFormService")
 public class LeaveFormServiceImpl implements LeaveFormService {
     @Resource
     LeaveFormMapper leaveFormMapper;
@@ -63,7 +65,5 @@ public class LeaveFormServiceImpl implements LeaveFormService {
             process.setAuditTime(new Date());
             processFlowMapper.update(process); //完成更新工作
         }
-
-
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wei.oa_spring.model.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="com.wei.oa_spring.model.pojo.Node">
+    <resultMap id="BaseResultMap_1" type="com.wei.oa_spring.model.pojo.Node">
         <id column="node_id" jdbcType="BIGINT" property="nodeId"/>
         <result column="node_type" jdbcType="INTEGER" property="nodeType"/>
         <result column="node_name" jdbcType="VARCHAR" property="nodeName"/>
@@ -15,7 +15,7 @@
     </sql>
 
     <!--核心查询SQL语句-->
-    <select id="selectNodeByUserId" resultMap="BaseResultMap" parameterType="Long">
+    <select id="selectNodeByUserId" resultMap="BaseResultMap_1" parameterType="Long">
         SELECT DISTINCT n.*
         from sys_role_user ru,
              sys_role_node rn,

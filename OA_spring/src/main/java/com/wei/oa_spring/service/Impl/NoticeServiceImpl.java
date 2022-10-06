@@ -5,10 +5,12 @@ import com.wei.oa_spring.exception.OAExceptionEnum;
 import com.wei.oa_spring.model.dao.NoticeMapper;
 import com.wei.oa_spring.model.pojo.Notice;
 import com.wei.oa_spring.service.NoticeService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service("noticeService")
 public class NoticeServiceImpl implements NoticeService {
     @Resource
     NoticeMapper noticeMapper;

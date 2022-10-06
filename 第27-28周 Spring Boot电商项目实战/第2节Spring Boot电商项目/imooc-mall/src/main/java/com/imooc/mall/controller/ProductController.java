@@ -3,6 +3,7 @@ package com.imooc.mall.controller;
 import com.github.pagehelper.PageInfo;
 import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.model.pojo.Product;
+import com.imooc.mall.model.request.ProductListReq;
 import com.imooc.mall.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,13 @@ public class ProductController {
     @PostMapping("product/detail")
     public ApiRestResponse detail(@RequestParam Integer id) {
         Product product = productService.detail(id);
+        return ApiRestResponse.success(product);
+    }
+
+    @ApiOperation(value = "")
+    @PostMapping("product/list")
+    public ApiRestResponse list(ProductListReq productListReq) {
+        Product product = productService.detail();
         return ApiRestResponse.success(product);
     }
 

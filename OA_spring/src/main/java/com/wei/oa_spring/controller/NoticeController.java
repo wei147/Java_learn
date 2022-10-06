@@ -6,6 +6,7 @@ import com.wei.oa_spring.exception.OAExceptionEnum;
 import com.wei.oa_spring.model.pojo.Notice;
 import com.wei.oa_spring.model.pojo.User;
 import com.wei.oa_spring.service.NoticeService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@Controller
 public class NoticeController {
 
     @Resource

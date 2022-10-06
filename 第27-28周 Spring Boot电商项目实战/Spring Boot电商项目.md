@@ -1889,3 +1889,12 @@ public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids, @Reque
     productService.batchUpdateSellStatus(ids,sellStatus);
     return ApiRestResponse.success();}
 ```
+
+
+
+#### 前台商品列表接口开发 part 1
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221006212631518.png" alt="image-20221006212631518" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221006215437607.png" alt="image-20221006215437607" style="zoom: 50%;" />
+

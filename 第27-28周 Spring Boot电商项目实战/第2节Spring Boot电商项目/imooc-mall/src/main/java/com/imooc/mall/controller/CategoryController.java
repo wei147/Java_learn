@@ -114,9 +114,9 @@ public class CategoryController {
     @ApiOperation("前台分类目录列表")
     @PostMapping("category/list")
     @ResponseBody
-    public ApiRestResponse listCategoryForCustomer() {
+    public ApiRestResponse listCategoryForCustomer(Integer parentId) {
         //对于前台用户而言,不需要传入页码或者pageSize,因为这是我们直接返回给他的,由我们来决定
-        List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer();
+        List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer(0); //这里显示的就是所有的目录,所以传入0
         return ApiRestResponse.success(categoryVOList);
     }
 }
