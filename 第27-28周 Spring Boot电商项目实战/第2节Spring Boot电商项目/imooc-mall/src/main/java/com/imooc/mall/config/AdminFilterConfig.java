@@ -5,7 +5,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.FilterRegistration;
 
 /**
  * Admin 过滤器的配置 (com/imooc/mall/filter/AdminFilter.java)

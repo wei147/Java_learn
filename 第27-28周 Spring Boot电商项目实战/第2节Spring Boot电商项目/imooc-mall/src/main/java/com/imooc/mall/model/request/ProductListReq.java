@@ -11,7 +11,7 @@ public class ProductListReq {
 
     private Integer categoryId; //有时候需要获取某一个目录下的所有商品
 
-    private String orderBY; //排序
+    private String orderBy; //排序
 
     private Integer pageNum = 1;
 
@@ -33,12 +33,12 @@ public class ProductListReq {
         this.categoryId = categoryId;
     }
 
-    public String getOrderBY() {
-        return orderBY;
+    public String getOrderBy() {
+        return orderBy;
     }
 
-    public void setOrderBY(String orderBY) {
-        this.orderBY = orderBY;
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 
     public Integer getPageNum() {

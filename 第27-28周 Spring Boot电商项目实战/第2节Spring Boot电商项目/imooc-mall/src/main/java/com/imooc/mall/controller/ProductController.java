@@ -27,11 +27,11 @@ public class ProductController {
         return ApiRestResponse.success(product);
     }
 
-    @ApiOperation(value = "")
+    @ApiOperation(value = "前台商品列表")
     @PostMapping("product/list")
     public ApiRestResponse list(ProductListReq productListReq) {
-        Product product = productService.detail();
-        return ApiRestResponse.success(product);
+        PageInfo list = productService.list(productListReq);
+        return ApiRestResponse.success(list);
     }
 
 }

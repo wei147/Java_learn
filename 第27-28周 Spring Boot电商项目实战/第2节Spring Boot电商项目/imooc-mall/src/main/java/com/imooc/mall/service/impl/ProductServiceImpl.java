@@ -1,8 +1,9 @@
 package com.imooc.mall.service.impl;
 
-import com.github.pagehelper.Page;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.dao.ProductMapper;
@@ -16,7 +17,6 @@ import com.imooc.mall.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
     //像这种复杂查询的时候,我们通常还有一个技巧 就是去构建一个query对象。这个query对象专门用于查询的,
     // 因为往往查询的条件越多,我们一个一个的去拼接这种打散装的结构,他们就会更加的不聚合,所以在后期拓展的时候会显得代码凌乱
     //新建包 com/imooc/mall/model/query
+    @Override
     public PageInfo list(ProductListReq productListReq) {
         //构建query对象
         ProductListQuery productListQuery = new ProductListQuery();
@@ -106,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
         //搜索处理
         if (!StringUtils.isEmpty(productListReq.getKeyword())) {
             //StringBuffer() 是合成字符串用的
-            //String keyword = "%" + productListReq.getKeyword() + "%"; 这样不行吗?
+            //String keyword = "%" + productListReq.getKeyword() + "%"; 这样不行吗?  直接用加号拼接会造成内存空间浪费
             String keyword = new StringBuffer().append("%").append(productListReq.getKeyword()).append("%").toString();
             productListQuery.setKeyword(keyword);
         }
@@ -119,8 +120,22 @@ public class ProductServiceImpl implements ProductService {
             getCategoryIds(categoryVOList, categoryIds);
             productListQuery.setCategoryIds(categoryIds);
         }
+        //排序处理 (orderBy是从前端请求中拿到的)
+        String orderBy = productListReq.getOrderBy();
+        //contains 包含
+        if (Constant.productListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
+            PageHelper.startPage(productListReq.getPageNum(), productListReq.getPageSize(), orderBy);
+        } else {
+            //说明传进来的参数不支持排序。不进行排序
+            PageHelper.startPage(productListReq.getPageNum(), productListReq.getPageSize());
+        }
+        List<Product> productList = productMapper.selectList(productListQuery);
+        PageInfo pageInfo = new PageInfo(productList);
+        return pageInfo;
+
     }
 
+    //上面拿到的 categoryVOList是一个树状结构的,要将其平铺展开,便利用这个方法实现
     private void getCategoryIds(List<CategoryVO> categoryVOList, ArrayList<Integer> categoryIds) {
         for (int i = 0; i < categoryVOList.size(); i++) {
             CategoryVO categoryVO = categoryVOList.get(i);
@@ -129,7 +144,6 @@ public class ProductServiceImpl implements ProductService {
                 //神奇的递归
                 getCategoryIds(categoryVO.getChildCategory(), categoryIds);
             }
-
         }
     }
 }

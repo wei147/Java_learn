@@ -1898,3 +1898,174 @@ public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids, @Reque
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221006215437607.png" alt="image-20221006215437607" style="zoom: 50%;" />
 
+```java
+package com.imooc.mall.model.request;
+import java.util.Date;
+
+/**
+ * 商品列表的一个请求类
+ */
+public class ProductListReq {
+    private String keyword;
+    private Integer categoryId; //有时候需要获取某一个目录下的所有商品
+    private String orderBY; //排序
+    private Integer pageNum = 1;
+    private Integer pageSize = 10;
+	getter和setter方法。。
+```
+
+```java
+//ProductServiceImpl.java
+
+
+//商品列表
+//像这种复杂查询的时候,我们通常还有一个技巧 就是去构建一个query对象。这个query对象专门用于查询的,
+// 因为往往查询的条件越多,我们一个一个的去拼接这种打散装的结构,他们就会更加的不聚合,所以在后期拓展的时候会显得代码凌乱
+//新建包 com/imooc/mall/model/query
+@Override
+public PageInfo list(ProductListReq productListReq) {
+    //构建query对象
+    ProductListQuery productListQuery = new ProductListQuery();
+
+    //搜索处理
+    if (!StringUtils.isEmpty(productListReq.getKeyword())) {
+        //StringBuffer() 是合成字符串用的
+        //String keyword = "%" + productListReq.getKeyword() + "%"; 这样不行吗?  直接用加号拼接会造成内存空间浪费
+        String keyword = new StringBuffer().append("%").append(productListReq.getKeyword()).append("%").toString();
+        productListQuery.setKeyword(keyword);
+    }
+
+    //目录处理:如果查某个目录下的商品,不仅是需要查出该目录下的,,还要把所有子目录的所有商品查出来,所以要拿到一个目录id的List
+    if (productListReq.getCategoryId() != null) {
+        List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer(productListReq.getCategoryId());
+        //上面拿到的 categoryVOList是一个树状结构的,要将其平铺展开
+        ArrayList<Integer> categoryIds = new ArrayList<>();
+        getCategoryIds(categoryVOList, categoryIds);
+        productListQuery.setCategoryIds(categoryIds);
+    }
+    //排序处理 (orderBY是从前端请求中拿到的)
+    String orderBY = productListReq.getOrderBY();
+    //contains 包含
+    if (Constant.productListOrderBy.PRICE_ASC_DESC.contains(orderBY)) {
+        PageHelper.startPage(productListReq.getPageNum(), productListReq.getPageSize(), orderBY);
+    } else {
+        //说明传进来的参数不支持排序。不进行排序
+        PageHelper.startPage(productListReq.getPageNum(), productListReq.getPageSize());
+    }
+    List<Product> productList = productMapper.selectList(productListQuery);
+    PageInfo pageInfo = new PageInfo(productList);
+    return pageInfo;
+}
+
+//上面拿到的 categoryVOList是一个树状结构的,要将其平铺展开,便利用这个方法实现
+private void getCategoryIds(List<CategoryVO> categoryVOList, ArrayList<Integer> categoryIds) {
+    for (int i = 0; i < categoryVOList.size(); i++) {
+        CategoryVO categoryVO = categoryVOList.get(i);
+        if (categoryVO != null) {
+            categoryIds.add(categoryVO.getId());
+            //神奇的递归
+            getCategoryIds(categoryVO.getChildCategory(), categoryIds);
+        }}}
+```
+
+```java
+package com.imooc.mall.model.query;
+import java.util.List;
+
+/**
+ *
+ * 查询商品列表的Query
+ */
+public class ProductListQuery {
+
+    private String keyword;
+
+    //目录信息往往是一个列表
+    /**
+     * [对于查询目录的in处理]
+     * 目录处理：如果查某个目录下的商品，不仅是需要查出来该目
+     * 录的,还需要查出来子目录的所有商品
+     * 所以这里要拿到某一个目录Id下的所有子目录id的List
+     *
+     * 即最开始传入一个id(从ProductListReq),到我们去查询的时候已经拼装成一个list(经ProductListQuery查询)了
+     */
+    private List<Integer> categoryIds;
+    getter和setter方法
+}
+```
+
+```xml
+//关键的sql查询语句 ProductMapper.xml
+<!--查询商品列表。  入参是一个类。 status = 1 只寻找上架商品-->
+<select id="selectList" resultMap="BaseResultMap" parameterType="com.imooc.mall.model.query.ProductListQuery ">
+    select
+    <include refid="Base_Column_List"/>
+    from imooc_mall_product
+    <where>
+        <if test="query.keyword != null">
+            and name like #{query.keyword}
+        </if>
+        <if test="query.categoryIds != null">
+            and category_id in
+            <foreach collection="query.categoryIds" close=")" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        and status = 1
+    </where>
+    order by update_time desc
+</select>
+```
+
+```java
+//ProductController.java
+@ApiOperation(value = "商品列表")
+@PostMapping("product/list")
+public ApiRestResponse list(ProductListReq productListReq) {
+    PageInfo list = productService.list(productListReq);
+    return ApiRestResponse.success(list);}
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221007120900730.png" alt="image-20221007120900730" style="zoom:50%;" />
+
+
+
+#### 商品模块测试和总结
+
+```xml
+今天的报错,真是靠了,如下,
+    <!--查询商品列表。  入参是一个类。 status = 1 只寻找上架商品-->
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.imooc.mall.model.query.ProductListQuery ">
+        
+因为 parameterType="com.imooc.mall.model.query.ProductListQuery "> 这里多了一个空格
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221007132952390.png" alt="image-20221007132952390" style="zoom:50%;" />
+
+```
+从目录查询中还引出了对于一个列表的查询的方案 : 比如说批量上下架的时候就会用到。
+商品搜索用的是 给keyword加上百分号 % 并且用like的形式去实现的
+而排序是在枚举中(Constant)去新建一个排序的枚举,当前端传入这个参数的时候我们就支持排序
+目录查询我们用递归的方式,把所有目录id都查到,然后再用查询列表的方式去把这些内容给查出来
+
+本章重难点
+```
+
+
+
+#### 购物车模块
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221007231937997.png" alt="image-20221007231937997" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
