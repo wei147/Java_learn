@@ -2059,13 +2059,102 @@ public ApiRestResponse list(ProductListReq productListReq) {
 
 
 
+#### 用户过滤器开发
+
+```
+购物车和订单模块需要用户登录才能使用,所以需要像统一验证管理员身份一样,搞一个统一校验用户身份
+
+```
+
+```java
+package com.imooc.mall.controller;
+/**
+ * 购物车Controller
+ */
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+    //添加商品到购物车
+    @PostMapping("/add")
+    public ApiRestResponse add(@RequestParam Integer productId, @RequestParam Integer count, HttpSession session){
+        //需要用户登录以后才能添加到购物车
+        return null;}}
+```
+
+```java
+package com.imooc.mall.filter;
+/**
+ * 用户过滤器 (统一校验用户登录)
+ */
+public class UserFilter implements Filter {
+
+    public static User currentUser; // 静态的user对象,用来保存用户信息, (注:本次课程暂不考虑多线程安全问题)
+
+    @Resource
+    UserService userService;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpSession session = request.getSession();
+        currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        //校验是否已经登录
+        if (currentUser == null) {
+//            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN); 方法是void,不允许return
+            PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
+            out.write("{\n" +
+                    "    \"status\": 10007,\n" +
+                    "    \"msg\": \"NEED_LOGIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+            out.flush();
+            out.close();
+            return;}
+        //这就代表我们会继续到下一个过滤器,相当于是校验通过
+        filterChain.doFilter(servletRequest, servletResponse);}
+
+    @Override
+    public void destroy() {Filter.super.destroy();}}
+```
+
+```java
+package com.imooc.mall.config;
+
+import com.imooc.mall.filter.UserFilter;
+
+/**
+ * User 过滤器的配置 (com/imooc/mall/filter/UserFilter.java)
+ */
+@Configuration
+public class UserFilterConfig {
+    //想要配置一个Filter有两步:  1.把这个Filter给定义出来  2.是我们的这个Filter放到我们整个的过滤器的链路中去
+    @Bean   //要加一个@Bean才能识别到
+    public UserFilter userFilter() {
+        return new UserFilter(); }
+
+    @Bean(name = "userFilterConf") //bean的名字不能设置成和类名一样否则就冲突了
+    public FilterRegistrationBean adminFilterConfig() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(userFilter());
+        //设置需要拦截的、需要用户登录权限的url
+        filterRegistrationBean.addUrlPatterns("/cart/*");
+        filterRegistrationBean.addUrlPatterns("/order/*");
+        //给过滤器配置设置一个名字,以便于区分不同的配置
+        filterRegistrationBean.setName("userFilterConfig");
+        return filterRegistrationBean;}}
+```
 
 
 
+#### 添加商品(添加商品到购物车)接口开发
 
-
-
-
-
-
+```
+idea快捷键 ifn            if (product == null) {
+```
 

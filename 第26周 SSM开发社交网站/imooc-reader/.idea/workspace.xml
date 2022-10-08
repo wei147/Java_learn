@@ -10,15 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc463cbc-560c-4c47-b719-124afa168efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/generatorConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/imooc_mall_local.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/log4j2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/test/java/com/imooc/mall/service/impl/UserServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/config/UserFilterConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/controller/CartController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/filter/UserFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/model/vo/CartVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/service/CartService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/service/impl/CartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/Spring Boot电商项目.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/Spring Boot电商项目.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/common/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/common/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/exception/ImoocMallExceptionEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/exception/ImoocMallExceptionEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/info.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +78,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第1节 Spring Boot入门/spring-boot-learn" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.12674272" />
     <property name="project.structure.side.proportion" value="0.2926337" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -344,6 +348,7 @@
       <workItem from="1663123392494" duration="23142000" />
       <workItem from="1663173133422" duration="3218000" />
       <workItem from="1663679558880" duration="1206000" />
+      <workItem from="1665213540174" duration="359000" />
     </task>
     <servers />
   </component>

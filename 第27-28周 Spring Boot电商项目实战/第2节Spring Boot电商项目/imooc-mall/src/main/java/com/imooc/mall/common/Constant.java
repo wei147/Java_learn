@@ -26,11 +26,16 @@ public class Constant {
 
     //用set方法去把静态变量进行赋值,这样可以成功获取到在配置文件中定义的路径的值 application.properties
     @Value("${file.upload.dir}")
-    public void setFileUploadDir(String fileUploadDir){
+    public void setFileUploadDir(String fileUploadDir) {
         FILE_UPLOAD_DIR = fileUploadDir;
     }
 
-    public interface  productListOrderBy{
-        Set<String> PRICE_ASC_DESC= Sets.newHashSet("price desc","price asc");
+    public interface productListOrderBy {
+        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price desc", "price asc");
+    }
+
+    public interface SaleStatus {
+        int NOT_SALE = 0;//商品下架状态
+        int SALE = 1;   //商品下架状态
     }
 }
