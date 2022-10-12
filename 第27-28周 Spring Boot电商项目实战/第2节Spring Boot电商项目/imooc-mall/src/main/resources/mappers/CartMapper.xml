@@ -129,18 +129,28 @@
     这种写法可以让我们多个表直接关联起来并且直接返回一个我们想要的更多的字段,而不局限于一张表的字段-->
 
     <select id="selectList" resultType="com.imooc.mall.model.vo.CartVO" parameterType="java.lang.Integer">
-        select
-        c.id as id,
-        p.id as productId,
-        c.user_id as userId,
-        c.quantity as quantity,
-        c.selected as selected,
-        p.price as price,
-        p.name as productName,
-        p.image as productImage
+        select c.id       as id,
+               p.id       as productId,
+               c.user_id  as userId,
+               c.quantity as quantity,
+               c.selected as selected,
+               p.price    as price,
+               p.name     as productName,
+               p.image    as productImage
         from imooc_mall_cart c
-        left join imooc_mall_product p on p.id = c.product_id
+                 left join imooc_mall_product p on p.id = c.product_id
         where c.user_id = #{userId}
-        and p.status = 1
+          and p.status = 1
     </select>
+
+    <!-- 全选和选中一个是有很大的相似点的。(一个可以复用的逻辑) 即当只传用户id不传productId的时候代表选中全部购物车商品,
+    然后再更新状态。 productId为null时选中所有购物车商品-->
+    <update id="selectOrNot" parameterType="map">
+        update imooc_mall_cart
+        set selected = #{selected}
+        where user_id = #{userId}
+        <if test="productId != null">
+            and product_id = #{productId}
+        </if>
+    </update>
 </mapper>

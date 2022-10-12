@@ -2285,9 +2285,147 @@ public class CartController {
 
 ```java
  //2022年10月11日19:30:30 商品已经在购物车的情况中,更新不此成功 (比如在原来基础上加数量)
+
+2022年10月12日21:23:50 上面更新不成功的问题解决,原因是没有setId (cart表的主键)
 ```
 
 
 
 #### 购物车列表
 
+```xml
+//CartMapper.xml  核心sql语句
+
+<!--返回一个购物车列表-->
+<!--首先将两表进行链接 left join 然后是product表的id等于cart表的product_id...
+这种写法可以让我们多个表直接关联起来并且直接返回一个我们想要的更多的字段,而不局限于一张表的字段-->
+
+<select id="selectList" resultType="com.imooc.mall.model.vo.CartVO" parameterType="java.lang.Integer">
+    select
+    c.id as id,
+    p.id as productId,
+    c.user_id as userId,
+    c.quantity as quantity,
+    c.selected as selected,
+    p.price as price,
+    p.name as productName,
+    p.image as productImage
+    from imooc_mall_cart c
+    left join imooc_mall_product p on p.id = c.product_id
+    where c.user_id = #{userId}
+    and p.status = 1
+</select>
+```
+
+```java
+//CartMapper.java
+//通过用户Id和商品Id就可以唯一确定某一个购物车数据了  
+Cart selectCartByUserIdAndProduct(@Param("userId") Integer userId, @Param("productId") Integer productId);
+```
+
+```java
+//CartService.java
+package com.imooc.mall.service;
+/**
+ * 购物车Service
+ */
+public interface CartService {
+    List<CartVO> list(Integer userId);
+    //添加商品到购物车
+    //List<> 里面的对象应该是什么样的?  第一要包含商品的一些信息,比如商品的id、图片、名字、价格等,因为返回的是一个购物车列表。
+    // 第二这些价格、数量、是否选中、用户信息也是需要包含的。所以现在暂时没有一个现成的对象能包含这些信息,所以需要新建一个VO类
+    //这个VO就是返回给前端的,经过组装之后的对象  CartVO
+    //为什么这里要返回一个List? 与其要前端再调一次接口获取最新的list数据,不如我们直接就返回最新的购物车list,可以减少延迟,提高性能的
+    List<CartVO> add(Integer userId, Integer productId, Integer count);}
+```
+
+```java
+//CartServiceImpl.java
+@Override
+public List<CartVO> list(Integer userId) {
+    List<CartVO> cartVOS = cartMapper.selectList(userId);
+    //CartVO中totalPrice这个字段需要自己手动设置
+    for (int i = 0; i < cartVOS.size(); i++) {
+        CartVO cartVO = cartVOS.get(i);
+        //总价 = 价格 * 数量
+        cartVO.setTotalPrice(cartVO.getPrice() * cartVO.getQuantity());
+    }
+    return cartVOS;}
+```
+
+```java
+CartController.java
+
+//返回购物车列表
+@GetMapping("/list")
+@ApiOperation("购物车列表")
+public ApiRestResponse list() {
+    //内部获取用户ID,防止横向越权 (横向越权是指 我是一个用户,别人也是一个用户,我去操作别人的,这就叫横向越权)
+    //(纵向越权是指 我是一个普通用户,我想处理比我高的、管理员的一些内容)
+    List<CartVO> cartVOList = cartService.list(UserFilter.currentUser.getId());
+    return ApiRestResponse.success(cartVOList);}
+```
+
+
+
+#### 更新、删除购物车接口开发
+
+```java
+//CartController
+@PostMapping("/update")
+@ApiOperation("更新购物车列表")
+public ApiRestResponse update(@RequestParam Integer productId, @RequestParam Integer count) {
+    Integer userId = UserFilter.currentUser.getId();
+    List<CartVO> cartVOList = cartService.update(userId, productId, count);
+    return ApiRestResponse.success(cartVOList);
+}
+
+@PostMapping("/delete")
+@ApiOperation("删除购物车")
+public ApiRestResponse delete(@RequestParam Integer productId) {
+    //不能传入userID,cartID,否则可以删除别人的购物车
+    Integer userId = UserFilter.currentUser.getId();
+    List<CartVO> cartVOList = cartService.delete(userId, productId);
+    return ApiRestResponse.success(cartVOList);
+}
+```
+
+```java
+//CartServiceImpl
+
+//更新购物车列表和添加商品到购物车区别不大
+@Override
+public List<CartVO> update(Integer userId, Integer productId, Integer count) {
+    //[say] 一个良好的程序员,他第一步考虑的可能不是整体的业务逻辑,而是那些兜底的异常方案,编程经验增长,这一点会越来越明显
+    validProduct(productId, count);
+
+    Cart cart = cartMapper.selectCartByUserIdAndProduct(userId, productId);
+    if (cart == null) {
+        //这个商品之前不在购物车里,无法更新 (更新接口,更新的是已有的购物车,)
+        throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+    } else {
+        //这个商品已经在购物车里了,则更新数量
+        Cart cartNew = new Cart();
+        cartNew.setQuantity(count);
+        cartNew.setId(cart.getId());
+        cartNew.setProductId(cart.getProductId());
+        cartNew.setUserId(cart.getUserId());
+        cartNew.setSelected(Constant.Cart.CHECKED); //用户加选到购物车说明用户有一定的购买欲望,这里设置购物车记录为选中状态(不管之前状态是否选中)
+        cartMapper.updateByPrimaryKeySelective(cartNew);
+    }
+    return this.list(userId);
+}
+
+@Override
+public List<CartVO> delete(Integer userId, Integer productId) {
+    Cart cart = cartMapper.selectCartByUserIdAndProduct(userId, productId);
+    if (cart == null) {
+        //这个商品之前不在购物车里,无法删除
+        throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+    } else {
+        //这个商品已经在购物车里了,则可以删除
+        cartMapper.deleteByPrimaryKey(cart.getId());
+    }
+    return this.list(userId);
+}
+```

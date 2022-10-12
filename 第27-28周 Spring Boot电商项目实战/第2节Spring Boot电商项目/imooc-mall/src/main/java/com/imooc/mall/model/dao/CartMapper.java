@@ -24,5 +24,5 @@ public interface CartMapper {
     //通过用户Id和商品Id就可以唯一确定某一个购物车数据了
     Cart selectCartByUserIdAndProduct(@Param("userId") Integer userId, @Param("productId") Integer productId);
 
-
+    Integer selectOrNot(@Param("userId") Integer userId, @Param("productId") Integer productId,@Param("selected") Integer selected);
 }

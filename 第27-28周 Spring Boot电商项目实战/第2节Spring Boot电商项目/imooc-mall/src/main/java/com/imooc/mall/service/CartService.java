@@ -19,4 +19,15 @@ public interface CartService {
     //这个VO就是返回给前端的,经过组装之后的对象  CartVO
     //为什么这里要返回一个List? 与其要前端再调一次接口获取最新的list数据,不如我们直接就返回最新的购物车list,可以减少延迟,提高性能的
     List<CartVO> add(Integer userId, Integer productId, Integer count);
+
+
+    List<CartVO> update(Integer userId, Integer productId, Integer count);
+
+
+    List<CartVO> delete(Integer userId, Integer productId);
+
+    //全选和选中一个是有很大的相似点的。(一个可以复用的逻辑) 即当只传用户id不传productId的时候代表选中全部购物车商品,然后再更新状态
+    List<CartVO> selectOrNot(Integer userId, Integer productId, Integer selected);
+
+    List<CartVO> selectAll(Integer userId, Integer selected);
 }

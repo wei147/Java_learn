@@ -60,11 +60,12 @@ public class CartServiceImpl implements CartService {
             cartMapper.insertSelective(cart);
         } else {
             //这个商品已经在购物车里了,则数量相加
-            Cart cartNew = new Cart();
             count = (cart.getQuantity() + count);
+            Cart cartNew = new Cart();
             cartNew.setQuantity(count);
-            cartNew.setUserId(cart.getUserId());
+            cartNew.setId(cart.getId());
             cartNew.setProductId(cart.getProductId());
+            cartNew.setUserId(cart.getUserId());
             cartNew.setSelected(Constant.Cart.CHECKED); //用户加选到购物车说明用户有一定的购买欲望,这里设置购物车记录为选中状态(不管之前状态是否选中)
             int i = cartMapper.updateByPrimaryKeySelective(cartNew);
 
@@ -90,5 +91,63 @@ public class CartServiceImpl implements CartService {
         if (count > product.getStock()) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NOT_ENOUGH);
         }
+    }
+
+    //更新购物车列表和添加商品到购物车区别不大
+    @Override
+    public List<CartVO> update(Integer userId, Integer productId, Integer count) {
+        //[say] 一个良好的程序员,他第一步考虑的可能不是整体的业务逻辑,而是那些兜底的异常方案,编程经验增长,这一点会越来越明显
+        validProduct(productId, count);
+
+        Cart cart = cartMapper.selectCartByUserIdAndProduct(userId, productId);
+        if (cart == null) {
+            //这个商品之前不在购物车里,无法更新 (更新接口,更新的是已有的购物车,)
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        } else {
+            //这个商品已经在购物车里了,则更新数量
+            Cart cartNew = new Cart();
+            cartNew.setQuantity(count);
+            cartNew.setId(cart.getId());
+            cartNew.setProductId(cart.getProductId());
+            cartNew.setUserId(cart.getUserId());
+            cartNew.setSelected(Constant.Cart.CHECKED); //用户加选到购物车说明用户有一定的购买欲望,这里设置购物车记录为选中状态(不管之前状态是否选中)
+            cartMapper.updateByPrimaryKeySelective(cartNew);
+        }
+        return this.list(userId);
+    }
+
+    @Override
+    public List<CartVO> delete(Integer userId, Integer productId) {
+        Cart cart = cartMapper.selectCartByUserIdAndProduct(userId, productId);
+        if (cart == null) {
+            //这个商品之前不在购物车里,无法删除
+            throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+        } else {
+            //这个商品已经在购物车里了,则可以删除
+            cartMapper.deleteByPrimaryKey(cart.getId());
+        }
+        return this.list(userId);
+    }
+
+    //全选和选中一个是有很大的相似点的。(一个可以复用的逻辑) 即当只传用户id不传productId的时候代表选中全部购物车商品,然后再更新状态
+    @Override
+    public List<CartVO> selectOrNot(Integer userId, Integer productId, Integer selected) {
+        Cart cart = cartMapper.selectCartByUserIdAndProduct(userId, productId);
+        if (cart == null) {
+            //这个商品之前不在购物车里,无法更新选中状态
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        } else {
+            //这个商品已经在购物车里了,则可以选中/不选中
+            cartMapper.selectOrNot(userId, productId, selected);
+        }
+        return this.list(userId);
+    }
+
+    @Override
+    public List<CartVO> selectAll(Integer userId, Integer selected) {
+        //没有判空处理?
+        //改变选中状态
+        cartMapper.selectOrNot(userId, null, selected);
+        return this.list(userId);
     }
 }
