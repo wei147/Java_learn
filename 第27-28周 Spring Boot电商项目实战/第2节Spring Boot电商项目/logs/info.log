@@ -44,3 +44,50 @@
 [01:00:47:307] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
 [01:00:47:361] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
 [01:00:47:379] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[01:07:32:579] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 21228 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[01:07:32:628] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[01:07:34:173] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[01:07:34:180] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[01:07:34:244] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 38ms. Found 0 repository interfaces.
+[01:07:34:752] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[01:07:35:592] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[01:07:35:606] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[01:07:35:608] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[01:07:35:609] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[01:07:35:802] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[01:07:35:803] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3091 ms
+[01:07:37:780] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[01:07:38:035] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[01:07:38:887] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[01:07:38:919] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[01:07:38:979] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[01:07:39:578] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[01:07:39:768] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[01:07:39:810] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[01:07:39:815] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 7.787 seconds (JVM running for 12.521)
+[01:08:48:632] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[01:08:48:633] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[01:08:48:653] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 20 ms
+[01:08:52:039] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[01:08:52:039] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[01:08:52:040] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[01:08:52:043] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.login
+[01:08:52:044] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [wei, 123456, org.apache.catalina.session.StandardSessionFacade@60ad7672]
+[01:08:52:125] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[01:08:52:356] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[01:08:52:504] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":16,"username":"wei","password":null,"personalizedSignature":"","role":1,"createTime":1663862976000,"updateTime":1664103216000}}
+[01:08:54:853] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/selectAll
+[01:08:54:854] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[01:08:54:854] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[01:08:54:855] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.selectAllOrNot
+[01:08:54:856] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [0]
+[01:08:54:938] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":2,"selected":0,"price":50,"totalPrice":100,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":2,"productId":3,"userId":16,"quantity":1,"selected":0,"price":1000,"totalPrice":1000,"productName":"茶树菇 美味菌菇 东北山珍 500g","productImage":"http://127.0.0.1:8083/images/chashugu.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":0,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":0,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
+[01:09:03:559] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/selectAll
+[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.selectAllOrNot
+[01:09:03:561] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [1]
+[01:09:03:587] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":2,"selected":1,"price":50,"totalPrice":100,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":2,"productId":3,"userId":16,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"茶树菇 美味菌菇 东北山珍 500g","productImage":"http://127.0.0.1:8083/images/chashugu.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":1,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":1,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
+[01:13:23:957] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[01:13:23:988] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[01:13:24:003] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.

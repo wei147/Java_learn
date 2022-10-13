@@ -2429,3 +2429,46 @@ public List<CartVO> delete(Integer userId, Integer productId) {
     return this.list(userId);
 }
 ```
+
+
+
+#### 购物车模块测试与总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013124701362.png" alt="image-20221013124701362" style="zoom:50%;" />
+
+```
+一旦允许前端传入cartId或者是userId这就很危险了,因为由一个规则就是前端传的数据一律默认是不可信的,这是出于安全考虑,所以要做权限判断来保证安全
+```
+
+
+
+#### 订单模块介绍
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013225308922.png" alt="image-20221013225308922" style="zoom:50%;" />
+
+
+
+#### 创建订单接口-主流程框架搭建
+
+```
+开发之前,我们肯定要对思路有一个很清醒的认识,我们理清思路之后,开发起来才能准确而又快速,,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013225709871.png" alt="image-20221013225709871" style="zoom:50%;" />
+
+```
+下单要注意哪些点? 第一个是入参,入参只需要传入收件人的相关信息而不需要传商品信息,这是因为我们会从购物车中查找已经勾选的商品,还会对商品是否在售卖进行判断与此同时我们还会判断商品的库存是否足够,保证不超卖
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013230252565.png" alt="image-20221013230252565" style="zoom:50%;" />![image-20221013232029236](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232029236.png)
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232052009.png" alt="image-20221013232052009" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232115897.png" alt="image-20221013232115897" style="zoom:50%;" />
+
+
+
+
+
+
+
