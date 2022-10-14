@@ -2460,15 +2460,232 @@ public List<CartVO> delete(Integer userId, Integer productId) {
 下单要注意哪些点? 第一个是入参,入参只需要传入收件人的相关信息而不需要传商品信息,这是因为我们会从购物车中查找已经勾选的商品,还会对商品是否在售卖进行判断与此同时我们还会判断商品的库存是否足够,保证不超卖
 ```
 
-<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013230252565.png" alt="image-20221013230252565" style="zoom:50%;" />![image-20221013232029236](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232029236.png)
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013230252565.png" alt="image-20221013230252565" style="zoom:50%;" />
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232052009.png" alt="image-20221013232052009" style="zoom:50%;" />
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221013232115897.png" alt="image-20221013232115897" style="zoom:50%;" />
 
+```java
+//主流程的一个书写。感觉这样更直观有一个大体的认知,有利于开发    
+public String create(CreateOrderReq createOrderReq) {
 
+        //拿到用户ID
+        
+        //从购物车查找已经勾选的商品
 
+        //如果购物车已勾选的为空,报错
 
+        //判断商品是否存在、上下架状态、库存
 
+        //把购物车对象转为订单item对象
 
+        //扣库存  (商品表中的原有库存 - orderItem表里的购买数量)
+
+        //把购物车中的已勾选商品删除
+
+        //生成订单
+        
+        //生成订单号,有独立的规则
+
+        //插入到order表
+
+        //循环保存每个商品到order_item表
+
+        //把结果返回...
+```
+
+#### 创建订单-对象转化与扣库存
+
+#### 创建订单-状态枚举与自测
+
+```java
+//Constant.java  状态枚举
+public enum OrderStatusEnum {
+    CANCELED(0, "用户已取消"),
+    NOT_PAID(10, "未付款"),
+    PAID(20, "已付款"),
+    DELIVERED(30, "已发货"),
+    FINISHED(40, "交易完成");
+
+    private String value;
+    private int code;
+
+    OrderStatusEnum(int code, String value) {
+        this.value = value;
+        this.code = code;}
+
+    public static OrderStatusEnum codeOf(int code){
+        //values()所返回的就是一个枚举列表, 像这样?  PAID(20, "已付款"),
+        for (OrderStatusEnum orderStatusEnum:values()){
+            if (orderStatusEnum.getCode()==code){
+                return orderStatusEnum;
+            }}
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ENUM);}
+    public String getValue() {return value;}
+    public void setValue(String value) {this.value = value;}
+    public int getCode() {return code;}
+    public void setCode(int code) {this.code = code;}}
+```
+
+#### 添加数据库事务
+
+```java
+//截止目前为止,最长流程
+package com.imooc.mall.service.impl;
+/**
+ * 订单Service实现类
+ */
+//数据库事务
+@Transactional(rollbackFor = Exception.class) //含义是 遇到任何异常都会回滚
+@Service("orderService")
+public class OrderServiceImpl implements OrderService {
+    @Resource
+    OrderMapper orderMapper;
+    @Resource
+    CartService cartService;
+    @Resource
+    ProductMapper productMapper;
+    @Resource
+    CartMapper cartMapper;
+    @Resource
+    OrderItemMapper orderItemMapper;
+
+    //返回的是一个orderNum 订单编号
+    @Override
+    public String create(CreateOrderReq createOrderReq) {
+
+        //拿到用户ID
+        Integer userId = UserFilter.currentUser.getId();
+        //从购物车查找已经勾选的商品
+        List<CartVO> cartVOList = cartService.list(userId);
+        ArrayList<CartVO> cartVOListTemp = new ArrayList<>();
+        for (int i = 0; i < cartVOList.size(); i++) {
+            CartVO cartVO = cartVOList.get(i);
+            if (cartVO.getSelected().equals(Constant.Cart.CHECKED)) {
+                cartVOListTemp.add(cartVO);
+            }
+        }
+        cartVOList = cartVOListTemp;
+
+        //如果购物车已勾选的为空,报错
+        if (cartVOList == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.CART_EMPTY);
+        }
+
+        //判断商品是否存在、上下架状态、库存
+        validSaleStatusAndStock(cartVOList);
+        //把购物车对象转为订单item对象
+        List<OrderItem> orderItemList = cartVOListToOrderItemList(cartVOList);
+        //扣库存  (商品表中的原有库存 - orderItem表里的购买数量)
+        for (int i = 0; i < orderItemList.size(); i++) {
+            OrderItem orderItem = orderItemList.get(i);
+            Product product = productMapper.selectByPrimaryKey(orderItem.getProductId());
+            int stock = product.getStock() - orderItem.getQuantity();
+            //[加入购物车的时候有库存但是买的时候没有库存了。因为可能被别人买走了]
+            if (stock < 0) {
+                throw new ImoocMallException(ImoocMallExceptionEnum.NOT_ENOUGH);
+            }
+            product.setStock(stock);
+            productMapper.updateByPrimaryKeySelective(product);
+        }
+        //把购物车中的已勾选商品删除 (这里传进来的cartVOList经过过滤都是被勾选中的)
+        cleanCart(cartVOList);
+        //生成订单
+        Order order = new Order();
+        //生成订单号,有独立的规则
+        String orderNo = OrderCodeFactory.getOrderCode(Long.valueOf(userId));
+        order.setOrderNo(orderNo);
+        order.setUserId(userId);
+        order.setTotalPrice(totalPrice(orderItemList));
+        order.setReceiverName(createOrderReq.getReceiverName());
+        order.setReceiverMobile(createOrderReq.getReceiverMobile());
+        order.setReceiverAddress(createOrderReq.getReceiverAddress());
+        order.setOrderStatus(Constant.OrderStatusEnum.NOT_PAID.getCode());
+        order.setPostage(0); //包邮
+        order.setPaymentType(1); //付款方式设置为在线付款
+        //插入到order表
+        orderMapper.insertSelective(order);
+
+        //循环保存每个商品到order_item表
+        for (int i = 0; i < orderItemList.size(); i++) {
+            OrderItem orderItem = orderItemList.get(i);
+            orderItem.setOrderNo(order.getOrderNo());
+            orderItemMapper.insertSelective(orderItem);
+//            throw new ImoocMallException(ImoocMallExceptionEnum.CART_EMPTY); 测试数据库事务时使用
+        }
+        //把结果返回
+        return orderNo;
+    }
+
+    private Integer totalPrice(List<OrderItem> orderItemList) {
+        Integer totalPrice = 0;
+        for (int i = 0; i < orderItemList.size(); i++) {
+            OrderItem orderItem = orderItemList.get(i);
+            totalPrice += orderItem.getTotalPrice();
+        }
+        //返回的是订单下所有商品的总价
+        return totalPrice;
+    }
+
+    private void cleanCart(List<CartVO> cartVOList) {
+        for (int i = 0; i < cartVOList.size(); i++) {
+            CartVO cartVO = cartVOList.get(i);
+//            cartMapper.deleteByPrimaryKey(cartVO.getProductId()); 这里应该是getId 是主键而不是商品id
+            cartMapper.deleteByPrimaryKey(cartVO.getId());
+        }
+    }
+
+    private List<OrderItem> cartVOListToOrderItemList(List<CartVO> cartVOList) {
+        //主要是赋值操作
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for (int i = 0; i < cartVOList.size(); i++) {
+            CartVO cartVO = cartVOList.get(i);
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProductId(cartVO.getProductId());
+            //productId 是不会变的,但商品信息是会被修改的,所以我们作为订单一定要记录下当时的情景,
+            // 这样的话,后面商品降价、升价还是改图片了对我们都不应该有影响,
+            //记录商品快照信息
+            orderItem.setProductName(cartVO.getProductName());
+            orderItem.setProductImg(cartVO.getProductImage());
+            orderItem.setUnitPrice(cartVO.getPrice());
+            orderItem.setQuantity(cartVO.getQuantity());
+            orderItem.setTotalPrice(cartVO.getTotalPrice());
+            orderItemList.add(orderItem);
+        }
+        return orderItemList;
+    }
+
+    private void validSaleStatusAndStock(List<CartVO> cartVOList) {
+        for (int i = 0; i < cartVOList.size(); i++) {
+            CartVO cartVO = cartVOList.get(i);
+            Product product = productMapper.selectByPrimaryKey(cartVO.getProductId());
+            //判断商品是否存在、上下架状态
+            if (product == null || product.getStatus().equals(Constant.SaleStatus.NOT_SALE)) {
+                throw new ImoocMallException(ImoocMallExceptionEnum.NOT_SALE);
+            }
+            //判断商品库存 (买几件商品和库存进行对比)
+            if (cartVO.getQuantity() > product.getStock()) {
+                throw new ImoocMallException(ImoocMallExceptionEnum.NOT_ENOUGH);
+            }}}}
+```
+
+```java
+package com.imooc.mall.controller;
+/**
+ * 订单Controller
+ */
+@RestController
+public class OrderController {
+
+    @Resource
+    OrderService orderService;
+
+    //因为传入的参数比较复杂,所以用一个请求类来包装,
+    @ApiOperation("创建订单")
+    @PostMapping("order/create")
+    public ApiRestResponse create(@Valid @RequestBody CreateOrderReq createOrderReq) {
+        String orderNo = orderService.create(createOrderReq);
+        return ApiRestResponse.success(orderNo);}}
+```
 

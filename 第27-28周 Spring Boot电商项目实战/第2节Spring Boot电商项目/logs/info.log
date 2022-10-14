@@ -1,93 +1,281 @@
-[00:56:38:008] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 14276 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
-[00:56:38:042] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
-[00:56:39:637] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
-[00:56:39:645] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
-[00:56:39:721] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 48ms. Found 0 repository interfaces.
-[00:56:40:262] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-[00:56:41:063] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
-[00:56:41:077] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
-[00:56:41:079] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
-[00:56:41:080] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
-[00:56:41:269] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
-[00:56:41:270] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3095 ms
-[00:56:43:329] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
-[00:56:43:594] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
-[00:56:44:407] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
-[00:56:44:435] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
-[00:56:44:496] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
-[00:56:45:046] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
-[00:56:45:209] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
-[00:56:45:259] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
-[00:56:45:263] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 8.055 seconds (JVM running for 13.026)
-[00:57:46:700] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
-[00:57:46:700] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
-[00:57:46:720] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 20 ms
-[00:57:46:796] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
-[00:57:46:796] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[00:57:46:796] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[00:57:46:799] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.login
-[00:57:46:799] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [wei, 123456, org.apache.catalina.session.StandardSessionFacade@d1e3639]
-[00:57:46:863] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
-[00:57:47:096] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
-[00:57:47:228] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":16,"username":"wei","password":null,"personalizedSignature":"","role":1,"createTime":1663862976000,"updateTime":1664103216000}}
-[00:57:49:506] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/select
-[00:57:49:506] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[00:57:49:507] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[00:57:49:508] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.select
-[00:57:49:508] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [24, 0]
-[00:57:49:596] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":2,"selected":1,"price":50,"totalPrice":100,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":2,"productId":3,"userId":16,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"茶树菇 美味菌菇 东北山珍 500g","productImage":"http://127.0.0.1:8083/images/chashugu.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":1,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":0,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
-[01:00:38:806] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/select
-[01:00:38:806] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[01:00:38:807] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[01:00:38:807] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.select
-[01:00:38:807] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [33, 0]
-[01:00:47:307] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
-[01:00:47:361] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
-[01:00:47:379] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
-[01:07:32:579] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 21228 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
-[01:07:32:628] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
-[01:07:34:173] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
-[01:07:34:180] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
-[01:07:34:244] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 38ms. Found 0 repository interfaces.
-[01:07:34:752] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-[01:07:35:592] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
-[01:07:35:606] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
-[01:07:35:608] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
-[01:07:35:609] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
-[01:07:35:802] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
-[01:07:35:803] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3091 ms
-[01:07:37:780] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
-[01:07:38:035] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
-[01:07:38:887] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
-[01:07:38:919] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
-[01:07:38:979] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
-[01:07:39:578] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
-[01:07:39:768] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
-[01:07:39:810] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
-[01:07:39:815] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 7.787 seconds (JVM running for 12.521)
-[01:08:48:632] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
-[01:08:48:633] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
-[01:08:48:653] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 20 ms
-[01:08:52:039] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
-[01:08:52:039] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[01:08:52:040] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[01:08:52:043] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.login
-[01:08:52:044] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [wei, 123456, org.apache.catalina.session.StandardSessionFacade@60ad7672]
-[01:08:52:125] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
-[01:08:52:356] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
-[01:08:52:504] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":16,"username":"wei","password":null,"personalizedSignature":"","role":1,"createTime":1663862976000,"updateTime":1664103216000}}
-[01:08:54:853] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/selectAll
-[01:08:54:854] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[01:08:54:854] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[01:08:54:855] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.selectAllOrNot
-[01:08:54:856] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [0]
-[01:08:54:938] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":2,"selected":0,"price":50,"totalPrice":100,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":2,"productId":3,"userId":16,"quantity":1,"selected":0,"price":1000,"totalPrice":1000,"productName":"茶树菇 美味菌菇 东北山珍 500g","productImage":"http://127.0.0.1:8083/images/chashugu.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":0,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":0,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
-[01:09:03:559] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/selectAll
-[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[01:09:03:560] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.selectAllOrNot
-[01:09:03:561] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [1]
-[01:09:03:587] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":2,"selected":1,"price":50,"totalPrice":100,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":2,"productId":3,"userId":16,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"茶树菇 美味菌菇 东北山珍 500g","productImage":"http://127.0.0.1:8083/images/chashugu.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":1,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":1,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
-[01:13:23:957] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
-[01:13:23:988] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
-[01:13:24:003] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[23:05:32:078] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 6156 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[23:05:32:095] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:05:34:343] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:05:34:355] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:05:34:450] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 56ms. Found 0 repository interfaces.
+[23:05:35:109] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:05:36:192] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[23:05:36:216] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[23:05:36:218] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:05:36:221] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:05:36:424] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:05:36:425] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 4222 ms
+[23:05:38:796] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[23:05:39:128] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:05:40:421] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[23:05:40:468] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[23:05:40:607] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[23:05:41:552] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[23:05:41:760] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[23:05:41:832] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[23:05:41:838] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 10.748 seconds (JVM running for 18.503)
+[23:06:01:277] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:06:01:278] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:06:01:297] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 19 ms
+[23:06:06:135] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[23:06:06:135] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:06:06:136] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:06:140] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.login
+[23:06:06:141] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [wei, 123456, org.apache.catalina.session.StandardSessionFacade@1e6f1329]
+[23:06:06:247] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[23:06:06:614] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[23:06:06:825] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":16,"username":"wei","password":null,"personalizedSignature":"","role":1,"createTime":1663862976000,"updateTime":1664103216000}}
+[23:06:13:384] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /order/create
+[23:06:13:384] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:06:13:384] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:13:385] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.OrderController.create
+[23:06:13:385] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.imooc.mall.model.request.CreateOrderReq@58a894f1]
+[23:06:13:660] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":"123061339521"}
+[23:07:35:862] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:07:35:912] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[23:07:35:922] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[23:18:47:872] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 18168 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[23:18:47:923] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:18:49:707] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:18:49:714] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:18:49:802] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 51ms. Found 0 repository interfaces.
+[23:18:50:513] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:18:51:509] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[23:18:51:527] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[23:18:51:528] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:18:51:530] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:18:51:742] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:18:51:742] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3721 ms
+[23:18:54:034] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[23:18:54:313] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:18:55:209] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[23:18:55:245] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[23:18:55:310] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[23:18:56:000] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[23:18:56:199] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[23:18:56:257] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[23:18:56:262] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 9.097 seconds (JVM running for 14.846)
+[23:19:25:286] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:19:25:286] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:19:25:307] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 21 ms
+[23:19:25:368] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[23:19:25:369] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:19:25:369] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:19:25:372] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.login
+[23:19:25:372] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [wei, 123456, org.apache.catalina.session.StandardSessionFacade@37e1bb78]
+[23:19:25:447] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[23:19:25:731] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[23:19:25:912] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":16,"username":"wei","password":null,"personalizedSignature":"","role":1,"createTime":1663862976000,"updateTime":1664103216000}}
+[23:19:56:768] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/add
+[23:19:56:768] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:19:56:769] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:19:56:769] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.add
+[23:19:56:770] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [2, 1]
+[23:19:56:879] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":3,"selected":1,"price":50,"totalPrice":150,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":1,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":1,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"}]}
+[23:20:03:575] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/add
+[23:20:03:576] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:20:03:576] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:20:03:576] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.add
+[23:20:03:576] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [17, 1]
+[23:20:03:628] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":1,"productId":2,"userId":16,"quantity":3,"selected":1,"price":50,"totalPrice":150,"productName":"澳洲进口大黑车厘子大樱桃包甜黑樱桃大果多汁 500g 特大果","productImage":"http://127.0.0.1:8083/images/chelizi2.jpg"},{"id":4,"productId":23,"userId":16,"quantity":3,"selected":1,"price":12,"totalPrice":36,"productName":"澳大利亚直采鲜橙 精品澳橙12粒 单果130-180g","productImage":"http://127.0.0.1:8083/images/chengzi.jpg"},{"id":5,"productId":24,"userId":16,"quantity":8,"selected":1,"price":222,"totalPrice":1776,"productName":"智利帝王蟹礼盒装4.4-4.0斤/只 生鲜活鲜熟冻大螃蟹","productImage":"http://127.0.0.1:8083/images/diwangxie.jpg"},{"id":6,"productId":17,"userId":16,"quantity":1,"selected":1,"price":99,"totalPrice":99,"productName":"红颜奶油草莓 约重500g/20-24颗 新鲜水果","productImage":"http://127.0.0.1:8083/images/caomei2.jpg"}]}
+[23:20:29:932] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /order/create
+[23:20:29:933] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:20:29:933] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:20:29:933] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.OrderController.create
+[23:20:29:933] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.imooc.mall.model.request.CreateOrderReq@5196a6bc]
+[23:22:29:644] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /adminLogin
+[23:22:29:645] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:22:29:645] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:22:29:645] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.adminLogin
+[23:22:29:646] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [yidou, 123456, org.apache.catalina.session.StandardSessionFacade@37e1bb78]
+[23:22:29:660] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":22,"username":"yidou","password":null,"personalizedSignature":"海内存知己","role":2,"createTime":1664002174000,"updateTime":1664102787000}}
+[23:22:36:926] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:22:36:927] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:22:36:927] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:22:36:927] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:22:36:927] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:22:36:946] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[]}
+[23:23:36:026] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/add
+[23:23:36:026] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:23:36:027] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:23:36:027] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.add
+[23:23:36:027] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [43, 1]
+[23:23:36:063] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:23:52:231] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/add
+[23:23:52:231] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:23:52:231] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:23:52:231] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.add
+[23:23:52:232] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [44, 2]
+[23:23:52:272] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:24:03:831] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:24:03:831] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:24:03:831] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:24:03:832] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:24:03:832] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:24:03:847] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:24:21:774] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /order/create
+[23:24:21:774] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:24:21:775] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:24:21:775] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.OrderController.create
+[23:24:21:776] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.imooc.mall.model.request.CreateOrderReq@2802b3ef]
+[23:24:41:310] [WARN] - com.zaxxer.hikari.pool.HikariPool$HouseKeeper.run(HikariPool.java:787) - imooc_mall_datasource - Thread starvation or clock leap detected (housekeeper delta=45s462ms292µs700ns).
+[23:24:54:083] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:24:54:128] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[23:24:54:144] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[23:25:30:213] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 19004 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[23:25:30:219] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:25:32:326] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:25:32:332] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:25:32:419] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 50ms. Found 0 repository interfaces.
+[23:25:33:029] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:25:34:023] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[23:25:34:043] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[23:25:34:045] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:25:34:046] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:25:34:259] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:25:34:260] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3887 ms
+[23:25:36:641] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[23:25:36:975] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:25:37:929] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[23:25:37:971] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[23:25:38:043] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[23:25:38:724] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[23:25:38:930] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[23:25:38:982] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[23:25:38:987] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 9.468 seconds (JVM running for 15.023)
+[23:25:51:503] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:25:51:503] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:25:51:521] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 18 ms
+[23:25:51:589] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /adminLogin
+[23:25:51:590] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:25:51:590] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:51:595] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.adminLogin
+[23:25:51:596] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [yidou, 123456, org.apache.catalina.session.StandardSessionFacade@1df68da]
+[23:25:51:663] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[23:25:51:936] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[23:25:52:108] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":22,"username":"yidou","password":null,"personalizedSignature":"海内存知己","role":2,"createTime":1664002174000,"updateTime":1664102787000}}
+[23:25:57:388] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:25:57:389] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:57:390] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:57:391] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:25:57:391] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:25:57:432] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:26:13:527] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:26:13:527] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:26:13:528] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:26:13:528] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:26:13:528] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:26:13:544] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:28:09:136] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:28:09:181] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[23:28:09:192] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[23:28:38:987] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 18656 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[23:28:39:043] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:28:41:017] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:28:41:024] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:28:41:106] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 50ms. Found 0 repository interfaces.
+[23:28:41:739] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:28:42:738] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[23:28:42:756] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[23:28:42:760] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:28:42:763] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:28:42:976] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:28:42:978] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3827 ms
+[23:28:45:589] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[23:28:45:924] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:28:46:933] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[23:28:46:970] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[23:28:47:056] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[23:28:47:791] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[23:28:48:330] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[23:28:48:386] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[23:28:48:390] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 10.141 seconds (JVM running for 15.886)
+[23:29:05:901] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:29:05:901] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:29:05:937] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 35 ms
+[23:29:06:084] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /adminLogin
+[23:29:06:084] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:29:06:085] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:29:06:090] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.adminLogin
+[23:29:06:091] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [yidou, 123456, org.apache.catalina.session.StandardSessionFacade@7ba40e94]
+[23:29:06:185] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[23:29:06:465] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[23:29:06:638] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":22,"username":"yidou","password":null,"personalizedSignature":"海内存知己","role":2,"createTime":1664002174000,"updateTime":1664102787000}}
+[23:29:09:267] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:29:09:267] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:29:09:267] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:29:09:268] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:29:09:268] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:29:09:299] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:29:22:858] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /order/create
+[23:29:22:858] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:29:22:858] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:29:22:859] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.OrderController.create
+[23:29:22:859] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.imooc.mall.model.request.CreateOrderReq@65870668]
+[23:29:48:607] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:29:48:607] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:29:48:607] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:29:48:608] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:29:48:608] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:29:48:622] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:30:24:854] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:30:24:896] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[23:30:24:909] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
+[23:30:54:818] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting ImoocMallApplication on LAPTOP-A50H8Q5F with PID 22136 (started by W1216381706 in D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目\imooc-mall)
+[23:30:54:869] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:30:56:667] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:30:56:673] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:30:56:768] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 60ms. Found 0 repository interfaces.
+[23:30:57:381] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:30:58:309] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 80 (http)
+[23:30:58:325] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-80"]
+[23:30:58:327] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:30:58:328] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:30:58:521] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:30:58:522] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 3549 ms
+[23:31:00:761] [INFO] - springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping.initHandlerMethods(PropertySourcedRequestMappingHandlerMapping.java:69) - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[23:31:01:109] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:31:02:197] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:160) - Context refreshed
+[23:31:02:236] [INFO] - springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start(DocumentationPluginsBootstrapper.java:163) - Found 1 custom documentation plugin(s)
+[23:31:02:299] [INFO] - springfox.documentation.spring.web.scanners.ApiListingReferenceScanner.scan(ApiListingReferenceScanner.java:41) - Scanning for api listing references
+[23:31:02:952] [INFO] - springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator.startingWith(CachingOperationNameGenerator.java:40) - Generating unique operation named: listUsingPOST_1
+[23:31:03:128] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-80"]
+[23:31:03:185] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 80 (http) with context path ''
+[23:31:03:190] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started ImoocMallApplication in 9.038 seconds (JVM running for 14.773)
+[23:31:11:703] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:31:11:703] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:31:11:724] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 21 ms
+[23:31:11:798] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /adminLogin
+[23:31:11:798] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:31:11:799] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:31:11:803] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.UserController.adminLogin
+[23:31:11:804] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [yidou, 123456, org.apache.catalina.session.StandardSessionFacade@1c4bb669]
+[23:31:11:885] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_mall_datasource - Starting...
+[23:31:12:136] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_mall_datasource - Start completed.
+[23:31:12:308] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"id":22,"username":"yidou","password":null,"personalizedSignature":"海内存知己","role":2,"createTime":1664002174000,"updateTime":1664102787000}}
+[23:31:15:706] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:31:15:707] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:31:15:707] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:31:15:707] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:31:15:707] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:31:15:741] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"id":7,"productId":43,"userId":22,"quantity":1,"selected":1,"price":1000,"totalPrice":1000,"productName":"无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"},{"id":8,"productId":44,"userId":22,"quantity":2,"selected":1,"price":1000,"totalPrice":2000,"productName":"超级无敌猕猴桃","productImage":"http://127.0.0.1:8083/images/6037baf8-5251-4560-be5a-32b8ee3823cf.png"}]}
+[23:31:32:418] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /order/create
+[23:31:32:418] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:31:32:419] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:31:32:419] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.OrderController.create
+[23:31:32:420] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.imooc.mall.model.request.CreateOrderReq@422c85c4]
+[23:31:32:552] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":"123313266532"}
+[23:31:48:862] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /cart/list
+[23:31:48:863] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:31:48:863] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:31:48:863] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.imooc.mall.controller.CartController.list
+[23:31:48:863] [INFO] - com.imooc.mall.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[23:31:48:872] [INFO] - com.imooc.mall.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[]}
+[23:31:57:960] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:31:58:012] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_mall_datasource - Shutdown initiated...
+[23:31:58:029] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_mall_datasource - Shutdown completed.
