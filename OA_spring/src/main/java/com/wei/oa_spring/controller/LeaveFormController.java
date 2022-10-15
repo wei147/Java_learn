@@ -9,11 +9,7 @@ import com.wei.oa_spring.model.request.AuditProcessFlowReq;
 import com.wei.oa_spring.model.request.CreateLeaveFormReq;
 import com.wei.oa_spring.service.LeaveFormService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -21,8 +17,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/leaveForm/")
+@RestController
+@RequestMapping("leaveForm/")
 public class LeaveFormController {
 
     @Resource
@@ -41,7 +37,7 @@ public class LeaveFormController {
     }
 
     //查询需要审核的请假单列表
-    @GetMapping("/list")
+    @GetMapping("list")
     public ApiRestResponse getLeaveFormList(HttpSession session) {
         //1.接收各项请假单数据
         User user = (User) session.getAttribute(Constant.OA_USER);
@@ -55,7 +51,7 @@ public class LeaveFormController {
 
     //具体实现类没搞好
     //审批操作
-    @GetMapping("/audit")
+    @GetMapping("audit")
     public ApiRestResponse audit(HttpSession session, @Valid @RequestBody AuditProcessFlowReq auditProcessFlowReq) {
         //这个登录判断后面可以仿 统一校验管理员身份,做一个统一校验登录
         ProcessFlow processFlow = new ProcessFlow();
