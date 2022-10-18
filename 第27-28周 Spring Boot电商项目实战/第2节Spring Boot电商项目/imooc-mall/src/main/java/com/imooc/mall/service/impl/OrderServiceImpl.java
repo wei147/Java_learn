@@ -13,6 +13,7 @@ import com.imooc.mall.model.pojo.OrderItem;
 import com.imooc.mall.model.pojo.Product;
 import com.imooc.mall.model.request.CreateOrderReq;
 import com.imooc.mall.model.vo.CartVO;
+import com.imooc.mall.model.vo.OrderVO;
 import com.imooc.mall.service.CartService;
 import com.imooc.mall.service.OrderService;
 import com.imooc.mall.util.OrderCodeFactory;
@@ -166,5 +167,10 @@ public class OrderServiceImpl implements OrderService {
                 throw new ImoocMallException(ImoocMallExceptionEnum.NOT_ENOUGH);
             }
         }
+    }
+
+    //新增OrderVO类和OrderItemVO类
+    public OrderVO detail(String orderNo) {
+        Order order = orderMapper.selectByPrimaryKey(orderNo);
     }
 }

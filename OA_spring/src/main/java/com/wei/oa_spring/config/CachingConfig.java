@@ -1,4 +1,4 @@
-package com.imooc.mall.config;
+package com.wei.oa_spring.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

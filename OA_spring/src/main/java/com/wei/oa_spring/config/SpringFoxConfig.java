@@ -1,4 +1,4 @@
-package com.imooc.mall.config;
+package com.wei.oa_spring.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class SpringFoxConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("慕慕生鲜")
+                .title("OA系统")
                 .description("")
                 .termsOfServiceUrl("")
                 .build();

@@ -6,6 +6,7 @@ import com.imooc.mall.service.OrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,6 +26,13 @@ public class OrderController {
     @PostMapping("order/create")
     public ApiRestResponse create(@Valid @RequestBody CreateOrderReq createOrderReq) {
         String orderNo = orderService.create(createOrderReq);
+        return ApiRestResponse.success(orderNo);
+    }
+
+    @ApiOperation("前台订单详情")
+    @PostMapping("order/detail")
+    public ApiRestResponse detail(@RequestParam String orderNo) {
+
         return ApiRestResponse.success(orderNo);
     }
 }
