@@ -13,10 +13,12 @@ import com.imooc.mall.model.pojo.OrderItem;
 import com.imooc.mall.model.pojo.Product;
 import com.imooc.mall.model.request.CreateOrderReq;
 import com.imooc.mall.model.vo.CartVO;
+import com.imooc.mall.model.vo.OrderItemVO;
 import com.imooc.mall.model.vo.OrderVO;
 import com.imooc.mall.service.CartService;
 import com.imooc.mall.service.OrderService;
 import com.imooc.mall.util.OrderCodeFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -174,15 +176,34 @@ public class OrderServiceImpl implements OrderService {
         //为了安全起见不允许暴露主键,所以不能用selectByPrimaryKey() 来查询。所以需要新写一个方法
         Order order = orderMapper.selectByOrderNo(orderNo);
         //订单不存在,则报错
-        if (order ==null) {
+        if (order == null) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
         }
         //订单存在,需要判断所属  （不能拿别人的订单详情）
         Integer userId = UserFilter.currentUser.getId();
-        if (!userId.equals(order.getUserId())){
-            throw new ImoocMallException()
+        if (!userId.equals(order.getUserId())) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
         }
+        OrderVO orderVO = getOrderVO(order);
+    }
+
+    private OrderVO getOrderVO(Order order) {
         OrderVO orderVO = new OrderVO();
-        orderVO.setOrderItemVOList();
+        //把order里能复制的都复制到orderVO
+        BeanUtils.copyProperties(order, orderVO);
+        //获取订单对应的orderItemVOList
+        List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+        List<OrderItemVO> orderItemVOList = new ArrayList<>();
+        for (int i = 0; i < orderItemList.size(); i++) {
+            OrderItem orderItem = orderItemList.get(i);
+            OrderItemVO orderItemVO = new OrderItemVO();
+            BeanUtils.copyProperties(orderItem, orderItemVO);
+            orderItemVOList.add(orderItemVO);
+
+        }
+        orderVO.setOrderItemVOList(orderItemVOList);
+        //codeOf()... 通过状态码返回一个枚举的类型。这样就把一个数字的类型转化为枚举,,,,
+        orderVO.setOrderStatusName(String.valueOf(Constant.OrderStatusEnum.codeOf(orderVO.getOrderStatus()).getValue()));
+        return orderVO;
     }
 }
