@@ -172,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     //新增OrderVO类和OrderItemVO类
+    @Override
     public OrderVO detail(String orderNo) {
         //为了安全起见不允许暴露主键,所以不能用selectByPrimaryKey() 来查询。所以需要新写一个方法
         Order order = orderMapper.selectByOrderNo(orderNo);
@@ -185,6 +186,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
         }
         OrderVO orderVO = getOrderVO(order);
+        return orderVO;
     }
 
     private OrderVO getOrderVO(Order order) {

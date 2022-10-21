@@ -2,6 +2,7 @@ package com.imooc.mall.controller;
 
 import com.imooc.mall.common.ApiRestResponse;
 import com.imooc.mall.model.request.CreateOrderReq;
+import com.imooc.mall.model.vo.OrderVO;
 import com.imooc.mall.service.OrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,8 @@ public class OrderController {
     @ApiOperation("前台订单详情")
     @PostMapping("order/detail")
     public ApiRestResponse detail(@RequestParam String orderNo) {
+        OrderVO orderVO = orderService.detail(orderNo);
+        return ApiRestResponse.success(orderVO);
 
-        return ApiRestResponse.success(orderNo);
     }
 }
