@@ -2695,7 +2695,145 @@ public class OrderController {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221020232952304.png" alt="image-20221020232952304" style="zoom:50%;" />
 
+```java
+    //OrderController.java
+	@ApiOperation("前台订单详情")
+    @GetMapping("order/detail")
+    public ApiRestResponse detail(@RequestParam String orderNo) {
+        OrderVO orderVO = orderService.detail(orderNo);
+        return ApiRestResponse.success(orderVO); }
 ```
 
+```java
+//OrderServiceImpl.java
+//新增OrderVO类和OrderItemVO类
+@Override
+public OrderVO detail(String orderNo) {
+    //为了安全起见不允许暴露主键,所以不能用selectByPrimaryKey() 来查询。所以需要新写一个方法
+    Order order = orderMapper.selectByOrderNo(orderNo);
+    //订单不存在,则报错
+    if (order == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+    }
+    //订单存在,需要判断所属  （不能拿别人的订单详情）
+    Integer userId = UserFilter.currentUser.getId();
+    if (!userId.equals(order.getUserId())) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+    }
+    OrderVO orderVO = getOrderVO(order);
+    return orderVO;
+}
+
+private OrderVO getOrderVO(Order order) {
+    OrderVO orderVO = new OrderVO();
+    //把order里能复制的都复制到orderVO
+    BeanUtils.copyProperties(order, orderVO);
+    //获取订单对应的orderItemVOList
+    List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+    List<OrderItemVO> orderItemVOList = new ArrayList<>();
+    for (int i = 0; i < orderItemList.size(); i++) {
+        OrderItem orderItem = orderItemList.get(i);
+        OrderItemVO orderItemVO = new OrderItemVO();
+        BeanUtils.copyProperties(orderItem, orderItemVO);
+        orderItemVOList.add(orderItemVO);}
+    orderVO.setOrderItemVOList(orderItemVOList);
+    //codeOf()... 通过状态码返回一个枚举的类型。这样就把一个数字的类型转化为枚举,,,,
+    orderVO.setOrderStatusName(String.valueOf(Constant.OrderStatusEnum.codeOf(orderVO.getOrderStatus()).getValue()));
+    return orderVO;
+}
 ```
+
+#### 订单列表
+
+```java
+//OrderController.java
+@ApiOperation("前台订单列表")
+@GetMapping("order/list")
+public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    if (pageNum == null) {
+        pageNum = 1;
+    }
+    if (pageSize == null) {
+        pageSize = 10;
+    }
+    PageInfo pageInfo = orderService.listForCustomer(pageNum, pageSize);
+    return ApiRestResponse.success(pageInfo);
+}
+```
+
+```java
+//OrderServiceImpl.java
+//订单列表前台的和后台的是不太一样的。给前台的只能查询自己的订单并且对里面的内容进行裁剪,可是给管理员看的就没有这么多限制了
+@Override
+public PageInfo listForCustomer(Integer pageNum, Integer pageSize) {
+    Integer userId = UserFilter.currentUser.getId();
+    PageHelper.startPage(pageNum, pageSize);
+    //需要把orderList里的一个个order对象变成orderVO
+    List<Order> orderList = orderMapper.listForCustomer(userId);
+    List<OrderVO> orderVOList = orderListToOrderVOList(orderList);
+    //在pageInfo去构造的时候一定是我们查出来的内容也就是mapper出来的内容。然后由于我们最终返回给前端的不是查询出来的而是经过处理的orderVOList,
+    // 所以我们要给这个pageInfo设置一下,也就是说它会有一个方法setList,,
+    PageInfo pageInfo = new PageInfo<>(orderList);
+    pageInfo.setList(orderVOList);
+    return pageInfo;
+}
+
+private List<OrderVO> orderListToOrderVOList(List<Order> orderList) {
+    List<OrderVO> orderVOList = new ArrayList<>();
+    for (int i = 0; i < orderList.size(); i++) {
+        Order order = orderList.get(i);
+        OrderVO orderVO = getOrderVO(order);
+        orderVOList.add(orderVO);
+    }
+    return orderVOList;
+}
+```
+
+#### 取消订单接口开发
+
+```java
+//OrderController.java
+/**
+ * 订单取消
+ */
+@ApiOperation("前台取消订单")
+@PostMapping("order/cancel")
+public ApiRestResponse cancel(@RequestParam String orderNo) {
+    orderService.cancel(orderNo);
+    return ApiRestResponse.success();
+}
+```
+
+```java
+//OrderServiceImpl.java
+@Override
+public void cancel(String orderNo) {
+    //查询得到就可以取消,查询不到就说明订单号可能写的不对
+    Order order = orderMapper.selectByOrderNo(orderNo);
+    //查不到订单,报错
+    if (order == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+    }
+    //验证用户身份
+    //订单存在,需要判断所属  （不能拿别人的订单详情）
+    Integer userId = UserFilter.currentUser.getId();
+    if (!userId.equals(order.getUserId())) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+    }
+    //如果没有付款就可以取消订单
+    if (order.getOrderStatus().equals(Constant.OrderStatusEnum.NOT_PAID.getCode())) {
+        order.setOrderStatus(Constant.OrderStatusEnum.CANCELED.getCode());
+        //订单完结除了发货之后的确认收货,还有就是取消订单,这两种情况都代表订单后续不会有任何的流转了,所以这里设置结束时间
+        order.setEndTime(new Date());
+        //更新订单
+        orderMapper.updateByPrimaryKeySelective(order);
+    }else{
+        throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+    }
+}
+```
+
+
+
+#### 二维码接口开发
 

@@ -1,5 +1,7 @@
 package com.imooc.mall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
@@ -23,10 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 订单Service实现类
@@ -207,5 +206,63 @@ public class OrderServiceImpl implements OrderService {
         //codeOf()... 通过状态码返回一个枚举的类型。这样就把一个数字的类型转化为枚举,,,,
         orderVO.setOrderStatusName(String.valueOf(Constant.OrderStatusEnum.codeOf(orderVO.getOrderStatus()).getValue()));
         return orderVO;
+    }
+
+    //订单列表前台的和后台的是不太一样的。给前台的只能查询自己的订单并且对里面的内容进行裁剪,可是给管理员看的就没有这么多限制了
+    @Override
+    public PageInfo listForCustomer(Integer pageNum, Integer pageSize) {
+        Integer userId = UserFilter.currentUser.getId();
+        PageHelper.startPage(pageNum, pageSize);
+        //需要把orderList里的一个个order对象变成orderVO
+        List<Order> orderList = orderMapper.listForCustomer(userId);
+        List<OrderVO> orderVOList = orderListToOrderVOList(orderList);
+        //在pageInfo去构造的时候一定是我们查出来的内容也就是mapper出来的内容。然后由于我们最终返回给前端的不是查询出来的而是经过处理的orderVOList,
+        // 所以我们要给这个pageInfo设置一下,也就是说它会有一个方法setList,,
+        PageInfo pageInfo = new PageInfo<>(orderList);
+        pageInfo.setList(orderVOList);
+        return pageInfo;
+    }
+
+    private List<OrderVO> orderListToOrderVOList(List<Order> orderList) {
+        List<OrderVO> orderVOList = new ArrayList<>();
+        for (int i = 0; i < orderList.size(); i++) {
+            Order order = orderList.get(i);
+            OrderVO orderVO = getOrderVO(order);
+            orderVOList.add(orderVO);
+        }
+        return orderVOList;
+    }
+
+    @Override
+    public void cancel(String orderNo) {
+        //查询得到就可以取消,查询不到就说明订单号可能写的不对
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        //查不到订单,报错
+        if (order == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+        }
+        //验证用户身份
+        //订单存在,需要判断所属  （不能拿别人的订单详情）
+        Integer userId = UserFilter.currentUser.getId();
+        if (!userId.equals(order.getUserId())) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+        }
+        //如果没有付款就可以取消订单
+        if (order.getOrderStatus().equals(Constant.OrderStatusEnum.NOT_PAID.getCode())) {
+            order.setOrderStatus(Constant.OrderStatusEnum.CANCELED.getCode());
+            //订单完结除了发货之后的确认收货,还有就是取消订单,这两种情况都代表订单后续不会有任何的流转了,所以这里设置结束时间
+            order.setEndTime(new Date());
+            //更新订单
+            orderMapper.updateByPrimaryKeySelective(order);
+        }else{
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+        }
+    }
+
+    //返回值是String,是生成的二维码图片地址
+    public String qrcode(String orderNo){
+        //生成二维码需要引入依赖 javase pom.xml
+        //为了生成二维码需要新建一个工具 util下的 QRCodeGenerator
+        return null;
     }
 }
