@@ -2,6 +2,7 @@ package com.imooc.mall.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.zxing.WriterException;
 import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
@@ -20,11 +21,17 @@ import com.imooc.mall.model.vo.OrderVO;
 import com.imooc.mall.service.CartService;
 import com.imooc.mall.service.OrderService;
 import com.imooc.mall.util.OrderCodeFactory;
+import com.imooc.mall.util.QRCodeGenerator;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -49,6 +56,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     OrderItemMapper orderItemMapper;
+
+    //配置生成二维码中的ip信息
+    @Value("${file.upload.ip}")
+    String ip;
 
     //返回的是一个orderNum 订单编号
     @Override
@@ -254,15 +265,33 @@ public class OrderServiceImpl implements OrderService {
             order.setEndTime(new Date());
             //更新订单
             orderMapper.updateByPrimaryKeySelective(order);
-        }else{
+        } else {
             throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
         }
     }
 
     //返回值是String,是生成的二维码图片地址
-    public String qrcode(String orderNo){
+    @Override
+    public String qrcode(String orderNo) {
+        //在生成二维码之前,要知道存入的url是什么。这个url是包含http、ip还有地址在内的,最后再跟上订单号,就是完整的地址了
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String address = ip + ":" + request.getLocalPort(); //拿到端口号拼接ip信息
+        String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
+        try {
+            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, Constant.FILE_UPLOAD_DIR + orderNo + ".png");
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        String pngAddress = "http://" + address + "/images/" + orderNo + ".png";
+        //有了端口号之后,我们还需要一个ip信息,这个ip信息是需要我们自己来配置的,而不能简单的从request去拿,因为我们的服务上线之后它其实并不是直接暴露给外面的,
+        // 无论是阿里云还是腾讯云,他们这个链接都会经过多层的转发,比如说防火墙之类的才回到我们的机器上,那么这个时候这个ip从request中拿其实是经过转发之后的内网ip,那这个是不对的,
+        //所以我们应该在这里配置一下可以访问的ip   @Value("${file.upload.ip}")
+
         //生成二维码需要引入依赖 javase pom.xml
         //为了生成二维码需要新建一个工具 util下的 QRCodeGenerator
-        return null;
+
+        //返回的结果是这个图片文件应该通过什么url可以访问到
+        return pngAddress;
     }
 }

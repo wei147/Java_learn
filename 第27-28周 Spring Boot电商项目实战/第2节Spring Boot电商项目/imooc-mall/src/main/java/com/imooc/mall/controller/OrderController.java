@@ -61,10 +61,10 @@ public class OrderController {
     /**
      * 生成支付二维码
      */
-    @ApiOperation("前台取消订单")
+    @ApiOperation("生成支付二维码")
     @PostMapping("order/qrcode")    //生成的二维码是包含订单号的,所以需要传入订单号
     public ApiRestResponse qrcode(@RequestParam String orderNo) {
-        orderService.cancel(orderNo);
-        return ApiRestResponse.success();
+        String pngAddress = orderService.qrcode(orderNo);
+        return ApiRestResponse.success(pngAddress);
     }
 }

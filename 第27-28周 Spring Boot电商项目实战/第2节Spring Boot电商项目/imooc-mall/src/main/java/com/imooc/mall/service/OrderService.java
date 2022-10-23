@@ -19,4 +19,7 @@ public interface OrderService {
     PageInfo listForCustomer(Integer pageNum, Integer pageSize);
 
     void cancel(String orderNo);
+
+    //返回值是String,是生成的二维码图片地址
+    String qrcode(String orderNo);
 }
