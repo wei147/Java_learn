@@ -22,4 +22,14 @@ public interface OrderService {
 
     //返回值是String,是生成的二维码图片地址
     String qrcode(String orderNo);
+
+    PageInfo listForAdmin(Integer pageNum, Integer pageSize);
+
+    void pay(String orderNo);
+
+    //发货这个方法所做最主要的事情就是 改变订单的状态
+    void deliver(String orderNo);
+
+    //除了状态的不一致之外,还有另外很大不同的一点是 由于这个接口有可能是管理员调用也可能是用户调用,所以我们在这里额外进行一层判断,,
+    void finish(String orderNo);
 }

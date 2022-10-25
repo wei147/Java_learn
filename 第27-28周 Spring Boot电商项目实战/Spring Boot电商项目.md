@@ -2837,3 +2837,265 @@ public void cancel(String orderNo) {
 
 #### 二维码接口开发
 
+```xml
+//pom.xml
+<!--生成二维码的依赖-->
+<dependency>
+    <groupId>com.google.zxing</groupId>
+    <artifactId>javase</artifactId>
+    <version>3.3.0</version>
+</dependency>
+```
+
+```java
+package com.imooc.mall.util;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
+/**
+ * 生成二维码工具
+ */
+public class QRCodeGenerator {
+    //为什么这里用 int 而其他时候用Integer? 因为这个是静态方法?
+    public static void generateQRCodeImage(String text, int width, int height, String filePath) throws WriterException, IOException {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        //BarcodeFormat.QR_CODE是格式
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+        Path path = FileSystems.getDefault().getPath(filePath);
+        //MatrixToImageWriter从矩阵变图片
+        MatrixToImageWriter.writeToPath(bitMatrix,"PNG",path);
+    }
+
+    public static void main(String[] args) {
+        //从常量类里取的地址要启用Spring Boot,所以直接把地址写这就好了 Constant.FILE_UPLOAD_DIR.（注:传进来的地址需要包含完整的文件名）
+        try {
+            QRCodeGenerator.generateQRCodeImage("铁马冰河入梦来",350,350,
+                    "D:/project/Jave_learn/mall-prepare-static/QR.png");
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }}}
+```
+
+```java
+ //orderServiceImpl.java
+//返回值是String,是生成的二维码图片地址
+@Override
+public String qrcode(String orderNo) {
+    //在生成二维码之前,要知道存入的url是什么。这个url是包含http、ip还有地址在内的,最后再跟上订单号,就是完整的地址了
+    ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    HttpServletRequest request = attributes.getRequest();
+    String address = ip + ":" + request.getLocalPort(); //拿到端口号拼接ip信息
+    String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
+    try {
+        QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, Constant.FILE_UPLOAD_DIR + orderNo + ".png");
+    } catch (WriterException | IOException e) {
+        e.printStackTrace();
+    }
+    String pngAddress = "http://" + address + "/images/" + orderNo + ".png";
+    //有了端口号之后,我们还需要一个ip信息,这个ip信息是需要我们自己来配置的,而不能简单的从request去拿,因为我们的服务上线之后它其实并不是直接暴露给外面的,
+    // 无论是阿里云还是腾讯云,他们这个链接都会经过多层的转发,比如说防火墙之类的才回到我们的机器上,那么这个时候这个ip从request中拿其实是经过转发之后的内网ip,那这个是不对的,
+    //所以我们应该在这里配置一下可以访问的ip   @Value("${file.upload.ip}")
+
+    //生成二维码需要引入依赖 javase pom.xml
+    //为了生成二维码需要新建一个工具 util下的 QRCodeGenerator
+
+    //返回的结果是这个图片文件应该通过什么url可以访问到
+    return pngAddress;}
+```
+
+```java
+//OrderController.java
+/**
+ * 生成支付二维码
+ */
+@ApiOperation("生成支付二维码")
+@PostMapping("order/qrcode")    //生成的二维码是包含订单号的,所以需要传入订单号
+public ApiRestResponse qrcode(@RequestParam String orderNo) {
+    String pngAddress = orderService.qrcode(orderNo);
+    return ApiRestResponse.success(pngAddress);}
+```
+
+#### 后台订单列表接口开发
+
+#### 支付接口开发
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221024194815062.png" alt="image-20221024194815062" style="zoom:50%;" />
+
+
+
+#### 管理订单接口开发
+
+```java
+/**
+ * 订单后台管理Controller
+ * 分别有: 后台订单列表、发货和完结 一共是三个接口。都放一起了
+ */
+```
+
+```java
+package com.imooc.mall.controller;
+
+import com.github.pagehelper.PageInfo;
+import com.imooc.mall.common.ApiRestResponse;
+import com.imooc.mall.model.vo.OrderVO;
+import com.imooc.mall.service.OrderService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+/**
+ * 订单后台管理Controller
+ * 分别有: 后台订单列表、发货和完结 一共是三个接口
+ */
+@RestController
+public class OrderAdminController {
+
+    @Resource
+    OrderService orderService;
+
+    @ApiOperation("后台管理员订单列表")
+    @GetMapping("admin/order/list")
+    public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageInfo pageInfo = orderService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);}
+
+    @ApiOperation("支付接口")
+    @GetMapping("pay")
+    public ApiRestResponse pay(@RequestParam String orderNo) {
+        orderService.pay(orderNo);
+        return ApiRestResponse.success();}
+
+    /**
+     *发货。订单状态流程: 0用户已取消,10未付款,20已付款,40交易完成
+     */
+    @ApiOperation("管理员发货")
+    @GetMapping("admin/order/delivered")
+    public ApiRestResponse delivered(@RequestParam String orderNo) {
+        orderService.deliver(orderNo);
+        return ApiRestResponse.success();}
+
+    /**
+     *完结订单。订单状态流程: 0用户已取消,10未付款,20已付款,40交易完成
+     * 管理员和普通用户都可以调用
+     */
+    @ApiOperation("完结订单接口")
+    @GetMapping("order/finish")
+    public ApiRestResponse finish(@RequestParam String orderNo) {
+        orderService.finish(orderNo);
+        return ApiRestResponse.success();
+    }}
+```
+
+```java
+//对应的实现类 OrderServiceImpl.java
+@Override
+public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+    PageHelper.startPage(pageNum, pageSize);
+    List<Order> orderList = orderMapper.selectAllForAdmin();
+    List<OrderVO> orderVOList = orderListToOrderVOList(orderList);
+    //在pageInfo去构造的时候一定是我们查出来的内容也就是mapper出来的内容。然后由于我们最终返回给前端的不是查询出来的而是经过处理的orderVOList,
+    // 所以我们要给这个pageInfo设置一下,也就是说它会有一个方法setList,,
+    PageInfo pageInfo = new PageInfo<>(orderList);
+    pageInfo.setList(orderVOList);
+    return pageInfo;
+}
+
+@Override
+public void pay(String orderNo) {
+    //首先去根据orderNo把当前这个订单给找到,同样也会根据能找到和找不到这两种情况来决定这个支付成功与否
+    //查不到订单,报错
+    Order order = orderMapper.selectByOrderNo(orderNo);
+    if (order == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+    }
+    //支付之前的判断。 如果是未付款的状态才能允许付款
+    if (order.getOrderStatus() == Constant.OrderStatusEnum.NOT_PAID.getCode()) {
+        //设置为已付款
+        order.setOrderStatus(Constant.OrderStatusEnum.PAID.getCode());
+        order.setPayTime(new Date());
+        orderMapper.updateByPrimaryKeySelective(order);
+    } else {
+        throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+    }
+}
+
+
+//发货这个方法所做最主要的事情就是 改变订单的状态。(类似支付接口 pay)
+@Override
+public void deliver(String orderNo) {
+    //查不到订单,报错
+    Order order = orderMapper.selectByOrderNo(orderNo);
+    if (order == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+    }
+    //发货之前的判断。 如果是已付款的状态才能允许发货
+    if (order.getOrderStatus() == Constant.OrderStatusEnum.PAID.getCode()) {
+        //设置为已发货
+        order.setOrderStatus(Constant.OrderStatusEnum.DELIVERED.getCode());
+        order.setDeliveryTime(new Date());
+        orderMapper.updateByPrimaryKeySelective(order);
+    } else {
+        throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+    }
+}
+
+//除了状态的不一致之外,还有另外很大不同的一点是 由于这个接口有可能是管理员调用也可能是用户调用,所以我们在这里额外进行一层判断
+@Override
+public void finish(String orderNo) {
+    //查不到订单,报错
+    Order order = orderMapper.selectByOrderNo(orderNo);
+    if (order == null) {
+        throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+    }
+    //如果是普通用户,就要校验订单的所属(普通用户登录进来,不能修改别人的订单) [订单中的用户id等不等于当前登录用户的id] &&两真为真,一假为假
+    //巧妙的判断,导致普通用户只能修改自己的订单,而管理员则没有这个限制
+    if (!userService.checkAdminRole(UserFilter.currentUser) &&
+            !order.getUserId().equals(UserFilter.currentUser.getId())){
+        throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+    }
+    //发货后可以完结订单
+    if (order.getOrderStatus() == Constant.OrderStatusEnum.DELIVERED.getCode()) {
+        //设置为已完结
+        order.setOrderStatus(Constant.OrderStatusEnum.FINISHED.getCode());
+        order.setEndTime(new Date());
+        orderMapper.updateByPrimaryKeySelective(order);
+    } else {
+        throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+    }}
+```
+
+
+
+#### 订单模块测试与总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221025134118252.png" alt="image-20221025134118252" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221025140616290.png" alt="image-20221025140616290" style="zoom:50%;" />
+
+```java
+一些问题
+1.http://localhost/pay?orderNo=123053266169  可不登录直接调支付接口,因为没有登录验证/拦截
+```
+
+```java
+//OrderServiceImpl下的qrcode方法获取ip时可以用到
+//这个能获取到局域网的ip
+try {
+    ip = InetAddress.getLocalHost().getHostAddress();
+} catch (UnknownHostException e) {
+    e.printStackTrace();
+}
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221025140907811.png" alt="image-20221025140907811" style="zoom:50%;" />
+

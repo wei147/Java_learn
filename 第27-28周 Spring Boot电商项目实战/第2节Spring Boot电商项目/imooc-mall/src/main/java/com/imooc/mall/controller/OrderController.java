@@ -38,12 +38,6 @@ public class OrderController {
     @ApiOperation("前台订单列表")
     @GetMapping("order/list")
     public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        if (pageNum == null) {
-            pageNum = 1;
-        }
-        if (pageSize == null) {
-            pageSize = 10;
-        }
         PageInfo pageInfo = orderService.listForCustomer(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
     }

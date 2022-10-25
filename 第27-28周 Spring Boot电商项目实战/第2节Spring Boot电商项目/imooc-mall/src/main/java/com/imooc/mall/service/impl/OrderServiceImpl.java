@@ -14,12 +14,14 @@ import com.imooc.mall.model.dao.ProductMapper;
 import com.imooc.mall.model.pojo.Order;
 import com.imooc.mall.model.pojo.OrderItem;
 import com.imooc.mall.model.pojo.Product;
+import com.imooc.mall.model.pojo.User;
 import com.imooc.mall.model.request.CreateOrderReq;
 import com.imooc.mall.model.vo.CartVO;
 import com.imooc.mall.model.vo.OrderItemVO;
 import com.imooc.mall.model.vo.OrderVO;
 import com.imooc.mall.service.CartService;
 import com.imooc.mall.service.OrderService;
+import com.imooc.mall.service.UserService;
 import com.imooc.mall.util.OrderCodeFactory;
 import com.imooc.mall.util.QRCodeGenerator;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +34,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 /**
@@ -60,6 +64,10 @@ public class OrderServiceImpl implements OrderService {
     //配置生成二维码中的ip信息
     @Value("${file.upload.ip}")
     String ip;
+
+    @Resource
+    UserService userService;
+
 
     //返回的是一个orderNum 订单编号
     @Override
@@ -276,6 +284,13 @@ public class OrderServiceImpl implements OrderService {
         //在生成二维码之前,要知道存入的url是什么。这个url是包含http、ip还有地址在内的,最后再跟上订单号,就是完整的地址了
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+
+        //这个能获取到局域网的ip (复杂网络则不可行)
+//        try {
+//            ip = InetAddress.getLocalHost().getHostAddress();
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
         String address = ip + ":" + request.getLocalPort(); //拿到端口号拼接ip信息
         String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
         try {
@@ -293,5 +308,81 @@ public class OrderServiceImpl implements OrderService {
 
         //返回的结果是这个图片文件应该通过什么url可以访问到
         return pngAddress;
+    }
+
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Order> orderList = orderMapper.selectAllForAdmin();
+        List<OrderVO> orderVOList = orderListToOrderVOList(orderList);
+        //在pageInfo去构造的时候一定是我们查出来的内容也就是mapper出来的内容。然后由于我们最终返回给前端的不是查询出来的而是经过处理的orderVOList,
+        // 所以我们要给这个pageInfo设置一下,也就是说它会有一个方法setList,,
+        PageInfo pageInfo = new PageInfo<>(orderList);
+        pageInfo.setList(orderVOList);
+        return pageInfo;
+    }
+
+    @Override
+    public void pay(String orderNo) {
+        //首先去根据orderNo把当前这个订单给找到,同样也会根据能找到和找不到这两种情况来决定这个支付成功与否
+        //查不到订单,报错
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (order == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+        }
+        //支付之前的判断。 如果是未付款的状态才能允许付款
+        if (order.getOrderStatus() == Constant.OrderStatusEnum.NOT_PAID.getCode()) {
+            //设置为已付款
+            order.setOrderStatus(Constant.OrderStatusEnum.PAID.getCode());
+            order.setPayTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+        }
+    }
+
+
+    //发货这个方法所做最主要的事情就是 改变订单的状态。(类似支付接口 pay)
+    @Override
+    public void deliver(String orderNo) {
+        //查不到订单,报错
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (order == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+        }
+        //发货之前的判断。 如果是已付款的状态才能允许发货
+        if (order.getOrderStatus() == Constant.OrderStatusEnum.PAID.getCode()) {
+            //设置为已发货
+            order.setOrderStatus(Constant.OrderStatusEnum.DELIVERED.getCode());
+            order.setDeliveryTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+        }
+    }
+
+    //除了状态的不一致之外,还有另外很大不同的一点是 由于这个接口有可能是管理员调用也可能是用户调用,所以我们在这里额外进行一层判断
+    @Override
+    public void finish(String orderNo) {
+        //查不到订单,报错
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (order == null) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
+        }
+        //如果是普通用户,就要校验订单的所属(普通用户登录进来,不能修改别人的订单) [订单中的用户id等不等于当前登录用户的id] &&两真为真,一假为假
+        //巧妙的判断,导致普通用户只能修改自己的订单,而管理员则没有这个限制
+        if (!userService.checkAdminRole(UserFilter.currentUser) &&
+                !order.getUserId().equals(UserFilter.currentUser.getId())){
+            throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+        }
+        //发货后可以完结订单
+        if (order.getOrderStatus() == Constant.OrderStatusEnum.DELIVERED.getCode()) {
+            //设置为已完结
+            order.setOrderStatus(Constant.OrderStatusEnum.FINISHED.getCode());
+            order.setEndTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_ORDER_STATUS);
+        }
     }
 }

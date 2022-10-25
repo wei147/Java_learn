@@ -20,4 +20,7 @@ public interface OrderMapper {
     Order selectByOrderNo(String orderNo);
 
     List<Order> listForCustomer(Integer userId);
+
+    //给管理员把所有的订单都查询出来
+    List<Order> selectAllForAdmin();
 }
