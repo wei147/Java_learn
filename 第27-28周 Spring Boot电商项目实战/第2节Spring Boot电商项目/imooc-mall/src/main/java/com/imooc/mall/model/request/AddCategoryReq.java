@@ -59,4 +59,21 @@ public class AddCategoryReq {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
+    /**
+     * 上线前的准备 2022年10月26日00:27:00
+     * 1.第一步给 package com.imooc.mall.model.request;的请求类加上toString()方法
+     *     为什么? 因为 package com.imooc.mall.filter;下的WebLogAspect方法
+     *         log.info("ARGS(参数) : " + Arrays.toString(joinPoint.getArgs()));
+     *         入参是一个对象的话需要toString把它的个个字段的内容给打印出来,以便在调试的时候更加方便
+     */
+    @Override
+    public String toString() {
+        return "AddCategoryReq{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", parentId=" + parentId +
+                ", orderNum=" + orderNum +
+                '}';
+    }
 }

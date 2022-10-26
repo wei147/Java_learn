@@ -18,6 +18,10 @@ public class ImoocMallWebMvcConfig implements WebMvcConfigurer {
 //        registry.addResourceHandler("/webjars/**").addResourceLocations(
 //                "classpath:/META-INF/resources/webjars/");
 
+        //如果是admin开头的文件会被路由到 resource下的/static/admin/下面,,
+        registry.addResourceHandler("/admin/**")
+                .addResourceLocations("classpath:/static/admin/");
+
         //关于上传图片的自定义静态资源映射目录  (就是说http://localhost/images/uuid.png 对应的就是本地 FILE_UPLOAD_DIR的文件路径)
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:" + Constant.FILE_UPLOAD_DIR);

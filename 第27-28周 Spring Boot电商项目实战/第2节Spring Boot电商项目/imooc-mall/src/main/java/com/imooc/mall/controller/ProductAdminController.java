@@ -105,6 +105,7 @@ public class ProductAdminController {
         return ApiRestResponse.success();
     }
 
+
     @ApiOperation(value = "后台批量上下架接口")
     @PostMapping("admin/product/batchUpdateSellStatus") //批量更新销售状态
     public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids, @RequestParam Integer sellStatus) { //sellStatus决定上架还是下架
@@ -113,7 +114,7 @@ public class ProductAdminController {
     }
 
     @ApiOperation(value = "后台商品列表接口")
-    @PostMapping("admin/product/list") //批量更新销售状态
+    @GetMapping("admin/product/list") //批量更新销售状态
     public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         PageInfo pageInfo = productService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);

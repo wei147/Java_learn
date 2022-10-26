@@ -15,10 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -101,7 +98,7 @@ public class CategoryController {
     }
 
     @ApiOperation("后台分类目录列表")
-    @PostMapping("admin/category/list")
+    @GetMapping("admin/category/list")
     @ResponseBody
     public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         //分页有这么几个好处:  1.减少系统的消耗,提高性能,提高速度(实际上我们没必要把那么多少数据都查出来一次性返回给用户,用户也不一定会看)
@@ -112,7 +109,7 @@ public class CategoryController {
     }
 
     @ApiOperation("前台分类目录列表")
-    @PostMapping("category/list")
+    @GetMapping("category/list")
     @ResponseBody
     public ApiRestResponse listCategoryForCustomer(Integer parentId) {
         //对于前台用户而言,不需要传入页码或者pageSize,因为这是我们直接返回给他的,由我们来决定

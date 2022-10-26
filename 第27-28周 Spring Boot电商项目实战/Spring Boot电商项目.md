@@ -1,4 +1,4 @@
-## 第2节 Spring Boot电商项目
+第2节 Spring Boot电商项目
 
 
 
@@ -3098,4 +3098,137 @@ try {
 ```
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221025140907811.png" alt="image-20221025140907811" style="zoom:50%;" />
+
+
+
+#### 上线前的准备
+
+```java
+1.第一步给 package com.imooc.mall.model.request;的请求类加上toString()方法
+    为什么? 因为 package com.imooc.mall.filter;下的WebLogAspect方法
+        log.info("ARGS(参数) : " + Arrays.toString(joinPoint.getArgs())); 入参是一个对象的话需要toString把它的个个字段的内容给打印出来,以便在调试的时候更加方便
+2.第二步 本地sql文件和线上SQL文件是不一样的
+3.多环境配置。在本地环境和线上环境很多配置是不一样的 application.properties。配置太多了,有没有非常方便的根据不同的环境去找到不同的配置文件呢? SpringBoot是提供这样的能力的
+        
+至此对于代码的所有工作就已经完成了
+```
+
+```properties
+#prod是生产环境的意思,该配置文件为线上环境服务
+server.port=8081
+spring.datasource.name=imooc_mall_datasource
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/imooc_mall?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+#线上mysql版本是5.6
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=123456
+#需要指定mapper文件在哪里,从哪里去找
+mybatis.mapper-locations=classpath:mappers/*.xml
+
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+
+#上传文件的路径,根据部署情况，自行修改
+#file.upload.dir = D:/project/Jave_learn/第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/prepare-static
+file.upload.dir = /root/images/
+#线上机器的ip
+file.upload.ip = 175.178.91.105
+```
+
+
+
+#### 上线前准备工作(带前端)
+
+```java
+这个视频时包含上一个视频的内容的。新增了前端静态文件配置  (复制到resource下的static文件夹)
+以及在 ImoocMallWebMvcConfig中配置静态文件的映射关系
+
+        //如果是admin开头的文件会被路由到 resource下的/static/admin/下面,,
+        registry.addResourceHandler("/admin/**")
+                .addResourceLocations("classpath:/static/admin/");
+```
+
+
+
+#### 部署到云服务器
+
+##### 阿里云介绍
+
+##### 云服务器挑选与购买
+
+##### 环境配置
+
+```java
+可以通过cmd直接连接云服务器 
+1.ssh root@175.178.91.105	后面输入密码即可
+```
+
+```
+imooc_mall_local.sql 线上的sql文件时需要把插入图片的ip改一下
+```
+
+```
+把文件传到云服务器上
+scp C:\Users\w1216\Desktop\imooc_mall_local.sql root@175.178.91.105:/root
+```
+
+```java
+不能直接用这个登录 mysql -uroot -p123456 -h127.0.0.1
+需要设置一下 grant all privileges on imooc_mall.* to 'root'@'127.0.0.1' identified by '123456';
+配置生效要重启服务
+```
+
+```
+在云服务放开8081端口
+检查云服务器的jdk版本 java java -version
+检查云服务器的redis  redis-cli 
+```
+
+```
+以上都完成之后需要回到idea Build一下,因为这些文件需要把这些路径重新识别好。
+然后需要打包,打包的时候利用的是maven的工具(idea右侧的),首先一定要点击 clean,接着进行打包 package
+(打包的时候可能会比较久,这是因为没有跳过耗时最久的测试 可在idea下方的Terminal 输入 mvn clean package -D maven.test.skip=true)
+
+把一个文件夹下的所有图片上传到服务器 scp C:\Users\w1216\Desktop\images\. root@175.178.91.105:/root     (路径有中文带空格不行)
+
+lsof -i:8081 查看8081端口有没有程序在运行 
+kill -9 8081 停止8081端口
+
+启动程序的关键命令
+nohup java -jar -Dserver.port=8081 -Dspring.profiles.active=prod /root/imooc-mall-0.0.1-SNAPSHOT.jar > /root/null 2>&1 &
+
+nohup的意思是 不输出到前台,就意味着我们运行这个命令之后,不需要长期的驻守在终端里面,因为我们过一会肯定会关掉让它自己去运行,所以需要打上no hup。
+java -jar是启动一个java jar包的命令
+-Dserver.port是指定端口的意思
+-Dspring.profile.active=prod是代表指定哪一个配置文件  (对应 application-prod.properties)
+/root/imooc-mall-0.0.1-SNAPSHOT.jar  给出jar包的命令
+/root/null 2>&1 &  代表将错误日志输出到哪里,我们已经配置过自己的日志组件了所以不需要额外的配置。这里写成这个样子是代表把这些输出丢弃
+
+执行这条命令返回的是进程号
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026185231358.png" alt="image-20221026185231358" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026192016499.png" alt="image-20221026192016499" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026194447300.png" alt="image-20221026194447300" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026194636859.png" alt="image-20221026194636859" style="zoom:50%;" />
+
+
+
+#### 部署到云服务器并访问(带前端)
+
+
+
+##### 个人总结
+
+```
+挺坑啊,在腾讯云服务器放行了8081安全组,但是呢防火墙却没有放开,得自己去配置防火墙,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026211119988.png" alt="image-20221026211119988" style="zoom:50%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026211616469.png" alt="image-20221026211616469" style="zoom:50%;" />
 
