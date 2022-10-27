@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 //用户控制器
 @Controller
+@CrossOrigin(origins = "*") //2022年10月27日01:24:54不知道为啥登录接口有跨域问题,加上这个配置试一下
 public class UserController {
     @Resource
     UserService userService;
@@ -36,7 +37,7 @@ public class UserController {
     @ApiOperation("注册")
     @PostMapping("/register")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
-    public ApiRestResponse register(@RequestParam("username") String username, @RequestParam("password") String password) throws ImoocMallException {
+    public ApiRestResponse register(@RequestParam("userName") String username, @RequestParam("password") String password) throws ImoocMallException {
         //1.校验 userName不能为空
         if (StringUtils.isEmpty(username)) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
@@ -64,7 +65,7 @@ public class UserController {
     @ApiOperation("登录")
     @PostMapping("/login")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
-    public ApiRestResponse login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+    public ApiRestResponse login(@RequestParam("userName") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
         //登录时所要用的关键任务 HttpSession session对象
         if (StringUtils.isEmpty(username)) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
@@ -130,7 +131,7 @@ public class UserController {
     @ApiOperation("管理员登录接口")
     @PostMapping("/adminLogin")   //因为参数是在请求中的,所以需要加上@RequestParam
     @ResponseBody
-    public ApiRestResponse adminLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+    public ApiRestResponse adminLogin(@RequestParam("userName") String username, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
         //登录时所要用的关键任务 HttpSession session对象
         if (StringUtils.isEmpty(username)) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);

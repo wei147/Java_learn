@@ -3232,3 +3232,20 @@ java -jar是启动一个java jar包的命令
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221026211616469.png" alt="image-20221026211616469" style="zoom:50%;" />
 
+
+
+#### 导入项目并运行的步骤
+
+```
+在本机运行时存在的一些问题：
+1.登录时的跨域问题
+2.首页获取 http://127.0.0.1/category/list 
+
+以上都是跨域问题
+2022年10月27日01:52:08 未解决
+```
+
+
+
+#### 课程总结
+

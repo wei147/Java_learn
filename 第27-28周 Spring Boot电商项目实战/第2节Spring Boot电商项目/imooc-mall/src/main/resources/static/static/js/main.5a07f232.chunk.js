@@ -139,7 +139,7 @@
     t.r(e);
     var a = t(0), l = t.n(a), n = t(3), c = t.n(n), r = (t(184), t(185), t(23)), i = t(46), s = (t(186), t(187), t(7)),
         o = t(8), m = t(11), d = t(9), E = t(12), g = (t(49), t(22), t(79)), u = t.n(g), p = t(329), b = t(323),
-        I = t(29), h = t.n(I), B = "http://175.178.91.105:8081/";
+        I = t(29), h = t.n(I), B = "http://127.0.0.1:80/";
 
     function w(A) {
         return !A || 200 !== A.status && 304 !== A.status && 400 !== A.status ? {
@@ -150,7 +150,7 @@
 
     function v(A) {
         if (-404 !== A.status) {
-            if (10007 === A.status) return p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location + "/login"), void (window.location.href = "http://175.178.91.105:8081/#/login");
+            if (10007 === A.status) return p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location + "/login"), void (window.location.href = "http://127.0.0.1:80/#/login");
             if (9999 !== A.status) return 1e4 !== A.status && p.a.error(A.errorMsg), A;
             p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55")
         } else p.a.error("\u7f51\u7edc\u9519\u8bef")
@@ -1148,7 +1148,7 @@
 
     function wA(A) {
         if (-404 !== A.status) {
-            if (9999 !== A.status) return 10007 === A.status ? (p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location), void (window.location.href = "http://175.178.91.105:8081/#/login")) : (1e4 !== A.status && p.a.error(A.msg), A);
+            if (9999 !== A.status) return 10007 === A.status ? (p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location), void (window.location.href = "http://127.0.0.1:80/#/login")) : (1e4 !== A.status && p.a.error(A.msg), A);
             p.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55")
         } else p.a.error("\u7f51\u7edc\u9519\u8bef")
     }
@@ -1165,7 +1165,7 @@
     var vA = function (A, e) {
             return h()({
                 method: "POST",
-                baseURL: "http://175.178.91.105:8081/",
+                baseURL: "http://127.0.0.1:80/",
                 url: A,
                 data: JSON.stringify(e),
                 timeout: 1e4,
@@ -1179,7 +1179,7 @@
         }, DA = function (A, e) {
             return h()({
                 method: "get",
-                baseURL: "http://175.178.91.105:8081/",
+                baseURL: "http://127.0.0.1:80/",
                 url: A,
                 params: e,
                 timeout: 1e4,

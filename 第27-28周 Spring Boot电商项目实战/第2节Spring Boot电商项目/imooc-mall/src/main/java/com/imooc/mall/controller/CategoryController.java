@@ -26,6 +26,7 @@ import java.util.List;
  * 目录Controller
  */
 @Controller
+@CrossOrigin(origins = "*") //2022年10月27日01:24:54不知道为啥登录接口有跨域问题,加上这个配置试一下
 public class CategoryController {
     @Resource
     UserService userService;

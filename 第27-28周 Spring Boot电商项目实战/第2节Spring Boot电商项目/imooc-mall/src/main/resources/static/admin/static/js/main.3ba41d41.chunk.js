@@ -33,7 +33,7 @@
         var n = a(0), r = a.n(n), i = a(5), o = a.n(i), l = (a(214), a(31)), s = a(32), c = a(34), d = a(33), m = a(35),
             u = (a(215), a(216), a(54)), p = a(58), g = a(145), f = a(419), h = a(426), v = a(9), y = a(108), E = a(36),
             b = (a(217), a(66)), k = a(48), w = a(425), S = a(420), C = (a(146), a(38)), x = a.n(C),
-            N = "http://175.178.91.105:8081/";
+            N = "http://127.0.0.1/";
 
         function O(e) {
             return !e || 200 !== e.status && 304 !== e.status && 400 !== e.status ? {
@@ -44,7 +44,7 @@
 
         function I(e) {
             if (-404 !== e.status) {
-                if (10007 === e.status) return h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location + "/login"), void (window.location.href = "http://175.178.91.105:8081/admin/index.html#/login");
+                if (10007 === e.status) return h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location + "/login"), void (window.location.href = "http://127.0.0.1/admin/index.html#/login");
                 if (9999 !== e.status) return e.status, e;
                 h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55")
             } else h.a.error("\u4e3a\u4fdd\u8bc1\u6570\u636e\u6b63\u786e\uff0c\u672c\u7cfb\u7edf\u4ec5\u7528\u4e8e\u6f14\u793a\u540e\u53f0\u663e\u793a\u529f\u80fd\uff0c\u5df2\u5c06\u4fee\u6539\u76f8\u5173\u529f\u80fd\u5173\u95ed")
@@ -100,7 +100,7 @@
 
         function T(e) {
             if (-404 !== e.status) {
-                if (9999 !== e.status) return 10007 === e.status ? (h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location), void (window.location.href = "http://175.178.91.105:8081/admin/index.html#/login")) : (e.status, e);
+                if (9999 !== e.status) return 10007 === e.status ? (h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55"), console.log(window.location), void (window.location.href = "http://127.0.0.1/admin/index.html#/login")) : (e.status, e);
                 h.a.error("\u8bf7\u91cd\u65b0\u767b\u5f55")
             } else h.a.error("\u4e3a\u4fdd\u8bc1\u6570\u636e\u6b63\u786e\uff0c\u672c\u7cfb\u7edf\u4ec5\u7528\u4e8e\u6f14\u793a\u540e\u53f0\u663e\u793a\u529f\u80fd\uff0c\u5df2\u5c06\u4fee\u6539\u76f8\u5173\u529f\u80fd\u5173\u95ed")
         }
@@ -118,7 +118,7 @@
             post: function (e, t) {
                 return x()({
                     method: "POST",
-                    baseURL: "http://175.178.91.105:8081/",
+                    baseURL: "http://127.0.0.1/",
                     url: e,
                     data: JSON.stringify(t),
                     timeout: 1e4,
@@ -132,7 +132,7 @@
             }, get: function (e, t) {
                 return x()({
                     method: "get",
-                    baseURL: "http://175.178.91.105:8081/",
+                    baseURL: "http://127.0.0.1/",
                     url: e,
                     params: t,
                     timeout: 1e4,
@@ -834,7 +834,7 @@
                             className: "avatar-uploader",
                             withCredentials: !0,
                             showUploadList: !1,
-                            action: "http://175.178.91.105:8081/admin/upload/file",
+                            action: "http://127.0.0.1/admin/upload/file",
                             beforeUpload: X,
                             onChange: this.handleChange
                         }, i ? r.a.createElement("img", {src: i, alt: "avatar", style: {width: "100%"}}) : o)))))
@@ -933,7 +933,7 @@
                             t = r.a.createElement(g.a, null, r.a.createElement(g.a.Item, null, r.a.createElement("a", {
                                 onClick: function () {
                                     j.post(L.logout).then((function (e) {
-                                        1e4 === e.status ? window.location.href = "http://175.178.91.105:8081/admin/index.html#/login" : h.a.error(e.msg)
+                                        1e4 === e.status ? window.location.href = "http://127.0.0.1/admin/index.html#/login" : h.a.error(e.msg)
                                     }))
                                 }
                             }, "\u9000\u51fa")));
@@ -955,7 +955,7 @@
                             }
                         }, "\u6155\u6155\u751f\u9c9c\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf")), r.a.createElement("div", null, r.a.createElement("a", {
                             target: "_blank",
-                            href: "175.178.91.105:8081#/index",
+                            href: "127.0.0.1#/index",
                             style: {marginRight: "20px"}
                         }, "\u6155\u6155\u751f\u9c9c\u9996\u9875"), r.a.createElement(y.a, {
                             overlay: t,
