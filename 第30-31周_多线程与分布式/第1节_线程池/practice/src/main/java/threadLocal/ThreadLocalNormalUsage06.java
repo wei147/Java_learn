@@ -24,6 +24,8 @@ class Service2 {
         //由Service1拿到对象就够了,后面就不再需要创建对象或读取了。通过get可以直接拿到这个对象
         User user = UserContextHolder.holder.get();
         System.out.println("Service2: " + user.name);
+        UserContextHolder.holder.remove(); //这里remove 之后,Service3就拿不到用户名了,会清空保存的对象
+        UserContextHolder.holder.set(new User("陈小龙")); //remove之后还可以重新为user对象赋值
         new Service3().process();
     }
 }
@@ -32,6 +34,8 @@ class Service3 {
     public void process() {
         User user = UserContextHolder.holder.get();
         System.out.println("Service3: " + user.name);
+        //这里调用remove方法 保证能回收user这部分内存,避免内存泄露
+        UserContextHolder.holder.remove();
     }
 }
 
