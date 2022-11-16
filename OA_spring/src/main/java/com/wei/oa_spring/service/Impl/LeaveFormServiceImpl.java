@@ -11,6 +11,8 @@ import com.wei.oa_spring.model.request.CreateLeaveFormReq;
 import com.wei.oa_spring.service.LeaveFormService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//数据库事务 (需要检查)
+@Transactional(propagation = Propagation.REQUIRED)
 @Service("leaveFormService")
 public class LeaveFormServiceImpl implements LeaveFormService {
     @Resource
@@ -33,8 +37,10 @@ public class LeaveFormServiceImpl implements LeaveFormService {
         //copyProperties它就会把两个类里面如果字段类型一样,字段名一样的话,他就会拷贝过去,省得我们一个一个去写
         //copyProperties(source,target)  第一个参数source从哪里拷贝 第一个参数target拷贝到哪里
         BeanUtils.copyProperties(createLeaveFormReq, form);
+        form.setState("processing");
+        form.setCreateTime(new Date());
         int count = leaveFormMapper.insertSelective(form);
-        if ((count != 0)) {
+        if ((count == 0)) {
             throw new OAException(OAExceptionEnum.CREATE_FAILED);
         }
     }

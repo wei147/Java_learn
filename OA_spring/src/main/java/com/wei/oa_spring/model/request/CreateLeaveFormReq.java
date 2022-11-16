@@ -23,8 +23,9 @@ public class CreateLeaveFormReq {
     @NotNull(message = "reason不能为null")
     private String reason;
 
-    @NotNull(message = "createTime不能为null")
-    private Date createTime;
+    //createTime可以在生成表单时附加进去,而不是传参的时候
+//    @NotNull(message = "createTime不能为null")
+//    private Date createTime;
 
 
     public Long getEmployeeId() {
@@ -67,13 +68,13 @@ public class CreateLeaveFormReq {
         this.reason = reason == null ? null : reason.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+//    public Date getCreateTime() {
+//        return createTime;
+//    }
+//
+//    public void setCreateTime(Date createTime) {
+//        this.createTime = createTime;
+//    }
 
 //    public void setState(String state) {
 //        this.state = state == null ? null : state.trim();

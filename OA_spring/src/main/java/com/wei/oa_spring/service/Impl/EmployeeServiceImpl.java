@@ -7,7 +7,6 @@ import com.wei.oa_spring.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
