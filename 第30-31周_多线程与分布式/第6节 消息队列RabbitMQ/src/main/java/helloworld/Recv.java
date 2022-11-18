@@ -1,16 +1,15 @@
 package helloworld;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Hello World 的发送类。 连接到RabbitMQ服务端,然后发送一个条消息,接着退出
+ * 接收消息,并打印,持续运行,
  */
-public class Send {
+public class Recv {
+
 
     //QUEUE_NAME 在接收的时候要对应起来,要用同一个队列才能收到消息
     private final static String QUEUE_NAME = "hello";
@@ -30,14 +29,15 @@ public class Send {
         // 3.是不是独有。 这个队列是否仅能给我们这个连接使用  4.是不是需要自动删除。在队列没有使用的情况下自动删除
         // 5.]
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        //发布消息
-        String message = "Hello World, are you ok？";
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8")); //basicPublish() 就是用来发送消息的,四个参数: 1.交换机  2.routingKey
-        //3.pops,除了消息体之外,还有配置  4.body
-        System.out.println("发送了消息:" + message);
-        //关闭连接
-        channel.close();
-        connection.close();
+        //接收消息  (Send生产者类这里是 发布消息) [三个参数:队列名、自动进行消息的确认、用来处理消息的]
+        channel.basicConsume(QUEUE_NAME, true, new DefaultConsumer(channel) {
+            //重写这个方法目的就是去获取到这个消息之后,对消息进行消费,,
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                String message = new String(body, "UTF-8");
+                System.out.println("收到消息: " + message);
+            }
+        });
 
     }
 }
