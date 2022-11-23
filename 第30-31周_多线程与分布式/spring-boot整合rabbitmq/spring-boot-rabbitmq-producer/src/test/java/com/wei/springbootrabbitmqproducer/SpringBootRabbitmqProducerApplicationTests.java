@@ -19,5 +19,4 @@ class SpringBootRabbitmqProducerApplicationTests {
     public void send2(){
         msgSender.send2();
     }
-
 }
