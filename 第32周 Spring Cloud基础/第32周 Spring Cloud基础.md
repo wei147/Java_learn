@@ -77,3 +77,57 @@
 现在的一个支付业务它就包含完整的开发技术包括数据库、包括测试、前后端。 在大公司较为常见
 ```
 
+
+
+#### 微服务的优缺点
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124113952627.png" alt="image-20221124113952627" style="zoom:40%;" />
+
+```
+技术栈丰富不仅包括语言、还包括开发工具还包括数据库存储还包括中间件等技术。而且微服务还有一个额外的好处就在非常有利于去引入或者实验新的、更先进的技术
+```
+
+##### 微服务的缺点
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124114759047.png" alt="image-20221124114759047" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124114707815.png" alt="image-20221124114707815" style="zoom:50%;" />
+
+```
+视情况而定,微服务不一定比单体应用好
+```
+
+
+
+#### 微服务的两大门派
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124115451693.png" alt="image-20221124115451693" style="zoom:40%;" />
+
+```
+关于Spring Cloud感谢奈飞提供的组件 哈哈哈
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124115726897.png" alt="image-20221124115726897" style="zoom:40%;" />
+
+```
+上图中的Dubbo是不提供该功能,但是Dubbo可以整合其他第三方开源软件
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124120111686.png" alt="image-20221124120111686" style="zoom:50%;" />
+
+```
+Dubbo是国内开源框架,阿里巴巴
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124120337524.png" alt="image-20221124120337524" style="zoom:50%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221124120736519.png" alt="image-20221124120736519" style="zoom:50%;" />
+
+
+
+
+
