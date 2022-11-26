@@ -131,7 +131,49 @@ Dubbo是国内开源框架,阿里巴巴
 
 #### 微服务拆分
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126010206886.png" alt="image-20221126010206886" style="zoom:40%;" />
+
+<hr>
+
+```
+不适合拆分的情况,比如公司内部使用的OA系统用单体应用就可以了,服务拆分的维护成本较高。还有就是微服务利用的是网络之间的通信,延迟较高
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126010534999.png" alt="image-20221126010534999" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126011235570.png" alt="image-20221126011235570" style="zoom:40%;" />
+
+```
+横向拆分和纵向拆分往往会结合使用
+```
 
 
 
+#### 微服务扩展
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126011702074.png" alt="image-20221126011702074" style="zoom:40%;" />
+
+```
+y轴就是微服务
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126011913348.png" alt="image-20221126011913348" style="zoom:40%;" />
+
+#### 微服务重要模块
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126012505087.png" alt="image-20221126012505087" style="zoom:50%;" />
+
+```
+在微服务中一个非常重要的内容就是熔断与降级,它其实是一种保险措施,服务一多以后保不齐有一个服务就会发生故障,那么为了保证整体的可用性,可能某个服务提供不了服务了,但是应该有一个兜底策略。所以这就是熔断与降级要解决的一个问题。
+
+最后一个非常重要的模块就是网关模块,当服务多了之后,用户不可能每一个请求都打到不同地址上去的,因为他也不知道你们这些地址是什么,服务太多了,所以我们就需要一个统一的网关来提供给我们的用户,这样我们的用户就可以把所有的请求都找到我们的网关,而进一步由我们的网关来进行下一步的分发。不仅如此,网关还能起到一些额外的作用,比如说可以进行统一的转化、可以进行权限校验、还可以进行过滤器的设置,这些就是网关的职责。
+```
+
+
+
+#### 章节总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221126013848836.png" alt="image-20221126013848836" style="zoom:40%;" />
 
