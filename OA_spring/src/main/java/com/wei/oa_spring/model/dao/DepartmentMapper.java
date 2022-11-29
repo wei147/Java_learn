@@ -2,6 +2,8 @@ package com.wei.oa_spring.model.dao;
 
 import com.wei.oa_spring.model.pojo.Department;
 
+import java.util.List;
+
 public interface DepartmentMapper {
     int deleteByPrimaryKey(Long departmentId);
 
@@ -14,4 +16,6 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+    List<Department> selectAll();
 }

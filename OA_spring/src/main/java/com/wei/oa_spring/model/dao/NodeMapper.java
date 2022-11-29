@@ -2,6 +2,8 @@ package com.wei.oa_spring.model.dao;
 
 import com.wei.oa_spring.model.pojo.Node;
 
+import java.util.List;
+
 public interface NodeMapper {
     int deleteByPrimaryKey(Long nodeId);
 
@@ -14,4 +16,6 @@ public interface NodeMapper {
     int updateByPrimaryKeySelective(Node record);
 
     int updateByPrimaryKey(Node record);
+
+    List<Node> selectNodeByUserId(Long userId);
 }

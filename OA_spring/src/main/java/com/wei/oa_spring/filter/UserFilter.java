@@ -20,8 +20,8 @@ public class UserFilter implements Filter {
 
     public static User currentUser; // 静态的user对象,用来保存用户信息, (注:本次课程暂不考虑多线程安全问题)
 
-    @Resource
-    UserService userService;
+//    @Resource
+//    UserService userService;
 
 
     @Override

@@ -22,5 +22,4 @@ public interface UserMapper {
     //对于MyBatis而言,如果入参只有一个的话可以不用param注解的。如果有多个入参,需要给明确的指示
     User selectLogin(@Param("username") String username, @Param("password") String password);
 
-    List<Node> selectNodeByUserId(Long userId);
 }

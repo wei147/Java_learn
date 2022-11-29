@@ -38,10 +38,4 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
-    public List<Node> selectNodeByUserId(Long userId){
-        List<Node> nodeList =userMapper.selectNodeByUserId(userId);
-        return nodeList;
-
-    }
 }

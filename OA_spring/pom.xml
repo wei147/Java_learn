@@ -91,6 +91,13 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
+        <!-- 2022年11月29日00:13:06       Error Creating bean with name ' '这类问题的解决方案？-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.13</version>
+        </dependency>
+
     </dependencies>
 
     <build>

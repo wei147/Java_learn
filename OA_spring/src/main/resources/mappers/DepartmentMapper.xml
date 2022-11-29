@@ -55,4 +55,10 @@
     set department_name = #{departmentName,jdbcType=VARCHAR}
     where department_id = #{departmentId,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from adm_department
+  </select>
 </mapper>

@@ -143,4 +143,10 @@
       AND pf.operator_id = #{pf_operator_id}
   </select>
 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from adm_leave_form
+  </select>
+
 </mapper>

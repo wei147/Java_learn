@@ -6,33 +6,29 @@ import com.wei.oa_spring.exception.OAExceptionEnum;
 import com.wei.oa_spring.model.pojo.Node;
 import com.wei.oa_spring.model.pojo.User;
 import com.wei.oa_spring.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@Controller
+@RestController
 public class UserController {
 
-    @Resource
+    @Autowired
     UserService userService;
 
     //测试用
     @GetMapping("/user/1")
-    @ResponseBody
     public User getUser() {
         User user = userService.selectById();
         return user;
     }
 
     @PostMapping("/login")
-    @ResponseBody
     public ApiRestResponse login(@RequestParam String username, @RequestParam String password, HttpSession session) {
         //登录时所要用的关键任务 HttpSession session对象
         //1.校验 username不能为空
@@ -57,7 +53,6 @@ public class UserController {
      */
 //    @ApiOperation("用户登出")
     @PostMapping("/user/logout")
-    @ResponseBody
     public ApiRestResponse logout(HttpSession session) {
         //清除Session
         session.removeAttribute(Constant.OA_USER);
@@ -65,27 +60,14 @@ public class UserController {
     }
 
 
-    //获取登录用户可用功能模块列表
-    @GetMapping("/user/nodeList")
-    @ResponseBody
-    public ApiRestResponse getNodeList(HttpSession session) {
-        User user = (User) session.getAttribute(Constant.OA_USER);
-        if (user == null) {
-            return ApiRestResponse.error(OAExceptionEnum.NEED_LOGIN);
-        }
-        List<Node> nodeList = userService.selectNodeByUserId(user.getUserId());
-        session.setAttribute("node_list", nodeList);
-        return ApiRestResponse.success(nodeList);
-    }
-
 
     //未实现
-    @GetMapping("/user/department")
-    @ResponseBody
-    public ApiRestResponse getDepartment(HttpSession session) {
-        User user = (User) session.getAttribute(Constant.OA_USER);
-        List<Node> nodeList = userService.selectNodeByUserId(user.getUserId());
-        session.setAttribute("node_list", nodeList);
-        return ApiRestResponse.success(nodeList);
-    }
+//    @GetMapping("/user/department")
+//    @ResponseBody
+//    public ApiRestResponse getDepartment(HttpSession session) {
+//        User user = (User) session.getAttribute(Constant.OA_USER);
+//        List<Node> nodeList = userService.selectNodeByUserId(user.getUserId());
+//        session.setAttribute("node_list", nodeList);
+//        return ApiRestResponse.success(nodeList);
+//    }
 }

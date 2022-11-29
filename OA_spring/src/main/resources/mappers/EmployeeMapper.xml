@@ -17,7 +17,7 @@
     from adm_employee
     where employee_id = #{employeeId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from adm_employee
     where employee_id = #{employeeId,jdbcType=BIGINT}
   </delete>
@@ -90,4 +90,12 @@
       `level` = #{level,jdbcType=INTEGER}
     where employee_id = #{employeeId,jdbcType=BIGINT}
   </update>
+
+<!--  搜索所有的员工信息-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from adm_employee
+  </select>
+
 </mapper>

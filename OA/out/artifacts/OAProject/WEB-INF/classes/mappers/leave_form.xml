@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imooc.oa.dao.LeaveFormDao">
+    <!--useGeneratedKeys="true"使用数据库的自动生成键键   keyProperty="formId"实体中哪个的属性名是主键 keyColumn="form_id" 数据库字段哪个是主键-->
+    <insert id="insert" parameterType="com.imooc.oa.entity.LeaveForm"
+            useGeneratedKeys="true" keyProperty="formId" keyColumn="form_id">
+
+        INSERT INTO adm_leave_form(employee_id, form_type, start_time, end_time, reason, create_time, state)
+        VALUES (#{employeeId}, #{formType}, #{startTime}, #{endTime}, #{reason}, #{createTime}, #{state})
+    </insert>
+
+    <!--多参数查询 通过Map传递参数查询以及接收结果-->
+    <!--查询的是多表的字段，得到的字段也是从多个表获取的。并没有任何哪个实体类能承载全部的字段。所以用map-->
+    <select id="selectByParams" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT f.*,
+               e.`name`,
+               d.*
+        FROM adm_leave_form f,
+             adm_process_flow pf,
+             adm_employee e,
+             adm_department d
+        WHERE f.form_id = pf.form_id
+          AND f.employee_id = e.employee_id
+          AND e.department_id = d.department_id
+          AND pf.state = #{pf_state}
+          AND pf.operator_id = #{pf_operator_id}
+    </select>
+
+    <!--    按表单号获取表单数据-->
+    <select id="selectById" parameterType="Long" resultType="com.imooc.oa.entity.LeaveForm">
+        select *
+        from adm_leave_form
+        where form_id = #{value }
+    </select>
+
+    <!--更新表单数据-->
+    <update id="update">
+        Update adm_leave_form
+        set employee_id = #{employeeId},
+            form_type   = #{formType},
+            start_time=#{startTime},
+            end_time    =#{endTime},
+            reason=#{reason},
+            create_time = #{createTime},
+            state       = #{state}
+        where form_id = #{formId}
+    </update>
+</mapper>
+
+
+
+
+
+
+
+

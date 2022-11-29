@@ -1,34 +1,35 @@
 package com.wei.oa_spring.service.Impl;
 
-import com.wei.oa_spring.model.dao.UserMapper;
-import com.wei.oa_spring.model.pojo.User;
-import com.wei.oa_spring.service.UserService;
+import com.wei.oa_spring.model.dao.EmployeeMapper;
+
+import com.wei.oa_spring.model.pojo.Employee;
+
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(UserServiceImpl.class)
+@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplTest extends TestCase {
 
     @Resource
-    UserService userService;
-    @Resource
-    UserMapper userMapper;
+    EmployeeMapper employeeMapper;
 
     @Test
-    public void testSelectById() {
+    public void test() {
         System.out.println(" i am come ===============");
-        User user = userMapper.selectByPrimaryKey(1L);
-        System.out.println(user);
+        List<Employee> employeeList = employeeMapper.selectAll();
+        System.out.println(employeeList.toString());
     }
 
     @Test
-    public void testLogin() {
+    public void hello() {
         System.out.println("qqqq++++++++++++++++++=====");
     }
 

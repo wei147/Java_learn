@@ -22,6 +22,8 @@ public enum OAExceptionEnum {
 
     INVALID_APPROVAL_PROCESS(100014, "无效的审批流程"),
     NO_PENDING_TASKS_FOUND(100015, "未找到待处理任务"),
+    NO_DEPARTMENT_FOUND(100016, "没有找到对应的部门"),
+    NO_EMPLOYEE_FOUND(100016, "没有找到对应的员工"),
 
     //系统异常
     SYSTEM_ERROR(20000, "系统异常");

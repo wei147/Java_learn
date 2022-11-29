@@ -13,15 +13,8 @@ import javax.annotation.Resource;
 @Controller
 public class EmployeeController {
 
-    @Resource
-    EmployeeService employeeService;
 
-    @GetMapping("/employee")
-    @ResponseBody
-    public Employee getEmployee(@RequestParam Long id) {
-        Employee employee = employeeService.selectById(id);
-        return employee;
-    }
+
 
 
 }

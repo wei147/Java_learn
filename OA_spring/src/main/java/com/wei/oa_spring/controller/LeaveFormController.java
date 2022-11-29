@@ -51,7 +51,7 @@ public class LeaveFormController {
 
     //具体实现类没搞好
     //审批操作
-    @GetMapping("audit")
+    @PostMapping("audit")
     public ApiRestResponse audit(HttpSession session, @Valid @RequestBody AuditProcessFlowReq auditProcessFlowReq) {
         //这个登录判断后面可以仿 统一校验管理员身份,做一个统一校验登录
         ProcessFlow processFlow = new ProcessFlow();

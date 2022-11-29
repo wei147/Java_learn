@@ -11,5 +11,4 @@ public interface UserService {
 
     User login(String username,String password);
 
-    List<Node> selectNodeByUserId(Long userId);
 }
