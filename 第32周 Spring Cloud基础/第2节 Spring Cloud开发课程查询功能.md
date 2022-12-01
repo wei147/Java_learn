@@ -174,3 +174,9 @@ public class CourseListController {
 
 #### 课程价格模块开发
 
+![image-20221201160445151](C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221201160445151.png)
+
+```html
+不然运行时会报错 		<text>java: 无效的目标发行版: 16 </text>
+```
+

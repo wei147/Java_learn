@@ -13,5 +13,9 @@ public class Try {
 
     }
 
+    public void PrimeNumber(){
+
+    }
+
 
 }
