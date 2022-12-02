@@ -180,3 +180,114 @@ public class CourseListController {
 不然运行时会报错 		<text>java: 无效的目标发行版: 16 </text>
 ```
 
+
+
+#### Eureka的作用和架构
+
+```
+要想去在多个服务之间建立他们的相互联系,那么第一步首先要知道对方在哪里,而要想知道对方在哪里不可避免的就需要用到我们的一些服务注册与发现的相关的模块,,,,
+
+Eureka : 服务注册与发现的模块
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221202132309973.png" alt="image-20221202132309973" style="zoom:50%;" />
+
+##### 为什么需要服务注册与发现
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221202140655488.png" alt="image-20221202140655488" style="zoom:50%;" />
+
+```
+使用静态ip的方式不可取,服务的注册在Eureka一旦改变可以通过Eureka来查询最新的ip
+```
+
+##### Eureka架构
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221202141418533.png" alt="image-20221202141418533" style="zoom:50%;" />
+
+##### Eureka的集群架构
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221202141623631.png" alt="image-20221202141623631" style="zoom:50%;" />
+
+```
+多个Eureka的服务中心,服务中心彼此间是共享的,一台宕机其他还能用。也就是说客户端找到一台可用的服务中心就能远程调用其他服务
+```
+
+##### 总结三者间的职责以及关系
+
+```
+
+
+提供者(Service) 在启动的时候把自己注册到Eureka上。除了注册之外还需要负责去续约:比如定期发送心跳,告诉Eureka Server自己还活着。同样还需要负责服务下线,比如实例进行正常关闭了、业务变化导致机器缩减了,那么也要及时通知Eureka,告诉它我要下线了
+
+消费者(Client) 第一步要获取服务。通过请求找到服务中心Eureka把服务清单/花名册拿过来  第二步根据这个清单找到它的信息并且去进行调用
+
+Eureka服务注册中心  负责维护这个花名册。还有一个重要的功能是失效剔除,当某个服务提供方突然挂掉了,超过一定时间就把它剔除出去,
+```
+
+
+
+#### 开发Eureka Server
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221202143820693.png" alt="image-20221202143820693" style="zoom:50%;" />
+
+```xml
+在父pom.xml中引入
+
+	<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/pom.xml-->
+    <!--表示Spring Cloud的版本  (dependencyManagement用于统一管理整个依赖)-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+	<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/eureka-server/pom.xml-->
+        <!--Eureka 的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+```
+
+```java
+//application.properties
+spring.application.name=eureka-server
+server.port=8000
+#eureka的主机名称
+eureka.instance.hostname=localhost
+#fetch-registry:获取注册表。 不需要同步其他节点数据。
+eureka.client.fetch-registry=false
+#register-with-eureka代表是否将自己注册到Eureka Server,默认是true。
+eureka.client.register-with-eureka=false
+eureka.client.service-url.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+```
+
+```java
+//com/wei/course/EurekaServerApplication.java
+package com.wei.course;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+/**
+ * 启动类   (Eureka服务端)
+ */
+@EnableEurekaServer
+@SpringBootApplication
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);}}
+```
+
+```
+访问  http://localhost:8000/ 即可看到页面
+```
+
