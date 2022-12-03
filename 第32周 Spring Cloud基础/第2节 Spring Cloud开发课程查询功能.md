@@ -291,3 +291,160 @@ public class EurekaServerApplication {
 访问  http://localhost:8000/ 即可看到页面
 ```
 
+
+
+#### 进行Eureka Client改造
+
+```xml
+要想把模块变成Eureka Client需要两个比较主要的步骤:
+	1.引入依赖
+			<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-service/course-list/pom.xml-->
+	        <!--Eureka Client的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+	2.进行配置文件的编写
+		<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-service/course-list/src/main/resources/application.properties-->
+        #这里的地址要和 Eureka-server的配置地址对应 (spring-cloud-course-pratice/eureka-server/src/main/resources/application.properties)
+        eureka.client.service-url.defaultZone=http://8000/eureka/
+
+```
+
+```
+//具体改造
+见上面。没了,比较简单
+```
+
+
+
+#### 利用Feign实现服务间调用
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221203211733633.png" alt="image-20221203211733633" style="zoom:50%;" />
+
+##### 集成Feign的三个步骤
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221203211858221.png" alt="image-20221203211858221" style="zoom:50%;" />
+
+```xml
+1.引入依赖
+	因为是在course-price里面调用course-list所以先在price里面引入依赖
+		<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-service/course-price/pom.xml-->
+	    <!--Feign的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+2.配置文件
+
+3.注解
+/**
+ * 项目启动类
+ */
+@SpringBootApplication
+<!--Feign的注解-->
+@EnableFeignClients
+@MapperScan("com.imooc.course.dao")
+public class CoursePriceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CoursePriceApplication.class,args); }}
+```
+
+```java
+//spring-cloud-course-pratice/course-service/course-price/src/main/java/com/imooc/course/client/CourseListClient.java
+
+//以接口的形式
+package com.imooc.course.client;
+
+import com.imooc.course.entity.Course;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+
+/**
+ * 课程列表的Feign客户端
+ */
+@FeignClient("course-list")
+public interface CourseListClient {
+
+    @GetMapping("/courses")
+    List<Course> courseList();}
+```
+
+```java
+//在CoursePriceController中调用课程列表的服务
+package com.imooc.course.controller;
+import com.imooc.course.client.CourseListClient;
+import com.imooc.course.entity.Course;
+import com.imooc.course.entity.CoursePrice;
+import com.imooc.course.service.CoursePriceService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * 课程价格控制器
+ */
+@RestController
+public class CoursePriceController {
+
+    @Resource
+    CoursePriceService coursePriceService;
+
+    @Resource
+    CourseListClient courseListClient;
+
+    //对外提供价格的能力
+    @GetMapping("/price")
+    public Float getCoursePrice(@RequestParam Integer courseId) {
+        CoursePrice coursePrice = coursePriceService.getCoursePrice(courseId);
+        return coursePrice.getPrice();}
+
+    //在课程价格中调用课程列表的服务
+    @GetMapping("/coursesInPrice")
+    public List<Course> getCourseListInPrice() {
+        return courseListClient.courseList();}}
+```
+
+
+
+#### 利用Ribbon实现负载均衡
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221203220050606.png" alt="image-20221203220050606" style="zoom:50%;" />
+
+```
+客户端负载均衡可以用在服务与服务间的
+```
+
+##### 负载均衡策略
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221203220737705.png" alt="image-20221203220737705" style="zoom:50%;" />
+
+```
+假设有1、2、3、4个
+
+随机策略顾名思义。
+轮询是1到4号都来一遍再回到1号
+加权策略:会根据每一次请求的响应返回时间去决定我访问你的次数。其实就是相当于是一种判断、一种评估。
+	假设有三台机器,第一台机器CPU很慢,二三台性能很好,前两个策略并不能体现出cpu的差异。(响应慢的话,分发给第一台机器的请求就会少)
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221203221744374.png" alt="image-20221203221744374" style="zoom:50%;" />
+
+```java
+//在spring-cloud-course-pratice/course-service/course-price/src/main/resources/application.properties 中配置
+
+#采用轮询的负载均衡策略  ribbon
+course-list.ribbon.NfLoadBanlancerRuleClassName=com.netflix.loadbalancer.RoundRobinRule
+```
+
+#### 利用Hystrix实现断路器
+
+##### 为什么需要断路器
+
+
+
