@@ -446,5 +446,271 @@ course-list.ribbon.NfLoadBanlancerRuleClassName=com.netflix.loadbalancer.RoundRo
 
 ##### 为什么需要断路器
 
+```
+断路器最典型的一个用处就是 当某一个单元发生故障的时候,然后我们就可以利用这个断路器把它给隔离出去,类似于我们的电路,我们的电路如果说某一处流量过大,为了保护整个系统它会有保险丝这样的装置,保险丝断了一部分内容是不可用的,但不会因此导致整个系统不可用,
+```
 
+```
+Hystrix所起到的作用就是帮助我们快速优雅的构建一个短路的功能。当某个服务发生问题的时候,我们会返回一个默认的响应或者是一个错误的响应而不是长时间的让用户去等待,这样就避免了线程因为故障而无法释放,避免了在分布式系统中故障的蔓延,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221204135121293.png" alt="image-20221204135121293" style="zoom: 50%;" />
+
+```
+编码:
+课程价格服务会调用课程列表服务。courselist(返回课程列表)服务我们无法保证该服务是否可用,所以需要在课程价格上添加断路器功能
+```
+
+```xml
+1.引入依赖 
+<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-service/course-price/pom.xml -->
+<!--Hystrix 断路器的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+2.配置文件
+<!--Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-service/course-price/src/main/resources/application.properties -->
+#默认断路器功能是不打开的
+feign.hystrix.enabled=true
+
+3.在启动类加上注解(见下文)
+4.指明短路后续操作(在断路的时候应该怎么做)  加上fallback和后续的接口实现类
+```
+
+```java
+3.在启动类加上注解(见下文)
+/**
+ * 项目启动类
+ */
+@SpringBootApplication
+@EnableFeignClients
+//断路器的注解
+@EnableCircuitBreaker
+@MapperScan("com.imooc.course.dao")
+public class CoursePriceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CoursePriceApplication.class,args);}}
+```
+
+```java
+package com.imooc.course.client;
+import com.imooc.course.entity.Course;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
+
+/**
+ * 课程列表的Feign客户端
+ */
+//fallback就是发生错误时所要调用的类。正常是调用本接口的方法,发生错误的话调用CourseListClientHystrix实现类
+@FeignClient(value = "course-list",fallback = CourseListClientHystrix.class)
+public interface CourseListClient {
+
+    @GetMapping("/courses")
+    List<Course> courseList();}
+```
+
+```java
+//断路后应该怎么做
+//spring-cloud-course-pratice/course-service/course-price/src/main/java/com/imooc/course/client/CourseListClient.java
+package com.imooc.course.client;
+import com.imooc.course.entity.Course;
+import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 断路器实现类
+ */
+@Component      //这个是必须加的吗
+public class CourseListClientHystrix implements CourseListClient {
+    @Override
+    public List<Course> courseList() {
+        List<Course> defaultCourses = new ArrayList<>();
+        Course course = new Course();
+        course.setId(108);
+        course.setCourseId(108);
+        course.setName("默认课程");
+        course.setValid(1);
+        defaultCourses.add(course);
+        return defaultCourses; }}
+```
+
+
+
+#### 整合两个服务
+
+```
+将课程列表和课程价格合并为一个json输出
+```
+
+```java
+最终效果
+[{
+"id": null,
+"courseId": 362,
+"price": 348,
+"name": "Java并发核心知识体系精讲"
+},
+{
+"id": null,
+"courseId": 409,
+"price": 399,
+"name": "玩转java并发工具"
+},
+{
+"id": null,
+"courseId": 121,
+"price": 299,
+"name": "Nginx入门到实践-Nginx中间件"
+}]
+```
+
+```java
+CoursesAndPrice实体类
+/**
+ * 课程与价格的融合类(整合了课程列表和价格的类)
+ */
+
+//为什么要实现Serializable接口?  序列化：就是把对象转化成字节。
+public class CoursesAndPrice implements Serializable {
+    Integer id;
+    Integer courseId;
+    Float price;
+    String name;
+```
+
+```java
+//CoursePriceServiceImpl 具体实现类调用课程列表服务进行数据的整合    
+
+//课程列表从课程列表服务中拿
+@Resource
+CourseListClient courseListClient;
+
+@Override
+    public List<CoursesAndPrice> getCoursesAndPriceList() {
+        List<CoursesAndPrice> coursesAndPriceList = new ArrayList<>();
+        List<Course> courses = courseListClient.courseList();
+        for (int i = 0; i < courses.size(); i++) {
+            Course course = courses.get(i);
+            if (course != null) {
+                Integer courseId = course.getCourseId();
+                CoursePrice coursePrice = coursePriceMapper.getCoursePrice(courseId);
+                CoursesAndPrice coursesAndPrice = new CoursesAndPrice();
+                coursesAndPrice.setCourseId(courseId);
+                coursesAndPrice.setPrice(coursePrice.getPrice());
+                coursesAndPrice.setName(course.getName());
+//                coursesAndPrice.setId(i);
+
+                coursesAndPriceList.add(coursesAndPrice);
+            }
+        }
+        return coursesAndPriceList; }
+```
+
+```java
+//控制器 CoursePriceController
+
+//整合两个服务
+@GetMapping("/coursesAndPrice")
+public List<CoursesAndPrice> getCoursesAndPrice() {
+    return coursePriceService.getCoursesAndPriceList();}
+```
+
+```
+以远程调用服务的方式还是挺新颖的。  步骤:
+Eureka服务注册中心、
+Eureka Client、
+通过Feign实现服务间调用、
+Ribbon实现负载均衡策略————轮询、
+Hystrix实现断路器兜底(用户体验更好)、
+最后是整合两个服务、
+```
+
+
+
+#### 网关Zuul
+
+```
+网关在大型项目中是必不可少的一个部分。
+
+Spring Cloud Zuul与Spring Cloud:
+	Spring Cloud Zuul是Spring cloud的一个组件。Spring Cloud Zuul会和Eureka进行整合,它自己也是Eureka的一个Client,会注册到Eureka上面去,它也可以由此通过Eureka获取到各个其他微服务模块的信息。有了这些信息之后,我们网关就会自动的去把这些信息在网关自身上进行注册,
+```
+
+##### 为什么需要网关？
+
+```
+如果没有网关做统一的校验,那么很多模块就要反复验证该用户是不是登录了。登录校验冗余
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221204225225495.png" alt="image-20221204225225495" style="zoom:40%;" /> 
+
+```
+用户会先访问到Zuul网关,之后再由网关路由到服务
+网关最重要的两个功能:
+	1.统一鉴权
+	2.正确路由
+```
+
+##### 集成Zuul
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221204225808120.png" alt="image-20221204225808120" style="zoom:50%;" />
+
+```xml
+1.引入依赖
+        <!--因为Zuul网关本身作为Eureka Client会在Eureka服务中心进行注册所以引入这个依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <!--Zuul网关的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+```
+
+```java
+2.网关的主类
+package com.wei.course;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+/**
+ * 网关启动类
+ */
+@EnableZuulProxy
+@SpringCloudApplication
+public class ZuulGatewayApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ZuulGatewayApplication.class, args);}}
+```
+
+```yml
+3.配置文件的编写
+spring.application.name=eureka-gateway
+server.port=9000
+
+#日志配置 建议复制
+logging.pattern.console=%clr\
+  (%d{${LOG_DATEFORMAT_PATTERN:HH:mm:ss.SSS}}){faint} \
+  %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- })\
+  {magenta} %clr(---){faint} %clr([%15.15t]){faint} \
+  %clr(%-40.40logger{39}){cyan} %clr(:){faint} \
+  %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
+#把我们用下划线连接的转成驼峰式的 (避免有些实体类中的某些属性与数据表中的字段不匹配,拿不到值)
+mybatis.configuration.map-underscore-to-camel-case=true
+#这里的地址要和 Eureka-server的配置地址对应 (spring-cloud-course-pratice/eureka-server/src/main/resources/application.properties)
+eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
+```
+
+```
+http://localhost:9000/course-price/price?courseId=121
+```
 
