@@ -17,6 +17,5 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class CoursePriceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CoursePriceApplication.class,args);
-
     }
 }

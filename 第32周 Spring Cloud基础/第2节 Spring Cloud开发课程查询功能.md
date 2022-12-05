@@ -631,7 +631,7 @@ Hystrix实现断路器兜底(用户体验更好)、
 
 
 
-#### 网关Zuul
+#### 通过网关Zuul实现路由功能
 
 ```
 网关在大型项目中是必不可少的一个部分。
@@ -710,7 +710,135 @@ mybatis.configuration.map-underscore-to-camel-case=true
 eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
 ```
 
+```html
+接口转发实例: 访问http://localhost:9000/course-price/price?courseId=121 会转发到http://localhost:8082/price?courseId=121  (默认的,可以自定义)
 ```
-http://localhost:9000/course-price/price?courseId=121
+
+```yml
+
+
+#整个zuul网关的前缀。 (自定义的路由。默认的路由转发就失效了)
+zuul.prefix=/wei
+#给每个模块进行配置
+zuul.routes.course-list.path=/list/**
+zuul.routes.course-list.service-id=course-list
+zuul.routes.course-price.path=/price/**
+zuul.routes.course-price.service-id=course-list
+```
+
+```http
+访问实况:
+
+http://localhost:8082/price?courseId=121
+http://localhost:9000/wei/price/price?courseId=121
+
+http://localhost:8082/coursesAndPrice
+http://localhost:9000/wei/price/coursesAndPrice
+```
+
+
+
+#### 实现网关过滤器
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221205132845314.png" alt="image-20221205132845314" style="zoom:40%;" />
+
+```
+pre 一般做鉴权处理,没有权限的情况下不该访问其他内容
+post 请求完成之后运行。可以用来做请求所运行的时长。(在pre把开始运行时间记下来,用post的时间减去pre的)
+```
+
+```java
+//Spring Cloud开发课程查询功能/spring-cloud-course-pratice/course-zuul/src/main/java/com/wei/course/filter/PreRequestFilter.java
+package com.wei.course.filter;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.stereotype.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * 记录请求时间  （前置过滤器）
+ */
+@Component //加Component注解好让spring识别这是一个filter
+public class PreRequestFilter extends ZuulFilter {
+    @Override
+    public String filterType() {
+        //过滤器的类型
+        return FilterConstants.PRE_TYPE;}
+
+    @Override
+    public int filterOrder() {
+        //过滤器的顺序。在过滤器比较多的情况下,过滤器顺序比较关键
+        return 0;}
+
+    @Override
+    public boolean shouldFilter() {
+        //是否启动过滤器。(在这里可以进行比较复杂的逻辑判断)
+        return true; }
+
+    @Override
+    public Object run() throws ZuulException {
+        //我们要写的业务代码
+        RequestContext currentContext = RequestContext.getCurrentContext(); //上下文的概念。可以往里面存取东西
+        currentContext.set("startTime",System.currentTimeMillis()); //key value的形式存储当前时间
+        System.out.println("过滤器已经记录时间");
+        return null;}}
+```
+
+```java
+package com.wei.course.filter;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.stereotype.Component;
+
+/**
+ * 请求处理后的过滤器
+ */
+@Component
+public class PostRequestFilter extends ZuulFilter {
+
+    @Override
+    public String filterType() {
+        return FilterConstants.POST_TYPE}
+
+    @Override
+    public int filterOrder() {
+        //过滤器请求的一个位置 （这里拿的是别人定义好的响应的默认常量 1000-1代表在它之前执行,快一些?）
+        return FilterConstants.SEND_RESPONSE_FILTER_ORDER-1;}
+
+    @Override
+    public boolean shouldFilter() {
+        return true;}
+
+    @Override
+    public Object run() throws ZuulException {
+        RequestContext currentContext = RequestContext.getCurrentContext(); //上下文的概念。可以往里面存取东西
+        Long startTime = (Long) currentContext.get("startTime");//key value的形式获取当前时间
+        Long endTime = System.currentTimeMillis();
+        Long result = endTime - startTime;
+        String requestURI = currentContext.getRequest().getRequestURI();
+        System.out.println("处理用时 : "+result);
+        System.out.println("uri : "+requestURI);
+        return null; }}
+```
+
+
+
+#### 项目重难点总结
+
+```
+Eureka服务注册中心与Eureka Client(提供服务的)
+Feign提供服务间的调用(调用地址也是从服务注册中心去获取的)
+负载均衡Ribbo(负载均衡策略:随机、轮询、加权)
+	客户端负载均衡(Ribbon)
+	服务端负载均衡(Nginx)
+断路器Hystrix(发生错误/意外时的兜底策略)
+网关Zuul (两个最主要的作用:1.统一拦截鉴权  2.路由转发) 把自己注册到服务注册中心
+	可以用网关实现过滤器 记录请求所花的时间
 ```
 
