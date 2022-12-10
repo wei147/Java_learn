@@ -266,7 +266,23 @@ public class EurekaServerApplication {
 
 
 
-#### 用户模块介绍和设计
+#### 用户模块初始化
+
+
+
+#### 公共模块的主要功能
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221210174325346.png" alt="image-20221210174325346" style="zoom:50%;" />
+
+```
+公共模块提供的主要功能不是对外提供接口而是一些类的复用(不要spring boot启动类的编写)。
+
+下图是公共类的转移工作
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221210181556111.png" alt="image-20221210181556111" style="zoom:80%;" />
+
+### 
 
 
 
