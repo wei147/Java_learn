@@ -30,6 +30,18 @@ public enum ImoocMallExceptionEnum {
 
     REQUEST_PARAM_ERROR(10001, "参数错误"),
     NO_ENUM(10002,"未找到对应的枚举"),
+    NEED_USER_NAME(10003,"需要用户名"),
+
+    NEED_PASS_WORD(10004,"需要密码"),
+    NEED_TOO_SHORT(10005,"密码长度不能小于6位"),
+    NAME_EXISTED(10006,"用户名不能重名"),
+    INSERT_FAILED(10007,"插入失败,请重试"),
+    WRONG_PASSWORD(10008,"密码错误"),
+    UPDATE_FAILED(10009,"更新个性签名失败"),
+    NEED_ADMIN(10011,"非管理员,无法操作"),
+    NEED_LOGIN(100010,"请登录"),
+
+
 
     //系统异常
     SYSTEM_ERROR(20000, "系统异常");

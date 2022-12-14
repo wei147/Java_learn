@@ -282,7 +282,21 @@ public class EurekaServerApplication {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221210181556111.png" alt="image-20221210181556111" style="zoom:80%;" />
 
-### 
+#### 用户模块各层级的重构 part1
 
+```
+不是隶属在同一个模块中的,不能直接进行引用的。 比如common模块和User模块。需要做一下引入的工作才能使用
+```
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221213011430901.png" alt="image-20221213011430901" style="zoom:67%;" />
+
+```
+user模块的转移工作
+```
+
+用户模块各层级的重构 part2
+
+```
+解决包路径的报错问题
+```
 

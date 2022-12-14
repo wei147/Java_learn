@@ -1,11 +1,11 @@
 package com.wei.cloud.mall.practice.user.controller;
 
-import com.imooc.mall.common.ApiRestResponse;
-import com.imooc.mall.common.Constant;
-import com.imooc.mall.exception.ImoocMallException;
-import com.imooc.mall.exception.ImoocMallExceptionEnum;
-import com.imooc.mall.model.pojo.User;
-import com.imooc.mall.service.UserService;
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import com.wei.cloud.mall.practice.user.service.UserService;
+import com.wei.mall.practice.common.common.ApiRestResponse;
+import com.wei.mall.practice.common.common.Constant;
+import com.wei.mall.practice.common.exception.ImoocMallException;
+import com.wei.mall.practice.common.exception.ImoocMallExceptionEnum;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
