@@ -2,10 +2,11 @@ package com.wei.cloud.mall.practice.user.model.pojo;
 
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Repository
-public class User {
+public class User implements Serializable {
     private Integer id;
 
     private String username;

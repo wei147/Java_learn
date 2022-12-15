@@ -78,6 +78,8 @@ public class UserController {
         //保存用户信息时,不保存密码(为了安全起见这里的password设置为空,不会返回给用户)
         user.setPassword(null);
         session.setAttribute(Constant.IMOOC_MALL_USER, user);
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        System.out.println(currentUser);
         return ApiRestResponse.success(user);
     }
 
@@ -96,6 +98,7 @@ public class UserController {
         if (currentUser == null) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
         }
+
         User user = new User();
         //会通过id找到该用户将用户昵称进行更新
         user.setId(currentUser.getId());

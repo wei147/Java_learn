@@ -294,9 +294,283 @@ public class EurekaServerApplication {
 user模块的转移工作
 ```
 
-用户模块各层级的重构 part2
+#### 用户模块各层级的重构 part2
 
 ```
 解决包路径的报错问题
 ```
 
+#### 用户模块测试
+
+```java
+如果com/wei/cloud/mall/practice/user/model/pojo/User.java 没有实现Serializable接口会报错
+    @Repository
+public class User implements Serializable {
+
+{
+    "timestamp": "2022-12-14T17:43:00.463+0000",
+    "status": 500,
+    "error": "Internal Server Error",
+    "message": "Cannot serialize; nested exception is org.springframework.core.serializer.support.SerializationFailedException: Failed to serialize object using DefaultSerializer; nested exception is java.lang.IllegalArgumentException: DefaultSerializer requires a Serializable payload but received an object of type [com.wei.cloud.mall.practice.user.model.pojo.User]",
+    "path": "/login"
+}
+```
+
+```
+微服务的断点调试是没有的?
+
+2022年12月15日02:01:07
+http://localhost:8081/user/update?signature=长风破浪会有时
+更新不了个性签名,我本地的没有Session啊,所以是怎么处理的?  
+2022年12月15日02:08:57 上面那个问题可以回答了因为是同一个User模块的,所以用Session也是可以的。但是目前更新个性签名用不了。
+
+2022年12月15日15:18:34 已明了上面的问题,
+	之前的登录接口地址 http://127.0.0.1:8081/login?userName=wei&password=123456
+	之前的更新个性签名接口 http://localhost:8081/user/update?signature=长风破浪会有时
+一个是localhost 一个是127.0.0.1 导致登录接口存进去的User Session信息在更新个性签名接口这里拿不到。
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221215152321174.png" alt="image-20221215152321174" style="zoom:70%;" />
+
+```
+以上五个用户接口皆可用
+```
+
+#### 网关模块的开发
+
+```
+之所以要在这个时候编写网关模块,是因为编写了用户模块之后,如果想跳过网关进一步的去编写商品分类和商品模块的话是其实做不到的,因为在商品分类和商品模块编写过程中,特别是对后台进行操作,商品的上下架是需要管理员权限判断的,所以这个时候就需要开发网关,之后把用户模块注册到网关上,这样一来后续的模块想要去调用相关的服务就容易多了
+```
+
+```xml
+//Zuul网关模块的依赖
+    <dependencies>
+        <!--eureka-client的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <!--zuul网关的依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+
+        <!--这里对应的是common模块-->
+        <dependency>
+            <groupId>com.wei</groupId>
+            <artifactId>cloud-mall-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--这里对应的是user模块-->
+        <dependency>
+            <groupId>com.wei</groupId>
+            <artifactId>cloud-mall-user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+```
+
+```java
+//Zuul网关过滤器
+package com.imooc.cloud.mall.practice.zuul.filter;
+import om.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import com.wei.mall.practice.common.common.Constant;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+/**
+ * 用户鉴权过滤器
+ */
+@Component
+public class UserFilter extends ZuulFilter { //首先会继承Zuul过滤器实现相关的方法
+    @Override
+    public String filterType() {
+        //1.首先选择类型 前置过滤器
+        return FilterConstants.PRE_TYPE; }
+
+    @Override
+    public int filterOrder() {
+        //2.顺序保持为默认的0
+        return 0; }
+
+    @Override
+    public boolean shouldFilter() {
+        //3.是否应当启用过滤器? 什么时候应当启用,什么时候不该
+        //(1).先通过上下文获取到url
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        //(2)获取到当前的网址
+        String requestURI = request.getRequestURI();
+        //(3)根据uri分情况决定通过还是不通过  (包含images图片和pay支付的,不经过过滤器。 购物车和订单模块则经过)
+        if (requestURI.contains("images") || requestURI.contains("pay")) {
+            return false;}
+        if (requestURI.contains("cart") || requestURI.contains("order")) {
+            return true;}
+
+        return false;
+    }
+
+    @Override //run方法的含义是 一旦符合过滤器的规则(上面的 return true;),需要做哪些条件的鉴权
+    public Object run() throws ZuulException {
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        if (currentUser == null) {
+            //这个方法的含义是 就不需要通过网关再去发送
+            currentContext.setSendZuulResponse(false);
+            //把将要返回的内容直接写下来。(直接返回给前端)
+            currentContext.setResponseBody("{\n" +
+                    "    \"status\": 10007,\n" +
+                    "    \"msg\": \"NEED_LOGIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+            //设定返回的状态码
+            currentContext.setResponseStatusCode(200);
+        }
+        return null; }}
+```
+
+#### 管理员过滤器开发
+
+```java
+package com.imooc.cloud.mall.practice.zuul.filter;
+
+import com.imooc.cloud.mall.practice.zuul.feign.UserFeignClient;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import com.wei.cloud.mall.practice.user.service.UserService;
+import com.wei.mall.practice.common.common.Constant;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+/**
+ * 管理员鉴权过滤器
+ */
+@Component
+public class adminFilter extends ZuulFilter { //首先会继承Zuul过滤器实现相关的方法
+
+    @Resource
+    UserFeignClient userFeignClient;
+
+    @Override
+    public String filterType() {
+        //1.首先选择类型 前置过滤器
+        return FilterConstants.PRE_TYPE;
+    }
+
+    @Override
+    public int filterOrder() {
+        //2.顺序保持为默认的0
+        return 0;
+    }
+
+    @Override
+    public boolean shouldFilter() {
+        //3.是否应当启用过滤器? 什么时候应当启用,什么时候不该
+        //(1).先通过上下文获取到url
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        //(2)获取到当前的网址
+        String requestURI = request.getRequestURI();
+        //(3)根据uri分情况决定通过还是不通过
+        if (requestURI.contains("adminLogin")) {
+            return false;
+        }
+        if (requestURI.contains("admin")) {
+            return true;
+        }
+        return false;}
+
+    @Override //run方法的含义是 一旦符合过滤器的规则(上面的 return true;),需要做哪些条件的鉴权
+    public Object run() throws ZuulException {
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        if (currentUser == null) {
+            //这个方法的含义是 就不需要通过网关再去发送
+            currentContext.setSendZuulResponse(false);
+            //把将要返回的内容直接写下来。(直接返回给前端)
+            currentContext.setResponseBody("{\n" +
+                    "    \"status\": 10010,\n" +
+                    "    \"msg\": \"NEED_LOGIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+            //设定返回的状态码
+            currentContext.setResponseStatusCode(200);
+            return null;    //一但用户为空(还没有登录的情况下)就可以停止了,不进行后面的判断
+        }
+        Boolean adminRole = userFeignClient.checkAdminRole(currentUser);
+        if (!adminRole ) {
+            currentContext.setSendZuulResponse(false);
+            currentContext.setResponseBody("{\n" +
+                    "    \"status\": 10011,\n" +
+                    "    \"msg\": \"NEED_ADMIN\",\n" +
+                    "    \"data\": null\n" +
+                    "}");
+        }
+        return null;
+    }}
+```
+
+```java
+//Feign 实现从网关模块调用user模块的方法
+package com.imooc.cloud.mall.practice.zuul.feign;
+
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@FeignClient(value = "cloud-mall-user")  //value就是对应的模块名
+public interface UserFeignClient {
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkAdminRole")
+    public Boolean checkAdminRole(@RequestBody User user);}
+```
+
+```java
+//网关启动类
+package com.imooc.cloud.mall.practice.zuul;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.netflix.zuul.EnableZuulServer;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+/**
+ * 网关启动类
+ */
+@SpringCloudApplication  //这里是SpringCloudApplication 为什么不是SpringBootApplication?
+@EnableZuulProxy
+@EnableFeignClients
+public class ZuulGatewayApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ZuulGatewayApplication.class, args); }}
+```
