@@ -574,3 +574,61 @@ public class ZuulGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulGatewayApplication.class, args); }}
 ```
+
+#### Session共享机制
+
+##### 登录功能分析
+
+###### 之前的单体应用
+
+```
+把User信息存Session,后面直接拿就行。微服务通过网关则不可以这样
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221217231605082.png" alt="image-20221217231605082" style="zoom:40%;" />
+
+###### 现在的微服务应用
+
+```
+
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221217231933566.png" alt="image-20221217231933566" style="zoom:50%;" />
+
+```java
+//cloud-mall-practice/cloud-mall-zuul/src/main/resources/application.properties
+spring.application.name=cloud-mall-zuul
+
+#将登录的user信息直接存到redis中 (Session的store-type存储方式设置为redis)
+spring.session.store-type=redis
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+
+#并没有敏感的headers需要过滤(网关便不会过滤)。
+zuul.sensitive-headers=
+#网关超时时间
+zuul.host.connect-timeout-millis=15000
+#Zuul整体的前缀
+zuul.prefix=/
+#user模块的路由
+zuul.routes.cloud-mall-user.path=/user/**
+#service-id是模块的名字
+zuul.routes.cloud-mall-user.service-id=cloud-mall-user
+```
+
+```java
+//cloud-mall-practice/cloud-mall-user/src/main/resources/application.properties
+spring.application.name=cloud-mall-user
+
+#将登录的user信息直接存到redis中 (Session的store-type存储方式设置为redis)
+spring.session.store-type=redis
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+```
+
+```java
+在user和zuul启动类加上注解
+@EnableRedisHttpSession //redis存储登录用户Session
+```
