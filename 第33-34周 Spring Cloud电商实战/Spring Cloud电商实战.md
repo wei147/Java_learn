@@ -632,3 +632,14 @@ spring.redis.password=
 在user和zuul启动类加上注解
 @EnableRedisHttpSession //redis存储登录用户Session
 ```
+
+```
+2022年12月21日20:29:54 测试完成。user模块的5个接口皆可用
+```
+
+
+
+#### 商品分类与商品模块初始化
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221221203137197.png" alt="image-20221221203137197" style="zoom:50%;" />
+
