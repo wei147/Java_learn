@@ -29,6 +29,7 @@ public class UserController {
 
     /**
      * 注册
+     *
      * @param username
      * @param password
      * @return
@@ -56,6 +57,7 @@ public class UserController {
 
     /**
      * 登录
+     *
      * @param username
      * @param password
      * @param session
@@ -85,6 +87,7 @@ public class UserController {
 
     /**
      * 更新个性签名
+     *
      * @param session
      * @param signature
      * @return
@@ -111,8 +114,7 @@ public class UserController {
      * 登出,清除session
      *
      * @param session
-     * @return
-     * 只需要在Controller层清除session信息就可以, 不需要到Service
+     * @return 只需要在Controller层清除session信息就可以, 不需要到Service
      */
     @ApiOperation("用户登出")
     @PostMapping("/user/logout")
@@ -125,6 +127,7 @@ public class UserController {
 
     /**
      * 管理员登录接口
+     *
      * @param username
      * @param password
      * @param session
@@ -154,5 +157,16 @@ public class UserController {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
         }
         return ApiRestResponse.success(user);
+    }
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkAdminRole")
+    @ResponseBody
+    public Boolean checkAdminRole(@RequestBody User user) {
+        return userService.checkAdminRole(user);
     }
 }

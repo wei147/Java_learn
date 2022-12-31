@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         //如果有重名分类名不允许再添加
         Category categoryOld = categoryMapper.selectByName(addCategoryReq.getName());
-        System.out.println("categoryOld:  " + categoryOld.toString());
+//        System.out.println("categoryOld:  " + categoryOld.toString()); 这里不能加这个,如果是新增没有的商品分类名称会报空指针异常
         if (categoryOld != null) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NAME_EXISTED);
         }
@@ -95,7 +95,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Cacheable(value = "listCategoryForCustomer") //value即它在存储中的key值
+    @Cacheable(value = "listCategoryForCustomer") //value即它在存储中的key值 (给用户端缓存目录列表)
     public List<CategoryVO> listCategoryForCustomer(Integer parentId) {
         ArrayList<CategoryVO> categoryVOList = new ArrayList<>();
         //怎么往里面添加数据?

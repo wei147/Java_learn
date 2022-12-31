@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * 管理员鉴权过滤器
  */
 @Component
-public class adminFilter extends ZuulFilter { //首先会继承Zuul过滤器实现相关的方法
+public class AdminFilter extends ZuulFilter { //首先会继承Zuul过滤器实现相关的方法
 
     @Resource
     UserFeignClient userFeignClient;
@@ -47,6 +47,7 @@ public class adminFilter extends ZuulFilter { //首先会继承Zuul过滤器实�
         HttpServletRequest request = currentContext.getRequest();
         //(2)获取到当前的网址
         String requestURI = request.getRequestURI();
+        System.out.println("requestURI:  " + requestURI);
         //(3)根据uri分情况决定通过还是不通过
         if (requestURI.contains("adminLogin")) {
             return false;
@@ -76,16 +77,18 @@ public class adminFilter extends ZuulFilter { //首先会继承Zuul过滤器实�
             currentContext.setResponseStatusCode(200);
             return null;    //一但用户为空(还没有登录的情况下)就可以停止了,不进行后面的判断
         }
+
+        //校验是否是管理员
         Boolean adminRole = userFeignClient.checkAdminRole(currentUser);
-        if (!adminRole ) {
+        if (!adminRole) {
             currentContext.setSendZuulResponse(false);
             currentContext.setResponseBody("{\n" +
                     "    \"status\": 10011,\n" +
                     "    \"msg\": \"NEED_ADMIN\",\n" +
                     "    \"data\": null\n" +
                     "}");
+            currentContext.setResponseStatusCode(200);
         }
         return null;
-
     }
 }

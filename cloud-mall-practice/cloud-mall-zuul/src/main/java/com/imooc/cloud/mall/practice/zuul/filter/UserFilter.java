@@ -43,7 +43,6 @@ public class UserFilter extends ZuulFilter { //首先会继承Zuul过滤器实�
         if (requestURI.contains("cart") || requestURI.contains("order")) {
             return true;
         }
-
         return false;
     }
 

@@ -649,3 +649,52 @@ spring.redis.password=
 
 #### 商品分类开发与测试
 
+```
+2022年12月31日23:18:45 这么久才又接着正式看网课,一是阳了,二是自己刚回家可能状态不太对。
+
+商品分类模块的开发与测试完成
+
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221231232632623.png" alt="image-20221231232632623" style="zoom:67%;" />
+
+```java
+值得注意点,通过网关统一校验用户是否是管理员的时候,是通过Feign来调用UserController中的方法来实现
+
+    //UserController中的具体实现类
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkAdminRole")
+    @ResponseBody
+    public Boolean checkAdminRole(@RequestBody User user) {
+        return userService.checkAdminRole(user);
+    }
+
+//UserFeignClient 类似接口一般。实现类在UserController中。后续网关中调用这个接口就可以了
+package com.imooc.cloud.mall.practice.zuul.feign;
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@FeignClient(value = "cloud-mall-user")  //value就是对应的模块名
+public interface UserFeignClient {
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkAdminRole")
+    public Boolean checkAdminRole(@RequestBody User user);}
+```
+
+
+
+#### 商品模块介绍
+
+
+
