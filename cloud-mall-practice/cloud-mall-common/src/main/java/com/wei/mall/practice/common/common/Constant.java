@@ -24,13 +24,15 @@ public class Constant {
 //    @Value("${file.upload.dir}")
 //    public static String FILE_UPLOAD_DIR;
 
-    public static String FILE_UPLOAD_DIR;
-
-    //用set方法去把静态变量进行赋值,这样可以成功获取到在配置文件中定义的路径的值 application.properties
-    @Value("${file.upload.dir}")
-    public void setFileUploadDir(String fileUploadDir) {
-        FILE_UPLOAD_DIR = fileUploadDir;
-    }
+    /**
+     * 这里已经迁移到 商品模块的 ProductConstant类下
+     **/
+//    public static String FILE_UPLOAD_DIR;
+//    //用set方法去把静态变量进行赋值,这样可以成功获取到在配置文件中定义的路径的值 application.properties
+//    @Value("${file.upload.dir}")
+//    public void setFileUploadDir(String fileUploadDir) {
+//        FILE_UPLOAD_DIR = fileUploadDir;
+//    }
 
     public interface productListOrderBy {
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price desc", "price asc");
@@ -61,10 +63,10 @@ public class Constant {
             this.code = code;
         }
 
-        public static OrderStatusEnum codeOf(int code){
+        public static OrderStatusEnum codeOf(int code) {
             //values()所返回的就是一个枚举列表, 像这样?  PAID(20, "已付款"),
-            for (OrderStatusEnum orderStatusEnum:values()){
-                if (orderStatusEnum.getCode()==code){
+            for (OrderStatusEnum orderStatusEnum : values()) {
+                if (orderStatusEnum.getCode() == code) {
                     return orderStatusEnum;
                 }
             }
