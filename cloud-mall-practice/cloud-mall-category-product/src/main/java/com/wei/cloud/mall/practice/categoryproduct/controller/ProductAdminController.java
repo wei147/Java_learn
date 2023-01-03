@@ -12,6 +12,7 @@ import com.wei.mall.practice.common.exception.ImoocMallException;
 import com.wei.mall.practice.common.exception.ImoocMallExceptionEnum;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,12 @@ public class ProductAdminController {
 
     @Resource
     ProductService productService;
+
+    @Value("${file.upload.ip}")
+    String ip;
+
+    @Value("${file.upload.port}")
+    Integer port;
 
     @PostMapping("admin/product/add")
     //addProduct也是需要我们自己去定义一个request的实体类,因为我们会对它做校验
@@ -68,7 +75,7 @@ public class ProductAdminController {
         }
         try {
             //getRequestURL() 得到的是一个StringBuffer,而new URI()方法需要传入一个String类型。所以加上""就可以转为String
-            return ApiRestResponse.success(getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/images/" + newFileName);
+            return ApiRestResponse.success(getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/category-product/images/" + newFileName);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -79,7 +86,7 @@ public class ProductAdminController {
     private URI getHost(URI uri) {
         URI effectiveURI;
         try {
-            effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(),
+            effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), ip, port,
                     null, null, null);
         } catch (URISyntaxException e) {
             //如果新建的过程中失败了,那么就把它设置为null

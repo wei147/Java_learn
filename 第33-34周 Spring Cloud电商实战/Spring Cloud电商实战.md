@@ -702,5 +702,31 @@ public interface UserFeignClient {
 2023年1月2日16:15:01 完成大部分的迁移和调整
 ```
 
-商品模块开发和梳理
+#### 商品模块开发和梳理
+
+#### 图片端口的特殊处理
+
+```java
+//application.properties
+#因为这里的ip和端口号分别是本地和经过网关的。所以端口号是8083
+file.upload.ip = 127.0.0.1
+file.upload.port = 8083
+```
+
+
+
+#### 阶段性重难点和常见错误总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230103220547899.png" alt="image-20230103220547899" style="zoom:50%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230103215302499.png" alt="image-20230103215302499" style="zoom:50%;" />
+
+```
+Session在微服务的情况下就不能轻易的获取到了。所以我们可以利用共享Session的方法,把Session存储到redis中(redis对于各个模块来说都是同一个redis),取到的数据也是同一份。所以有了redis的帮助就能实现共享,这样一来不同模块在存储和读取的时候,也就实现了统一。
+
+
+利用feign实现模块与模块间的调用
+```
 
