@@ -730,3 +730,17 @@ Session在微服务的情况下就不能轻易的获取到了。所以我们可�
 利用feign实现模块与模块间的调用
 ```
 
+
+
+#### 购物车与订单模块介绍
+
+```
+最后一个主流程模块
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230104230410248.png" alt="image-20230104230410248" style="zoom:40%;" />
+
+```
+还存在单体不存在的问题
+```
+
