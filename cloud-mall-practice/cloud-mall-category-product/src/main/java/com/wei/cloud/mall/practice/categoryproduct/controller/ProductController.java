@@ -6,10 +6,7 @@ import com.wei.cloud.mall.practice.categoryproduct.model.request.ProductListReq;
 import com.wei.cloud.mall.practice.categoryproduct.service.ProductService;
 import com.wei.mall.practice.common.common.ApiRestResponse;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,17 +20,24 @@ public class ProductController {
     ProductService productService;
 
     @ApiOperation(value = "前台商品详情")
-    @PostMapping("product/detail")
+    @GetMapping("product/detail")
     public ApiRestResponse detail(@RequestParam Integer id) {
         Product product = productService.detail(id);
         return ApiRestResponse.success(product);
     }
 
     @ApiOperation(value = "前台商品列表")
-    @PostMapping("product/list")
+    @GetMapping("product/list")
     public ApiRestResponse list(ProductListReq productListReq) {
         PageInfo list = productService.list(productListReq);
         return ApiRestResponse.success(list);
     }
 
+    // 为购物车模块提供商品详情服务。 内部使用
+    @ApiOperation(value = "前台商品详情")
+    @GetMapping("product/detailForFeign")
+    public Product detailForFeign(@RequestParam Integer id) {
+        Product product = productService.detail(id);
+        return product;
+    }
 }

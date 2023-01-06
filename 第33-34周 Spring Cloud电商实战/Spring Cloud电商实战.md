@@ -744,3 +744,114 @@ Session在微服务的情况下就不能轻易的获取到了。所以我们可�
 还存在单体不存在的问题
 ```
 
+
+
+#### 购物车相关类迁移
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230106140426873.png" alt="image-20230106140426873" style="zoom:70%;" />
+
+#### 商品服务对外暴露商品详情接口
+
+```java
+//com/imooc/cloud/mall/practice/cartorder/service/impl/CartServiceImpl.java 购物车模块怎么远程调用商品详情接口?  1.在商品服务Controller中对外暴露商品详情接口 2.在cart购物车模块中利用Fegin远程调用
+/**
+ * 购物车Service实现类
+ */
+@Service("cartService")
+public class CartServiceImpl implements CartService {
+
+    @Resource
+//    ProductMapper productMapper;
+    ProductFeignClient productFeignClient;
+```
+
+```java
+//com/wei/cloud/mall/practice/categoryproduct/controller/ProductController.java
+//1.在商品服务Controller中对外暴露商品详情接口
+
+    // 为购物车模块提供商品详情服务。 内部使用
+    @ApiOperation(value = "前台商品详情")
+    @GetMapping("product/detailForFeign")
+    public Product detailForFeign(@RequestParam Integer id) {
+        Product product = productService.detail(id);
+        return product; }
+```
+
+```java
+//2.在cart购物车模块中利用Fegin远程调用
+package com.imooc.cloud.mall.practice.cartorder.feign;
+import com.wei.cloud.mall.practice.categoryproduct.model.pojo.Product;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ * 商品的FeignClient
+ */
+//这里的value指定的对应模块是哪一个
+@FeignClient(value = "cloud-mall-category-product")
+public interface ProductFeignClient {
+    //Feign的调用是内部的,不经过网关。
+    //它是直接前请求到Eureka Server,然后拿到地址之后去访问的。(即便不经过网关,它都是可以正常运行的)
+    @GetMapping("product/detailForFeign")
+    Product detailForFeign(@RequestParam Integer id);}
+```
+
+
+
+#### 用户模块提供获取当前用户接口
+
+```java
+注意:获取对象的时候要时刻记得空判断。不然会报错。(这里是通过网关拦截器com/imooc/cloud/mall/practice/zuul/filter/UserFilter.java做了一个前置的拦截处理)
+    
+    @PostMapping("/delete")
+    @ApiOperation("删除购物车")
+    public ApiRestResponse delete(@RequestParam Integer productId) {
+        //不能传入userID,cartID,否则可以删除别人的购物车
+        Integer userId = userFeignClient.getUser().getId();
+        List<CartVO> cartVOList = cartService.delete(userId, productId);
+        return ApiRestResponse.success(cartVOList);}
+```
+
+```java
+通过用户模块获取用户的登录信息,通过暴露接口的形式,最后通过Feign在Cart购物车模块实现调用并获取。,,
+
+//com/imooc/cloud/mall/practice/cartorder/controller/CartController.java
+    @Resource
+    UserFeignClient userFeignClient;
+```
+
+```java
+//com/wei/cloud/mall/practice/user/controller/UserController.java    
+/**
+     * 获取当前登录的User对象。给Cart购物车模块提供的。所以直接范围就行不需要ApiRestResponse封装
+     * @param session
+     * @return
+     */
+    @GetMapping("/getUser")
+    @ResponseBody
+    public User getUser(HttpSession session) {
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        return currentUser;}
+```
+
+```java
+package com.imooc.cloud.mall.practice.cartorder.feign;
+import com.wei.cloud.mall.practice.user.model.pojo.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ * 用户的FeignClient
+ */
+@FeignClient(value = "cloud-mall-user")
+public interface UserFeignClient {
+
+    /**
+     * 获取当前登录的User对象
+     * @return
+     */
+    @GetMapping("/getUser")
+    User getUser();}
+```
+

@@ -29,22 +29,23 @@ public enum ImoocMallExceptionEnum {
 //    WRONG_ORDER_STATUS(100022, "订单状态不符"),
 
     REQUEST_PARAM_ERROR(10001, "参数错误"),
-    NO_ENUM(10002,"未找到对应的枚举"),
-    NEED_USER_NAME(10003,"需要用户名"),
+    NO_ENUM(10002, "未找到对应的枚举"),
+    NEED_USER_NAME(10003, "需要用户名"),
 
-    NEED_PASS_WORD(10004,"需要密码"),
-    NEED_TOO_SHORT(10005,"密码长度不能小于6位"),
-    NAME_EXISTED(10006,"用户名不能重名"),
-    INSERT_FAILED(10007,"插入失败,请重试"),
-    WRONG_PASSWORD(10008,"密码错误"),
-    UPDATE_FAILED(10009,"更新个性签名失败"),
-    NEED_LOGIN(100010,"请登录"),
-    NEED_ADMIN(10011,"非管理员,无法操作"),
-    CREATE_FAILED(10012,"创建失败"),
-    DELETE_FAILED(10013,"删除失败"),
-    MKDIR_FAILED(10014,"文件创建失败"),
-    UPLOAD_FAILED(10015,"上传失败"),
-
+    NEED_PASS_WORD(10004, "需要密码"),
+    NEED_TOO_SHORT(10005, "密码长度不能小于6位"),
+    NAME_EXISTED(10006, "用户名不能重名"),
+    INSERT_FAILED(10007, "插入失败,请重试"),
+    WRONG_PASSWORD(10008, "密码错误"),
+    UPDATE_FAILED(10009, "更新个性签名失败"),
+    NEED_LOGIN(100010, "请登录"),
+    NEED_ADMIN(10011, "非管理员,无法操作"),
+    CREATE_FAILED(10012, "创建失败"),
+    DELETE_FAILED(10013, "删除失败"),
+    MKDIR_FAILED(10014, "文件创建失败"),
+    UPLOAD_FAILED(10015, "上传失败"),
+    NOT_SALE(10016, "商品未上架"),
+    NOT_ENOUGH(10017, "商品库存不足"),
 
 
     //系统异常

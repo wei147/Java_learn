@@ -1,6 +1,7 @@
 package com.imooc.cloud.mall.practice.cartorder.service;
 
-import com.imooc.mall.model.vo.CartVO;
+
+import com.imooc.cloud.mall.practice.cartorder.model.vo.CartVO;
 
 import java.util.List;
 

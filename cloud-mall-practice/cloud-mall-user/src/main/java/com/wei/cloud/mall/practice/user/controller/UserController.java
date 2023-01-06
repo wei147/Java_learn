@@ -161,6 +161,7 @@ public class UserController {
 
     /**
      * 校验是否是管理员
+     *
      * @param user
      * @return
      */
@@ -168,5 +169,17 @@ public class UserController {
     @ResponseBody
     public Boolean checkAdminRole(@RequestBody User user) {
         return userService.checkAdminRole(user);
+    }
+
+    /**
+     * 获取当前登录的User对象。给Cart购物车模块提供的。所以直接范围就行不需要ApiRestResponse封装
+     * @param session
+     * @return
+     */
+    @GetMapping("/getUser")
+    @ResponseBody
+    public User getUser(HttpSession session) {
+        User currentUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        return currentUser;
     }
 }

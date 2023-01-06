@@ -1,14 +1,14 @@
 package com.imooc.cloud.mall.practice.cartorder.service.impl;
 
-import com.imooc.mall.common.Constant;
-import com.imooc.mall.exception.ImoocMallException;
-import com.imooc.mall.exception.ImoocMallExceptionEnum;
-import com.imooc.mall.model.dao.CartMapper;
-import com.imooc.mall.model.dao.ProductMapper;
-import com.imooc.mall.model.pojo.Cart;
-import com.imooc.mall.model.pojo.Product;
-import com.imooc.mall.model.vo.CartVO;
-import com.imooc.mall.service.CartService;
+import com.imooc.cloud.mall.practice.cartorder.feign.ProductFeignClient;
+import com.imooc.cloud.mall.practice.cartorder.model.dao.CartMapper;
+import com.imooc.cloud.mall.practice.cartorder.model.pojo.Cart;
+import com.imooc.cloud.mall.practice.cartorder.model.vo.CartVO;
+import com.imooc.cloud.mall.practice.cartorder.service.CartService;
+import com.wei.cloud.mall.practice.categoryproduct.model.pojo.Product;
+import com.wei.mall.practice.common.common.Constant;
+import com.wei.mall.practice.common.exception.ImoocMallException;
+import com.wei.mall.practice.common.exception.ImoocMallExceptionEnum;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +21,8 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     @Resource
-    ProductMapper productMapper;
+//    ProductMapper productMapper;
+    ProductFeignClient productFeignClient;
 
     @Resource
     CartMapper cartMapper;
@@ -80,7 +81,7 @@ public class CartServiceImpl implements CartService {
 
     //这个方法最主要的作用是验证这一次添加(添加商品到购物车)是不是合法的  怎么验证? 第一步需要先把商品查出来 
     private void validProduct(Integer productId, Integer count) {
-        Product product = productMapper.selectByPrimaryKey(productId);
+        Product product = productFeignClient.detailForFeign(productId);
         //判断商品是否存在,商品是否上架,,,
         //如果只是product.getStatus().equals(1)) 这个1 在这里代表的含义不够明确,可能我们知道1是上架,0是下架。所以用Constant类新建一个枚举常量,一目了然
         if (product == null || product.getStatus().equals(Constant.SaleStatus.NOT_SALE)) {
