@@ -6,7 +6,7 @@ public class MysqlJDBC {
     public static void main(String[] args) {
         String driverName = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://127.0.0.1:3306/scott";
-        String sql = "SELECT  * from user";
+        String sql = "SELECT  * from emp";
         String username = "root";
         String password = "1234";
         Connection connection = null;
@@ -21,8 +21,9 @@ public class MysqlJDBC {
             ResultSet resultSet = statement.executeQuery(sql);
             //遍历结果集
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("name")
-                        + resultSet.getString("age"));
+                System.out.println(resultSet.getString("ename")
+                        + resultSet.getString("job")
+                        + resultSet.getString("hiredate"));
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
