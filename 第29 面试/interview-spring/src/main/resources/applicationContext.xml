@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--构造函数实例化-->
+    <!-- 1.调用无参构造函数 -->
+    <bean id="person1" class="com.wei.spring.instance.Person"></bean>
+
+    <!-- 2.调用有参构造函数 -->
+    <bean id="person2" class="com.wei.spring.instance.Person">
+        <constructor-arg name="name" value="枫叶(构造函数)"/>
+        <constructor-arg name="age" value="23"/>
+    </bean>
+
+
+    <!-- 通过静态工厂创建对象-->
+    <bean id="person3" class="com.wei.spring.instance.PersonStaticFactory" factory-method="createPerson">
+        <constructor-arg name="name" value="蓝天(静态工厂)"/>
+        <constructor-arg name="age" value="27"/>
+    </bean>
+
+    <!-- 通过实例工厂创建对象-->
+    <bean id="instanceFactory" class="com.wei.spring.instance.PersonFactory"></bean>
+
+    <bean id="person4" factory-bean="instanceFactory" factory-method="createPerson">
+        <constructor-arg name="name" value="绿地(实例工厂)"/>
+        <constructor-arg name="age" value="29"/>
+    </bean>
+
+</beans>
