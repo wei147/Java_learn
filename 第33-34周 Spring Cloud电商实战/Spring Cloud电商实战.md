@@ -861,13 +861,56 @@ public interface UserFeignClient {
 
 #### 让Feign携带Session信息
 
-```
-
-```
-
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230111224748349.png" alt="image-20230111224748349" style="zoom:80%;" />
 
 ```
 为什么在登录的情况下,却依然获取不到当前的User,这和我们内部调用的原理相关。假设我们那个请求是在网关里面的,那么自然是没问题的,我们可以获取到。但是现在不一样,现在我们在购物车中去调用user模块的getUser()方法是经过我们Feign的,而Feign我们知道它是不经过网关的,所以Feign的调用是一种http的调用,而之前从网关过来的那些请求头的重要信息,在默认的情况下都不会带过去,那我们要想让用户模块返回给我们当前用户信息,那我们必须把当前的Session相关信息要告诉用户模块————也就是说我们要在Feign调用的时候把相关的信息给携带过去。这个信息的来源最开始是来自我们的网关的,由网关携带,传到我们的购物车模块,然后再由购物车模块传给Feign,Feign在调用的时候传给我们的用户模块,用户模块拿到相关信息才能正确的获取到当前的用户,才能返回这个对象。可是现在既然Feign默认是不把信息传过去的,所以我们就要进行处理了。我们处理的方法是加一个FeignRequestInterceptor,有了它之后就可以对每一个Feign发出的请求进行拦截。那么Feign发出请求之前,在经过这个拦截器的时候,我们会把所有的来自网关相关的信息都附到Feign请求上,这样一来就不会发生信息的遗漏和丢失了。这就是整体的思路
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230206152621409.png" alt="image-20230206152621409" style="zoom:50%;" />
+
+```java
+//让Feign携带Session信息
+package com.imooc.cloud.mall.practice.cartorder.filter;
+
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+
+/**
+ * Feign请求拦截器
+ */
+@EnableFeignClients
+@Configuration //只有加了这两个注解才能被Spring识别到
+public class FeignRequestInterceptor implements RequestInterceptor {
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        //通过RequestContextHolder 获取到请求
+        RequestAttributes requestAttributes =
+                RequestContextHolder.getRequestAttributes();
+        if (requestAttributes == null) {
+            return;
+        }
+        HttpServletRequest request =
+                ((ServletRequestAttributes) requestAttributes).getRequest();
+        Enumeration<String> headerNames = request.getHeaderNames();
+        if (headerNames == null) {
+            while (headerNames.hasMoreElements()) {
+                String name = headerNames.nextElement();
+                Enumeration<String> values = request.getHeaders(name);
+
+                while (values.hasMoreElements()) {
+                    String value = values.nextElement();
+                    requestTemplate.header(name, value);
+                    //注: 以上可以把所有的header信息都原封不动地从网关这边转到Feign的请求里面去.
+                    //这样一来Feign在发送请求的时候就可以把这些header给带过去
+                }}}}}
 ```
 
