@@ -26,4 +26,6 @@ public interface ProductService {
     // 因为往往查询的条件越多,我们一个一个的去拼接这种打散装的结构,他们就会更加的不聚合,所以在后期拓展的时候会显得代码凌乱
     //新建包 com/imooc/mall/model/query
     PageInfo list(ProductListReq productListReq);
+
+    void updateStock(Integer productId, Integer stock);
 }

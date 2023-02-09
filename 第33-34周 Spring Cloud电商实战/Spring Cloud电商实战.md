@@ -922,3 +922,15 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 
 #### 订单表和相关接口设计
 
+
+
+#### 商品服务提供更新库存能力
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230209000833386.png" alt="image-20230209000833386" style="zoom:80%;" />
+
+```java
+原先OrderCodeFactory和QRCodeGeneratior应该放在哪里?
+1.应该按照功能和作用划分,所以OrderCodeFactory 应该放在cartorder 购物车与订单模块
+2.从长远去考虑,其实二维码这个东西并不仅仅局限在订单这里,也许随着后续的发展,我们会给用户也生成二维码,那么在哪个时候如果再去独立的新建一个二维码相关的工具类的话,属于重复造轮子没有必要。出于这个考量我们将QRCodeGeneratior放在common模块中,
+```
+

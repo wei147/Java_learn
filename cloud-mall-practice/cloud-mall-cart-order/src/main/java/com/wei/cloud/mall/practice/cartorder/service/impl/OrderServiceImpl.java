@@ -3,28 +3,27 @@ package com.wei.cloud.mall.practice.cartorder.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.zxing.WriterException;
-import com.imooc.mall.common.Constant;
-import com.imooc.mall.exception.ImoocMallException;
-import com.imooc.mall.exception.ImoocMallExceptionEnum;
-import com.imooc.mall.filter.UserFilter;
-import com.imooc.mall.model.dao.CartMapper;
-import com.imooc.mall.model.dao.OrderItemMapper;
-import com.imooc.mall.model.dao.OrderMapper;
-import com.imooc.mall.model.dao.ProductMapper;
-import com.imooc.mall.model.pojo.Order;
-import com.imooc.mall.model.pojo.OrderItem;
-import com.imooc.mall.model.pojo.Product;
-import com.imooc.mall.model.request.CreateOrderReq;
-import com.imooc.mall.model.vo.CartVO;
-import com.imooc.mall.model.vo.OrderItemVO;
-import com.imooc.mall.model.vo.OrderVO;
-import com.imooc.mall.service.CartService;
-import com.imooc.mall.service.OrderService;
-import com.imooc.mall.service.UserService;
-import com.imooc.mall.util.OrderCodeFactory;
-import com.imooc.mall.util.QRCodeGenerator;
+import com.wei.cloud.mall.practice.cartorder.feign.ProductFeignClient;
+import com.wei.cloud.mall.practice.cartorder.feign.UserFeignClient;
+import com.wei.cloud.mall.practice.cartorder.model.dao.CartMapper;
+import com.wei.cloud.mall.practice.cartorder.model.dao.OrderItemMapper;
+import com.wei.cloud.mall.practice.cartorder.model.dao.OrderMapper;
+import com.wei.cloud.mall.practice.cartorder.model.pojo.Order;
+import com.wei.cloud.mall.practice.cartorder.model.pojo.OrderItem;
+import com.wei.cloud.mall.practice.cartorder.model.request.CreateOrderReq;
+import com.wei.cloud.mall.practice.cartorder.model.vo.CartVO;
+import com.wei.cloud.mall.practice.cartorder.model.vo.OrderItemVO;
+import com.wei.cloud.mall.practice.cartorder.model.vo.OrderVO;
+import com.wei.cloud.mall.practice.cartorder.service.CartService;
+import com.wei.cloud.mall.practice.cartorder.service.OrderService;
+import com.wei.cloud.mall.practice.cartorder.util.OrderCodeFactory;
+import com.wei.cloud.mall.practice.categoryproduct.model.dao.ProductMapper;
+import com.wei.cloud.mall.practice.categoryproduct.model.pojo.Product;
+import com.wei.cloud.mall.practice.user.service.UserService;
+import com.wei.mall.practice.common.common.Constant;
 import com.wei.mall.practice.common.exception.ImoocMallException;
 import com.wei.mall.practice.common.exception.ImoocMallExceptionEnum;
+import com.wei.mall.practice.common.util.QRCodeGenerator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,8 @@ public class OrderServiceImpl implements OrderService {
     CartService cartService;
 
     @Resource
-    ProductMapper productMapper;
+    ProductFeignClient productFeignClient;
+//    ProductMapper productMapper;
 
     @Resource
     CartMapper cartMapper;
@@ -67,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
     String ip;
 
     @Resource
-    UserService userService;
+//    UserService userService;
+    UserFeignClient userFeignClient;
 
 
     //返回的是一个orderNum 订单编号
@@ -75,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
     public String create(CreateOrderReq createOrderReq) {
 
         //拿到用户ID
-        Integer userId = UserFilter.currentUser.getId();
+        Integer userId = userFeignClient.getUser().getId();
         //从购物车查找已经勾选的商品
         List<CartVO> cartVOList = cartService.list(userId);
         ArrayList<CartVO> cartVOListTemp = new ArrayList<>();
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
         //扣库存  (商品表中的原有库存 - orderItem表里的购买数量)
         for (int i = 0; i < orderItemList.size(); i++) {
             OrderItem orderItem = orderItemList.get(i);
-            Product product = productMapper.selectByPrimaryKey(orderItem.getProductId());
+            Product product = productFeignClient.detailForFeign(orderItem.getProductId());
             int stock = product.getStock() - orderItem.getQuantity();
             //[加入购物车的时候有库存但是买的时候没有库存了。因为可能被别人买走了]
             if (stock < 0) {

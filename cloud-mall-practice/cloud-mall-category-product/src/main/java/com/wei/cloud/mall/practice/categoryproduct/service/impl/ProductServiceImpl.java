@@ -146,4 +146,13 @@ public class ProductServiceImpl implements ProductService {
             }
         }
     }
+
+    // 更新商品库存的实现类
+    @Override
+    public void updateStock(Integer productId, Integer stock) {
+        Product product = new Product();
+        product.setId(productId);
+        product.setStock(stock);
+        productMapper.updateByPrimaryKeySelective(product);
+    }
 }

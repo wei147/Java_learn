@@ -40,4 +40,13 @@ public class ProductController {
         Product product = productService.detail(id);
         return product;
     }
+
+    // 为购物车模块提供更新库存服务。 内部使用
+    @ApiOperation(value = "更新商品库存")
+    @GetMapping("product/updateStock")
+    public Product updateStock(@RequestParam Integer id,@RequestParam Integer stock) {
+
+        p.updateStock(id, stock);
+        return product;
+    }
 }
