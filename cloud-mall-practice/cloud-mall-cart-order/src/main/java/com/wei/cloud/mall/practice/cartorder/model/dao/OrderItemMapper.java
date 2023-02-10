@@ -1,6 +1,5 @@
 package com.wei.cloud.mall.practice.cartorder.model.dao;
 
-import com.imooc.mall.model.pojo.OrderItem;
 import com.wei.cloud.mall.practice.cartorder.model.pojo.OrderItem;
 
 import java.util.List;

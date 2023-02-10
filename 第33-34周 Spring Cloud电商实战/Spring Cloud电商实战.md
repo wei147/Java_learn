@@ -934,3 +934,73 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 2.从长远去考虑,其实二维码这个东西并不仅仅局限在订单这里,也许随着后续的发展,我们会给用户也生成二维码,那么在哪个时候如果再去独立的新建一个二维码相关的工具类的话,属于重复造轮子没有必要。出于这个考量我们将QRCodeGeneratior放在common模块中,
 ```
 
+```java
+//ProductController.java    
+// 为购物车模块提供更新库存服务。 内部使用
+    @ApiOperation(value = "更新商品库存")
+    @PostMapping("product/updateStock")
+    public void updateStock(@RequestParam Integer productId, @RequestParam Integer stock) {
+        productService.updateStock(productId, stock);
+    }
+```
+
+```java
+// ProductServiceImpl.java    
+// 更新商品库存的实现类 
+    @Override
+    public void updateStock(Integer productId, Integer stock) {
+        Product product = new Product();
+        product.setId(productId);
+        product.setStock(stock);
+        productMapper.updateByPrimaryKeySelective(product); }
+```
+
+```java
+//新增 为购物车模块提供更新库存服务  updateStock
+package com.wei.cloud.mall.practice.cartorder.feign;
+import com.wei.cloud.mall.practice.categoryproduct.model.pojo.Product;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ * 商品的FeignClient
+ */
+//这里的value指定的对应模块是哪一个
+@FeignClient(value = "cloud-mall-category-product")
+public interface ProductFeignClient {
+    //Feign的调用是内部的,不经过网关。
+    //它是直接前请求到Eureka Server,然后拿到地址之后去访问的。(即便不经过网关,它都是可以正常运行的)
+    @GetMapping("product/detailForFeign")
+    Product detailForFeign(@RequestParam Integer id);
+
+    // 为购物车模块提供更新库存服务。 内部使用
+    @PostMapping("product/updateStock")
+    void updateStock(@RequestParam Integer productId, @RequestParam Integer stock);
+}
+```
+
+
+
+#### 订单相关类的迁移和重构
+
+#### 生成订单接口
+
+##### 生成订单——用户下单
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230210154826306.png" alt="image-20230210154826306" style="zoom:40%;" />
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230210154719179.png" alt="image-20230210154719179" style="zoom:40%;" />
+
+##### 订单模块——下单流程
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230210155007523.png" alt="image-20230210155007523" style="zoom:40%;" />
+
+##### 订单状态
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230210155046630.png" alt="image-20230210155046630" style="zoom:40%;" />
+
+
+

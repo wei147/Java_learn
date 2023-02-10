@@ -17,6 +17,7 @@ import com.wei.cloud.mall.practice.cartorder.model.vo.OrderVO;
 import com.wei.cloud.mall.practice.cartorder.service.CartService;
 import com.wei.cloud.mall.practice.cartorder.service.OrderService;
 import com.wei.cloud.mall.practice.cartorder.util.OrderCodeFactory;
+import com.wei.cloud.mall.practice.categoryproduct.common.ProductConstant;
 import com.wei.cloud.mall.practice.categoryproduct.model.dao.ProductMapper;
 import com.wei.cloud.mall.practice.categoryproduct.model.pojo.Product;
 import com.wei.cloud.mall.practice.user.service.UserService;
@@ -106,8 +107,8 @@ public class OrderServiceImpl implements OrderService {
             if (stock < 0) {
                 throw new ImoocMallException(ImoocMallExceptionEnum.NOT_ENOUGH);
             }
-            product.setStock(stock);
-            productMapper.updateByPrimaryKeySelective(product);
+//            product.setStock(stock);
+            productFeignClient.updateStock(product.getId(), stock);
         }
         //把购物车中的已勾选商品删除 (这里传进来的cartVOList经过过滤都是被勾选中的)
         cleanCart(cartVOList);
@@ -179,7 +180,7 @@ public class OrderServiceImpl implements OrderService {
     private void validSaleStatusAndStock(List<CartVO> cartVOList) {
         for (int i = 0; i < cartVOList.size(); i++) {
             CartVO cartVO = cartVOList.get(i);
-            Product product = productMapper.selectByPrimaryKey(cartVO.getProductId());
+            Product product = productFeignClient.detailForFeign(cartVO.getProductId());
             //判断商品是否存在、上下架状态
             if (product == null || product.getStatus().equals(Constant.SaleStatus.NOT_SALE)) {
                 throw new ImoocMallException(ImoocMallExceptionEnum.NOT_SALE);
@@ -201,7 +202,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ImoocMallException(ImoocMallExceptionEnum.NO_ORDER);
         }
         //订单存在,需要判断所属  （不能拿别人的订单详情）
-        Integer userId = UserFilter.currentUser.getId();
+        Integer userId = userFeignClient.getUser().getId();
         if (!userId.equals(order.getUserId())) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
         }
@@ -232,7 +233,7 @@ public class OrderServiceImpl implements OrderService {
     //订单列表前台的和后台的是不太一样的。给前台的只能查询自己的订单并且对里面的内容进行裁剪,可是给管理员看的就没有这么多限制了
     @Override
     public PageInfo listForCustomer(Integer pageNum, Integer pageSize) {
-        Integer userId = UserFilter.currentUser.getId();
+        Integer userId = userFeignClient.getUser().getId();
         PageHelper.startPage(pageNum, pageSize);
         //需要把orderList里的一个个order对象变成orderVO
         List<Order> orderList = orderMapper.listForCustomer(userId);
@@ -264,7 +265,7 @@ public class OrderServiceImpl implements OrderService {
         }
         //验证用户身份
         //订单存在,需要判断所属  （不能拿别人的订单详情）
-        Integer userId = UserFilter.currentUser.getId();
+        Integer userId = userFeignClient.getUser().getId();
         if (!userId.equals(order.getUserId())) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
         }
@@ -296,7 +297,7 @@ public class OrderServiceImpl implements OrderService {
         String address = ip + ":" + request.getLocalPort(); //拿到端口号拼接ip信息
         String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
         try {
-            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, Constant.FILE_UPLOAD_DIR + orderNo + ".png");
+            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, ProductConstant.FILE_UPLOAD_DIR + orderNo + ".png");
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
@@ -373,8 +374,14 @@ public class OrderServiceImpl implements OrderService {
         }
         //如果是普通用户,就要校验订单的所属(普通用户登录进来,不能修改别人的订单) [订单中的用户id等不等于当前登录用户的id] &&两真为真,一假为假
         //巧妙的判断,导致普通用户只能修改自己的订单,而管理员则没有这个限制
-        if (!userService.checkAdminRole(UserFilter.currentUser) &&
-                !order.getUserId().equals(UserFilter.currentUser.getId())){
+        /** 之前的
+         if (!userService.checkAdminRole(UserFilter.currentUser) &&
+         !order.getUserId().equals(UserFilter.currentUser.getId())){
+         throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
+         }
+         **/
+        // 只有当他是普通用户的时候才需要校验。只有当他是普通用户,同时这个订单不属于你,才抛出异常,
+        if (userFeignClient.getUser().getRole().equals(1) && !order.getUserId().equals(userFeignClient.getUser().getId())) {
             throw new ImoocMallException(ImoocMallExceptionEnum.NOT_YOUR_ORDER);
         }
         //发货后可以完结订单
