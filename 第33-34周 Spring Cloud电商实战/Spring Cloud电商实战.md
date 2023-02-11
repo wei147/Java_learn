@@ -589,10 +589,6 @@ public class ZuulGatewayApplication {
 
 ###### 现在的微服务应用
 
-```
-
-```
-
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20221217231933566.png" alt="image-20221217231933566" style="zoom:50%;" />
 
 ```java
@@ -978,8 +974,7 @@ public interface ProductFeignClient {
 
     // 为购物车模块提供更新库存服务。 内部使用
     @PostMapping("product/updateStock")
-    void updateStock(@RequestParam Integer productId, @RequestParam Integer stock);
-}
+    void updateStock(@RequestParam Integer productId, @RequestParam Integer stock);}
 ```
 
 
