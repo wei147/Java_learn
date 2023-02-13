@@ -7,11 +7,15 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--对dao和Service对象进行声明-->
-    <bean id="userDAO" class="com.wei.spring.injection.UserDAOImpl"></bean>
+    <!--    <bean id="userDAO" class="com.wei.spring.injection.UserDAOImpl"></bean>-->
     <!--userService需要依赖userDAO-->
-    <bean id="userService" class="com.wei.spring.injection.UserService">
-        <property name="userDAO" ref="userDAO">
-
-        </property>
-    </bean>
+    <!--    <bean id="userService" class="com.wei.spring.injection.UserService">-->
+    <!--通过Setter方法注入的配置-->
+    <!--<property name="userDAO" ref="userDAO" />-->
+    <!--通过构造函数注入的配置  (constructor-arg代表的是构造函数参数)-->
+    <!--<constructor-arg name="userDAO" ref="userDAO"></constructor-arg>-->
+    <!--    </bean>-->
+    <!--以上两种注入方式 setter和构造函数在bean太多的时候会变得难以管理。所以注解注入的形式就诞生了-->
+    <!--开启注解-->
+    <context:component-scan base-package="com.wei.spring"/>
 </beans>
