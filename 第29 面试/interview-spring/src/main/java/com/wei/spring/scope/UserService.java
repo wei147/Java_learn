@@ -1,8 +1,4 @@
-package com.wei.spring.injection;
-
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+package com.wei.spring.scope;
 
 //@Service("userService")  //这里不写也行,默认就是userService
 public class UserService {
@@ -11,6 +7,12 @@ public class UserService {
 
     public UserService() {
         System.out.println(this + "已创建");
+    }
+
+    //通过构造函数注入  (较为少用)
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+        System.out.println(this + "正在调用构造函数注入,UserService(" + userDAO + ")");
     }
 
     //通过Setter方法注入

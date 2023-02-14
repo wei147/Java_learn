@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--对dao和Service对象进行声明-->
+    <bean id="userDAO" class="com.wei.spring.scope.UserDAOImpl"></bean>
+    <!--如果不希望全局只有一个,可以增加scope属性。它的作用就是用于控制我们对象的数量是单例还是多例(默认是singleton 单例)
+        scope还有两个不那么常用的值 request请求和session会话。如果在当前工程中引入springMVC的话,这两个值就生效了:
+            1.request在同一个请求内,我们的对象是同一个;不同的请求则ioc容器创建不同的对象。,,
+            2.session同一个Session内部,调用多次getBean是同一个对象。不同的session不同对象。
+            scope决定了我们在ioc容器中是一个还是多个,,,
+    ,,-->
+    <bean id="userService" class="com.wei.spring.scope.UserService" scope="prototype">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+    <context:component-scan base-package="com.wei.spring"/>
+</beans>
