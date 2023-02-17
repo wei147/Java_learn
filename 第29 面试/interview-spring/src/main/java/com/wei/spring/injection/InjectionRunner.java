@@ -1,5 +1,6 @@
 package com.wei.spring.injection;
 
+import com.wei.spring.scope.UserDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,4 +10,5 @@ public class InjectionRunner {
         UserService userService = (UserService) ctx.getBean("userService");
         userService.createUser();
     }
+
 }

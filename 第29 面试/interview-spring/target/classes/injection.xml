@@ -9,7 +9,7 @@
     <!--对dao和Service对象进行声明-->
     <!--    <bean id="userDAO" class="com.wei.spring.injection.UserDAOImpl"></bean>-->
     <!--userService需要依赖userDAO-->
-    <!--    <bean id="userService" class="com.wei.spring.injection.UserService">-->
+    <!--    <bean id="userService" class="com.wei.spring.injection.UserService1">-->
     <!--通过Setter方法注入的配置-->
     <!--<property name="userDAO" ref="userDAO" />-->
     <!--通过构造函数注入的配置  (constructor-arg代表的是构造函数参数)-->

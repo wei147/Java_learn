@@ -14,6 +14,5 @@ public class ScopeRunner {
          */
         UserService userService1 = (UserService) ctx.getBean("userService");
         UserService userService2 = (UserService) ctx.getBean("userService");
-//        userService.createUser();
     }
 }

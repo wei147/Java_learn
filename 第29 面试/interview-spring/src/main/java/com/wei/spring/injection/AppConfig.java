@@ -1,5 +1,6 @@
 package com.wei.spring.injection;
 
+import com.wei.spring.injection.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
