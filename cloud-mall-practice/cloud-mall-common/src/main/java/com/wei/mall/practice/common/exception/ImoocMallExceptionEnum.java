@@ -37,7 +37,7 @@ public enum ImoocMallExceptionEnum {
     NAME_EXISTED(10006, "用户名不能重名"),
     INSERT_FAILED(10007, "插入失败,请重试"),
     WRONG_PASSWORD(10008, "密码错误"),
-    UPDATE_FAILED(10009, "更新个性签名失败"),
+    UPDATE_FAILED(10009, "更新失败"),
     NEED_LOGIN(100010, "请登录"),
     NEED_ADMIN(10011, "非管理员,无法操作"),
     CREATE_FAILED(10012, "创建失败"),

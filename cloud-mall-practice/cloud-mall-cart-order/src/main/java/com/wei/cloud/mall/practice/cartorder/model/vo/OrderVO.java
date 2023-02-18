@@ -39,7 +39,7 @@ public class OrderVO {
     private String orderStatusName;
 
     //订单里的每一个商品
-    private List<com.wei.cloud.mall.practice.cartorder.model.vo.OrderItemVO> orderItemVOList;
+    private List<OrderItemVO> orderItemVOList;
 
     public String getOrderStatusName() {
         return orderStatusName;
@@ -49,11 +49,11 @@ public class OrderVO {
         this.orderStatusName = orderStatusName;
     }
 
-    public List<com.wei.cloud.mall.practice.cartorder.model.vo.OrderItemVO> getOrderItemVOList() {
+    public List<OrderItemVO> getOrderItemVOList() {
         return orderItemVOList;
     }
 
-    public void setOrderItemVOList(List<com.wei.cloud.mall.practice.cartorder.model.vo.OrderItemVO> orderItemVOList) {
+    public void setOrderItemVOList(List<OrderItemVO> orderItemVOList) {
         this.orderItemVOList = orderItemVOList;
     }
 

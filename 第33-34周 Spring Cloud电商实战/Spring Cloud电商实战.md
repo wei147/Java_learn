@@ -997,5 +997,19 @@ public interface ProductFeignClient {
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230210155046630.png" alt="image-20230210155046630" style="zoom:40%;" />
 
+#### 订单相关接口讲解
 
+```
+2023年2月18日22:41:21
+
+接口情况:
+更新商品分类目录失败
+2023年2月18日23:27:30 出现 com.netflix.zuul.exception.ZuulException: Hystrix Readed time out 无法调用接口,比如商品分类、商品的、订单和购物车模块都会报这个错误
+
+利用Feign调用UserController的getUser()方法为空?
+```
+
+
+
+#### 图片路径配置
 

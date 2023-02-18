@@ -5,6 +5,7 @@ import com.wei.cloud.mall.practice.cartorder.service.OrderService;
 import com.wei.mall.practice.common.common.ApiRestResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,18 +28,19 @@ public class OrderAdminController {
         return ApiRestResponse.success(pageInfo);
     }
 
-    @ApiOperation("支付接口")
-    @GetMapping("pay")
-    public ApiRestResponse pay(@RequestParam String orderNo) {
-        orderService.pay(orderNo);
-        return ApiRestResponse.success();
-    }
+//    这个接口普通用户也可以操作。所以不该放这里
+//    @ApiOperation("支付接口")
+//    @GetMapping("pay")
+//    public ApiRestResponse pay(@RequestParam String orderNo) {
+//        orderService.pay(orderNo);
+//        return ApiRestResponse.success();
+//    }
 
     /**
      *发货。订单状态流程: 0用户已取消,10未付款,20已付款,40交易完成
      */
     @ApiOperation("管理员发货")
-    @GetMapping("admin/order/delivered")
+    @PostMapping("admin/order/delivered")
     public ApiRestResponse delivered(@RequestParam String orderNo) {
         orderService.deliver(orderNo);
         return ApiRestResponse.success();
@@ -50,7 +52,7 @@ public class OrderAdminController {
      * 管理员和普通用户都可以调用
      */
     @ApiOperation("完结订单接口")
-    @GetMapping("order/finish")
+    @PostMapping("order/finish")
     public ApiRestResponse finish(@RequestParam String orderNo) {
         orderService.finish(orderNo);
         return ApiRestResponse.success();

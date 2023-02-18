@@ -28,12 +28,13 @@ public class OrderAdminController {
         return ApiRestResponse.success(pageInfo);
     }
 
-    @ApiOperation("支付接口")
-    @GetMapping("pay")
-    public ApiRestResponse pay(@RequestParam String orderNo) {
-        orderService.pay(orderNo);
-        return ApiRestResponse.success();
-    }
+//    这个接口不应该在管理员下
+//    @ApiOperation("支付接口")
+//    @GetMapping("pay")
+//    public ApiRestResponse pay(@RequestParam String orderNo) {
+//        orderService.pay(orderNo);
+//        return ApiRestResponse.success();
+//    }
 
     /**
      *发货。订单状态流程: 0用户已取消,10未付款,20已付款,40交易完成

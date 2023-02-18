@@ -67,6 +67,14 @@ public class OrderServiceImpl implements OrderService {
     @Value("${file.upload.ip}")
     String ip;
 
+    //配置生成二维码中的port端口信息
+    @Value("${file.upload.port}")
+    String port;
+
+    //配置生成二维码中的port端口信息
+    @Value("${file.upload.dir}")
+    String FILE_UPLOAD_DIR;
+
     @Resource
 //    UserService userService;
     UserFeignClient userFeignClient;
@@ -211,6 +219,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderVO getOrderVO(Order order) {
+        // OrderVO多了一个重要的属性 orderItemVOList。也就是说查看订单详情的时候,
+        // 它还想把这个订单所关联的每一个订单item都想查出来
         OrderVO orderVO = new OrderVO();
         //把order里能复制的都复制到orderVO
         BeanUtils.copyProperties(order, orderVO);
@@ -294,14 +304,15 @@ public class OrderServiceImpl implements OrderService {
 //        } catch (UnknownHostException e) {
 //            e.printStackTrace();
 //        }
-        String address = ip + ":" + request.getLocalPort(); //拿到端口号拼接ip信息
-        String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
+        String address = ip + ":" + port; //拿到端口号拼接ip信息
+        String payUrl = "http://" + address + "/cart-order/pay?orderNo=" + orderNo;
         try {
-            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, ProductConstant.FILE_UPLOAD_DIR + orderNo + ".png");
+            //这里的FILE_UPLOAD_DIR 不需要常量类了,而是在本模块中进行配置 (原先在com.wei.cloud.mall.practice.categoryproduct.common;)
+            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, FILE_UPLOAD_DIR + orderNo + ".png");
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
-        String pngAddress = "http://" + address + "/images/" + orderNo + ".png";
+        String pngAddress = "http://" + address + "/cart-order/images/" + orderNo + ".png";
         //有了端口号之后,我们还需要一个ip信息,这个ip信息是需要我们自己来配置的,而不能简单的从request去拿,因为我们的服务上线之后它其实并不是直接暴露给外面的,
         // 无论是阿里云还是腾讯云,他们这个链接都会经过多层的转发,比如说防火墙之类的才回到我们的机器上,那么这个时候这个ip从request中拿其实是经过转发之后的内网ip,那这个是不对的,
         //所以我们应该在这里配置一下可以访问的ip   @Value("${file.upload.ip}")
@@ -316,6 +327,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
+        //这里找到的是所有的订单
         List<Order> orderList = orderMapper.selectAllForAdmin();
         List<OrderVO> orderVOList = orderListToOrderVOList(orderList);
         //在pageInfo去构造的时候一定是我们查出来的内容也就是mapper出来的内容。然后由于我们最终返回给前端的不是查询出来的而是经过处理的orderVOList,
