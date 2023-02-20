@@ -1,4 +1,4 @@
-package com.wei.ocr;
+package com.wei.my-application.ocr;
 
 // This file is auto-generated, don't edit it. Thanks.
 

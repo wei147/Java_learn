@@ -126,5 +126,103 @@ clientPort=2181
 ./bin/zkServer.sh start
 4 停止
 ./bin/zkServer.sh stop
+    
+    (注 需要安装jdk?)
+```
+
+
+
+#### znode节点
+
+```
+Zookeeper关于它的节点、它的结构是最必备的技能
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220220416748.png" alt="image-20230220220416748" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220220531173.png" alt="image-20230220220531173" style="zoom:36%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220221221158.png" alt="image-20230220221221158" style="zoom:33%;" />
+
+##### 节点类型
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220221322711.png" alt="image-20230220221322711" style="zoom:40%;" />
+
+##### 节点属性
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220221618809.png" alt="image-20230220221618809" style="zoom:33%;" />
+
+```
+版本相关的属性,对数据的操作就会引起对这些版本的更新,,,
+dataVersion: 数据的版本号。每次对节点进行set操作的时候,对里面的内容进行修改,dataVersion+1
+cversion: 子节点的意思,子节点发生变化则子节点加1
+aclVersion:权限控制列表的意思,权限有变化的时候则节点加1
+```
+
+#### 常用命令
+
+
+
+```
+作为客户端连接服务器:
+./bin/zkCli.sh -server 127.0.0.1:2181
+```
+
+```java
+[zk: localhost:2181(CONNECTED) 5] stat /      //查看某些节点的状态
+cZxid = 0x0
+ctime = Thu Jan 01 08:00:00 CST 1970
+mZxid = 0x0
+mtime = Thu Jan 01 08:00:00 CST 1970
+pZxid = 0x0
+cversion = -1
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0     //可以判断是临时节点还是永久节点 这里是永久
+dataLength = 0
+numChildren = 1         //有多少个子节点
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220232857340.png" alt="image-20230220232857340" style="zoom:33%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230220232710115.png" alt="image-20230220232710115" style="zoom:43%;" />
+
+```java
+[zk: localhost:2181(CONNECTED) 9] create /wei
+Created /wei
+[zk: localhost:2181(CONNECTED) 10] ls
+ls [-s] [-w] [-R] path
+[zk: localhost:2181(CONNECTED) 11] ls /
+[wei, zookeeper]
+[zk: localhost:2181(CONNECTED) 12] create /yidou 10086
+Created /yidou
+[zk: localhost:2181(CONNECTED) 13] get /yidou
+10086
+[zk: localhost:2181(CONNECTED) 14] get /wei
+null
+[zk: localhost:2181(CONNECTED) 15] stat /wei
+cZxid = 0x4
+ctime = Mon Feb 20 23:24:00 CST 2023
+mZxid = 0x4
+mtime = Mon Feb 20 23:24:00 CST 2023
+pZxid = 0x4
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 0
+numChildren = 0
+    
+    ls / 查看当前所有节点
+    用create 创建。
+    用get /wei查看
+    用set /wei 109 修改
+    用stat /wei 查看状态
 ```
 
