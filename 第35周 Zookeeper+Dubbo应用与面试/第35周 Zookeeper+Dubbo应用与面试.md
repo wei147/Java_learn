@@ -226,3 +226,22 @@ numChildren = 0
     用stat /wei 查看状态
 ```
 
+
+
+### 第2节 Dubbo
+
+#### Dubbo章节介绍
+
+```
+一个非常知名的框架
+
+主要用途是用于rpc领域的  RPC(Remote Procedure Call) 远程调用
+
+SpringCloud http通行
+Dubbo rpc
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230221230420393.png" alt="image-20230221230420393" style="zoom:40%;" />
+
+#### Dubbo是什么
+
