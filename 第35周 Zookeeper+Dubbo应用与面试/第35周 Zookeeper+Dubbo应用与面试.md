@@ -165,8 +165,6 @@ aclVersion:权限控制列表的意思,权限有变化的时候则节点加1
 
 #### 常用命令
 
-
-
 ```
 作为客户端连接服务器:
 ./bin/zkCli.sh -server 127.0.0.1:2181
@@ -207,12 +205,7 @@ Created /yidou
 [zk: localhost:2181(CONNECTED) 14] get /wei
 null
 [zk: localhost:2181(CONNECTED) 15] stat /wei
-cZxid = 0x4
-ctime = Mon Feb 20 23:24:00 CST 2023
-mZxid = 0x4
-mtime = Mon Feb 20 23:24:00 CST 2023
-pZxid = 0x4
-cversion = 0
+    ...
 dataVersion = 0
 aclVersion = 0
 ephemeralOwner = 0x0
@@ -225,6 +218,68 @@ numChildren = 0
     用set /wei 109 修改
     用stat /wei 查看状态
 ```
+
+#### 高级命令
+
+```java
+[zk: 127.0.0.1:2181(CONNECTED) 3] create
+create [-s] [-e] [-c] [-t ttl] path [data] [acl]
+    
+    不支持一次性创造多级目录
+//以父节点为基准进行递增的  (顺序节点的能力)
+[zk: 127.0.0.1:2181(CONNECTED) 10] create -s  /chen/s
+Created /chen/s0000000002
+[zk: 127.0.0.1:2181(CONNECTED) 11] create -s  /chen/p
+Created /chen/p0000000003
+    
+//创建临时节点
+create -e /yang/tmp 123
+//临时节点的标识
+ephemeralOwner = 0x1001020d9a10003
+//临时节点和永久节点最大的区别就是 临时节点一旦这个会话断开,这个节点就会被自动的删除
+    
+[zk: 127.0.0.1:2181(CONNECTED) 1] set
+set [-s] [-v version] path data  //这里的version是条件更新。版本号一致才能更新成功。有条件的更新
+ 
+//好处: 这样可以保证在多线程的情况下,我们这个数据不会被频繁的操作,就算是set相同的值dataVersion也会发生变化
+[zk: 127.0.0.1:2181(CONNECTED) 10] set -v 1 /yidou 9
+version No is not valid : /yidou
+    
+ //删除节点  delete 
+ [zk: 127.0.0.1:2181(CONNECTED) 11] delete
+delete [-v version] path
+    
+```
+
+
+
+#### Watch机制
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222224029299.png" alt="image-20230222224029299" style="zoom:33%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222224151527.png" alt="image-20230222224151527" style="zoom:33%;" />
+
+##### ACL
+
+
+
+#### Java原生客户端连接到ZK
+
+##### 代码实操
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222225515894.png" alt="image-20230222225515894" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -244,4 +299,55 @@ Dubbo rpc
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230221230420393.png" alt="image-20230221230420393" style="zoom:40%;" />
 
 #### Dubbo是什么
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222164944937.png" alt="image-20230222164944937" style="zoom:33%;" />
+
+```
+Dubbo已经是RPC框架了,就不会和SpringCloud一样,并不会是一个微服务的全面解决方案,而是专注于rpc领域成为我们微服务生态的一个重要组件,,,,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222164616230.png" alt="image-20230222164616230" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222170419394.png" alt="image-20230222170419394" style="zoom:33%;" />
+
+##### 对开源的理解
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222170210894.png" alt="image-20230222170210894" style="zoom:40%;" />
+
+#### RPC和HTTP
+
+##### RPC介绍
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222171302084.png" alt="image-20230222171302084" style="zoom:33%;" />
+
+```
+早期单机时代: IPC (Inter-Process Communication) 单个电脑里面个个进程之间的相互通信
+
+网络时代:把IPC拓展到网络上,这就是RPC,,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222171850310.png" alt="image-20230222171850310" style="zoom:33%;" />
+
+```
+Dubbo就是性能特别好
+Montan是轻量级、便于理解
+facebook家的就是支持语言的多
+```
+
+##### Http和RPC对比
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222180459950.png" alt="image-20230222180459950" style="zoom:33%;" />
+
+```java
+普通话和方言
+
+普通话就是HTTP,普通话的特点就是通用,没有很大的沟通和学习成本。普通话这个特点很可能会做很多的规定比如说你的请求头怎么写、传输有哪些要求,这样一来效率就降低了。
+
+假设是在企业内部的话,rpc会更加的高效,它的传输效率和运行速度会更高,因为rpc是一种方言,方言所表达的内容和普通话所能表达的内容并没有什么差别,只不过是限定了地域而已,假设是一个团队内部,都能用这套方言来交流的话其实是更高效的,比http更加节省资源。这也是现在企业中既能存在http和rpc的原因
+
+
+    RPC比HTTP 传输效率较高、性能好、有负载均衡能力
+```
 
