@@ -351,3 +351,35 @@ facebook家的就是支持语言的多
     RPC比HTTP 传输效率较高、性能好、有负载均衡能力
 ```
 
+
+
+#### 第3节 分布式与微服务面试
+
+#### 面试课介绍
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230223193434693.png" alt="image-20230223193434693" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230223193344226.png" alt="image-20230223193344226" style="zoom:40%;" />
+
+```
+单例模式是所有设计模式中最适合被用来面试的设计模式
+```
+
+
+
+#### Spring、Spring Boot和Spring Cloud的关系
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230223194810174.png" alt="image-20230223194810174" style="zoom:33%;" />
+
+```java
+1.SpringBoot是在强大的Spring帝国上面发展而来的,而且发明SpringBoot是为了让人们更容易的使用Spring
+2.约定大于配置
+3.SpringCloud是基于SpringBoot的微服务框架
+```
+
+
+
+#### SpringBoot如何配置多环境
+
