@@ -383,3 +383,127 @@ facebook家的就是支持语言的多
 
 #### SpringBoot如何配置多环境
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230223232507424.png" alt="image-20230223232507424" style="zoom:33%;" />
+
+```java
+//通过在application.properties修改这个属性来切换不同配置文件
+spring.profiles.active=pre
+```
+
+
+
+#### 项目中如何处理异常
+
+##### 实际工作中,如何全局处理异常?
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230224160728331.png" alt="image-20230224160728331" style="zoom:33%;" />
+
+```
+首先,不进行处理的话,,那么很有可能这个异常会把整个堆栈都抛出去,这是默认的情况,一旦发生异常,用户或者是别有用心的人黑客,他们就可以看到详细的异常发生的情况,详细的错误信息甚至是代码的行数...有一定的安全隐患所以异常是一定需要处理的。
+
+为什么要统一处理?
+有了GlobalExceltionHandler就可以比较轻松的去针对不同类型的异常去做出定制化的解决方案,不当可以增加安全性而且对用户比较友好,用户可以知道错误信息并进行调整并且不会暴露关键的敏感信息,这是工作中正确处理异常的方式
+```
+
+```java
+package com.imooc.mall.exception;
+
+/**
+ * 处理统一异常的handler
+ */
+//这个ControllerAdvice注解的作用就是拦截这些异常单的
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    //目前有两种类型的异常需要拦截: 1.系统异常  2.业务异常
+
+    @ExceptionHandler(Exception.class)  //异常的类型
+    @ResponseBody
+    public Object handleException(Exception e) {
+        log.error("Default Exception : ", e);
+        return ApiRestResponse.error(ImoocMallExceptionEnum.SYSTEM_ERROR);}
+
+    @ExceptionHandler(ImoocMallException.class)
+    @ResponseBody
+    public Object handleImoocMallException(ImoocMallException e) {
+        log.error("ImoocMallException : ", e);
+        //这里传进来的是什么就正常打印出去
+        return ApiRestResponse.error(e.getCode(), e.getMessage());}
+
+    //处理方法的参数不合规的异常(情况)
+    @ExceptionHandler(MethodArgumentNotValidException.class)    //异常的类型
+    @ResponseBody
+    public ApiRestResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException : ", e);
+        return handleBindingResult(e.getBindingResult());}
+
+    //在绑定出问题的时候,我们来把这个异常处理成一个返回的ApiRestResponse,,,
+    private ApiRestResponse handleBindingResult(BindingResult result) {
+        //把异常处理为对外暴露的提示
+        List<String> list = new ArrayList<>();
+        if (result.hasErrors()) {   //是否包含错误
+            List<ObjectError> allErrors = result.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                String message = objectError.getDefaultMessage();   //getDefaultMessage 拿到错误信息
+                list.add(message);
+            }
+            if (list.size() == 0) {
+                return ApiRestResponse.error(ImoocMallExceptionEnum.REQUEST_PARAM_ERROR); }}
+        return ApiRestResponse.error(ImoocMallExceptionEnum.REQUEST_PARAM_ERROR.getCode(), list.toString())}}
+```
+
+
+
+#### 线程如何启动
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230224162648578.png" alt="image-20230224162648578" style="zoom:33%;" />
+
+```
+如果直接调用run方法,其实就是一个普通的java方法,最重要的缺点在于不会真正的启动线程,只执行一次而且是在主线程中执行的,没有起到创建线程的效果
+
+两个调用start()方法会出现什么情况?  会抛出一个异常 IllegalThreadStateException(); 之所以会抛出这个异常是因为在start()的时候会首先进行状态的检测,只有是new的时候才能正常启动不允许启动二次,
+```
+
+#### 哪种实现多线程的方法更好?
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230224164449881.png" alt="image-20230224164449881" style="zoom:33%;" />
+
+```java
+//用Runnable付费实现线程
+package com.wei.interview.createthreads;
+public class RunnableStyle implements Runnable {
+    public static void main(String[] args) {
+        Thread thread = new Thread(new RunnableStyle());
+        thread.start();}
+
+    @Override
+    public void run() {
+        System.out.println("用Runnable付费实现线程");}}
+```
+
+```java
+//用Thread类实现线程
+package com.wei.interview.createthreads;
+public class ThreadStyle extends Thread {
+    @Override
+    public void run() {
+        super.run();
+        System.out.println("用Thread类实现线程");}
+
+    public static void main(String[] args) {
+        new ThreadStyle().start();}}
+```
+
+##### 两种方法的对比
+
+方法一(实现Runnable接口)更好
+
+```
+1.从代码架构角度
+	接口形式更能实现解耦
+2.新建线程的损耗
+	接口形式用固定的线程来执行任务
+3.java不支持多继承
+	可扩展性少了一些。可以实现多接口
+```
+

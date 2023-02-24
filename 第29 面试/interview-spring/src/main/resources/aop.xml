@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context.xsd
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 定义类被Spring IOC容器管理 -->
+    <bean name="sampleAspect" class="com.wei.spring.aop.SampleAspect"></bean>
+    <bean name="userService" class="com.wei.spring.aop.UserService"></bean>
+    <!-- 配置Spring AOP -->
+    <aop:config>
+        <!-- 配置过程中引用切面类 -->
+        <aop:aspect ref="sampleAspect">
+            <!-- PointCut(切点)-->
+            <aop:pointcut id="samplePC" expression="execution(* com.wei.spring.aop.*Service.create*(..))"/>
+            <!-- 定义通知 -->
+            <!-- 前置通知 -->
+<!--            <aop:before pointcut-ref="samplePC" method="doBefore"/>-->
+<!--            &lt;!&ndash;   后置通知&ndash;&gt;-->
+<!--            <aop:after pointcut-ref="samplePC" method="doAfter"/>-->
+<!--            &lt;!&ndash;返回后通知，注意：返回后通知需要增加retruning属性，指向doAfterReturning的名为ret的参数，使用ret参数获取方法的返回值&ndash;&gt;-->
+<!--            <aop:after-returning method="doAfterReturning" pointcut-ref="samplePC" returning="ret"/>-->
+<!--            &lt;!&ndash;异常通知&ndash;&gt;-->
+<!--            <aop:after-throwing method="doAfterThrowing" pointcut-ref="samplePC" throwing="t"/>-->
+            <!--环绕通知-->
+            <aop:around method="doAround" pointcut-ref="samplePC"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
+
