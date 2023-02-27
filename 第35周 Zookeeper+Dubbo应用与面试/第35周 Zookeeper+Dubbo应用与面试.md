@@ -127,6 +127,8 @@ clientPort=2181
 4 停止
 ./bin/zkServer.sh stop
     
+    ./bin/zkServer.sh status
+    
     (注 需要安装jdk?)
 ```
 
@@ -271,15 +273,229 @@ delete [-v version] path
 
 <img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230222225515894.png" alt="image-20230222225515894" style="zoom:50%;" />
 
+```
+ctrl shift u  全部大写、全部小写
+```
+
+```java
+package com.wei.zkjavaapi;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
+import java.io.IOException;
+
+/**
+ * 连接到ZK服务端,打印连接状态
+ */
+public class ZKConnect implements Watcher {
+    //先声明一个常量
+    public static final String SERVER_PATH = "127.0.0.1:2181";
+    public static final Integer  TIMEOUT = 5000;
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        /**
+         * 客户端和服务器他们是异步连接,连接成功之后,客户端会收到watcher通知。
+         * connectString:服务器的IP+端口号,比如127.0.0.1:2181
+         * watcher:通知事件 (其他的监听事件比如创建删除也可以用它接收)
+         */
+        ZooKeeper zooKeeper = new ZooKeeper(SERVER_PATH, TIMEOUT, new ZKConnect());
+        System.out.println("客户端开始连接ZK服务器了");
+        System.out.println(zooKeeper.getState()); //拿到Zookeeper的连接情况,没那么快连接上
+        Thread.sleep(2000);
+        System.out.println(zooKeeper.getState()); }
+
+    @Override
+    public void process(WatchedEvent watchedEvent) {
+        System.out.println("收到了通知: "+watchedEvent);  //watchedEvent是通知内容
+    }}
+```
+
+```
+2023年2月25日22:25:58 无法连接到阿里云服务器的Zookeeper,改用window了
+```
+
+#### 用代码对节点进行操作
+
+```java
+package com.wei.zkjavaapi;
+import com.wei.zkjavaapi.callback.DeleteCallBack;
+import org.apache.zookeeper.*;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * 演示对节点的操作,包含创建、读取、删除等
+ */
+public class ZKOperator implements Watcher {
+    public static final String SERVER_PATH = "127.0.0.1:2181";
+    public static final Integer  TIMEOUT = 5000;
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+        /**
+         * 客户端和服务器他们是异步连接,连接成功之后,客户端会收到watcher通知。
+         * connectString:服务器的IP+端口号,比如127.0.0.1:2181
+         * watcher:通知事件 (其他的监听事件比如创建删除也可以用它接收)
+         */
+        ZooKeeper zooKeeper = new ZooKeeper(SERVER_PATH, TIMEOUT, new ZKConnect());
+        System.out.println("客户端开始连接ZK服务器了");
+        System.out.println(zooKeeper.getState()); //拿到Zookeeper的连接情况,没那么快连接上
+        Thread.sleep(2000);
+        System.out.println(zooKeeper.getState());
+
+        /**
+         * path:创建的路径
+         * data:存储的数据 （存进去的内容）
+         * acl:权限、开放
+         * createMode:永久、临时、顺序。
+         *
+         */
+//        创建节点
+//        zooKeeper.create("/test","wei".getBytes(),
+//                ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+
+        //写入数据
+//        zooKeeper.setData("/wei-create-node","橘子洲头 2".getBytes(),1);
+
+        //读取数据
+//        byte[] data = zooKeeper.getData("/wei-create-node", null, null);
+//        System.out.println(new String(data));
+//
+        String ctx = "删除成功";
+        //在删除完成之后,会把ctx 传到DeleteCallBack(),
+        zooKeeper.delete("/test",0,new DeleteCallBack(),ctx);
+        Thread.sleep(2000); //callback是异步函数需要一定的时间
+    }
+
+    @Override
+    public void process(WatchedEvent watchedEvent) {
+        System.out.println("收到了通知: "+watchedEvent);  //watchedEvent是通知内容 }}
+```
+
+```java
+package com.wei.zkjavaapi.callback;
+import org.apache.zookeeper.AsyncCallback;
+public class DeleteCallBack implements AsyncCallback.VoidCallback {
+    @Override
+    public void processResult(int i, String s, Object o) {
+        System.out.println("删除节点 :" +s);
+        System.out.println((String)o);}}
+```
 
 
 
+#### 处理Watcher事件
+
+```java
+package com.wei.zkjavaapi;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+
+/**
+ * 和节点相关:是否存在,获取数据,加上watch
+ * 1.用exists()判断节点是否存在
+ * 2.给某个节点设置上监听器。并且可以根据监听事件的类型做出不同的行为判断
+ */
+public class ZKGetNode implements Watcher {
+
+    //先声明一个常量
+    public static final String SERVER_PATH = "127.0.0.1:2181";
+    public static final Integer TIMEOUT = 5000;
+
+    //这个类的作用是倒数。相当于门栓,一定的时候进行等待,适当的时候打开,继续运行
+    public static CountDownLatch countDownLatch = new CountDownLatch(1);
+
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+        ZooKeeper zooKeeper = new ZooKeeper(SERVER_PATH, TIMEOUT, new ZKGetNode());
+        System.out.println("客户端开始连接ZK服务器了");
+        System.out.println(zooKeeper.getState()); //拿到Zookeeper的连接情况,没那么快连接上
+        Thread.sleep(2000);
+        System.out.println(zooKeeper.getState());
+
+//        Stat exists = zooKeeper.exists("/wei", false); //不需要对这个节点进行额外的监听
+//        if (exists != null) {
+//            //在存在的情况下获取它的版本
+//            System.out.println("节点的版本为 :" + exists.getAversion());
+//        } else {
+//            System.out.println("该节点不存在");}
+
+        zooKeeper.getData("/wei", true, null);
+        countDownLatch.await();}
+
+    @Override
+    public void process(WatchedEvent watchedEvent) {
+        //数据被改变才触发。(根据类型的不同做不同的事情)
+        if (watchedEvent.getType() == Event.EventType.NodeDataChanged) {
+            System.out.println("数据被改变");  //watchedEvent是通知内容
+        }
+        System.out.println("收到了通知: "+watchedEvent); }}
+```
 
 
 
+#### 用Curator操作ZK
 
+##### 原生的java的API的缺点
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230226005412157.png" alt="image-20230226005412157" style="zoom:40%;" />
 
+##### 利用Apache Curator
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230226005454400.png" alt="image-20230226005454400" style="zoom:40%;" />
+
+```java
+package com.wei.zkjavaapi.curator;
+import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+
+/**
+ * 用Curator来操作ZK
+ */
+public class CuratorTests {
+    public static void main(String[] args) throws Exception {
+        String connectString = "127.0.0.1:2181";
+        String path = "/curator3";
+        String data = "come in";
+        String data2 = "some text";
+        //自动重连的功能
+        RetryPolicy retry = new ExponentialBackoffRetry(1000, 3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retry);
+        //连接
+        client.start();
+        //利用curator 实现Watcher操作,实现监听
+        client.getCuratorListenable().addListener((CuratorFramework c, CuratorEvent event) -> {
+            switch (event.getType()) {
+                case WATCHED:
+                    WatchedEvent watchedEvent = event.getWatchedEvent();
+                    //如果触发了修改数据的监听事件
+                    if (watchedEvent.getType() == Watcher.Event.EventType.NodeDataChanged) {
+                        System.out.println("数据被改变了: "+new String(c.getData().forPath(path)));
+                    }}});
+   //创建一个永久节点,并加入数据
+  client.create().withMode(CreateMode.PERSISTENT).forPath(path, data.getBytes());
+
+//        byte[] bytes = client.getData().forPath(path);
+        byte[] bytes = client.getData().watched().forPath(path); //这里传入watched() 和原生api传入true开启是一样的
+        System.out.println(new String(bytes));
+
+        client.setData().forPath(path, data2.getBytes());  //这里数据更改之后,便会回到WATCHED监听器。
+        client.delete().forPath(path);
+        Thread.sleep(2000);}}
+```
+
+#### Zookeeper重难点总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230226013453077.png" alt="image-20230226013453077" style="zoom:40%;" />
 
 
 
@@ -350,6 +566,42 @@ facebook家的就是支持语言的多
 
     RPC比HTTP 传输效率较高、性能好、有负载均衡能力
 ```
+
+
+
+#### dubbo工作原理
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230226014124941.png" alt="image-20230226014124941" style="zoom:43%;" />
+
+```
+0.先启动生产者
+1.生产者把自己注册到注册中心
+2.消费者订阅注册中心,后续注册中心有什么变动信息会提醒消费者
+4.消费者使用生产者的功能
+5.无论是调用者还是被调用者,Monitor监听者会希望监控统计一些调用次数数据和时间
+
+SpringCloud的 Eureka工作流程和这个也非常像。
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230226014826291.png" alt="image-20230226014826291" style="zoom:40%;" />
+
+#### 服务提供者开发
+
+```
+之前的service是spring的那一套,而Dubbo有自己的service
+
+给dubbo指定注册中心,最适合作为注册中心的Zookeeper在此时发挥作用,,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230227072835150.png" alt="image-20230227072835150" style="zoom:50%;" />
+
+
+
+
+
+
+
+
 
 
 

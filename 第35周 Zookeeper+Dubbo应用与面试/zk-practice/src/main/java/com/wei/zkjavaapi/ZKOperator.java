@@ -5,6 +5,7 @@ import org.apache.zookeeper.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * 演示对节点的操作,包含创建、读取、删除等
@@ -13,6 +14,7 @@ public class ZKOperator implements Watcher {
 
     public static final String SERVER_PATH = "127.0.0.1:2181";
     public static final Integer  TIMEOUT = 5000;
+
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         /**
@@ -48,9 +50,13 @@ public class ZKOperator implements Watcher {
 //        //在删除完成之后,会把ctx 传到DeleteCallBack(),
 //        zooKeeper.delete("/test",0,new DeleteCallBack(),ctx);
 //        Thread.sleep(2000); //callback是异步函数需要一定的时间
+
+//        zooKeeper.getData("/wei",true,null);
+//        countDownLatch.await();
     }
 
-    @Override
+    @Override  //process执行的时候和主线程不完全是同步的,需要等待一段时间,需要等process执行完后
+    // ,才能让主线程放行,以便终止我们的程序  上面用 countDownLatch.await(); 方法
     public void process(WatchedEvent watchedEvent) {
         System.out.println("收到了通知: "+watchedEvent);  //watchedEvent是通知内容
     }
