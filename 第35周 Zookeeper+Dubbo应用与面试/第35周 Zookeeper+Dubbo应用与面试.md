@@ -597,6 +597,228 @@ SpringCloud的 Eureka工作流程和这个也非常像。
 
 
 
+#### 服务提供者的dubbo化配置
+
+```java
+demo.service.version=1.0.0
+
+server.port=8081
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/course_practice?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+spring.datasource.username=root
+spring.datasource.password=1234
+
+#Zookeeper需要日志打印的吧,所以这里有一个打印格式的配置
+logging.pattern.console=%clr(%d{${LOG_DATEFORMAT_PATTERN:HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
+
+
+spring.application.name=course-list
+
+#dubbo协议
+dubbo.protocol.name=dubbo
+dubbo.protocol.port=-1
+#dubbo注册
+dubbo.registry.address=zookeeper://127.0.0.1:2181
+dubbo.registry.file=${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
+
+#对于实体类用下划线连接的得转成 驼峰式
+mybatis.configuration.map-underscore-to-camel-case=true
+
+dubbo.scan.base-packages=com.wei.producer.service.impl
+```
+
+```java
+package com.wei.producer.mapper;
+import com.wei.producer.entity.Course;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+/**
+ * 描述：     Mapper类
+ */
+@Mapper
+@Repository
+public interface CourseMapper {
+    @Select("SELECT * FROM course WHERE valid = 1")
+    List<Course> findValidCourses();}
+```
+
+```java
+//提供服务的接口
+package com.wei.producer.service;
+import com.wei.producer.entity.Course;
+import java.util.List;
+/**
+ * 课程列表服务  (从数据库中拿到课程列表并把它展示出来)
+ */
+public interface CourseListService {
+    List<Course> getCourseList();}
+```
+
+```java
+//课程列表服务的实现类
+package com.wei.producer.service.impl;
+import com.wei.producer.entity.Course;
+import com.wei.producer.mapper.CourseMapper;
+import com.wei.producer.service.CourseListService;
+import org.apache.dubbo.config.annotation.Service;
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service(version = "${demo.service.version}")  // dubbo的service
+public class CourseListServiceImpl implements CourseListService {
+
+    @Resource
+    CourseMapper courseMapper;
+
+    @Override
+    public List<Course> getCourseList() {
+        return courseMapper.findValidCourses();}}
+```
+
+```java
+/**
+ * Spring Boot启动类
+ */
+@EnableAutoConfiguration
+public class DubboProducerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DubboProducerApplication.class, args);}}
+```
+
+#### 服务消费方的开发
+
+```java
+demo.service.version=1.0.0
+
+server.port=8084
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/course_practice?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+spring.datasource.username=root
+spring.datasource.password=1234
+
+logging.pattern.console=%clr(%d{${LOG_DATEFORMAT_PATTERN:HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
+
+spring.application.name=course-price
+
+#dubbo协议
+dubbo.protocol.name=dubbo
+dubbo.protocol.port=-1
+#dubbo注册
+dubbo.registry.address=zookeeper://127.0.0.1:2181
+dubbo.registry.file=${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
+
+#对于实体类用下划线连接的得转成 驼峰式
+mybatis.configuration.map-underscore-to-camel-case=true
+
+#告诉dubbo服务的位置(指定位置),才能进行扫描 (带dubbo Service的类)
+dubbo.scan.base-packages=com.wei.producer.service.impl
+```
+
+```java
+package com.wei.consumer.service;
+import com.wei.consumer.entity.CourseAndPrice;
+import com.wei.consumer.entity.CoursePrice;
+import java.util.List;
+
+/**
+ * 描述：     课程价格服务
+ */
+public interface CoursePriceService {
+    CoursePrice getCoursePrice(Integer courseId);
+    List<CourseAndPrice> getCoursesAndPrice();}
+```
+
+```java
+package com.wei.consumer.service.impl;
+import java.util.ArrayList;
+import java.util.List;
+import com.wei.consumer.dao.CoursePriceMapper;
+import com.wei.consumer.entity.CourseAndPrice;
+import com.wei.consumer.entity.CoursePrice;
+import com.wei.consumer.service.CoursePriceService;
+import com.wei.producer.entity.Course;
+import com.wei.producer.service.CourseListService;
+import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+/**
+ * 描述：     课程 价格服务
+ */
+@Service    //要对外暴露http请求所以用Spring的Service
+public class CoursePriceServiceImpl implements CoursePriceService {
+
+    @Resource
+    CoursePriceMapper coursePriceMapper;
+
+    // 调用dubbo的服务
+    @Reference(version = "${demo.service.version}")
+    CourseListService courseListService;
+
+    @Override
+    public CoursePrice getCoursePrice(Integer courseId) {
+        return coursePriceMapper.findCoursePrices(courseId);}
+
+    @Override
+    public List<CourseAndPrice> getCoursesAndPrice() {
+        List<CourseAndPrice> courseAndPriceList = new ArrayList<>();
+        List<Course> courseList = courseListService.getCourseList();
+        for (int i = 0; i < courseList.size(); i++) {
+            Course course = courseList.get(i);
+            if (course != null) {
+                CoursePrice price = getCoursePrice(course.getCourseId());
+                if (price != null && price.getPrice() > 0) {
+                    CourseAndPrice courseAndPrice = new CourseAndPrice();
+                    courseAndPrice.setId(course.getId());
+                    courseAndPrice.setCourseId(course.getCourseId());
+                    courseAndPrice.setName(course.getName());
+                    courseAndPrice.setPrice(price.getPrice());
+                    courseAndPriceList.add(courseAndPrice);
+                }}}
+        return courseAndPriceList; }}
+```
+
+```java
+/**
+ * 描述：CoursePriceController
+ */
+@RestController
+public class CoursePriceController {
+
+    @Resource
+    CoursePriceService coursePriceService;
+
+    @GetMapping({"/price"})
+    public Integer getCoursePrice(Integer courseId) {
+        CoursePrice coursePrice = coursePriceService.getCoursePrice(courseId);
+        if (coursePrice != null) {
+            return coursePrice.getPrice();
+        } else {
+            return -1;} }
+
+    @GetMapping({"/coursesAndPrice"})
+    public List<CourseAndPrice> getcoursesAndPrice() {
+        return coursePriceService.getCoursesAndPrice();}}
+```
+
+```java
+/**
+ * Spring Boot启动类
+ */
+//@EnableAutoConfiguration
+@SpringBootApplication //要对外边暴露服务的所以使用这个
+public class DubboConsumerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DubboConsumerApplication.class, args);}}
+```
+
+#### dubbo总结
+
 
 
 
@@ -759,3 +981,43 @@ public class ThreadStyle extends Thread {
 	可扩展性少了一些。可以实现多接口
 ```
 
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230228232149420.png" alt="image-20230228232149420" style="zoom:43%;" />
+
+```
+可以用ctrl+f12,看当前的源码的方法名全部列出来  。偶尔感觉比直接搜索ctrl F好用,因为是直接搜索方法名
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230228232726733.png" alt="image-20230228232726733" style="zoom:50%;" />
+
+```
+根据java语法重写方法的话,父类的代码是可以完全不执行的
+```
+
+##### 思考题: 同时用两种方法会怎么样?
+
+```
+当同时执行两种方法的时候,由于已经把父类的run()方法覆盖了,所以真正执行的还是覆盖了Thread那个方法,
+```
+
+##### 用定时器算是新建线程的一种方式嘛?
+
+```java
+package com.wei.interview.createthreads;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * 利用定时器新建线程。  Timer定时器其底层也是继承了 Thread类
+ */
+public class TimerDemo {
+    public static void main(String[] args) {
+        //打印主线程
+        System.out.println(Thread.currentThread().getName());
+        Timer timer = new Timer();
+        //定时的执行内容
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }},1000,1000);}}
+```
