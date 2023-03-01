@@ -1021,3 +1021,18 @@ public class TimerDemo {
                 System.out.println(Thread.currentThread().getName());
             }},1000,1000);}}
 ```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230301000033721.png" alt="image-20230301000033721" style="zoom:33%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230301000330383.png" alt="image-20230301000330383" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230301000404530.png" alt="image-20230301000404530" style="zoom:43%;" />
+
+
+
+
+
