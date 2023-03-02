@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wei.interview.mybatis.mapper.EmpMapper">
+    <cache size="512" eviction="FIFO" flushInterval="60000" readOnly="true"/>
+
+    <select id="findAll"
+            resultType="com.wei.interview.mybatis.entity.Employee" useCache="false">
+        select * from emp
+    </select>
+
+    <select id="findById" parameterType="int"
+            resultType="com.wei.interview.mybatis.entity.Employee" useCache="true">
+        select * from emp where empno = #{value}
+    </select>
+
+</mapper>
