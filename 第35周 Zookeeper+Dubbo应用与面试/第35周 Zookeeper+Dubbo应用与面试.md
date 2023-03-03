@@ -1034,5 +1034,201 @@ public class TimerDemo {
 
 
 
+#### 分布式的面试题
+
+```
+分布式和单体结构,哪一个会更好?
+一个坑。脱离业务的技术选型是没有意义的,在对比某些技术哪个更好哪个更差的时候,应该要结合业务,结合具体的场景,,
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303005413685.png" alt="image-20230303005413685" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303004748145.png" alt="image-20230303004748145" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303004812883.png" alt="image-20230303004812883" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303004841928.png" alt="image-20230303004841928" style="zoom:40%;" />
+
+##### CAP理论
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303005059417.png" alt="image-20230303005059417" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303005320301.png" alt="image-20230303005320301" style="zoom:43%;" />
 
 
+
+#### docker面试题
+
+```
+为什么需要docker
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303010225509.png" alt="image-20230303010225509" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303010308437.png" alt="image-20230303010308437" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303010347031.png" alt="image-20230303010347031" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303010158593.png" alt="image-20230303010158593" style="zoom:43%;" />
+
+#### Nginx和Zookeeper的面试题
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303012458764.png" alt="image-20230303012458764" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303012956889.png" alt="image-20230303012956889" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013020966.png" alt="image-20230303013020966" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013107234.png" alt="image-20230303013107234" style="zoom:43%;" />
+
+
+
+##### Zookeeper有哪些类型的节点
+
+```
+采用树结构 
+	1.持久节点
+	2.临时节点
+	3.顺序节点
+```
+
+#### RabbitMQ的面试题
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013259464.png" alt="image-20230303013259464" style="zoom:43%;" />
+
+
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013440029.png" alt="image-20230303013440029" style="zoom:50%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013654823.png" alt="image-20230303013654823" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013546315.png" alt="image-20230303013546315" style="zoom:43%;" />
+
+#### 微服务面试题
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013833268.png" alt="image-20230303013833268" style="zoom:33%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303013930846.png" alt="image-20230303013930846" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303014051610.png" alt="image-20230303014051610" style="zoom:33%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303014154242.png" alt="image-20230303014154242" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303014305927.png" alt="image-20230303014305927" style="zoom:40%;" />
+
+发现这个服务不可以用可以摘除。不至于影响到其他的流程
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303014446429.png" alt="image-20230303014446429" style="zoom:43%;" />
+
+
+
+
+
+#### Hashmap为什么不安全
+
+```
+指的是线程不安全
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303015343875.png" alt="image-20230303015343875" style="zoom:40%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303015311866.png" alt="image-20230303015311866" style="zoom:43%;" />
+
+
+
+#### final有什么用
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303015427546.png" alt="image-20230303015427546" style="zoom:43%;" />
+
+<hr>
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303015451869.png" alt="image-20230303015451869" style="zoom:40%;" />
+
+
+
+#### 单例模式的8中写法
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303015843929.png" alt="image-20230303015843929" style="zoom:40%;" />
+
+```
+分身很多,但真身只有一个
+```
+
+```java
+package com.wei.interview.singleton;
+
+/**
+ * 饿汉式 (静态常量) (可用)
+ */
+public class Singleton1 {
+
+    private Singleton1() {
+
+    }
+
+    private final static Singleton1 INSTANCE = new Singleton1();
+
+    public static Singleton1 getInstance() {
+        return INSTANCE;
+    }}
+```
+
+<hr>
+
+#### 面试避坑指南
+
+
+
+```
+面试官:你有没有什么想问的?
+	对于公司的了解
+	我们公司未来的战略是怎么样的? 
+	我们部门在公司中的定位是什么? 
+	我们的技术栈是怎么样的?我们的团队成员有几位?
+	
+	避免谈薪资。
+```
+
+#### 哪些软素质最受面试官的认可?
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303021212411.png" alt="image-20230303021212411" style="zoom:50%;" />
+
+#### 面试课总结
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230303021251683.png" alt="image-20230303021251683" style="zoom:40%;" />

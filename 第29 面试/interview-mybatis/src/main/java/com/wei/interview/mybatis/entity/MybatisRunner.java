@@ -17,7 +17,7 @@ public class MybatisRunner {
         SqlSession session = sessionFactory.openSession();
 
         Employee emp1 = session.selectOne(statement, 7566);
-        System.out.println(emp1);
+        System.out.println("编号为7566的,用户名是:  "+emp1.getEname());
         session.close();
 
 
