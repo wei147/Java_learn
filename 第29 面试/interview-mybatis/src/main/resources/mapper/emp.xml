@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.wei.interview.mybatis.mapper.EmpMapper">
+    <!--开启二级缓存。 size代表当前二级缓存中最多容纳多个对象。
+                eviction 代表超出缓存了该怎么处理,这个会将多余的对象通过算法进行清除。 LRU最少最近会被清除。
+                
+                -->
     <cache size="512" eviction="FIFO" flushInterval="60000" readOnly="true"/>
 
     <select id="findAll"
