@@ -3,6 +3,7 @@ package com.wei.interview.mybatis.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+//所有被二级缓存存储的对象都要实现 Serializable接口。否则会报错
 public class Employee implements Serializable {
     private Integer empno;
     private String ename;
