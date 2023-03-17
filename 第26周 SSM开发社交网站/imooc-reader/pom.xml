@@ -7,6 +7,7 @@
     <groupId>com.imooc</groupId>
     <artifactId>imooc-reader</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <repositories>
         <repository>
@@ -74,11 +75,19 @@
             <version>2.0.6</version>
         </dependency>
 
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--            <version>8.0.16</version>-->
+        <!--        </dependency>-->
+
+        <!--上线配置-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
+            <version>6.0.6</version>
         </dependency>
+
         <!--几乎在某一个商业应用都会用到的连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>

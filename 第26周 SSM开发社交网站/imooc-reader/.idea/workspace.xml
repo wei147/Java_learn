@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="imooc-reader:Web exploded" />
+      <artifact name="ssm" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,95 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc463cbc-560c-4c47-b719-124afa168efd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../my-application/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA_spring/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA_spring/logs/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA_spring/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA_spring/logs/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../OA_spring/logs/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../OA_spring/logs/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/ocr/RecognizeBasic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/QrCodeApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/Service/Impl/QRCodeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/Service/QRCodeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/common/ApiRestResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/common/Constant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/config/QRCodeWebMvcConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/controller/QRCodeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/exception/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/exception/QRCodeException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/exception/QRCodeExceptionEnum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/filter/WebLogAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../my-application/QR-code/src/main/java/com/wei/qrcode/utils/QRCodeGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/imooc_reader_Web_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/MyBatisPlusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/MyBatisPlusTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/KaptchaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/KaptchaController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/management/MBookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/management/MBookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/management/ManagementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/controller/management/ManagementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/MemberReadState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/MemberReadState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/BookMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/BookMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/CategoryMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/CategoryMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/EvaluationMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/EvaluationMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/MemberMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/MemberMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/MemberReadStateMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/MemberReadStateMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/TestMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/mapper/TestMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/EvaluationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/EvaluationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/MemberService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/TestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/TestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/exception/BussinessException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/exception/BussinessException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/BookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/BookServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/CategoryServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/CategoryServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/EvaluationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/EvaluationServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/task/ComputeTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/task/ComputeTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/test/MyTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/test/MyTestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/utils/MD5Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/classes/com/imooc/reader/utils/MD5Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/MyBatisPlusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/MyBatisPlusTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/KaptchaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/KaptchaController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/management/MBookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/management/MBookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/management/ManagementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/controller/management/ManagementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/MemberReadState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/MemberReadState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/BookMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/BookMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/CategoryMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/CategoryMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/EvaluationMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/EvaluationMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/MemberMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/MemberMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/MemberReadStateMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/MemberReadStateMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/TestMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/mapper/TestMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/EvaluationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/EvaluationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/MemberService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/TestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/TestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/exception/BussinessException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/exception/BussinessException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/BookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/BookServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/CategoryServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/CategoryServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/EvaluationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/EvaluationServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/service/impl/MemberServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/task/ComputeTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/task/ComputeTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/test/MyTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/test/MyTestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/imooc/reader/utils/MD5Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/imooc/reader/utils/MD5Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/TestServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/TestServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/BookServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/BookServiceImplTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/CategoryServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/CategoryServiceImplTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/MemberServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/imooc/reader/service/impl/MemberServiceImplTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/ftl/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/imooc_reader_Web_exploded/WEB-INF/ftl/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/model/query/ProductListQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/java/com/imooc/mall/model/query/ProductListQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/imooc_mall_online.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/imooc_mall_online.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/mappers/ProductMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/mappers/ProductMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/admin/static/js/main.3ba41d41.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/admin/static/js/main.3ba41d41.chunk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/static/js/main.5a07f232.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/static/js/main.5a07f232.chunk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/static/media/11.bf60ac0f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/static/media/alipay_qrcode.35da5511.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/imooc-mall/src/main/resources/static/static/media/wxpay_qrcode.11e1bfb1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第2节Spring Boot电商项目/logs/info.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +72,13 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="D:\Software\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2E2GjKaImVYUSP7OIWH726ji2kp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -153,11 +97,11 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../第27-28周 Spring Boot电商项目实战/第1节 Spring Boot入门/spring-boot-learn" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.12674272" />
-    <property name="project.structure.side.proportion" value="0.22162162" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="project.structure.side.proportion" value="0.13661203" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -182,15 +126,13 @@
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8.5">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -441,6 +383,10 @@
       <workItem from="1665252998879" duration="472000" />
       <workItem from="1665286995672" duration="4255000" />
       <workItem from="1676878959386" duration="3532000" />
+      <workItem from="1679053976796" duration="1513000" />
+      <workItem from="1679056839913" duration="10000" />
+      <workItem from="1679063880592" duration="1598000" />
+      <workItem from="1679066543397" duration="2054000" />
     </task>
     <servers />
   </component>

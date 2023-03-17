@@ -178,7 +178,26 @@
     </select>
 
     <!--查询商品列表。  入参是一个类。 status = 1 只寻找上架商品-->
-    <select id="selectList" resultMap="BaseResultMap" parameterType="com.imooc.mall.model.query.ProductListQuery">
+    <!--    <select id="selectList" resultMap="BaseResultMap" parameterType="com.imooc.mall.model.query.ProductListQuery">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from imooc_mall_product-->
+    <!--        <where>-->
+    <!--            <if test="query.keyword != null">-->
+    <!--                and name like #{query.keyword}-->
+    <!--            </if>-->
+    <!--            <if test="query.categoryIds != null">-->
+    <!--                and category_id in-->
+    <!--                <foreach collection="query.categoryIds" close=")" item="item" open="(" separator=",">-->
+    <!--                    #{item}-->
+    <!--                </foreach>-->
+    <!--            </if>-->
+    <!--            and status = 1-->
+    <!--        </where>-->
+    <!--    </select>-->
+
+    <select id="selectList" resultMap="BaseResultMap"
+            parameterType="com.imooc.mall.model.query.ProductListQuery">
         select
         <include refid="Base_Column_List"/>
         from imooc_mall_product
@@ -192,7 +211,7 @@
                     #{item}
                 </foreach>
             </if>
-            and status = 1
         </where>
+        order by update_time desc
     </select>
 </mapper>

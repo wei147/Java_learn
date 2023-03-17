@@ -21,6 +21,7 @@ public class ProductListQuery {
      */
     private List<Integer> categoryIds;
 
+
     public String getKeyword() {
         return keyword;
     }

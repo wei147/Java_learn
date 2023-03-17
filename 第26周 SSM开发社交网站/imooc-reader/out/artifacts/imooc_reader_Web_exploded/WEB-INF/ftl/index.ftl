@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="never">
-    <title>慕课书评网</title>
+    <title>慕课书店</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
     <link rel="stylesheet" href="./resources/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="./resources/raty/lib/jquery.raty.css">
+    <link rel="shortcut icon" href="../../images/address-book.png" type="image/x-icon">
     <script src="./resources/jquery.3.3.1.min.js"></script>
     <script src="./resources/bootstrap/bootstrap.min.js"></script>
     <script src="./resources/art-template.js"></script>
