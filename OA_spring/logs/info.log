@@ -1,49 +1,766 @@
-[15:33:52:168] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 4388 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
-[15:33:52:176] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
-[15:33:53:113] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
-[15:33:53:118] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
-[15:33:53:154] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
-[15:33:53:497] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-[15:33:54:046] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
-[15:33:54:057] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
-[15:33:54:058] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
-[15:33:54:058] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
-[15:33:54:286] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
-[15:33:54:286] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2003 ms
-[15:33:55:538] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
-[15:33:56:376] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
-[15:33:56:408] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
-[15:33:56:412] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.64 seconds (JVM running for 8.867)
-[16:27:44:963] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 19420 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
-[16:27:44:973] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
-[16:27:45:944] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
-[16:27:45:949] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
-[16:27:45:988] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 18ms. Found 0 repository interfaces.
-[16:27:46:409] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-[16:27:47:092] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
-[16:27:47:103] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
-[16:27:47:113] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
-[16:27:47:113] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
-[16:27:47:373] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
-[16:27:47:373] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2301 ms
-[16:27:48:972] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
-[16:27:49:876] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
-[16:27:49:907] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
-[16:27:49:912] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 5.497 seconds (JVM running for 10.431)
-[16:28:17:870] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
-[16:28:17:871] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
-[16:28:17:888] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 17 ms
-[16:28:17:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
-[16:28:17:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[16:28:17:945] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[16:28:17:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
-[16:28:17:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [s7, 1234, org.apache.catalina.session.StandardSessionFacade@3ca36144]
-[16:28:18:004] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
-[16:28:18:275] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
-[16:28:18:508] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":6,"username":"s7","password":null,"employeeId":6,"salt":193}}
-[16:28:47:202] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leaveForm/create
-[16:28:47:203] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
-[16:28:47:203] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
-[16:28:47:203] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.create
-[16:28:47:203] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [com.wei.oa_spring.model.request.CreateLeaveFormReq@3601b9ec, org.apache.catalina.session.StandardSessionFacade@3ca36144]
-[16:28:47:282] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":null}
+[18:29:15:372] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 3252 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:29:15:382] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:29:16:522] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:29:16:532] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:29:16:582] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+[18:29:17:043] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:29:17:809] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:29:17:829] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:29:17:829] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:29:17:829] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:29:18:135] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:29:18:135] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2633 ms
+[18:29:19:646] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:29:19:826] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:29:20:826] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:29:20:866] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:29:20:866] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 6.043 seconds (JVM running for 11.461)
+[18:30:44:537] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:30:44:553] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:30:44:553] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:30:44:569] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 16 ms
+[18:30:44:601] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:30:44:601] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:30:44:601] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:30:44:609] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:30:44:609] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:30:44:681] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"modelMap":{"msg":"传给Freemarker的值"},"viewName":"login","reference":true}
+[18:30:57:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[18:30:57:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[18:30:57:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:30:57:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[18:30:57:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@2cd10a43]
+[18:30:57:782] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[18:32:15:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[18:32:15:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[18:32:15:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:32:15:786] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[18:32:15:786] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@2cd10a43]
+[18:32:15:801] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[18:32:15:849] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[18:32:15:960] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[18:32:16:020] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[18:32:16:021] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:32:16:021] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:32:16:022] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[18:32:16:022] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@1a672116]
+[18:32:16:088] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"modelMap":{},"viewName":"/index","reference":true}
+[19:53:59:398] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 17156 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[19:53:59:461] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[19:54:00:596] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[19:54:00:602] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[19:54:00:670] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+[19:54:01:179] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[19:54:02:099] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[19:54:02:117] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[19:54:02:119] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[19:54:02:119] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[19:54:02:391] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[19:54:02:392] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2866 ms
+[19:54:03:985] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[19:54:04:191] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[19:54:05:122] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[19:54:05:156] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[19:54:05:159] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 6.305 seconds (JVM running for 12.507)
+[20:05:19:817] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=A8781E17F18CD108B7F4997F9A8FB6C9] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[20:05:19:835] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[20:05:19:835] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[20:05:19:889] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 54 ms
+[20:05:19:935] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[20:05:19:935] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[20:05:19:936] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[20:05:19:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[20:05:19:939] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@17b9f50a]
+[20:10:38:707] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 18004 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[20:10:38:713] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[20:10:39:471] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[20:10:39:474] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[20:10:39:507] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+[20:10:39:814] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[20:10:40:305] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[20:10:40:379] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[20:10:40:380] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[20:10:40:381] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[20:10:40:512] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[20:10:40:513] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1714 ms
+[20:10:41:525] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[20:10:41:636] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[20:10:42:244] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[20:10:42:269] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[20:10:42:273] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.909 seconds (JVM running for 7.521)
+[20:14:24:486] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=577021365421544F79339FD698DFDA32] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[20:14:24:493] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[20:14:24:494] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[20:14:24:506] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[20:16:07:164] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[20:16:07:164] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[20:16:07:164] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[20:16:07:167] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[20:16:07:167] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[20:16:07:239] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","modelMap":{"msg":"传给Freemarker的值"},"reference":true}
+[20:16:10:962] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[20:16:10:963] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[20:16:10:963] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[20:16:10:963] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[20:16:10:963] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@38f7ab65]
+[20:16:11:019] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[20:16:11:250] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[20:16:11:361] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[20:16:11:416] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[20:16:11:416] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[20:16:11:416] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[20:16:11:417] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[20:16:11:417] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@50cf1c53]
+[20:16:11:467] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","modelMap":{},"reference":true}
+[22:14:02:683] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 12676 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[22:14:02:688] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:14:03:607] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[22:14:03:612] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[22:14:03:655] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+[22:14:04:028] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[22:14:04:581] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[22:14:04:667] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[22:14:04:668] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:14:04:669] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:14:04:839] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:14:04:840] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2059 ms
+[22:14:06:090] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:14:06:201] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[22:14:07:108] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[22:14:07:137] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[22:14:07:140] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.849 seconds (JVM running for 8.967)
+[22:14:13:850] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=5528AB2CC5C32352D707895ED1D9CDA4] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[22:14:13:858] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:14:13:858] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:14:13:870] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[22:14:13:901] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:14:13:901] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:14:13:902] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:14:13:904] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:14:13:904] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@62168b0]
+[22:14:13:976] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[22:14:24:343] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[22:14:24:343] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[22:14:24:343] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:14:24:343] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[22:14:24:344] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@221ebc1c]
+[22:14:24:398] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[22:14:24:623] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[22:14:24:719] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[22:14:24:781] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:14:24:782] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:14:24:782] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:14:24:783] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:14:24:783] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@4fe9ee76]
+[22:14:24:847] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[22:18:07:167] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 2932 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[22:18:07:172] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:18:08:011] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[22:18:08:017] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[22:18:08:052] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[22:18:08:414] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[22:18:08:948] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[22:18:08:958] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[22:18:08:960] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:18:08:961] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:18:09:144] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:18:09:145] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1883 ms
+[22:18:10:221] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:18:10:338] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[22:18:11:016] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[22:18:11:043] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[22:18:11:046] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.241 seconds (JVM running for 8.14)
+[22:18:15:080] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=8BDD978235C4CA40F8239832595F8BEB] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[22:18:15:088] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:18:15:089] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:18:15:101] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[22:31:38:565] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 7520 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[22:31:38:570] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:31:39:322] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[22:31:39:326] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[22:31:39:368] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+[22:31:39:744] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[22:31:40:264] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[22:31:40:335] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[22:31:40:336] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:31:40:336] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:31:40:450] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:31:40:450] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1798 ms
+[22:31:41:519] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:31:41:635] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[22:31:42:209] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[22:31:42:233] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[22:31:42:236] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.971 seconds (JVM running for 7.512)
+[22:31:53:446] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=8BDD978235C4CA40F8239832595F8BEB] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[22:31:53:455] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:31:53:455] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:31:53:467] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[22:31:53:494] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:31:53:495] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:31:53:495] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:31:53:497] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:31:53:497] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@65a391d6]
+[22:31:53:553] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[22:31:58:057] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[22:31:58:057] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[22:31:58:058] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:31:58:058] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[22:31:58:058] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@28359381]
+[22:31:58:106] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[22:31:58:263] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[22:31:58:339] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[22:31:58:403] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:31:58:404] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:31:58:404] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:31:58:405] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:31:58:405] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@45a784d5]
+[22:31:58:447] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[22:36:30:535] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 11096 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[22:36:30:541] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:36:31:269] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[22:36:31:274] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[22:36:31:323] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+[22:36:31:698] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[22:36:32:472] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[22:36:32:546] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[22:36:32:548] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:36:32:549] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:36:32:683] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:36:32:684] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2091 ms
+[22:36:33:715] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:36:33:843] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[22:36:34:473] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[22:36:34:496] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[22:36:34:499] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.34 seconds (JVM running for 8.091)
+[22:36:49:099] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=C402E8F9A184F20951C5A51C2D8EE467] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[22:36:49:108] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:36:49:108] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:36:49:121] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 13 ms
+[22:36:55:547] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:36:55:547] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:36:55:547] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:36:55:549] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:36:55:549] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@4edbfbd2]
+[22:36:55:610] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[22:36:57:366] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[22:36:57:366] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[22:36:57:367] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:36:57:367] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[22:36:57:367] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@73bb7aac]
+[22:36:57:413] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[22:36:57:556] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[22:36:57:630] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[22:36:57:678] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:36:57:678] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:36:57:679] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:36:57:679] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:36:57:679] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@573a39af]
+[22:36:57:715] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[22:37:02:552] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[22:37:02:552] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:37:02:552] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:37:02:553] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[22:37:02:553] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@73bb7aac]
+[22:37:02:629] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[22:46:19:083] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 8980 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[22:46:19:087] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[22:46:19:880] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[22:46:19:885] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[22:46:19:921] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[22:46:20:273] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[22:46:20:920] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[22:46:21:006] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[22:46:21:007] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[22:46:21:008] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[22:46:21:126] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[22:46:21:126] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1957 ms
+[22:46:22:220] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[22:46:22:344] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[22:46:23:042] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[22:46:23:067] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[22:46:23:070] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.335 seconds (JVM running for 8.066)
+[22:46:24:470] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=713CA0CFE41325488DA3084F243C3A50] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[22:46:24:478] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[22:46:24:478] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[22:46:24:490] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[22:46:24:521] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:46:24:521] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:46:24:522] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:46:24:524] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:46:24:525] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@25ff0a03]
+[22:46:24:589] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[22:46:27:686] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[22:46:27:686] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[22:46:27:687] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:46:27:687] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[22:46:27:687] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@78ef0ee5]
+[22:46:27:739] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[22:46:27:902] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[22:46:27:975] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[22:46:28:033] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[22:46:28:033] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[22:46:28:033] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[22:46:28:034] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[22:46:28:034] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2a28174]
+[22:46:28:073] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:04:34:987] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 17288 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:04:34:991] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:04:35:869] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:04:35:877] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:04:35:919] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+[23:04:36:371] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:04:37:068] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:04:37:079] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:04:37:080] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:04:37:081] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:04:37:280] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:04:37:281] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2201 ms
+[23:04:38:559] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:04:38:699] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:04:39:603] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:04:39:632] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:04:39:635] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 5.013 seconds (JVM running for 8.889)
+[23:04:45:837] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=62C0981755041D332C1C49A92216FDAE] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:04:45:845] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:04:45:846] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:04:45:856] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 10 ms
+[23:04:45:886] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:04:45:886] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:04:45:887] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:04:45:888] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:04:45:889] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@1f2b0955]
+[23:04:45:953] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:04:49:660] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:04:49:660] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:04:49:661] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:04:49:661] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:04:49:661] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@681a0e60]
+[23:04:49:705] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:04:49:841] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:04:49:906] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:04:49:953] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:04:49:954] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:04:49:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:04:49:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:04:49:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@1f2b0955]
+[23:04:49:997] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:04:50:235] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:04:50:236] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:04:50:236] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:04:50:236] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:04:50:236] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@508901a1, org.apache.catalina.connector.ResponseFacade@221cabcd]
+[23:04:50:246] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"forward:/notice","reference":true,"modelMap":{}}
+[23:04:57:442] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:04:57:443] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:04:57:443] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:04:57:443] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:04:57:443] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@508901a1, org.apache.catalina.connector.ResponseFacade@221cabcd]
+[23:04:57:447] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"forward:/form","reference":true,"modelMap":{}}
+[23:06:10:846] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 19428 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:06:10:882] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:06:11:600] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:06:11:605] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:06:11:639] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+[23:06:11:957] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:06:12:481] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:06:12:558] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:06:12:559] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:06:12:560] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:06:12:674] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:06:12:675] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1744 ms
+[23:06:13:709] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:06:13:807] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:06:14:436] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:06:14:462] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:06:14:466] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.993 seconds (JVM running for 7.482)
+[23:06:31:078] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=C11945431ED2AA105B524FC31B73A770] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:06:31:087] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:06:31:087] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:06:31:098] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[23:06:31:128] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:06:31:128] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:31:129] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:31:131] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:06:31:131] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@195ca7f4]
+[23:06:31:201] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:06:33:082] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:06:33:083] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:06:33:083] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:33:083] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:06:33:083] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@22837343]
+[23:06:33:131] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:06:33:260] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:06:33:333] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:06:33:376] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:06:33:377] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:33:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:33:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:06:33:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@5e1a09f8]
+[23:06:33:412] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:06:33:698] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:06:33:698] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:33:699] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:33:700] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:06:33:700] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@195ca7f4, org.apache.catalina.connector.ResponseFacade@2828ea86]
+[23:06:33:711] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:06:33:983] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:06:33:983] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:33:984] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:33:984] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:06:33:985] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@22837343]
+[23:06:34:020] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:06:40:405] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:06:40:406] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:40:406] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:40:406] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:06:40:406] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@195ca7f4, org.apache.catalina.connector.ResponseFacade@2828ea86]
+[23:06:40:410] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:06:40:667] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:06:40:667] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:40:668] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:40:668] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:06:40:668] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@22837343]
+[23:06:40:686] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:06:41:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[23:06:41:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:41:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:41:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:06:41:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@195ca7f4, org.apache.catalina.connector.ResponseFacade@2828ea86]
+[23:06:41:960] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:06:42:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:06:42:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:06:42:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:06:42:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:06:42:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@22837343]
+[23:06:42:180] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:07:13:627] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 19308 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:07:13:632] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:07:14:403] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:07:14:407] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:07:14:441] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[23:07:14:772] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:07:15:240] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:07:15:250] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:07:15:251] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:07:15:252] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:07:15:428] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:07:15:429] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1709 ms
+[23:07:16:433] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:07:16:533] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:07:17:166] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:07:17:189] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:07:17:191] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.914 seconds (JVM running for 7.45)
+[23:07:26:965] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=19EB6402073A27376D4243D3F30AD123] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:07:26:972] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:07:26:972] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:07:26:983] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[23:07:27:009] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:07:27:010] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:27:010] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:27:011] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:07:27:012] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@4e31b231]
+[23:07:27:068] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:07:30:518] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:07:30:519] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:07:30:519] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:30:520] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:07:30:520] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@67952dcb]
+[23:07:30:571] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:07:30:708] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:07:30:774] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:07:30:825] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:07:30:826] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:30:826] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:30:827] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:07:30:827] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@5997098e]
+[23:07:30:861] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:07:31:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:07:31:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:31:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:31:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:07:31:080] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@4e31b231, org.apache.catalina.connector.ResponseFacade@62fcc23d]
+[23:07:31:092] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:07:31:382] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:07:31:382] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:31:382] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:31:383] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:07:31:383] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@67952dcb]
+[23:07:31:413] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:07:35:838] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:07:35:838] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:35:839] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:35:839] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:07:35:839] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@4e31b231, org.apache.catalina.connector.ResponseFacade@62fcc23d]
+[23:07:35:843] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:07:36:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:07:36:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:36:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:36:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:07:36:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@67952dcb]
+[23:07:36:094] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:07:37:559] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:07:37:559] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:37:560] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:37:560] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:07:37:560] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@4e31b231, org.apache.catalina.connector.ResponseFacade@62fcc23d]
+[23:07:37:564] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[23:07:40:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[23:07:40:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:07:40:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:07:40:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:07:40:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@4e31b231, org.apache.catalina.connector.ResponseFacade@62fcc23d]
+[23:07:40:597] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[23:14:06:785] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 19800 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:14:06:790] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:14:07:621] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:14:07:626] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:14:07:664] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[23:14:08:033] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:14:08:548] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:14:08:559] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:14:08:560] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:14:08:561] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:14:08:740] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:14:08:740] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1864 ms
+[23:14:09:817] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:14:09:931] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:14:10:660] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:14:10:688] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:14:10:691] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.217 seconds (JVM running for 7.822)
+[23:14:20:918] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=18D86B6440EED6BD52794D1E251525CB] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:14:20:928] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:14:20:929] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:14:20:941] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[23:14:20:968] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:14:20:968] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:20:968] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:20:971] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:14:20:971] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@e1909dc]
+[23:14:21:038] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:14:22:812] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:14:22:812] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:14:22:813] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:22:813] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:14:22:813] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@4351c987]
+[23:14:22:857] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:14:22:993] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:14:23:065] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:14:23:127] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:14:23:127] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:23:128] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:23:128] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:14:23:129] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@e1909dc]
+[23:14:23:158] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:14:23:339] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:14:23:339] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:23:340] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:23:340] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:14:23:340] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@e1909dc, org.apache.catalina.connector.ResponseFacade@72ac6031]
+[23:14:23:349] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:14:23:491] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:14:23:491] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:23:492] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:23:492] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:14:23:492] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@4351c987]
+[23:14:23:515] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:14:27:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:14:27:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:27:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:27:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:14:27:939] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@e1909dc, org.apache.catalina.connector.ResponseFacade@72ac6031]
+[23:14:27:941] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[23:14:29:458] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:14:29:458] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:29:459] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:29:459] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:14:29:459] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@e1909dc, org.apache.catalina.connector.ResponseFacade@72ac6031]
+[23:14:29:461] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:14:29:595] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:14:29:595] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:29:596] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:29:596] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:14:29:597] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@4351c987]
+[23:14:29:609] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:14:34:707] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:14:34:707] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:34:707] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:34:707] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:14:34:708] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@e1909dc, org.apache.catalina.connector.ResponseFacade@72ac6031]
+[23:14:34:710] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:14:34:913] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:14:34:914] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:34:914] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:34:914] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:14:34:915] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@4351c987]
+[23:14:34:932] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:14:58:835] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:14:58:835] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:14:58:835] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:14:58:835] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:14:58:836] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@63da264a, org.apache.catalina.connector.ResponseFacade@26d8b455]
+[23:14:58:838] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[23:24:08:884] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 19900 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:24:08:927] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:24:09:785] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:24:09:790] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:24:09:829] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 18ms. Found 0 repository interfaces.
+[23:24:10:297] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:24:10:959] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:24:10:973] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:24:10:975] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:24:10:975] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:24:11:110] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:24:11:111] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2128 ms
+[23:24:12:375] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:24:12:488] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:24:13:194] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:24:13:224] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:24:13:227] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.73 seconds (JVM running for 9.287)
+[23:25:08:108] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=82C223F57C1F4F4BDF7F64455C15CF41] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:25:08:116] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:25:08:116] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:25:08:127] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[23:25:08:166] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:25:08:167] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:08:167] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:08:170] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:25:08:171] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@6989327c]
+[23:25:08:247] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:25:10:117] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:25:10:117] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:25:10:118] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:10:119] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:25:10:119] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@62975546]
+[23:25:10:179] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:25:10:411] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:25:10:499] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:25:10:554] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:25:10:555] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:10:556] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:10:556] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:25:10:557] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@6989327c]
+[23:25:10:596] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:25:10:825] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:25:10:825] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:10:825] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:10:826] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:25:10:826] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@6989327c, org.apache.catalina.connector.ResponseFacade@d2f37]
+[23:25:10:837] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:25:11:126] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:25:11:126] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:11:127] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:11:127] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:25:11:127] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@62975546]
+[23:25:11:160] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[{"noticeId":22,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时]您已批准,审批意见:好,假期愉快!,审批流程已结束","createTime":1662613457000},{"noticeId":20,"receiverId":1,"content":"部门经理-齐紫陌提起请假申请[2022-09-08-00时-2022-09-14-00时],请尽快审批","createTime":1662613384000},{"noticeId":18,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585401545000},{"noticeId":15,"receiverId":1,"content":"高级研发工程师-王美美提起请假申请[2020-04-01-00时-2020-04-30-00时],请尽快审批","createTime":1585401481000},{"noticeId":11,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时]您已批准,审批意见:同意,审批流程已结束","createTime":1585392283000},{"noticeId":8,"receiverId":1,"content":"研发工程师-宋彩妮提起请假申请[2020-04-01-00时-2020-04-10-00时],请尽快审批","createTime":1585392198000}]}
+[23:25:17:114] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:25:17:114] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:25:17:114] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:25:17:115] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:25:17:115] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@600d39fd, org.apache.catalina.connector.ResponseFacade@65c1ad1]
+[23:25:17:120] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[23:26:34:084] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[23:26:34:117] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_oa_datasource - Shutdown initiated...
+[23:26:34:130] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_oa_datasource - Shutdown completed.
+[23:37:12:726] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 17528 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[23:37:12:732] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[23:37:13:564] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[23:37:13:569] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[23:37:13:601] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+[23:37:13:914] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[23:37:14:439] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[23:37:14:526] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[23:37:14:527] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[23:37:14:528] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[23:37:14:661] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[23:37:14:662] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1824 ms
+[23:37:16:465] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[23:37:16:630] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[23:37:17:354] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[23:37:17:387] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[23:37:17:392] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 5.048 seconds (JVM running for 8.613)
+[23:37:30:728] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=97CD5F49AC92957770F914DAF63201D3] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[23:37:30:739] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[23:37:30:739] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[23:37:30:751] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[23:37:30:778] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:37:30:778] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:30:778] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:30:780] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:37:30:780] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@50f561ce]
+[23:37:30:839] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[23:37:32:800] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[23:37:32:800] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[23:37:32:800] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:32:800] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[23:37:32:800] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@53631bd3]
+[23:37:32:848] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[23:37:33:005] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[23:37:33:079] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[23:37:33:121] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[23:37:33:121] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:33:122] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:33:122] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[23:37:33:123] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@50f561ce]
+[23:37:33:156] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[23:37:33:396] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:37:33:396] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:33:397] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:33:397] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:37:33:397] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@35613d5b, org.apache.catalina.connector.ResponseFacade@c47fdcf]
+[23:37:33:407] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:37:33:655] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:37:33:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:33:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:33:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:37:33:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@53631bd3, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:37:33:810] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[23:37:46:866] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[23:37:46:866] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:46:866] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:46:867] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:37:46:867] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:37:46:869] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[23:37:47:027] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[23:37:47:027] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:47:027] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:47:027] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[23:37:47:028] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@53631bd3, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:37:47:034] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[23:37:48:400] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:37:48:401] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:37:48:401] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:37:48:401] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:37:48:401] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:37:48:404] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[23:38:01:616] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[23:38:01:616] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:38:01:617] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:38:01:617] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:38:01:617] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:38:01:619] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[23:38:01:762] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[23:38:01:763] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:38:01:763] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:38:01:763] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[23:38:01:763] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@53631bd3]
+[23:38:01:855] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":[]}
+[23:38:03:733] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[23:38:03:733] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[23:38:03:733] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[23:38:03:733] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[23:38:03:734] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@50f561ce, org.apache.catalina.connector.ResponseFacade@3651e3de]
+[23:38:03:736] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}

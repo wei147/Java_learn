@@ -10,15 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 public class UserController {
 
-    @Autowired
+    @Resource
     UserService userService;
 
     //测试用
@@ -28,7 +31,16 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/login")
+    //登录页面
+    @GetMapping("login")
+    public ModelAndView login_page() {
+        ModelAndView mav = new ModelAndView("login");
+        mav.addObject("msg","传给Freemarker的值");
+        return mav;
+    }
+
+    @PostMapping("/check_login")
+    @ResponseBody
     public ApiRestResponse login(@RequestParam String username, @RequestParam String password, HttpSession session) {
         //登录时所要用的关键任务 HttpSession session对象
         //1.校验 username不能为空
@@ -58,7 +70,6 @@ public class UserController {
         session.removeAttribute(Constant.OA_USER);
         return ApiRestResponse.success();
     }
-
 
 
     //未实现

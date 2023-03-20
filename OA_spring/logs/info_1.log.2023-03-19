@@ -1,0 +1,365 @@
+[17:21:26:170] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 5156 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[17:21:26:179] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[17:21:27:085] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[17:21:27:090] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[17:21:27:139] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
+[17:21:27:558] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[17:21:28:142] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[17:21:28:154] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[17:21:28:155] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[17:21:28:155] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[17:21:28:386] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[17:21:28:386] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2120 ms
+[17:21:32:384] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[17:21:33:415] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[17:21:33:450] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[17:21:33:455] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 7.701 seconds (JVM running for 11.975)
+[17:21:40:922] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[17:21:40:931] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[17:21:40:931] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[17:21:40:940] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 9 ms
+[17:33:53:015] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 18936 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[17:33:53:020] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[17:33:53:768] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[17:33:53:772] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[17:33:53:804] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+[17:33:54:143] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[17:33:54:649] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[17:33:54:662] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[17:33:54:663] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[17:33:54:664] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[17:33:54:851] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[17:33:54:852] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1750 ms
+[17:33:55:978] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[17:33:56:737] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[17:33:56:769] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[17:33:56:773] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.111 seconds (JVM running for 8.037)
+[17:34:26:016] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[17:34:26:025] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[17:34:26:025] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[17:34:26:037] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[17:34:26:064] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:34:26:064] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:34:26:064] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:34:26:067] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:34:26:067] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:34:26:125] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"string":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"string":"传给Freemarker的值"}}
+[17:38:19:979] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 20980 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[17:38:19:984] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[17:38:20:753] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[17:38:20:757] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[17:38:20:789] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+[17:38:21:113] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[17:38:21:613] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[17:38:21:625] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[17:38:21:626] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[17:38:21:627] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[17:38:21:817] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[17:38:21:818] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1746 ms
+[17:38:22:859] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[17:38:23:616] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[17:38:23:641] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[17:38:23:644] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.038 seconds (JVM running for 7.992)
+[17:38:40:262] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[17:38:40:270] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[17:38:40:270] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[17:38:40:279] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 9 ms
+[17:38:40:307] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:38:40:308] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:38:40:308] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:38:40:310] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:38:40:311] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:38:40:374] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"reference":true,"viewName":"login","modelMap":{"msg":"传给Freemarker的值"}}
+[17:40:03:695] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:40:03:696] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:40:03:696] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:40:03:697] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:40:03:697] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:40:03:704] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"reference":true,"viewName":"login","modelMap":{"msg":"传给Freemarker的值"}}
+[17:52:52:408] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 16212 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[17:52:52:413] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[17:52:53:188] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[17:52:53:192] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[17:52:53:228] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+[17:52:53:547] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[17:52:54:079] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[17:52:54:089] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[17:52:54:090] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[17:52:54:091] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[17:52:54:308] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[17:52:54:309] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1814 ms
+[17:52:55:407] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[17:52:56:229] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[17:52:56:262] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[17:52:56:266] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.217 seconds (JVM running for 8.032)
+[17:52:58:470] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[17:52:58:479] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[17:52:58:479] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[17:52:58:491] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 12 ms
+[17:52:58:515] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:52:58:515] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:52:58:516] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:52:58:517] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:52:58:517] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:52:58:584] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[17:53:04:163] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:53:04:163] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:53:04:163] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:53:04:163] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:53:04:163] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:53:04:169] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[17:55:43:328] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 21584 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[17:55:43:333] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[17:55:44:071] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[17:55:44:074] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[17:55:44:108] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[17:55:44:448] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[17:55:44:924] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[17:55:44:934] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[17:55:44:935] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[17:55:44:935] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[17:55:45:117] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[17:55:45:117] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1705 ms
+[17:55:46:165] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[17:55:46:273] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[17:55:46:944] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[17:55:46:968] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[17:55:46:971] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.971 seconds (JVM running for 7.649)
+[17:58:07:244] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[17:58:07:252] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[17:58:07:253] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[17:58:07:264] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[17:58:07:288] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[17:58:07:288] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[17:58:07:289] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[17:58:07:291] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[17:58:07:291] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[17:58:07:370] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:01:27:659] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 10216 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:01:27:663] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:01:28:412] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:01:28:416] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:01:28:451] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+[18:01:28:791] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:01:29:303] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:01:29:315] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:01:29:316] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:01:29:317] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:01:29:504] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:01:29:505] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1762 ms
+[18:01:30:559] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:01:30:669] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:01:31:309] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:01:31:334] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:01:31:338] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.006 seconds (JVM running for 7.546)
+[18:02:42:374] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 2268 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:02:42:380] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:02:43:304] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:02:43:308] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:02:43:345] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+[18:02:43:705] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:02:44:261] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:02:44:271] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:02:44:272] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:02:44:273] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:02:44:464] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:02:44:464] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1997 ms
+[18:02:45:605] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:02:45:707] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:02:46:378] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:02:46:408] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:02:46:411] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.37 seconds (JVM running for 8.888)
+[18:02:51:835] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:02:51:843] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:02:51:843] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:02:51:856] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 13 ms
+[18:02:51:880] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:02:51:881] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:02:51:882] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:02:51:886] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:02:51:886] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:02:51:950] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:06:18:776] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 20196 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:06:18:816] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:06:19:549] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:06:19:553] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:06:19:588] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[18:06:19:906] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:06:20:383] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:06:20:392] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:06:20:392] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:06:20:393] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:06:20:574] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:06:20:575] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1718 ms
+[18:06:21:628] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:06:21:736] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:06:22:393] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:06:22:416] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:06:22:418] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.96 seconds (JVM running for 7.596)
+[18:06:36:164] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:06:36:173] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:06:36:173] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:06:36:184] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[18:06:36:207] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:06:36:207] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:06:36:207] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:06:36:209] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:06:36:209] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:06:36:262] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:07:05:937] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:07:05:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:07:05:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:07:05:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:07:05:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:07:05:946] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:14:34:804] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 10776 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:14:34:808] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:14:35:550] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:14:35:556] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:14:35:600] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+[18:14:35:939] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:14:36:408] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:14:36:417] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:14:36:417] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:14:36:418] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:14:36:582] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:14:36:583] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1693 ms
+[18:14:37:643] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:14:37:743] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:14:38:398] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:14:38:427] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:14:38:429] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.933 seconds (JVM running for 7.692)
+[18:14:48:519] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:14:48:526] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:14:48:526] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:14:48:537] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 10 ms
+[18:14:48:559] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:14:48:559] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:14:48:559] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:14:48:561] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:14:48:561] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:14:48:615] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:19:53:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[18:19:53:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[18:19:53:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:19:53:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[18:19:53:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@5c57ab06]
+[18:19:54:006] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[18:19:54:238] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[18:19:54:338] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[18:42:42:729] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 11512 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:42:42:734] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:42:43:521] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:42:43:524] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:42:43:557] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 12ms. Found 0 repository interfaces.
+[18:42:43:881] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:42:44:430] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:42:44:511] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:42:44:512] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:42:44:513] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:42:44:633] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:42:44:634] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1823 ms
+[18:42:45:667] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:42:45:780] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:42:46:434] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:42:46:460] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:42:46:464] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.079 seconds (JVM running for 7.733)
+[18:42:50:804] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=E65C579DB1A271B8F943D663E7887D4C] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:42:50:814] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:42:50:814] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:42:50:825] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[18:42:50:850] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[18:42:50:850] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[18:42:50:851] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:42:50:853] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[18:42:50:853] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[18:42:50:908] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[18:43:02:612] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[18:43:02:613] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[18:43:02:613] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:43:02:614] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[18:43:02:614] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@5953d8f6]
+[18:43:02:658] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[18:43:02:817] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[18:43:02:894] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[18:45:42:602] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 17400 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[18:45:42:607] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[18:45:43:328] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[18:45:43:334] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[18:45:43:367] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+[18:45:43:694] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[18:45:44:182] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[18:45:44:191] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[18:45:44:191] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[18:45:44:192] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[18:45:44:373] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[18:45:44:373] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1721 ms
+[18:45:45:402] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[18:45:45:510] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[18:45:46:150] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[18:45:46:177] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[18:45:46:181] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 3.949 seconds (JVM running for 7.555)
+[18:45:52:995] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=9ABF754B8D4A15A669D8E049CFEA0065] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[18:45:53:003] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[18:45:53:003] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[18:45:53:016] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 13 ms
+[18:45:53:063] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[18:45:53:064] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[18:45:53:064] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[18:45:53:066] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[18:45:53:066] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@6b534466]
+[18:45:53:109] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[18:45:53:236] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[18:45:53:351] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[19:27:59:254] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 4140 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[19:27:59:259] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[19:28:00:042] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[19:28:00:045] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[19:28:00:078] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+[19:28:00:423] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[19:28:00:941] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[19:28:00:950] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[19:28:00:952] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[19:28:00:953] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[19:28:01:139] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[19:28:01:141] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 1794 ms
+[19:28:02:239] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[19:28:02:360] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[19:28:03:050] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[19:28:03:078] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[19:28:03:082] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 4.148 seconds (JVM running for 7.985)
+[19:28:09:610] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695; JSESSIONID=3675FE005B236A422E8CB6D30814B466] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[19:28:09:618] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[19:28:09:619] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[19:28:09:630] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 11 ms
+[19:28:09:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[19:28:09:656] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[19:28:09:657] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[19:28:09:658] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[19:28:09:659] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[19:28:09:721] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[19:28:22:533] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[19:28:22:533] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[19:28:22:534] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[19:28:22:534] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[19:28:22:534] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@7de68f33]
+[19:28:22:574] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[19:28:22:726] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[19:28:22:808] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[19:28:22:878] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[19:28:22:879] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[19:28:22:880] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[19:28:22:882] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[19:28:22:883] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@4776b05b]
+[19:28:22:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}

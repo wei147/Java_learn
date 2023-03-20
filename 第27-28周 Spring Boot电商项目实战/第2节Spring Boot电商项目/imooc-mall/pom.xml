@@ -45,6 +45,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+<!--            <version>5.1.49</version>-->
         </dependency>
         <!--log4j2 的依赖 (要先排除自带的logback组件,可以免除版本的指定,会自动匹配Spring boot对应版本)-->
         <dependency>
@@ -120,13 +121,13 @@
 
 
             <!--2022年9月28日13:06:23 运行时报错。所以添加 该plugin  Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.2:test-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <skipTests>true</skipTests>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
