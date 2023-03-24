@@ -69,10 +69,11 @@
                 if (json.status == "10000") {     //登录验证成功
                     //layui内置的弹出层，会有一个小提示
                     // layui.layer.msg("登录成功");
+                    layui.layer.msg(json.msg);
                     //跳转url
                     window.location.href="/index";
                 } else {
-                    layui.layer.msg(json.message);
+                    layui.layer.msg(json.msg);
                 }
             }
         })

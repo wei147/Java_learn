@@ -2,7 +2,6 @@
 <Configuration status="fatal">
     <Properties>
         <!--    <Property name="baseDir" value="${sys:user.home}/logs"/>-->
-        <!--    <Property name="baseDir" value="D:\project\Jave_learn\第27-28周 Spring Boot电商项目实战\第2节Spring Boot电商项目/logs"/>-->
         <Property name="baseDir" value="D:\project\Jave_learn\OA_spring\logs"/>
 
     </Properties>

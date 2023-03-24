@@ -1,0 +1,337 @@
+[02:06:55:854] [INFO] - org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) - Starting OaSpringApplication on LAPTOP-A50H8Q5F with PID 2004 (D:\project\Jave_learn\OA_spring\target\classes started by W1216381706 in D:\project\Jave_learn\OA_spring)
+[02:06:55:864] [INFO] - org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:651) - No active profile set, falling back to default profiles: default
+[02:06:56:924] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:246) - Multiple Spring Data modules found, entering strict repository configuration mode!
+[02:06:56:924] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:126) - Bootstrapping Spring Data repositories in DEFAULT mode.
+[02:06:56:974] [INFO] - org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:184) - Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+[02:06:57:494] [INFO] - org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization(PostProcessorRegistrationDelegate.java:330) - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[02:06:58:234] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:92) - Tomcat initialized with port(s): 81 (http)
+[02:06:58:244] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing ProtocolHandler ["http-nio-81"]
+[02:06:58:244] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting service [Tomcat]
+[02:06:58:254] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting Servlet engine: [Apache Tomcat/9.0.27]
+[02:06:58:414] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext
+[02:06:58:414] [INFO] - org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:284) - Root WebApplicationContext: initialization completed in 2480 ms
+[02:06:59:915] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.initialize(ExecutorConfigurationSupport.java:171) - Initializing ExecutorService 'applicationTaskExecutor'
+[02:07:00:035] [INFO] - org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(WelcomePageHandlerMapping.java:58) - Adding welcome page template: index
+[02:07:00:815] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Starting ProtocolHandler ["http-nio-81"]
+[02:07:00:845] [INFO] - org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:204) - Tomcat started on port(s): 81 (http) with context path ''
+[02:07:00:845] [INFO] - org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) - Started OaSpringApplication in 5.53 seconds (JVM running for 10.758)
+[02:08:06:636] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - A cookie header was received [1678685695] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+[02:08:06:651] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[02:08:06:652] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) - Initializing Servlet 'dispatcherServlet'
+[02:08:06:667] [INFO] - org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) - Completed initialization in 15 ms
+[02:08:06:704] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[02:08:06:704] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:06:704] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:06:708] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[02:08:06:708] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[02:08:06:793] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[02:08:11:061] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[02:08:11:061] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:08:11:061] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:11:061] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[02:08:11:061] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:08:11:156] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) - imooc_oa_datasource - Starting...
+[02:08:11:474] [INFO] - com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) - imooc_oa_datasource - Start completed.
+[02:08:11:594] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[02:08:11:671] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[02:08:11:672] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:11:672] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:11:673] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[02:08:11:673] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[02:08:11:718] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[02:08:11:937] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:08:11:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:11:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:11:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:08:11:938] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:08:11:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:08:12:096] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:08:12:096] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:12:097] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:12:097] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:08:12:097] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:08:12:262] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:08:24:657] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:08:24:657] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:24:657] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:24:657] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:08:24:658] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:08:24:662] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:08:24:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:08:24:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:24:785] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:24:786] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:08:24:786] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:08:24:798] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:08:29:250] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[02:08:29:251] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:08:29:251] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:08:29:251] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:08:29:251] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:08:29:254] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[02:21:53:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[02:21:53:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:21:53:378] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:21:53:379] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:21:53:379] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:21:53:382] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[02:21:53:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[02:21:53:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:21:53:591] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:21:53:591] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[02:21:53:591] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:21:53:617] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"msg":"","code":"0","data":[],"count":0}
+[02:21:56:743] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /logout
+[02:21:56:743] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:21:56:743] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:21:56:744] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.logout
+[02:21:56:744] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:21:56:745] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : "redirect:/login"
+[02:21:56:766] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[02:21:56:766] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:21:56:766] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:21:56:767] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[02:21:56:767] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[02:21:56:770] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[02:22:00:734] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[02:22:00:734] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:22:00:735] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:00:735] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[02:22:00:735] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m7, 1234, org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:06:910] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[02:22:06:910] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:22:06:911] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:06:911] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[02:22:06:911] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [t7, 1234, org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:06:919] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":2,"username":"t7","password":null,"employeeId":2,"salt":189}}
+[02:22:06:946] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[02:22:06:947] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:06:947] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:06:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[02:22:06:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[02:22:06:969] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[02:22:07:074] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:22:07:075] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:07:075] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:07:076] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:22:07:076] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:07:080] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:22:07:201] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:22:07:201] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:07:201] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:07:202] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:22:07:202] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:07:210] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:22:11:189] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[02:22:11:190] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:11:190] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:11:190] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:22:11:190] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:11:193] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[02:22:11:318] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[02:22:11:318] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:11:318] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:11:319] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[02:22:11:319] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:11:328] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"msg":"","code":"0","data":[],"count":0}
+[02:22:12:008] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[02:22:12:008] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:12:008] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:12:008] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:22:12:009] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:12:012] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[02:22:27:589] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/create
+[02:22:27:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:22:27:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:27:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.create
+[02:22:27:590] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:32:857] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"code":"0","message":"success"}
+[02:22:34:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:22:34:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:34:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:34:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:22:34:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:34:199] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:22:34:327] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:22:34:327] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:34:327] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:34:327] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:22:34:328] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:34:337] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:22:55:499] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /logout
+[02:22:55:500] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:55:500] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:55:500] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.logout
+[02:22:55:500] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:55:501] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : "redirect:/login"
+[02:22:55:509] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /login
+[02:22:55:509] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:55:509] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:55:509] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login_page
+[02:22:55:510] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : []
+[02:22:55:512] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{"msg":"传给Freemarker的值"},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{"msg":"传给Freemarker的值"}}
+[02:22:58:787] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[02:22:58:788] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:22:58:788] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:58:788] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[02:22:58:788] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:22:58:795] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[02:22:58:819] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[02:22:58:819] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:58:819] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:58:820] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[02:22:58:820] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[02:22:58:836] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[02:22:58:943] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:22:58:943] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:58:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:58:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:22:58:944] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:58:948] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:22:59:105] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:22:59:105] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:22:59:105] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:22:59:106] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:22:59:106] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:22:59:115] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:23:00:296] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[02:23:00:296] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:23:00:297] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:23:00:297] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:23:00:297] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:23:00:302] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[02:23:00:454] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[02:23:00:454] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:23:00:454] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:23:00:455] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[02:23:00:455] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:23:00:465] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"msg":"","code":"0","data":[{"start_time":1679414400000,"reason":"请假三天","create_time":1679422948000,"department_id":2,"employee_id":2,"department_name":"研发部","form_id":69,"end_time":1682352000000,"name":"齐部门经理","form_type":1,"state":"processing"}],"count":1}
+[02:26:46:927] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/audit
+[02:26:46:928] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[02:26:46:928] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:46:928] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.audit
+[02:26:46:928] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:26:52:821] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[02:26:52:821] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:26:52:821] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:52:821] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[02:26:52:821] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[02:26:52:840] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[02:26:52:940] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:26:52:941] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:26:52:941] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:52:941] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:26:52:941] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:26:52:946] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:26:53:118] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:26:53:118] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:26:53:119] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:53:119] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:26:53:120] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:26:53:130] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:26:54:192] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[02:26:54:192] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:26:54:192] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:54:192] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:26:54:192] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:26:54:195] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[02:26:54:320] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[02:26:54:320] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:26:54:320] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:26:54:320] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[02:26:54:321] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:26:54:328] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"msg":"","code":"0","data":[],"count":0}
+[02:30:30:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[02:30:30:956] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:30:957] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:30:957] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:30:30:957] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:30:30:961] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[02:30:31:442] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[02:30:31:442] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:31:442] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:31:442] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:30:31:443] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:30:31:445] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[02:30:31:571] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[02:30:31:572] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:31:572] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:31:572] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[02:30:31:572] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:30:31:587] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[02:30:31:954] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[02:30:31:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:31:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:31:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:30:31:955] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:30:31:958] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[02:30:32:324] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/audit
+[02:30:32:324] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:32:324] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:32:325] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[02:30:32:325] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [audit, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[02:30:32:327] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/audit","reference":true,"modelMap":{}}
+[02:30:32:451] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /leave/list
+[02:30:32:451] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[02:30:32:451] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[02:30:32:452] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.LeaveFormController.getLeaveFormList
+[02:30:32:452] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@5ab58d0f]
+[02:30:32:461] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"msg":"","code":"0","data":[],"count":0}
+[03:20:37:275] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[03:20:37:276] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:37:276] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:37:276] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[03:20:37:277] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:37:292] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[03:20:43:429] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[03:20:43:429] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:43:430] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:43:430] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[03:20:43:430] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[03:20:43:434] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"login","reference":true,"modelMap":{}}
+[03:20:45:065] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /check_login
+[03:20:45:065] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : POST
+[03:20:45:065] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:45:066] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.UserController.login
+[03:20:45:066] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [m8, 1234, org.apache.catalina.session.StandardSessionFacade@46dc1f90]
+[03:20:45:118] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"status":10000,"msg":"SUCCESS","data":{"userId":1,"username":"m8","password":null,"employeeId":1,"salt":188}}
+[03:20:45:140] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /index
+[03:20:45:141] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:45:141] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:45:141] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.IndexController.index
+[03:20:45:141] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.connector.RequestFacade@2c0cded9]
+[03:20:45:172] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/index","reference":true,"modelMap":{}}
+[03:20:45:260] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[03:20:45:261] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:45:261] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:45:261] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[03:20:45:262] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:45:265] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[03:20:45:432] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[03:20:45:432] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:45:433] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:45:433] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[03:20:45:433] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@46dc1f90, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:45:444] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[03:20:46:535] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/notice
+[03:20:46:535] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:46:535] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:46:535] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[03:20:46:536] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [notice, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:46:539] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/notice","reference":true,"modelMap":{}}
+[03:20:46:651] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /notice/list
+[03:20:46:652] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:46:652] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:46:652] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.NoticeController.getNoticeList
+[03:20:46:652] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [org.apache.catalina.session.StandardSessionFacade@46dc1f90, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:46:661] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : null
+[03:20:47:160] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:47) - URL : /forward/form
+[03:20:47:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:48) - HTTP_METHOD : GET
+[03:20:47:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:49) - IP : 0:0:0:0:0:0:0:1
+[03:20:47:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:50) - CLASS_METHOD : com.wei.oa_spring.controller.ForwardController.doGet
+[03:20:47:161] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doBefore(WebLogAspect.java:52) - ARGS(参数) : [form, org.apache.catalina.connector.RequestFacade@2c0cded9, org.apache.catalina.connector.ResponseFacade@784a7b76]
+[03:20:47:164] [INFO] - com.wei.oa_spring.filter.WebLogAspect.doAfterReturning(WebLogAspect.java:61) - RESPONSE : {"view":null,"model":{},"status":null,"empty":false,"viewName":"/form","reference":true,"modelMap":{}}
+[03:36:38:776] [INFO] - org.springframework.scheduling.concurrent.ExecutorConfigurationSupport.shutdown(ExecutorConfigurationSupport.java:208) - Shutting down ExecutorService 'applicationTaskExecutor'
+[03:36:38:882] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) - imooc_oa_datasource - Shutdown initiated...
+[03:36:38:896] [INFO] - com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) - imooc_oa_datasource - Shutdown completed.

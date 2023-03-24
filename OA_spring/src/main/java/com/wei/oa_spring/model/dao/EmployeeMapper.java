@@ -26,5 +26,5 @@ public interface EmployeeMapper {
      * @param employee 员工对象
      * @return 上级主管对象
      */
-    public Employee selectLeader(@Param("emp") Employee employee);
+     Employee selectLeader(@Param("emp") Employee employee);
 }

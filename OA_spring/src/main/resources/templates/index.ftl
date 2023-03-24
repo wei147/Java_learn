@@ -26,7 +26,7 @@
                 </a>
             </li>
             <!--注销按钮-->
-            <li class="layui-nav-item"><a href="/Logout">注销</a></li>
+            <li class="layui-nav-item"><a href="/logout">注销</a></li>
         </ul>
     </div>
     <!--左侧菜单栏-->
@@ -60,7 +60,7 @@
     </div>
     <!--版权信息-->
     <div class="layui-footer">
-        Copyright © imooc. All Rights Reserved.
+        Copyright © wei. All Rights Reserved.
     </div>
 </div>
 <!--LayUI JS文件-->

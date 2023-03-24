@@ -9,9 +9,9 @@ import java.util.Map;
 
 public interface LeaveFormService {
 
-    void LeaveForm(LeaveForm leaveForm);
+    LeaveForm createLeaveForm(LeaveForm leaveForm);
 
     List<Map> getLeaveFormList(String pfState, Long operatorId);
 
-    void audit(AuditProcessFlowReq auditProcessFlowReq);
+    void audit(Long formId, Long operatorId, String result, String reason);
 }

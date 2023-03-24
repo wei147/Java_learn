@@ -103,7 +103,8 @@
     <!--一些说明：emp.level的emp是从EmployeeDao传过来的。如果级别小于7的话 -->
     <select id="selectLeader" parameterType="com.wei.oa_spring.model.pojo.Employee"
             resultType="com.wei.oa_spring.model.pojo.Employee">
-        SELECT *
+        SELECT
+        <include refid="Base_Column_List"/>
         from adm_employee
         where
         <if test="emp.level &lt; 7">

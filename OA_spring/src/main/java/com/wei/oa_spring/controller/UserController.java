@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,13 +37,14 @@ public class UserController {
     @GetMapping("login")
     public ModelAndView login_page() {
         ModelAndView mav = new ModelAndView("login");
-        mav.addObject("msg","传给Freemarker的值");
+        mav.addObject("msg", "传给Freemarker的值");
         return mav;
     }
 
     @PostMapping("/check_login")
     @ResponseBody
-    public ApiRestResponse login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+    public Object login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+        System.out.println("用户名是: " + username);
         //登录时所要用的关键任务 HttpSession session对象
         //1.校验 username不能为空
         if (StringUtils.isEmpty(username)) {
@@ -64,11 +67,11 @@ public class UserController {
      * @return 只需要在Controller层清除session信息就可以, 不需要到Service
      */
 //    @ApiOperation("用户登出")
-    @PostMapping("/user/logout")
-    public ApiRestResponse logout(HttpSession session) {
+    @GetMapping("/logout")
+    public String logout(HttpSession session) throws IOException {
         //清除Session
         session.removeAttribute(Constant.OA_USER);
-        return ApiRestResponse.success();
+        return "redirect:/login";
     }
 
 
