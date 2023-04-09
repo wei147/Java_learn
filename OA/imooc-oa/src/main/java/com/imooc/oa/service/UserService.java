@@ -6,7 +6,9 @@ import com.imooc.oa.entity.Node;
 import com.imooc.oa.entity.User;
 import com.imooc.oa.service.exception.BusinessException;
 import com.imooc.oa.utils.MD5Utils;
+import com.imooc.oa.utils.MD5UtilsNew;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class UserService {
@@ -14,7 +16,7 @@ public class UserService {
     private RbacDao rbacDao = new RbacDao();
 
     // 检查查询结果
-    public User checkLogin(String username, String password) {
+    public User checkLogin(String username, String password) throws NoSuchAlgorithmException {
         //按用户名查询用户
         User user = userDao.selectByUsername(username);
         if (user == null) {
@@ -22,7 +24,8 @@ public class UserService {
             throw new BusinessException("L001", "用户名不存在");
         }
         //对前台输入的密码加盐混淆后生成MD5，与保存在数据库中的MD5密码进行比对
-        String password_md5 = MD5Utils.md5Digest(password, user.getSalt());
+//        String password_md5 = MD5Utils.md5Digest(password, user.getSalt());
+        String password_md5 = MD5UtilsNew.getMd5Str(password);
         if (!password_md5.equals(user.getPassword())) {
             throw new BusinessException("L002", "密码错误");
         }

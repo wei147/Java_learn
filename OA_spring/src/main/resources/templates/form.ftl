@@ -129,7 +129,17 @@
                 }).then(function (result) {     // then 代表的是 点击确定按钮后触发的是什么。跳转地址
                     window.location.href = "/forward/notice";
                 });
-            } else {
+            } else if (json.code === "1"){
+                /*SweetAlert2确定对话框*/
+                swal({
+                    type: 'success',
+                    html: "<h2>请假单已自动审批通过</h2>",
+                    confirmButtonText: "确定"
+                }).then(function (result) {     // then 代表的是 点击确定按钮后触发的是什么。跳转地址
+                    window.location.href = "/forward/notice";
+                });
+            }
+            else {
                 swal({
                     type: 'warning',
                     html: "<h2>" + json.message + "</h2>",

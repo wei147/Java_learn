@@ -24,7 +24,6 @@ public class NodeController {
     //获取登录用户可用功能模块列表
     @GetMapping("/nodeList")
     public String getNodeList(HttpSession session) {
-        ModelAndView mav = new ModelAndView();
         User user = (User) session.getAttribute(Constant.OA_USER);
         if (user == null) {
             return "NEED_LOGIN";

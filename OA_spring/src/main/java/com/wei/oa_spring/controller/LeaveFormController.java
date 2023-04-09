@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.wei.oa_spring.common.ApiRestResponse;
 import com.wei.oa_spring.common.Constant;
 import com.wei.oa_spring.exception.OAExceptionEnum;
+import com.wei.oa_spring.filter.UserFilter;
 import com.wei.oa_spring.model.pojo.LeaveForm;
 import com.wei.oa_spring.model.pojo.ProcessFlow;
 import com.wei.oa_spring.model.pojo.User;
@@ -58,8 +59,12 @@ public class LeaveFormController {
             form.setCreateTime(new Date());
             leaveFormService.createLeaveForm(form);
 
+            String code = "0";
+            if (user.getUserId() == 1) {
+                code = "1";
+            }
             //2.调用业务逻辑方法
-            result.put("code", "0");
+            result.put("code", code);
             result.put("message", "success");
         } catch (ParseException e) {
             result.put("code", e.getClass().getSimpleName()); //拿到类名
@@ -113,10 +118,9 @@ public class LeaveFormController {
             mpResult.put("message", "success");
         } catch (Exception e) {
             mpResult.put("code", e.getClass().getSimpleName());
-            mpResult.put("message", e.getMessage());
+            mpResult.put("message", OAExceptionEnum.FAILED_TO_APPROVE_THE_LEAVE);
             return ApiRestResponse.error(OAExceptionEnum.FAILED_TO_APPROVE_THE_LEAVE);
         }
-        leaveFormService.audit(Long.parseLong(formId), user.getEmployeeId(), result, reason);
         return mpResult;
     }
 }

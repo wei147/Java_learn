@@ -32,7 +32,7 @@
     <h1 style="text-align: center;margin-bottom: 20px">办公OA系统</h1>
     <form class="layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">输入框</label>
+            <label class="layui-form-label">账号</label>
             <div class="layui-input-block">
                 <input type="text" id="username" lay-verify="required" placeholder="请输入用户名" name="username"
                        autocomplete="off" class="layui-input">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">输入框</label>
+            <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
                 <input type="password" id="password" lay-verify="required" placeholder="请输入密码" name="password"
                        autocomplete="off" class="layui-input">

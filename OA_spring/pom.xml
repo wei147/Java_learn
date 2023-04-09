@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.wei</groupId>
     <artifactId>OA_spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>OA_spring</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -45,6 +45,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <!--部署的时候要指定版本号-->
+            <version>8.0.22</version>
         </dependency>
 
         <!--log4j2 的依赖 (要先排除自带的logback组件,可以免除版本的指定,会自动匹配Spring boot对应版本)-->
