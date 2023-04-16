@@ -3,7 +3,7 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 123456
+    password: 1234
     url: jdbc:mysql://127.0.0.1:3306/im-core?serverTimezone=UTC&useSSL=false&characterEncoding=UTF8
     username: root
 
@@ -45,8 +45,8 @@ spring:
 
 
 # logger 配置
-logging:
-  config: classpath:logback-spring.xml
+#logging:
+#  config: classpath:logback-spring.xml
 
 server:
   port: 8000
@@ -116,4 +116,4 @@ httpclient:
   staleConnectionCheckEnabled: true
 
 mpp:
-  entityBasePath: com.lld.im.service.friendship.dao
+  entityBasePath: com.wei.im.service.friendship.dao
