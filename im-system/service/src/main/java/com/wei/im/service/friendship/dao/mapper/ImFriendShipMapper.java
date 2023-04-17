@@ -1,6 +1,9 @@
 package com.wei.im.service.friendship.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wei.im.service.friendship.dao.ImFriendShipEntity;
+import com.wei.im.service.friendship.model.req.CheckFriendShipReq;
+import com.wei.im.service.friendship.model.resp.CheckFriendShipResp;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

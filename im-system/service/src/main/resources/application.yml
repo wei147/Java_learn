@@ -45,8 +45,8 @@ spring:
 
 
 # logger 配置
-#logging:
-#  config: classpath:logback-spring.xml
+logging:
+  config: classpath:logback-spring.xml
 
 server:
   port: 8000
