@@ -18,4 +18,7 @@ public class FriendDto {
     // 添加来源
     private String addSource;
 
+    // 拓展字段
+    private String extra;
+
 }
