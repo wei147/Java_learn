@@ -12,12 +12,8 @@ import javax.validation.constraints.NotBlank;
  **/
 
 @Data
-public class DeleteFriendReq extends RequestBase {
+public class GetAllFriendShipReq extends RequestBase {
 
-    @NotBlank(message = "formId不能为空")
+    @NotBlank(message = "用户Id不能为空")
     private String fromId;
-
-
-    @NotBlank(message = "toId不能为空")
-    private String toId;
 }

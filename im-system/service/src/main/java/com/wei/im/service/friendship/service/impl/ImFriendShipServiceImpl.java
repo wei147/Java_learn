@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wei.im.common.ResponseVO;
+import com.wei.im.common.enums.CheckFriendShipTypeEnum;
 import com.wei.im.common.enums.FriendShipErrorCode;
 import com.wei.im.common.enums.FriendShipStatusEnum;
 import com.wei.im.service.friendship.dao.ImFriendShipEntity;
 import com.wei.im.service.friendship.dao.mapper.ImFriendShipMapper;
 import com.wei.im.service.friendship.model.req.*;
+import com.wei.im.service.friendship.model.resp.CheckFriendShipResp;
 import com.wei.im.service.friendship.model.resp.ImportFriendShipResp;
 import com.wei.im.service.friendship.service.ImFriendShipService;
 import com.wei.im.service.user.dao.ImUserDataEntity;
@@ -108,17 +110,18 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
         ImFriendShipEntity fromItem = imFriendShipMapper.selectOne(query);
         if (fromItem == null) {
             // todo 返回不是好友提示
-        }else {
+            return ResponseVO.errorResponse(FriendShipErrorCode.TO_IS_NOT_YOUR_FRIEND);
+        } else {
             // 这里只有是好友才能删除
             if (fromItem.getStatus() == FriendShipStatusEnum.FRIEND_STATUS_NORMAL.getCode()) {
                 // todo 执行删除操作
                 ImFriendShipEntity entity = new ImFriendShipEntity();
                 // 设置为删除状态
                 entity.setStatus(FriendShipStatusEnum.FRIEND_STATUS_DELETE.getCode());
-                imFriendShipMapper.update(entity,query);
-            }else {
-                // todo 返回已被删除
-
+                imFriendShipMapper.update(entity, query);
+            } else {
+                // todo 返回已被删除 (不是你的好友)
+                return ResponseVO.errorResponse(FriendShipErrorCode.TO_IS_NOT_YOUR_FRIEND);
             }
         }
         return ResponseVO.successResponse();
@@ -126,6 +129,51 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
 
     @Override
     public ResponseVO deleteAllFriend(DeleteFriendReq req) {
+        QueryWrapper<ImFriendShipEntity> query = new QueryWrapper<>();
+        query.eq("app_id", req.getAppId());
+        query.eq("from_id", req.getFromId());
+        query.eq("status", FriendShipStatusEnum.FRIEND_STATUS_NORMAL.getCode());
+        ImFriendShipEntity fromItem = imFriendShipMapper.selectOne(query);
+
+        ImFriendShipEntity update = new ImFriendShipEntity();
+        // 设置状态为删除状态
+        update.setStatus(FriendShipStatusEnum.FRIEND_STATUS_DELETE.getCode());
+        imFriendShipMapper.update(update, query);
+        return ResponseVO.successResponse();
+    }
+
+    @Override
+    public ResponseVO getAllFriendShip(GetAllFriendShipReq req) {
+        QueryWrapper<ImFriendShipEntity> query = new QueryWrapper<>();
+        query.eq("app_id", req.getAppId());
+        query.eq("from_id", req.getFromId());
+
+        return ResponseVO.successResponse(imFriendShipMapper.selectList(query));
+    }
+
+    @Override
+    public ResponseVO getRelationReq(GetRelationReq req) {
+        QueryWrapper<ImFriendShipEntity> query = new QueryWrapper<>();
+        query.eq("app_id", req.getAppId());
+        query.eq("from_id", req.getFromId());
+        query.eq("to_id", req.getToId());
+        ImFriendShipEntity entity = imFriendShipMapper.selectOne(query);
+        if (entity == null) {
+            // todo 返回记录不存在
+            return ResponseVO.errorResponse(FriendShipErrorCode.FRIENDSHIP_IS_NOT_EXIST);
+        }
+        return ResponseVO.successResponse(entity);
+    }
+
+    @Override
+    public ResponseVO checkFriendShip(CheckFriendShipReq req) {
+        List<CheckFriendShipResp> respList = new ArrayList<>();
+        //单向检验 只需要检验对方是不是在我好友列表里面
+        if (req.getCheckType() == CheckFriendShipTypeEnum.SINGLE.getType()) {
+            return ResponseVO.successResponse(imFriendShipMapper.checkFriendShip(req));
+        } else {
+
+        }
         return null;
     }
 
@@ -174,7 +222,7 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
             }
             // 如果是未添加,则修改状态
             //FRIEND_STATUS_NO_FRIEND 如果不是好友
-            else{
+            else {
                 ImFriendShipEntity update = new ImFriendShipEntity();
                 // 如果添加方式不为空的话。
                 if (StringUtils.isNotBlank(dto.getAddSource())) {

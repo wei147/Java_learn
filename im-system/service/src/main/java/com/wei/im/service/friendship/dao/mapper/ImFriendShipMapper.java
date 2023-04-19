@@ -12,16 +12,22 @@ import java.util.List;
 @Mapper
 public interface ImFriendShipMapper extends BaseMapper<ImFriendShipEntity> {
 
-
-
-
-    @Select("<script>"+
-            "select from_id as fromId , to_id as toId ,if(status = 1,1,0) as status from im_friendship where from_id = #{fromId} and to_id in " +
-            "<foreach collection='toIds' index='index' item='id' separator=',' close = ')' open='(' > " +
+    //因为需要循环的获取toId。toId是一个in的查询  if(status=1,1,0) 如果status等于1,则返回1,否则返回0,
+    @Select("<script>" +
+            "select from_id as fromId,to_id as toId,if(status=1,1,0) as status from im_friendship where from_id = #{fromId} " +
+            "and to_id in" +
+            "<foreach collection='toIds' index='index' item='id' separator=',' close=')' open='(' >" +
             "#{id}" +
             "</foreach>" +
             "</script>")
     public List<CheckFriendShipResp> checkFriendShip(CheckFriendShipReq req);
+//    @Select("<script>" +
+//            "select from_id as fromId , to_id as toId ,if(status = 1,1,0) as status from im_friendship where from_id = #{fromId} and to_id in " +
+//            "<foreach collection='toIds' index='index' item='id' separator=',' close = ')' open='(' > " +
+//            "#{id}" +
+//            "</foreach>" +
+//            "</script>")
+//    public List<CheckFriendShipResp> checkFriendShip(CheckFriendShipReq req);
 
 
     @Select("<script>" +
@@ -33,7 +39,7 @@ public interface ImFriendShipMapper extends BaseMapper<ImFriendShipEntity> {
             " when a.status != 1 and b.status != 1 then 4 \n" +
             " end \n" +
             " ) \n " +
-            " as status from "+
+            " as status from " +
             " (select from_id AS fromId , to_id AS toId , if(status = 1,1,0) as status from im_friendship where app_id = #{appId} and from_id = #{fromId} AND to_id in " +
             "<foreach collection='toIds' index='index' item='id' separator=',' close=')' open='('>" +
             " #{id} " +
@@ -44,14 +50,10 @@ public interface ImFriendShipMapper extends BaseMapper<ImFriendShipEntity> {
             " #{id} " +
             "</foreach>" +
             " ) as b " +
-            " on a.fromId = b.toId AND b.fromId = a.toId "+
+            " on a.fromId = b.toId AND b.fromId = a.toId " +
             "</script>"
     )
     List<CheckFriendShipResp> checkFriendShipBoth(CheckFriendShipReq toId);
-
-
-
-
 
 
     @Select("<script>" +
@@ -72,7 +74,7 @@ public interface ImFriendShipMapper extends BaseMapper<ImFriendShipEntity> {
             " when a.black != 1 and b.black != 1 then 4 \n" +
             " end \n" +
             " ) \n " +
-            " as status from "+
+            " as status from " +
             " (select from_id AS fromId , to_id AS toId , if(black = 1,1,0) as black from im_friendship where app_id = #{appId} and from_id = #{fromId} AND to_id in " +
             "<foreach collection='toIds' index='index' item='id' separator=',' close=')' open='('>" +
             " #{id} " +
@@ -83,12 +85,12 @@ public interface ImFriendShipMapper extends BaseMapper<ImFriendShipEntity> {
             " #{id} " +
             "</foreach>" +
             " ) as b " +
-            " on a.fromId = b.toId AND b.fromId = a.toId "+
+            " on a.fromId = b.toId AND b.fromId = a.toId " +
             "</script>"
     )
     List<CheckFriendShipResp> checkFriendShipBlackBoth(CheckFriendShipReq toId);
 
     @Select(" select max(friend_sequence) from im_friendship where app_id = #{appId} AND from_id = #{userId} ")
-    Long getFriendShipMaxSeq(Integer appId,String userId);
+    Long getFriendShipMaxSeq(Integer appId, String userId);
 
 }

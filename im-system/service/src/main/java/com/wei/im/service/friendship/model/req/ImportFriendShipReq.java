@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class ImportFriendShipReq extends RequestBase {
 
-    @NotBlank(message = "formId不能为空")
+    @NotBlank(message = "fromId不能为空")
     private String fromId;
 
     private List<ImportFriendDto> friendItem;
