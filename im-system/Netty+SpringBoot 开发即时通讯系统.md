@@ -70,3 +70,174 @@
 应该是有一个接口去批量校验是否好友,而不是一个个校验,,
 ```
 
+
+
+## 第4章BIO、NIO Netty入门
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230420154834382.png" alt="image-20230420154834382" style="zoom:50%;" />
+
+##### BIO
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230420154927826.png" alt="image-20230420154927826" style="zoom:33%;" />
+
+```
+同步阻塞IO    Blocking IO
+```
+
+##### NIO
+
+```
+同步非阻塞IO    Non Blocking IO   (也叫new io?)
+```
+
+<img src="C:\Users\w1216\AppData\Roaming\Typora\typora-user-images\image-20230420160428148.png" alt="image-20230420160428148" style="zoom:33%;" />
+
+```
+带着问题学习
+1.什么是nio?什么是netty?nio和netty是什么关系?
+2.什么应用场景下会用到netty?
+```
+
+#### BIO和NIO总结
+
+
+
+#### 详解Netty
+
+```
+Netty基于NIO开发
+```
+
+
+
+```java
+telnet 127.0.0.1 9001
+
+注意点:
+1.在命令窗口中用telnet命令时, 命令无法执行,提示:“'telnet' 不是内部或外部命令，也不是可运行的程序或批处理文件”。原因分析：windows带有telnet，只是默认没有安装而已。解决办法：控制面板|程序|程序和功能|打开和关闭Windows功能，勾选Telnet客户端。确定保存即可。
+2.连接成功之后,默认是看到不了自己输入的字符的,需要按 ctrl+],另外也要处理ByteBuf转为 可读字符串(中文会乱码)
+    
+            // PooledUnsafeDirectByteBuf 把byte转为 string
+        ByteBuf out = (ByteBuf) msg;
+        System.out.println("msg is :  " + out.toString(StandardCharsets.UTF_8));
+```
+
+
+
+#### 章节总结
+
+```java
+//更多是模板代码  DiscardServer
+package com.wei.netty.base.server;
+import com.wei.netty.base.handler.DiscardServerHandler;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.CharsetUtil;
+
+/**
+ * @description:
+ * @author: wei
+ * @create: 2023-04-20 22:13
+ **/
+public class DiscardServer {
+    private int port;
+
+    public DiscardServer(int port) {
+        this.port = port;
+    }
+
+    public void run() throws InterruptedException {
+        // netty会从这两个线程池里面取线程
+        EventLoopGroup baseGroup = new NioEventLoopGroup(1);  //这里不设置的话,默认是cpu核数的两倍
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        try {
+            ServerBootstrap b = new ServerBootstrap(); // (2)
+            b.group(baseGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class) // (3)
+                    .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new DiscardServerHandler());
+                        }
+                    })
+                    .option(ChannelOption.SO_BACKLOG, 128)          // (5)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+
+            System.out.println("--tcp server stating--");
+            // Bind and start to accept incoming connections.
+            ChannelFuture f = b.bind(port).sync(); // (7)
+
+            // Wait until the server socket is closed.
+            // In this example, this does not happen, but you can do that to gracefully
+            // shut down your server.
+            f.channel().closeFuture().sync();
+        } finally {
+            workerGroup.shutdownGracefully();
+            baseGroup.shutdownGracefully();
+        }}}
+```
+
+```java
+//DiscardServerHandler 对于各种事件的处理器。封装好就是方便
+package com.wei.netty.base.handler;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * @description:
+ * @author: wei
+ * @create: 2023-04-20 22:32
+ **/
+public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
+
+    //有客户端连接进来就会触发这个方法
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("有客户端连接了");
+    }
+
+    //有读写事件发生就会触发这个方法
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        // PooledUnsafeDirectByteBuf 把byte转为 string
+        ByteBuf out = (ByteBuf) msg;
+        System.out.println("msg is :  " + out.toString(CharsetUtil.UTF_8)); //解决中文乱码问题
+    }}
+```
+
+```java
+//启动入口
+package com.wei.netty.base;
+import com.wei.netty.base.server.DiscardServer;
+
+/**
+ * @description:
+ * @author: wei
+ * @create: 2023-04-20 22:12
+ **/
+public class Starter {
+    public static void main(String[] args) throws InterruptedException {
+        DiscardServer server = new DiscardServer(9001);
+        server.run();
+//        new DiscardServer(9001).run();
+    }}
+```
+
+```java
+1.什么是nio?什么是netty?nio和netty是什么关系?
+    nio是一种线程模型,netty是基于nio开发的一款异步时间驱动框架。netty简化了nio网络编程的开发。,,,,,
+2.什么应用场景下会用到netty?
+    (1).开发任何网络编程。实现自己的rpc框架
+    (2).能够转为一些公有协议的broker组件。如mqtt、http
+    (3).不少的开源软件及大数据领域间的通信会用到netty
+```
+
