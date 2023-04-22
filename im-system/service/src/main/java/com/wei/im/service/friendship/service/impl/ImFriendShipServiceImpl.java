@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wei.im.common.ResponseVO;
+import com.wei.im.common.constant.Constants;
 import com.wei.im.common.enums.CheckFriendShipTypeEnum;
 import com.wei.im.common.enums.FriendShipErrorCode;
 import com.wei.im.common.enums.FriendShipStatusEnum;
@@ -240,6 +241,55 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
                 if (result != 1) {
                     // todo 返回更新失败 (添加好友失败)
                     return ResponseVO.errorResponse(FriendShipErrorCode.ADD_FRIEND_ERROR);
+                }
+            }
+        }
+        return ResponseVO.successResponse();
+    }
+
+    @Override
+    public ResponseVO addBlack(AddFriendShipBlackReq req) {
+
+        ResponseVO<ImUserDataEntity> fromInfo = imUserService.getSingleUserInfo(req.getFromId(), req.getAppId());
+        if (!fromInfo.isOk()) {
+            return fromInfo;
+        }
+
+        ResponseVO<ImUserDataEntity> toInfo = imUserService.getSingleUserInfo(req.getToId(), req.getAppId());
+        if (!toInfo.isOk()) {
+            return toInfo;
+        }
+        QueryWrapper<ImFriendShipEntity> query = new QueryWrapper<>();
+        query.eq("app_id", req.getAppId());
+        query.eq("from_id", req.getFromId());
+        query.eq("to_id", req.getToId());
+
+        ImFriendShipEntity fromItem = imFriendShipMapper.selectOne(query);
+        if (fromItem == null) {
+            //走添加逻辑。
+
+            fromItem = new ImFriendShipEntity();
+            fromItem.setFromId(req.getFromId());
+            fromItem.setToId(req.getToId());
+            fromItem.setAppId(req.getAppId());
+            fromItem.setBlack(FriendShipStatusEnum.BLACK_STATUS_BLACKED.getCode());
+            fromItem.setCreateTime(System.currentTimeMillis());
+            int insert = imFriendShipMapper.insert(fromItem);
+            if (insert != 1) {
+                return ResponseVO.errorResponse(FriendShipErrorCode.ADD_FRIEND_ERROR);
+            }
+
+        } else {
+            //如果存在则判断状态，如果是拉黑，则提示已拉黑，如果是未拉黑，则修改状态
+            if (fromItem.getBlack() != null && fromItem.getBlack() == FriendShipStatusEnum.BLACK_STATUS_BLACKED.getCode()) {
+                return ResponseVO.errorResponse(FriendShipErrorCode.FRIEND_IS_BLACK);
+            } else {
+
+                ImFriendShipEntity update = new ImFriendShipEntity();
+                update.setBlack(FriendShipStatusEnum.BLACK_STATUS_BLACKED.getCode());
+                int result = imFriendShipMapper.update(update, query);
+                if (result != 1) {
+                    return ResponseVO.errorResponse(FriendShipErrorCode.ADD_BLACK_ERROR);
                 }
             }
         }

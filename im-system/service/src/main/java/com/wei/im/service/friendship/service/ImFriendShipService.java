@@ -30,4 +30,11 @@ public interface ImFriendShipService {
 
     // 校验好友
     public ResponseVO checkFriendShip(CheckFriendShipReq req);
+
+    // 添加到黑名单
+    public ResponseVO addBlack(AddFriendShipBlackReq req);
+
+    public ResponseVO deleteBlack(DeleteBlackReq req);
+
+    public ResponseVO checkBlack(CheckFriendShipReq req);
 }
