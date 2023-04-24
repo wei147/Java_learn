@@ -295,4 +295,14 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
         }
         return ResponseVO.successResponse();
     }
+
+    @Override
+    public ResponseVO deleteBlack(DeleteBlackReq req) {
+        return null;
+    }
+
+    @Override
+    public ResponseVO checkBlack(CheckFriendShipReq req) {
+        return null;
+    }
 }

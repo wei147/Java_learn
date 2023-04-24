@@ -16,7 +16,25 @@ public enum FriendShipErrorCode implements ApplicationExceptionEnum {
 
     FRIEND_IS_DELETE(30004, "好友已被删除"),
 
-    FRIENDSHIP_IS_NOT_EXIST(30003, "关系链记录不存在"),
+    FRIENDSHIP_IS_NOT_EXIST(30008,"关系链记录不存在"),
+
+    FRIEND_IS_BLACK(30006,"好友已被拉黑"),
+
+
+    ADD_BLACK_ERROR(30009, "添加黑名單失败"),
+
+    FRIEND_IS_NOT_YOUR_BLACK(30010, "好友已經不在你的黑名單内"),
+
+    NOT_APPROVER_OTHER_MAN_REQUEST(30011, "无法审批其他人的好友请求"),
+
+    FRIEND_REQUEST_IS_NOT_EXIST(30012, "好友申请不存在"),
+
+    FRIEND_SHIP_GROUP_CREATE_ERROR(30014, "好友分组创建失败"),
+
+    FRIEND_SHIP_GROUP_IS_EXIST(30015, "好友分组已存在"),
+
+    FRIEND_SHIP_GROUP_IS_NOT_EXIST(30016, "好友分组不存在"),
+
     ;
 
     private int code;
